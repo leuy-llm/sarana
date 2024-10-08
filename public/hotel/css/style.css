@@ -1,0 +1,1142 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Coda:wght@400;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Sail&display=swap');
+/* @import url('//fonts.googleapis.com/css?family=Montserrat:300,400,500'); */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary-color: #012832;
+  --secondary-color: #caa169;
+  --bg-color: #f4f4f4;
+  --bg-white: #fff;
+  --bg-black: #000;
+
+  --primary-font: "Poppins", sans-serif;
+  --secondary-font: "Oswald", sans-serif;
+  --primary-text: #021832;
+  --secondary-text: #fff;
+  --text-white: #fff;
+  --text-black: #151515;
+  --text-gray: #e4e4e4;
+}
+
+body {
+  font-family: var(--primary-font);
+  background: var(--bg-white);
+}
+
+::selection{
+  background-color: #661f1f;
+  color: var(--text-white);
+}
+
+header {
+  border-bottom: 3px solid #fcb900;
+  font-family: "Coda", system-ui;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 15px;
+}
+a {
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 0.375rem;
+}
+::-webkit-scrollbar-track {
+  background: var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+}
+
+section {
+  padding: 3.125rem;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.main-btn {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  background: transparent;
+  border: 0.0625rem solid var(--primary-color);
+  padding: 0.375rem 1.875rem;
+  border-radius: 3.125rem;
+  line-height: 1.75rem;
+  display: inline-block;
+  transition: all 0.3s ease-out 0s;
+}
+
+.main-btn:hover {
+  background-color: #661f1f;
+  border-color: #661f1f;
+  color: var(--text-white);
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 3.75rem;
+  line-height: 7.25rem;
+  font-size: 700;
+  color: var(--text-white);
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  font-family: var(--secondary-font);
+}
+h3 {
+  margin-bottom: 1.875rem;
+  line-height: 2.875rem;
+  font-weight: 700;
+  font-size: 2.25rem;
+  color: var(--primary-text);
+  font-family: var(--secondary-color);
+}
+
+h3 span {
+  color: var(--secondary-color);
+}
+
+h5 {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--primary-text);
+  font-weight: 500;
+  font-family: var(--secondary-font);
+}
+
+h6 {
+  font-size: 0.875rem;
+  color: var(--primary-text);
+  margin-bottom: 0.9375rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-family: var(--secondary-font);
+}
+
+p {
+  font-size: 1rem;
+  color: var(--text-black);
+  line-height: 1.625rem;
+}
+
+.section-title::after {
+  content: "";
+  /* background: url("../image/room2.png"); */
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: block;
+  margin-top: -0.9375rem;
+  height: 0.9375rem;
+}
+
+.header_wrapper .navbar {
+  padding: 0.9375rem 0;
+  background-color: var(--bg-white);
+  box-shadow: 0 0.5rem 0.375rem rgb(0 0 0/ 40%);
+  --webkit-box-sizing: 0 0.5rem 0.375rem -0.375rem rgb(0 0 0 / 40%);
+  --webkit-transform: background 0s ease-in-out 0s, margin-top 0s ease-in-out 0s,
+    opacity 0s ease-in-out 0s;
+  transition: background 0s ease-in-out 0s, margin-top 0s ease-in-out 0s,
+    opacity 0s ease-in-out 0s;
+}
+
+.header_wrapper .navbar-toggler {
+  border: 0;
+  color: var(--primary-text);
+  line-height: 2;
+}
+
+.header_wrapper .navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.header_wrapper .nav-item {
+  margin: 0 0.625rem;
+}
+
+.header_wrapper .nav-item .nav-link {
+  font-size: 15;
+  font-weight: 500;
+  color: var(--primary-text);
+  display: inline-block;
+  position: relative; 
+  padding-bottom: 0.25rem; /* Adds some space below the text for the underline */
+  transition:  all 0.5s ease-out;
+}
+/* .header_wrapper .nav-item .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px; 
+  background: var(--secondary-color); 
+  transition: width 0.3s ease;
+} */
+
+.header_wrapper .nav-item .nav-link:hover,
+.header_wrapper .nav-item .nav-link.active {
+  color: var(--secondary-color);
+  transform: scale(1.2);
+  
+}
+
+/* .header_wrapper .nav-item .nav-link:hover::after,
+.header_wrapper .nav-item .nav-link.active::after {
+  width: 100%; 
+} */
+
+.navbar.header-scrolled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.85);
+  -webkit-animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+  animation: 500ms ease-in-out 0s normal none 1 running fadeInDown;
+}
+
+@keyframes fadeInDown {
+  0% {
+    top: -30%;
+  }
+  50% {
+    top: -15%;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+.swiper {
+  height: 100vh;
+}
+.slide-container {
+  width: 100%;
+}
+.slide-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-overlay {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  font-family: "Sail", system-ui;
+}
+
+.img-overlay p {
+  font-size: 3rem;
+  color: var(--text-white);
+  animation: animate 5s forwards;
+  font-family: "Sail", system-ui;
+}
+.img-overlay h2 {
+  font-size: 6rem;
+  animation: animate 6s forwards;
+  transition: all 0.5s ease-in-out;
+  font-family: "Sail", system-ui;
+  font-weight: 400;
+  color: var(--text-white);
+}
+
+.img-overlay span {
+  font-family: "Sail", system-ui;
+  color: var(--secondary-color);
+}
+.overlay {
+  position: relative;
+}
+
+.overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+@keyframes animate {
+  0% {
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(-0%);
+  }
+}
+
+.img-overlay h2 span {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--text-white);
+  font-family: "Sail", system-ui;
+}
+
+
+/* ============= Booking Form =========*/
+.booking-area{
+  background: var(--bg-white);
+  box-shadow: 0 .625rem .9375rem 0 rgb(0 0 0 / 10%);
+  margin-top: -4rem;
+  padding: 3.125rem 1.875rem;
+  position: relative;
+  z-index: 9999999;
+}
+
+.booking-area .form-control,
+.booking-area .form-select{
+  border: .0625rem solid var(--primary-color);
+  height: 2.5rem;
+  text-transform: uppercase;
+
+}
+
+/*======== about ==========*/
+.about_wrapper{
+  padding-top: 9.375rem;
+  text-align: justify;
+}
+
+.about_wrapper h3{
+  font-family: "Sail", system-ui;
+  font-size: 40px;
+}
+
+.about_wrapper p{
+  font-family: "Playfair Display", serif;
+}
+
+.hotel-right-side .img {
+  position: relative;
+  width: 100%;
+
+  height: 100%;
+}
+
+.hotel-right-side .img img {
+  width: 75%;
+  height: 100%;
+  object-position: 30% 80%;
+  object-fit: cover;
+ 
+
+  margin: 0 auto;
+  display: block;
+  transition: 0.5s ease-in;
+  object-position: 70% 100%;
+}
+
+.hotel-right-side .img::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 55px;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 75%;
+  background: var(--secondary-color);
+  z-index: -2;
+}
+
+.hotel-right-side:hover img {
+  transform: scale(0.95);
+}
+
+/* ========== Room =========*/
+/* .rooms_wrapper .room-items{
+  position: relative;
+  overflow: hidden;
+}
+
+.rooms_wrapper .room-items img{
+  width: 100%;
+  -webkit-transition: all 400ms ease-in 0s;
+  transition: all 400ms ease-in 0s;
+  object-position: 100% 80%;
+}
+
+.rooms_wrapper .room-items:hover img{
+  -webkit-transform: scale3d(1.05,1.05,1.05);
+  transform: scale3d(1.05,1.05,1.05);
+}
+
+.rooms_wrapper .room-items::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-black);
+  opacity: 0;
+  z-index: 1;
+  -webkit-transition: all 400s ease-in 0s;
+  transition: all 400s ease-in 0s;
+}
+
+.rooms_wrapper .room-items:hover::before{
+  opacity: 0.6;
+}
+
+.rooms_wrapper h6{
+  font-family: "Sail", system-ui;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+
+.rooms_wrapper h3{
+  font-size: 40px;
+  font-family: "Sail", system-ui;
+  color: #caa169;
+}
+
+.rooms_wrapper .room-item-wrap{
+  position: absolute;
+  left: 1.875rem;
+  right: 1.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.rooms_wrapper .room-items .room-content{
+  border: .125rem solid var(--bg-white);
+  padding: 5rem 1.875rem;
+  -webkit-transform: scale3d(1.2,1.2,1.2);
+  transform: scale3d(1.2,1.2,1.2);
+  transition: all 500ms ease-in 0s;
+  opacity: 0;
+}
+
+.rooms_wrapper .room-items:hover .room-content{
+  opacity: 1;
+  -webkit-transform: scale3d(1,1,1);
+  transform: scale3d(1,1,1);
+} */
+.rooms_wrapper .room-items {
+  position: relative;
+  overflow: hidden;
+  height: 100%; 
+}
+
+.rooms_wrapper .room-items img {
+  width: 100%;
+  /* height: 450px; */
+  object-fit: cover;
+  transition: all 400ms ease-in-out;
+  object-position: 100% 70%;
+  /* border-radius: 3px; */
+}
+
+.rooms_wrapper .room-items:hover img {
+  transform: scale(1.05);
+}
+
+.rooms_wrapper .room-items::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-black);
+  opacity: 0;
+  z-index: 1;
+  transition: all 400ms ease-in-out;
+}
+
+.rooms_wrapper .room-items:hover::before {
+  opacity: 0.6;
+}
+
+.rooms_wrapper h6 {
+  font-family: "Sail", system-ui;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+
+.rooms_wrapper h3 {
+  font-size: 40px;
+  font-family: "Sail", system-ui;
+  color: #caa169;
+}
+
+.rooms_wrapper .room-item-wrap {
+  position: absolute;
+  left: 1.875rem;
+  right: 1.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.rooms_wrapper .room-items .room-content {
+  border: .125rem solid var(--bg-white);
+  /* padding: 3rem 1.875rem; */
+  padding: 10px 10px;
+  transform: scale(1.2);
+  transition: all 500ms ease-in-out;
+  opacity: 0;
+  z-index: 2;
+  
+}
+.room-content h5{
+  font-family: "Sail", system-ui;
+  font-size: 30px;
+}
+.room-content p{
+  font-family: "Playfair Display", serif;
+}
+
+.rooms_wrapper .room-items:hover .room-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.gallery-item {
+  padding: 4px;
+}
+.main-image {
+  width: 100%;
+  height: 420px; /* Adjust the height as needed */
+  object-fit: cover;
+}
+.small-image {
+  width: 100%;
+  height: 250px; /* New height */
+  object-fit: cover;
+}
+.img-col {
+  padding-bottom: 14px;
+}
+.gallery_wrapper h6{
+  font-family: "Sail", system-ui;
+  text-transform: capitalize;
+  font-size: 20px;
+  
+}
+.gallery_wrapper h3{
+  font-size: 40px;
+  color: #caa169;
+  font-family: "Sail", system-ui;
+}
+
+.gallery_wrapper .gallery-item{
+  /* box-shadow: 0 0 .1875rem rgba(0,0,0,0.3); */
+  overflow: hidden;
+  position: relative;
+}
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery_wrapper .gallery-item::before,
+.gallery_wrapper .gallery-item::after,
+.gallery_wrapper .gallery-item-content::before,
+.gallery_wrapper .gallery-item-content::after{
+
+  content: '';
+  width: 50%;
+  height: 50%;
+  background: rgba(0,0,0,0.5);
+  top: 0;
+  left: 0;
+  opacity: 0;
+  -webkit-transition: all 0.5s ease 0s;
+  transition:all 0.5s ease 0s ;
+  position: absolute;
+ 
+}
+
+.gallery_wrapper .gallery-item::after{
+  top: 50%;
+}
+.gallery_wrapper .gallery-item:hover::after{
+  top: 0;
+  opacity: 1;
+}
+
+
+.gallery_wrapper .gallery-item:hover::before{
+  left: 50%;
+  opacity: 1;
+}
+
+.gallery_wrapper .gallery-item-content{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  opacity: 0;
+  z-index: 1;
+  transition: all 0.3s ease 0s;
+ 
+}
+
+.gallery_wrapper .gallery-item:hover .gallery-item-content{
+  opacity: 1;
+}
+
+.gallery_wrapper .gallery-item-content::before,
+.gallery_wrapper .gallery-item-content::after{
+  top: 0;
+  left: 50%;
+  z-index: -1;
+}
+
+.gallery_wrapper .gallery-item-content::before{
+  top: 50%;
+  opacity: 1;
+}
+
+.gallery_wrapper .gallery-item-content::after{
+  top: 50%;
+}
+
+.gallery_wrapper .gallery-item:hover .gallery-item-content::after{
+  opacity: 1;
+  left: 0;
+}
+
+/* .dropdown:hover>.dropdown-menu {
+  display: block;
+  border-radius: 5px;
+  border-top: 3px solid #caa169;
+  transition: all 0.3s ease 0s;
+}
+
+.dropdown>.dropdown-toggle:active {
+ 
+    pointer-events: none;
+} */
+
+/* Hide dropdown initially */
+.dropdown-menu {
+  display: none;
+  opacity: 0;
+  transform: scale(0.9);
+  transform-origin: top center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-radius: 5px;
+}
+
+
+.nav-item .dropdown-menu .dropdown-item{
+  font-size: 15px;
+}
+
+/* Show dropdown on hover with animation */
+ .dropdown:hover > .dropdown-menu {
+  display: block;
+  opacity: 1;
+  transform: scale(1);
+  border-top: 3px solid #caa169;
+  
+}
+
+/* Prevent sticky dropdown on click */
+.dropdown > .dropdown-toggle:active {
+  pointer-events: none;
+} 
+
+/*=========== Seciton Service ===========*/
+
+.service-12 {
+  font-family: "Montserrat", sans-serif;
+	color: #8d97ad;
+  font-weight: 300;
+}
+
+.service-12 h1, .service-12 h2, .service-12 h3, .service-12 h4, .service-12 h5, .service-12 h6 {
+  color: #3e4555;
+}
+
+.service-12 h6 {
+		line-height: 22px;
+    font-size: 18px;
+}
+
+.service-12 .font-weight-medium {
+	font-weight: 500;
+}
+
+.service-12 .badge {
+	line-height: 14px;
+}
+
+.service-12 .badge-info {
+	background: #188ef4;
+}
+
+.service-12 .subtitle {
+    color: #8d97ad;
+    line-height: 24px;
+}
+
+.service-12 .card.card-shadow {
+    -webkit-box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+    box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+}
+
+.service-12 .img-shadow {
+    -webkit-box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.3);
+    box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.3);
+}
+
+.service-12 .wrap-service12 .img-hover {
+	-webkit-transition: 0.2s ease-in;
+   -o-transition: 0.2s ease-in;
+   transition: 0.2s ease-in;
+}
+
+.service-12 .wrap-service12 .img-hover:hover {
+	-webkit-transform: scale(1.1);
+   -ms-transform: scale(1.1);
+   transform: scale(1.1);
+}
+
+.service-12 .wrap-service12 .uneven-box {
+    margin-top: 100px;
+}
+
+.service-12 .btn-info-gradiant {
+		background: #188ef4;
+    background: -webkit-linear-gradient(legacy-direction(to right), #188ef4 0%, #316ce8 100%);
+    background: -webkit-gradient(linear, left top, right top, from(#188ef4), to(#316ce8));
+    background: -webkit-linear-gradient(left, #188ef4 0%, #316ce8 100%);
+    background: -o-linear-gradient(left, #188ef4 0%, #316ce8 100%);
+    background: linear-gradient(to right, #188ef4 0%, #316ce8 100%);
+}
+
+.service-12 .btn-info-gradiant:hover {
+		background: #316ce8;
+    background: -webkit-linear-gradient(legacy-direction(to right), #316ce8 0%, #188ef4 100%);
+    background: -webkit-gradient(linear, left top, right top, from(#316ce8), to(#188ef4));
+    background: -webkit-linear-gradient(left, #316ce8 0%, #188ef4 100%);
+    background: -o-linear-gradient(left, #316ce8 0%, #188ef4 100%);
+    background: linear-gradient(to right, #316ce8 0%, #188ef4 100%);
+}
+
+.service-12 .btn-md {
+    padding: 15px 45px;
+    font-size: 16px;
+}
+
+.services_wrapper .service-12 h3{
+  font-family: "Playfair Display", serif;
+  font-size: 35px;
+}
+.services_wrapper .service-12 h6{
+  font-family: "Playfair Display", serif;
+  font-size: 15px;
+}
+.services_wrapper .service-12 p{
+  font-family: "Playfair Display", serif;
+  font-size: 15px;
+}
+.services_wrapper h6{
+  font-family: "Sail", system-ui;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+.services_wrapper h3{
+  font-size: 40px;
+  color: #caa169;
+  font-family: "Sail", system-ui;
+}
+
+.swiper1 {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide1 {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide1 img {
+  display: block;
+  width: 100%;
+  height: 75%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.rooms_wrapper  h6{
+  font-family: "Playfair Display", serif;
+  font-size: 15px;
+}
+.rooms_wrapper  p{
+  font-family: "Playfair Display", serif;
+  font-size: 15px;
+}
+.rooms_wrapper ul li{
+  font-family: "Playfair Display", serif;
+  text-transform: capitalize;
+  font-size: 15px;
+}
+.room-price{
+  font-family: "Playfair Display", serif;
+}
+ .contacts_wrapper h3{
+  font-family: "Sail", system-ui;
+  font-size: 40px;
+  color: #dfa974
+}
+
+/* .contact-info h4 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-family: "Sail", system-ui;
+} */
+/*
+.contact-info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-info ul li {
+  margin-bottom: 10px;
+}
+
+.contact-form .form-control {
+  margin-bottom: 15px;
+}
+
+.contact-form .btn-primary {
+  background-color: #d89b5a;
+  border: none;
+}
+
+.google-map iframe {
+  width: 100%;
+  height: 350px;
+  border: 0;
+}
+
+ */
+ /* .contact-section {
+	padding-top: 80px;
+	padding-bottom: 80px;
+}
+.contact-text h2 {
+	font-size: 30px;
+	color: #19191a;
+	margin-bottom: 24px;
+  font-family: "Sail", system-ui;
+}
+.contact-text p {
+	color: #707079;
+  font-family: "Playfair Display", serif;
+  font-size: 15px;
+}
+.contact-text table tbody tr td {
+	font-size: 16px;
+	color: #19191a;
+	line-height: 36px;
+	font-weight: 500;
+}
+.contact-text table tbody tr td.c-o {
+	color: #707079;
+	width: 75px;
+}
+.contact-form input {
+	width: 100%;
+	height: 50px;
+	border: 1px solid #e1e1e1;
+	font-size: 16px;
+	color: #aaaab3;
+	padding-left: 25px;
+	margin-bottom: 28px;
+}
+.contact-form input::-webkit-input-placeholder {
+	color: #aaaab3;
+}
+.contact-form input::-moz-placeholder {
+	color: #aaaab3;
+}
+.contact-form input:-ms-input-placeholder {
+	color: #aaaab3;
+}
+.contact-form input::-ms-input-placeholder {
+	color: #aaaab3;
+}
+.contact-form input::placeholder {
+	color: #aaaab3;
+}
+.contact-form textarea {
+	width: 100%;
+	height: 150px;
+	border: 1px solid #e1e1e1;
+	font-size: 16px;
+	color: #aaaab3;
+	padding-left: 25px;
+	padding-top: 12px;
+	margin-bottom: 33px;
+	resize: none;
+
+}
+.contact-form textarea::-webkit-input-placeholder {
+	color: #aaaab3;
+}
+.contact-form textarea::-moz-placeholder {
+	color: #aaaab3;
+}
+.contact-form textarea:-ms-input-placeholder {
+	color: #aaaab3;
+}
+.contact-form textarea::-ms-input-placeholder {
+	color: #aaaab3;
+}
+.contact-form textarea::placeholder {
+	color: #aaaab3;
+}
+.contact-form button {
+	font-size: 13px;
+	font-weight: 700;
+	text-transform: uppercase;
+	color: #ffffff;
+	letter-spacing: 2px;
+	background: #dfa974;
+	border: none;
+	padding: 14px 34px 13px;
+	display: inline-block;
+}
+  */
+.map {
+	height: 470px;
+	-webkit-box-shadow: 0px 14px 35px rgba(0, 0, 0, 0.15);
+	box-shadow: 0px 14px 35px rgba(0, 0, 0, 0.15);
+	margin-top: 75px;
+  border:none;
+}
+.map iframe {
+	width: 100%;
+} 
+
+.form-control {
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-family: "Playfair Display", serif;
+ 
+}
+
+.btn-primary1 {
+  background-color: #d6a323;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 30px;
+  font-size: 16px;
+  font-family: "Playfair Display", serif;
+  color: white;
+  width: 100%;
+
+}
+
+.contact-info {
+  margin-top: 30px;
+  
+}
+
+.contact-info h4 {
+  /* font-family: 'Times New Roman', serif; */
+  font-family: "Sail", system-ui;
+  color: #7d2a2f;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.contact-info p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-family: 'Times New Roman', serif;
+  text-decoration: none;
+  /* font-family: "Playfair Display", serif; */
+}
+.contact-info a {
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-family: 'Times New Roman', serif;
+  text-decoration: none;
+  color: black;
+  /* font-family: "Playfair Display", serif; */
+}
+
+.contact-info i {
+  margin-right: 10px;
+  color: #661f1f;
+  /* font-family: 'Times New Roman', serif; */
+}
+
+.social-icons a {
+  font-size: 24px;
+  color: #d6a323;
+  margin-right: 10px;
+  transition: color 0.3s ease;
+  font-family: 'Times New Roman', serif;
+  /* font-family: "Playfair Display", serif; */
+}
+
+.social-icons a:hover {
+  color: #7d2a2f;
+}
+.form-group label{
+  font-family: "Playfair Display", serif;
+}
+
+
+
+.reservation-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+
+.reservation-form h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+  /* font-family: 'Times New Roman', serif; */
+  /* font-family: "Playfair Display", serif; */
+  font-family: "Sail", system-ui;
+  text-transform: capitalize;
+  font-size: 30px;
+  
+}
+
+.reservation-form p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.reservation-form label {
+  font-size: 14px;
+  color: #555;
+  font-family: "Playfair Display", serif;
+}
+::placeholder{
+  font-size: 12px;
+}
+
+.reservation-form input[type="text"],
+.reservation-form select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: "Playfair Display", serif;
+}
+
+.reservation-form input[type="date"], input[type="number"]{
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: "Playfair Display", serif;
+}
+.reservation-form input[type="email"]{
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: "Playfair Display", serif;
+}
+
+.date-group, .guest-group {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Playfair Display", serif;
+}
+
+.date, .guest {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.date:last-child, .guest:last-child {
+  margin-right: 0;
+}
+
+.reservation-form button {
+  width: 100%;
+  padding: 8px;
+  background-color: #7d2a2f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: "Playfair Display", serif;
+  /* font-family: "Sail", system-ui; */
+  
+  
+}
+
+.reservation-form button:hover {
+  background-color: #661f1f;
+} 
+
+.serviceform {
+   display: grid;
+   grid-template-columns: repeat(3,1fr);
+   row-gap: 1rem; 
+   column-gap: 3rem; 
+   flex-wrap: wrap;
+   margin-left: auto;
+   margin-right: auto;
+   margin-bottom: 10px;
+}
+
+.serviceform label{
+  font-size: 12px;
+}
+
