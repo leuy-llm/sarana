@@ -1,38 +1,46 @@
 <div class="navbar-custom">
     <ul class="list-unstyled topbar-menu float-end mb-0">
         <li class="dropdown notification-list d-lg-none">
-            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                aria-haspopup="false" aria-expanded="false">
                 <i class="dripicons-search noti-icon"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
                 <form class="p-3">
-                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                    <input type="text" class="form-control" placeholder="Search ..."
+                        aria-label="Recipient's username">
                 </form>
             </div>
         </li>
         <li class="dropdown notification-list topbar-dropdown">
-            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="{{asset('admin_dashboard')}}/assets/images/flags/en-kh.png" alt="user-image" class="me-0 me-sm-1" height="12"> 
-                <span class="align-middle d-none d-sm-inline-block font">@lang('label.language')</span> <i class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
+            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                aria-haspopup="false" aria-expanded="false">
+                <img src="{{ asset('admin_dashboard') }}/assets/images/flags/en-kh.png" alt="user-image"
+                    class="me-0 me-sm-1" height="12">
+                <span class="align-middle d-none d-sm-inline-block font">@lang('label.language')</span> <i
+                    class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">
 
                 <!-- item-->
                 <a href="{{ route('locale.switch', ['lang' => 'en']) }}" class="dropdown-item notify-item">
-                    <img src="{{asset('admin_dashboard')}}/assets/images/flags/england.png" alt="user-image" class="me-1" height="12"> 
+                    <img src="{{ asset('admin_dashboard') }}/assets/images/flags/england.png" alt="user-image"
+                        class="me-1" height="12">
                     <span class="align-middle font">@lang('label.english')</span>
                 </a>
 
                 <!-- item-->
-                <a href="{{ route('locale.switch', ['lang' => 'kh']) }}"  class="dropdown-item notify-item">
-                    <img src="{{asset('admin_dashboard')}}/assets/images/flags/cambodia.png" alt="user-image" class="me-1" height="12"> 
+                <a href="{{ route('locale.switch', ['lang' => 'kh']) }}" class="dropdown-item notify-item">
+                    <img src="{{ asset('admin_dashboard') }}/assets/images/flags/cambodia.png" alt="user-image"
+                        class="me-1" height="12">
                     <span class="align-middle font">@lang('label.khmer')</span>
                 </a>
             </div>
         </li>
-        
+
         <li class="dropdown notification-list">
-            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                aria-haspopup="false" aria-expanded="false">
                 <i class="dripicons-bell noti-icon"></i>
                 <span class="noti-icon-badge font"></span>
             </a>
@@ -73,7 +81,9 @@
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon">
-                            <img src="{{asset('admin_dashboard')}}/assets/images/users/avatar-2.jpg" class="img-fluid rounded-circle" alt=""> </div>
+                            <img src="{{ asset('admin_dashboard') }}/assets/images/users/avatar-2.jpg"
+                                class="img-fluid rounded-circle" alt="">
+                        </div>
                         <p class="notify-details">Cristina Pride</p>
                         <p class="text-muted mb-0 user-msg">
                             <small>Hi, How are you? What about our next meeting</small>
@@ -93,7 +103,9 @@
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon">
-                            <img src="{{asset('admin_dashboard')}}/assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt=""> </div>
+                            <img src="{{ asset('admin_dashboard') }}/assets/images/users/avatar-4.jpg"
+                                class="img-fluid rounded-circle" alt="">
+                        </div>
                         <p class="notify-details">Karen Robinson</p>
                         <p class="text-muted mb-0 user-msg">
                             <small>Wow ! this admin looks good and awesome design</small>
@@ -121,7 +133,8 @@
         </li>
 
         <li class="dropdown notification-list d-none d-sm-inline-block">
-            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
+                aria-haspopup="false" aria-expanded="false">
                 <i class="dripicons-view-apps noti-icon"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
@@ -130,19 +143,22 @@
                     <div class="row g-0">
                         <div class="col">
                             <a class="dropdown-icon-item" href="#">
-                                <img src="{{asset('admin_dashboard')}}/assets/images/brands/slack.png" alt="slack">
+                                <img src="{{ asset('admin_dashboard') }}/assets/images/brands/slack.png"
+                                    alt="slack">
                                 <span>Slack</span>
                             </a>
                         </div>
                         <div class="col">
                             <a class="dropdown-icon-item" href="#">
-                                <img src="{{asset('admin_dashboard')}}/assets/images/brands/github.png" alt="Github">
+                                <img src="{{ asset('admin_dashboard') }}/assets/images/brands/github.png"
+                                    alt="Github">
                                 <span>GitHub</span>
                             </a>
                         </div>
                         <div class="col">
                             <a class="dropdown-icon-item" href="#">
-                                <img src="{{asset('admin_dashboard')}}/assets/images/brands/dribbble.png" alt="dribbble">
+                                <img src="{{ asset('admin_dashboard') }}/assets/images/brands/dribbble.png"
+                                    alt="dribbble">
                                 <span>Dribbble</span>
                             </a>
                         </div>
@@ -151,19 +167,22 @@
                     <div class="row g-0">
                         <div class="col">
                             <a class="dropdown-icon-item" href="#">
-                                <img src="{{asset('admin_dashboard')}}/assets/images/brands/bitbucket.png" alt="bitbucket">
+                                <img src="{{ asset('admin_dashboard') }}/assets/images/brands/bitbucket.png"
+                                    alt="bitbucket">
                                 <span>Bitbucket</span>
                             </a>
                         </div>
                         <div class="col">
                             <a class="dropdown-icon-item" href="#">
-                                <img src="{{asset('admin_dashboard')}}/assets/images/brands/dropbox.png" alt="dropbox">
+                                <img src="{{ asset('admin_dashboard') }}/assets/images/brands/dropbox.png"
+                                    alt="dropbox">
                                 <span>Dropbox</span>
                             </a>
                         </div>
                         <div class="col">
                             <a class="dropdown-icon-item" href="#">
-                                <img src="{{asset('admin_dashboard')}}/assets/images/brands/g-suite.png" alt="G Suite">
+                                <img src="{{ asset('admin_dashboard') }}/assets/images/brands/g-suite.png"
+                                    alt="G Suite">
                                 <span>G Suite</span>
                             </a>
                         </div>
@@ -180,15 +199,22 @@
         </li>
 
         <li class="dropdown notification-list">
-            <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <span class="account-user-avatar"> 
-                    <img src="{{asset('admin_dashboard')}}/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
+            <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
+                role="button" aria-haspopup="false" aria-expanded="false">
+                <span class="account-user-avatar">
+                    @if (Auth::user()->gender === 'male')
+                        <img src="{{ asset('admin_dashboard/assets/images/users/man.png') }}" alt="user-image"
+                            class="rounded-circle">
+                    @else
+                        <img src="{{ asset('admin_dashboard/assets/images/users/woman.png') }}" alt="user-image"
+                            class="rounded-circle">
+                    @endif
                 </span>
                 <span>
-                    <span class="account-user-name">Soeng Souy</span>
-                    
+                    <span class="account-user-name">{{ Auth::user()->full_name }}</span>
                 </span>
             </a>
+
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
                 <!-- item-->
                 <div class=" dropdown-header noti-title">
@@ -196,31 +222,31 @@
                 </div>
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-circle me-1"></i>
                     <span>My Account</span>
-                </a>
+                </a> --}}
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="mdi mdi-account-edit me-1"></i>
                     <span>Settings</span>
-                </a>
+                </a> --}}
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="mdi mdi-lifebuoy me-1"></i>
                     <span>Support</span>
-                </a>
+                </a> --}}
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <i class="mdi mdi-lock-outline me-1"></i>
                     <span>Lock Screen</span>
-                </a>
+                </a> --}}
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="{{ route('logout') }}" class="dropdown-item notify-item">
                     <i class="mdi mdi-logout me-1"></i>
                     <span>Logout</span>
                 </a>
@@ -273,7 +299,9 @@
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <div class="d-flex">
-                        <img class="d-flex me-2 rounded-circle" src="{{asset('admin_dashboard')}}/assets/images/users/avatar-2.jpg" alt="Generic placeholder image" height="32">
+                        <img class="d-flex me-2 rounded-circle"
+                            src="{{ asset('admin_dashboard') }}/assets/images/users/avatar-2.jpg"
+                            alt="Generic placeholder image" height="32">
                         <div class="w-100">
                             <h5 class="m-0 font-14">Erwin Brown</h5>
                             <span class="font-12 mb-0">UI Designer</span>
@@ -284,7 +312,9 @@
                 <!-- item-->
                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                     <div class="d-flex">
-                        <img class="d-flex me-2 rounded-circle" src="{{asset('admin_dashboard')}}/assets/images/users/avatar-5.jpg" alt="Generic placeholder image" height="32">
+                        <img class="d-flex me-2 rounded-circle"
+                            src="{{ asset('admin_dashboard') }}/assets/images/users/avatar-5.jpg"
+                            alt="Generic placeholder image" height="32">
                         <div class="w-100">
                             <h5 class="m-0 font-14">Jacob Deo</h5>
                             <span class="font-12 mb-0">Developer</span>

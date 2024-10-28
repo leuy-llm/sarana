@@ -70,12 +70,11 @@
             href="{{ route('contact')}}">Contact</a>
         </li>
         <li class="nav-item mt-3 mt-lg-0">
-          <a class="main-btn" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            style="font-size: 15px; font-weight: 500; text-transform: uppercase;">Book now</a>
+          <a class="main-btn" href={{route('reservation')}} style="font-size: 15px; font-weight: 500; text-transform: uppercase;">Book now</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
 
-@include('frontend.includes.reservation')
+{{-- @include('frontend.includes.reservation') --}}

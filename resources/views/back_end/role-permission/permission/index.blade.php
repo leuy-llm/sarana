@@ -14,10 +14,12 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-9">
+                            @can('create-permission')
                             <a href="{{ url('permissions/create') }}" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
                                 data-bs-placement="right" data-bs-content="@lang('label.roomCan')" title="@lang('label.createNewRoom')"
                                 class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addRoom')</a>
+                                @endcan
                         </div>
 
                     </div>
@@ -63,11 +65,15 @@
                                         <td class="table-action">
                                             {{-- <a href="{{ route('rooms.show', $permission->id) }}" class="action-icon"> <i
                                                     class="mdi mdi-eye"></i></a> --}}
+                                                    @can('update-permission')
                                             <a href="{{ url('permissions/' . $permission->id . '/edit') }}" class="action-icon"> <i
                                                     class="mdi mdi-square-edit-outline"></i></a>
+                                                    @endcan
+                                                    @can('delete-permission')
                                             <a href="{{ url('permissions/' . $permission->id . '/delete') }}"
                                                 onclick="confirmation(event)" class="action-icon"> <i
                                                     class="mdi mdi-delete"></i></a>
+                                                     @endcan
                                         </td>
                                     </tr>
                                 @endforeach

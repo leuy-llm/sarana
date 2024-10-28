@@ -43,10 +43,12 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-9">
+                            @can('create-user')
                             <a href="{{ url('users/create') }}" tabindex="0" data-bs-toggle="popover"
                                 data-bs-trigger="hover" data-bs-placement="right" data-bs-content="@lang('label.userCan')"
                                 title="@lang('label.createNewUser')" class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addUser')</a>
+                                @endcan
                         </div>
                         
                     </div>
@@ -113,13 +115,19 @@
                                         </td>
                                         
                                         <td class="table-action">
+                                            @can('view-user')
                                             <a href="{{ route('rooms.show', $user->id) }}" class="action-icon"> <i
                                                 class="mdi mdi-eye"></i></a>
+                                                @endcan
+                                                @can('update-user')
                                             <a href="{{ url('users/' . $user->id . '/edit') }}" class="action-icon"> <i
                                                     class="mdi mdi-square-edit-outline"></i></a>
+                                                    @endcan
+                                                    @can('delete-user')
                                             <a href="{{ url('users/' . $user->id . '/delete') }}"
                                                 onclick="confirmation(event)" class="action-icon"> <i
                                                     class="mdi mdi-delete"></i></a>
+                                                    @endcan
                                         </td>
                                     </tr>
                                 @endforeach

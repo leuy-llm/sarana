@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Booking extends Model
 {
     use HasFactory;
-    protected $fillable = ['c', 'event_start_date', 'event_end_date'];
+    protected $fillable = ['guest_id', 'room_id', 'check_in_date', 'check_out_date', 'total_adults', 'total_children', 'status'];
+
     public function guest()
     {
         return $this->belongsTo(Guest::class);

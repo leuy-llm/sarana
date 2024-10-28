@@ -14,10 +14,12 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-9">
+                            @can('create-role')
                             <a href="{{ url('roles/create') }}" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
                                 data-bs-placement="right" data-bs-content="@lang('label.roleCan')" title="@lang('label.createNewRole')"
                                 class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addRole')</a>
+                                @endcan
                         </div>
 
                     </div>
@@ -61,15 +63,21 @@
                                         </td>
                                         
                                         <td class="table-action">
+                                            @can('create-role')
                                             <a href="{{ url('roles/' . $role->id . '/give-permissions') }}" class="action-icon"> 
                                                 {{-- <i class="mdi mdi-lock"></i>     --}}
                                                 <i class="mdi mdi-shield-key"></i>
                                             </a>
+                                            @endcan
+                                            @can('update-role')
                                             <a href="{{ url('roles/' . $role->id . '/edit') }}" class="action-icon"> <i
                                                     class="mdi mdi-square-edit-outline"></i></a>
+                                                    @endcan
+                                            @can('delete-role')
                                             <a href="{{ url('roles/' . $role->id . '/delete') }}"
                                                 onclick="confirmation(event)" class="action-icon"> <i
                                                     class="mdi mdi-delete"></i></a>
+                                                    @endcan
                                         </td>
                                     </tr>
                                 @endforeach

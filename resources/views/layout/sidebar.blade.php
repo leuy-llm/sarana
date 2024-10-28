@@ -67,9 +67,26 @@
             <li class="side-nav-item font @if (Request::segment(1) == 'bookings') active @endif">
                 <a href="{{url('bookings')}}" class="side-nav-link">
                     <i class="uil-calender"></i>
-                    <span> @lang('label.reservation') </span>
+                    <span> @lang('label.booking') </span>
                 </a>
             </li>
+            {{-- <li class="side-nav-item">
+                <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
+                    <i class="uil-calender"></i>
+                    <span> @lang('label.booking') </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarEmail">
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="apps-email-inbox.html">New Bookings</a>
+                        </li>
+                        <li>
+                            <a href="apps-email-read.html">Booking Recoards</a>
+                        </li>
+                    </ul>
+                </div>
+            </li> --}}
             {{-- <li class="side-nav-title side-nav-item font">Management</li> --}}
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
@@ -79,12 +96,15 @@
                 </a>
                 <div class="collapse" id="sidebarEcommerce">
                     <ul class="side-nav-second-level">
+                        @can('view-user')
                         <li>
                             <a href="{{url('users')}}">
                                
                                  @lang('label.userManage') 
                             </a>
                         </li>
+                        @endcan
+                        @can('view-permission')
                         <li  class="@if (Request::segment(1) == 'permissions') active @endif">
                           
                             <a href="{{url('permissions')}}">
@@ -92,12 +112,15 @@
                                 @lang('label.permissionList') 
                            </a>
                         </li>
+                        @endcan
+                        @can('view-role')
                         <li class="@if (Request::segment(1) == 'roles') active @endif">
                             <a href="{{url('roles')}}">
                                
                                  @lang('label.role') 
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </div>
             </li>

@@ -17,7 +17,11 @@ use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\FacilitiesController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\BookingCalenderController;
+use App\Http\Controllers\BookTestController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserQueryController;
+use App\Models\BookingCalender;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,121 +37,129 @@ use App\Http\Controllers\UserQueryController;
 Route::get('/', function () {
     return view('frontend.home.index');
 });
+ /*==================== Export Route =========== */
+ Route::get('guest/export/', [GuestController::class, 'export']);
 
-Route::get('/admin', function () {
-    return view('dashboard');
-});
 
+ /*================= HomePage ================= */
+ Route::get('/', [HomeController::class, 'index'])->name('homepage');
+ /*================= Contact ================  */
+ Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+ /* ================ Our Room ================ */
+ // Route::get('rooms',[HomeController::class,'ourroom'])->name('')
+ Route::get('room_detail/{id}/{type_name}', [HomeController::class, 'roomDetail'])->name('roomDetail');
+
+
+
+ Route::get('/reservation', [ReservationController::class, 'reservation'])->name('reservation');
+ Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+
+ /*================= Login =================== */
+ Route::get('login', [AuthController::class, 'Auth']);
+ Route::post('/submit', [AuthController::class, 'login'])->name('submit_login');
+ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+ Route::get('bookings/available-room-types/{checkin_date}', [BookingController::class, 'available_room_types']);
+ Route::get('/success', [PaymentController::class, 'success'])->name('success');
+ Route::get('/reservation/payment/{totalAmount}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+ Route::post('/reservation/payment/{totalAmount}', [PaymentController::class, 'processPayment'])->name('payment.process');
+
+//  Route::get('/admin', function () {
+//      return view('dashboard');
+//  });
 /* ================== Back End Route ==================== */
+Route::group(['middleware' => ['isAdmin']], function () {
+    /*=================== RoomType ========================== */
+    Route::resource('/roomtypes', RoomTypeController::class);
+    Route::get('roomtypes/{roomtypeId}/delete', [RoomTypeController::class, 'destroy']);
+    Route::get('/app', [AuthController::class, 'dashboard'])->name('app');
+    /*=================== Guest Route ========================== */
+    Route::resource("/guests", GuestController::class);
+    Route::get('guests/{guestId}/delete', [GuestController::class, 'destroy']);
 
-/*=================== RoomType ========================== */
-Route::resource('/roomtypes',RoomTypeController::class);
-Route::get('roomtypes/{roomtypeId}/delete',[RoomTypeController::class,'destroy']);
+    /*=================== Room Route ========================== */
+    Route::resource("/rooms", RoomController::class);
+    Route::get('rooms/{roomId}/delete', [RoomController::class, 'destroy']);
+    Route::get('rooms/{id}/detail', [RoomController::class, 'show'])->name('rooms.show');
 
-/*=================== Guest Route ========================== */
-Route::resource("/guests", GuestController::class);
-Route::get('guests/{guestId}/delete',[GuestController::class,'destroy']);
-
-/*=================== Room Route ========================== */
-Route::resource("/rooms", RoomController::class);
-Route::get('rooms/{roomId}/delete',[RoomController::class,'destroy']);
-Route::get('rooms/{id}/detail', [RoomController::class, 'show'])->name('rooms.show');
-
-/*================= Traslate Route =========================== */
-Route::get('locale/{lang}', [TranslateController::class, 'setLang'])->name('locale.switch');
-
-
-/*================= Permisson Route =================== */
-Route::resource('permissions', PermissionController::class);
-Route::get('permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
-
-/*================= Role Route =================== */
-Route::resource('roles', RoleController::class);
-Route::get('roles/{roleId}/delete', [App\Http\Controllers\RoleController::class, 'destroy']);
-
-Route::get('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
-Route::put('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'givePermissionToRole']);
-
-/*================= User Route =================== */
-Route::resource('users', UserController::class);
-Route::get('users/{userId}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
-
-/*================= Booking Route =================== */
-Route::resource('bookings', BookingController::class);
-Route::get('bookings/available-rooms/{checkin_date}', [BookingController::class, 'available_rooms']);
-Route::get('bookings/{bookingId}/delete', [App\Http\Controllers\BookingController::class, 'destroy']);
-Route::get('bookings/{id}/detail', [BookingController::class, 'show'])->name('bookings.show');
-
-/*================= Check Date Availability ============== */
-
-Route::get('/bookings/check-date/{date}', [BookingController::class, 'checkDate']);
-
-Route::get('/bookings/booked-dates', [BookingController::class, 'getBookedDates'])->name('bookings.booked-dates');
+    /*================= Traslate Route =========================== */
+    Route::get('locale/{lang}', [TranslateController::class, 'setLang'])->name('locale.switch');
 
 
-/*================= Booking Calender =============== */
-Route::resource('calenders', BookingCalenderController::class);
-Route::get('/api/bookings', [BookingController::class, 'getBookings'])->name('bookings.get');
+    /*================= Permisson Route =================== */
+    Route::resource('permissions', PermissionController::class);
+    Route::get('permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
 
-/*================= Facility Room =============== */
-Route::resource('facilitys', FacilitiesController::class);
-Route::get('facilitys/{facilityId}/delete', [App\Http\Controllers\FacilitiesController::class, 'destroy']);
-// Route::get('/api/bookings', [FacilitiesController::class, 'getBookings'])->name('bookings.get');
+    /*================= Role Route =================== */
+    Route::resource('roles', RoleController::class);
+    Route::get('roles/{roleId}/delete', [App\Http\Controllers\RoleController::class, 'destroy']);
+
+    Route::get('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
+    Route::put('roles/{roleId}/give-permissions', [App\Http\Controllers\RoleController::class, 'givePermissionToRole']);
+
+    /*================= User Route =================== */
+    Route::resource('users', UserController::class);
+    Route::get('users/{userId}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
+
+    /*================= Booking Route =================== */
+    Route::resource('bookings', BookingController::class);
+    Route::get('bookings/available-rooms/{checkin_date}', [BookingController::class, 'available_rooms']);
+
+    
+    Route::get('bookings/{bookingId}/delete', [App\Http\Controllers\BookingController::class, 'destroy']);
+    Route::get('bookings/{id}/detail', [BookingController::class, 'show'])->name('bookings.show');
+
+    /*================= Check Date Availability ============== */
+
+    Route::get('/bookings/check-date/{date}', [BookingController::class, 'checkDate']);
+
+    Route::get('/bookings/booked-dates', [BookingController::class, 'getBookedDates'])->name('bookings.booked-dates');
 
 
-/*================= Front End =================== */
-/*================= Carousel =================== */
-Route::resource('carousels',CarouselController::class);
-Route::get('carousels/{carouselId}/delete', [App\Http\Controllers\CarouselController::class, 'destroy']);
+    /*================= Booking Calender =============== */
+    Route::resource('calenders', BookingCalenderController::class);
+    Route::get('/api/bookings', [BookingController::class, 'getBookings'])->name('bookings.get');
 
-// /*================= Setting General =================== */
-Route::resource('settings',SettingController::class);
-Route::get('settings/{settingId}/delete', [App\Http\Controllers\SettingController::class, 'destroy']);
-
-
-
-/* ================== End Front ================ */
-/*================= AboutUs =================== */
-
-Route::get('abouts',[SettingController::class,'about'])->name('abouts.index');
-Route::get('abouts/create',[SettingController::class,'about'])->name('abouts.create');
-Route::post('abouts/store',[SettingController::class,'aboutstore'])->name('abouts.store');
-Route::get('abouts/edit/{id}',[SettingController::class,'aboutedit'])->name('abouts.edit');
-Route::post('abouts/update/{id}', [SettingController::class, 'aboutupdate'])->name('abouts.update');
+    /*================= Facility Room =============== */
+    Route::resource('facilitys', FacilitiesController::class);
+    Route::get('facilitys/{facilityId}/delete', [App\Http\Controllers\FacilitiesController::class, 'destroy']);
+    // Route::get('/api/bookings', [FacilitiesController::class, 'getBookings'])->name('bookings.get');
 
 
-/*================= Contacts  =================== */
-Route::get('contacts',[SettingController::class,'contact'])->name('contacts.index');
-// Route::get('contacts/create',[SettingController::class,'contact'])->name('contacts.create');
-Route::post('contacts/store',[SettingController::class,'contactstore'])->name('contacts.store');
-Route::get('contacts/edit/{id}',[SettingController::class,'contactedit'])->name('contacts.edit');
-Route::post('contacts/update/{id}', [SettingController::class, 'contactupdate'])->name('contacts.update');
+    /*================= Front End =================== */
+    /*================= Carousel =================== */
+    Route::resource('carousels', CarouselController::class);
+    Route::get('carousels/{carouselId}/delete', [App\Http\Controllers\CarouselController::class, 'destroy']);
 
-/*================= User Query =================== */
-Route::get('queries',[UserQueryController::class,'query'])->name('queries.index');
-// Route::get('queries/create',[UserQueryController::class,'create'])->name('queries.create');
-Route::post('queries/store',[UserQueryController::class,'store'])->name('queries.store');
-Route::get('queries/delete/{id}',[UserQueryController::class,'delete'])->name('queries.delete');
-Route::put('queries/{id}/mark-as-read', [UserQueryController::class, 'markAsRead'])->name('queries.markAsRead');
+    // /*================= Setting General =================== */
+    Route::resource('settings', SettingController::class);
+    Route::get('settings/{settingId}/delete', [App\Http\Controllers\SettingController::class, 'destroy']);
 
 
 
-/*================= Login =================== */
-Route::get('login', [AuthController::class,'Auth']);
-Route::post('/submit', [AuthController::class, 'login'])->name('sumbit');
+    /* ================== End Front ================ */
+    /*================= AboutUs =================== */
+
+    Route::get('abouts', [SettingController::class, 'about'])->name('abouts.index');
+    Route::get('abouts/create', [SettingController::class, 'about'])->name('abouts.create');
+    Route::post('abouts/store', [SettingController::class, 'aboutstore'])->name('abouts.store');
+    Route::get('abouts/edit/{id}', [SettingController::class, 'aboutedit'])->name('abouts.edit');
+    Route::post('abouts/update/{id}', [SettingController::class, 'aboutupdate'])->name('abouts.update');
 
 
-/*==================== Export Route =========== */
-Route::get('guest/export/',[GuestController::class,'export']);
+    /*================= Contacts  =================== */
+    Route::get('contacts', [SettingController::class, 'contact'])->name('contacts.index');
+    // Route::get('contacts/create',[SettingController::class,'contact'])->name('contacts.create');
+    Route::post('contacts/store', [SettingController::class, 'contactstore'])->name('contacts.store');
+    Route::get('contacts/edit/{id}', [SettingController::class, 'contactedit'])->name('contacts.edit');
+    Route::post('contacts/update/{id}', [SettingController::class, 'contactupdate'])->name('contacts.update');
 
 
-/*================= HomePage ================= */
-Route::get('/',[HomeController::class,'index'])->name('homepage');
-/*================= Contact ================  */
-Route::get('/contact',[HomeController::class,'contact'])->name('contact');
-/* ================ Our Room ================ */
-// Route::get('rooms',[HomeController::class,'ourroom'])->name('')
-Route::get('room_detail/{id}/{type_name}', [HomeController::class, 'roomDetail'])->name('roomDetail');
+    /*================= User Query =================== */
+    Route::get('queries', [UserQueryController::class, 'query'])->name('queries.index');
+    // Route::get('queries/create',[UserQueryController::class,'create'])->name('queries.create');
+    Route::post('queries/store', [UserQueryController::class, 'store'])->name('queries.store');
+    Route::get('queries/delete/{id}', [UserQueryController::class, 'delete'])->name('queries.delete');
+    Route::put('queries/{id}/mark-as-read', [UserQueryController::class, 'markAsRead'])->name('queries.markAsRead');
 
-
-
+   
+});

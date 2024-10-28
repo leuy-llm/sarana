@@ -202,7 +202,7 @@
                                                     class="mdi mdi-eye"></i></a>
                                             <a href="{{ url('bookings/' . $booking->id . '/edit') }}" class="action-icon">
                                                 <i class="mdi mdi-square-edit-outline"></i></a>
-                                            <a href="{{ url('rooms/' . $booking->id . '/delete') }}"
+                                            <a href="{{ url('bookings/' . $booking->id . '/delete') }}"
                                                 onclick="confirmation(event)" class="action-icon"> <i
                                                     class="mdi mdi-delete"></i></a>
                                         </td>

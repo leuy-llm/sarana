@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     //
+
+    public function __construct()
+    {
+
+        $this->middleware('permission:create-user', ['only' => ['create', 'store']]);
+        $this->middleware('permission:view-user', ['only' => ['index']]);
+        $this->middleware('permission:update-user', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete-user', ['only' => ['destroy']]);
+    }
     
     public function index(){
         
@@ -18,6 +27,8 @@ class UserController extends Controller
         $header_title = "Manage User";
         return view('back_end.role-permission.user.index', compact('users', 'header_title'));
     }
+
+
 
 
     public function create()

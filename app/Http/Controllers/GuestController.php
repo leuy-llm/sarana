@@ -34,7 +34,6 @@ class GuestController extends Controller
         $request->validate([
             'name' => 'required|string|max:50|unique:guests,name',
             'email' => 'required|email|max:20|unique:guests,email',
-            'password' => 'required|string|min:8|max:20',
             'mobile' => 'required|numeric|min:11|unique:guests,mobile',
             'address' => 'required|string|max:255',
         ]);
@@ -48,7 +47,6 @@ class GuestController extends Controller
             $guest->email = $request->email;
             $guest->mobile = $strippedMobile;
             $guest->address = $request->address;
-            $guest->password = Hash::make($request->password);
             $guest->save();
 
             // Set a success message in the session
@@ -71,7 +69,6 @@ class GuestController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:guests,email,' . $id,
-            'password' => 'nullable|string|min:8|max:20',
             'mobile' => 'required|numeric',
             'address' => 'required|string|max:255',
         ]);
@@ -82,10 +79,6 @@ class GuestController extends Controller
         $guest->email = $request->email;
         $guest->mobile = $request->mobile;
         $guest->address = $request->address;
-
-        if (!empty($request->password)) {
-            $guest->password = Hash::make($request->password);
-        }
 
         $guest->save();
 

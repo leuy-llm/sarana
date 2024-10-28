@@ -159,7 +159,6 @@
                                     <label class="form-label">@lang('label.avaiableRoom') <span class="text-danger">*</span></label>
                                     <select name="room_id" required="" class="form-control room-list select2"
                                         data-toggle="select2">
-
                                     </select>
                                 </div>
                             </div>
