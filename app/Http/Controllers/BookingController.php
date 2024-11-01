@@ -15,12 +15,12 @@ class BookingController extends Controller
     //
     public function index()
     {
-
         $bookings = Booking::getBooking();
         $header_title = "Manage Booking";
 
         return view('back_end.booking.index', compact('header_title', 'bookings'));
     }
+   
 
 
     public function create()

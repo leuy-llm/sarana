@@ -8,13 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Guest extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class Guest extends Authenticatable
 {
-    use HasFactory;
+    // use HasFactory;
+    use Notifiable;
     // Guest.php model
-    protected $fillable = ['name', 'email', 'mobile', 'address','is_deleted','password'];
+    protected $fillable = ['name', 'email', 'mobile', 'address', 'password'];
 
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
     // public function scopeNotDeleted($query)
     // {
     //     return $query->where('is_deleted', 0);

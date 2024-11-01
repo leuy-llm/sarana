@@ -66,24 +66,50 @@ class PaymentController extends Controller
     // }
 
 
-    public function processPayment(Request $request,$totalAmount)
+    // public function processPayment(Request $request,$totalAmount)
 
+    // {
+    //     Stripe::setApiKey(env('STRIPE_SECRET'));
+
+    //     Charge::create ([
+    //             "amount" => $totalAmount * 100,
+
+    //             "currency" => "usd",
+
+    //             "source" => $request->stripeToken,
+                
+    //             "description" => "Reservation Payment ." ,
+    //     ]);
+    //     Session::flash('success', 'Payment successful!');
+    //     return back();
+
+    // }
+    
+    public function processPayment(Request $request, $totalAmount)
     {
         Stripe::setApiKey(env('STRIPE_SECRET'));
-
-        Charge::create ([
-                "amount" => $totalAmount * 100,
-
+    
+        try {
+            Charge::create([
+                "amount" => $totalAmount * 100, // Convert amount to cents
                 "currency" => "usd",
-
                 "source" => $request->stripeToken,
-                
-                "description" => "Reservation Payment ." ,
-        ]);
-        Session::flash('success', 'Payment successful!');
-        return back();
-
+                "description" => "Reservation Payment.",
+            ]);
+    
+            // Update booking payment status to 'paid'
+            $booking = Booking::findOrFail($request->id);
+            $booking->payment_status = 'paid';
+            $booking->save();
+    
+            Session::flash('success', 'Payment successful!');
+            return redirect()->route('bookings.index')->with('success', 'Payment successful!');
+        } catch (\Exception $e) {
+            Session::flash('error', 'Payment failed: ' . $e->getMessage());
+            return back();
+        }
     }
+    
 
 
 

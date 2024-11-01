@@ -79,6 +79,7 @@
         </div>
     </section>
     @include('auth.register')
+    @include('auth.logins')
 @endsection
 
 @section('script')

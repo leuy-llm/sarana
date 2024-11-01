@@ -6,6 +6,7 @@ use DataTables;
 use App\Models\Guest;
 use App\Exports\GuestExport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -127,15 +128,16 @@ class GuestController extends Controller
 
     // }
 
-    function register(Request $request){
-        
+    function register(Request $request)
+    {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:guests',
             'mobile' => 'required|numeric|unique:guests',
             'address' => 'nullable|string|max:255',
-            'password' => ['required', 'string', 'min:8', 'confirmed'], // 'confirmed' will check if password matches the password_confirmation field
-            
+            'password' => 'required|string|min:8|confirmed', // assuming password needs confirmation
+
         ]);
 
 
@@ -149,8 +151,51 @@ class GuestController extends Controller
 
         auth()->guard('guest')->login($guest);
 
-        return redirect()->route('homepage');
+        return redirect()->back();
     }
 
+    // public function login(Request $request)
+    // {
+    //     $credentials = $request->validate([
+    //         'email' => ['required', 'email'],
+    //         'password' => ['required'],
+    //     ]);
 
+    //     if (Auth::guard('guest')->attempt($credentials)) {
+    //         $request->session()->regenerate();
+
+    //         return redirect()->back(); // redirect after login
+    //     }
+
+    //     return back()->withErrors([
+    //         'email' => 'The provided credentials do not match our records.',
+    //     ]);
+    // }
+
+    public function login(Request $request)
+{
+    $credentials = $request->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required'],
+    ]);
+
+    if (Auth::guard('guest')->attempt($credentials)) {
+        $request->session()->regenerate();
+
+        // Redirect to the previous page (reservation page)
+        return redirect()->intended('reservation');
+    }
+
+    return back()->withErrors([
+        'email' => 'The provided credentials do not match our records.',
+    ]);
+}
+
+
+
+    public function logout()
+    {
+        auth()->guard('guest')->logout();
+        return redirect()->back(); // Redirect to homepage after logout
+    }
 }

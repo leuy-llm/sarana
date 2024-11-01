@@ -30,6 +30,11 @@
             margin-top: -1rem;
             margin-bottom: 1rem;
         }
+        .form-row{
+            font-family: "Coda", system-ui;
+            display: flex;
+            justify-content: space-between
+        }
 </style>
 <div class="modal fade custom-modal @if ($errors->any()) show @endif" style="z-index: 9999" id="registerModal"
     tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -48,15 +53,12 @@
                     @csrf
                     <div class="bottom">
                         <label for="name" class="form-label">Full Name</label>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror " id="name"
+                        <input type="text" value="{{old('name')}}" class="form-control id="name"
                             name="name" required>
-                        @error('name')
-                            <span class="invalid-feedback " >{{ $message }}</span>
-                        @enderror
                     </div>
                     <div class="bottom" >
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror " id="email"
+                        <input type="email"  class="form-control @error('email') is-invalid @enderror " id="email"
                             name="email" required>
                         @error('email')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -64,7 +66,7 @@
                     </div>
                     <div class="bottom" >
                         <label for="mobile" class="form-label">Mobile</label>
-                        <input type="number" class="form-control @error('mobile') is-invalid @enderror " id="mobile"
+                        <input type="number"  class="form-control @error('mobile') is-invalid @enderror " id="mobile"
                             name="mobile" required>
                         @error('mobile')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -72,7 +74,7 @@
                     </div>
                     <div class="bottom">
                         <label for="address" style="" class="form-label">Address</label>
-                        <input type="text" class="form-control @error('address') is-invalid @enderror "
+                        <input type="text" value="{{old('address')}}" class="form-control @error('address') is-invalid @enderror "
                             id="address" name="address">
                         @error('address')
                             <span class="invalid-feedback">{{ $message }}</span>
@@ -87,18 +89,22 @@
                     </div>
                     <div class="bottom">
                         <label for="password_confirmation" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control  @error('password_confirmation') is-invalid @enderror " id="password_confirmation"
+                        <input type="password"  class="form-control  @error('password_confirmation') is-invalid @enderror " id="password_confirmation"
                             name="password_confirmation" required>
                             @error('password_confirmation')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <div class="form-row">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" >Do you already have an account?</a>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+@include('auth.logins')
 <script>
     // JavaScript to trigger modal reopening when there are validation errors
     @if ($errors->any())

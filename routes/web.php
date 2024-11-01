@@ -56,15 +56,25 @@ Route::get('login', [AuthController::class, 'Auth']);
 Route::post('/submit', [AuthController::class, 'login'])->name('submit_login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('bookings/available-room-types/{checkin_date}', [BookingController::class, 'available_room_types']);
-Route::get('/success', [PaymentController::class, 'success'])->name('success');
+Route::get('/reservation/confirmation/{id}', [ReservationController::class, 'confirmation'])->name('booking.confirmation');
 
 Route::get('/reservation/payment/{totalAmount}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
 Route::post('/reservation/payment/{totalAmount}', [PaymentController::class, 'processPayment'])->name('payment.process');
 
 Route::get('/reservation', [ReservationController::class, 'reservation'])->name('reservation');
-Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+
+// Route::post('/reservation/store', [ReservationController::class, 'store'])->name('reservation.store');
+// Protect reservation route with 'guest' authentication
+Route::middleware(['auth:guest'])->group(function () {
+    Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+});
+
 
 Route::post('guest/register', [GuestController::class, 'register'])->name('guest.register');
+Route::post('guest/login', [GuestController::class, 'login'])->name('guest.login');
+Route::get('/guest/logout', [GuestController::class, 'logout'])->name('guest.logout');
+
+
 
 //  Route::get('/admin', function () {
 //      return view('dashboard');
