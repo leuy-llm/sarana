@@ -47,17 +47,17 @@ class ReservationController extends Controller
                 'address' => $request->input('address')
             ]
         );
-       
+
         Log::info('Guest created or found: ', ['guest_id' => $guest->id]);
 
         // Step 2.1: Store guest details in the session
-    session([
-        'guest_name' => $guest->name,          // Use $guest->name to ensure it's correctly saved
-        'guest_email' => $guest->email,
-        'guest_phone' => $guest->mobile,       // Assuming the correct key is 'mobile'
-        'guest_address' => $guest->address
-    ]);
-    Log::info('Guest information stored in session.');
+        // session([
+        //     'name' => $guest->name,          // Use $guest->name to ensure it's correctly saved
+        //     'email' => $guest->email,
+        //     'mobile' => $guest->mobile,       // Assuming the correct key is 'mobile'
+        //     'address' => $guest->address
+        // ]);
+        Log::info('Guest information stored in session.');
 
         // Step 3: Get the selected room type and check-in/check-out dates
         $roomTypeId = $request->input('room_type_id');
@@ -96,7 +96,8 @@ class ReservationController extends Controller
                 'check_out_date' => $checkOutDate,
                 'total_adults' => $request->input('total_adults'),
                 'total_children' => $request->input('total_children'),
-                'status' => 'confirmed'
+                'status' => 'pending',
+                'payment_status' => 'unpaid',
             ]);
 
             Log::info('Booking created successfully: ', ['booking_id' => $booking->id]);
@@ -107,4 +108,37 @@ class ReservationController extends Controller
 
         return redirect()->route('reservation')->with('success', 'Booking created successfully.')->withInput();
     }
+    // public function store(Request $request)
+    // {
+    //     // Validate the form data
+    //     $validatedData = $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'mobile' => 'required|numeric',
+    //         'email' => 'required|email',
+    //         'address' => 'required|string',
+    //         'check_in_date' => 'required|date',
+    //         'check_out_date' => 'required|date',
+    //         'room_type_id' => 'required|integer',
+    //         'total_adults' => 'required|integer',
+    //         'total_children' => 'required|integer'
+    //     ]);
+
+    //     // Store reservation data
+    //     $reservation = Booking::create($validatedData);
+
+    //     // Redirect to the payment form with totalAmount
+    //     $totalAmount = $this->calculateTotalAmount($validatedData['room_type_id'], $validatedData['check_in_date'], $validatedData['check_out_date']);
+
+    //     return redirect()->route('payment.process', $totalAmount);
+    // }
+
+    // // Assuming you have a room price logic in place
+    // private function calculateTotalAmount($roomTypeId, $checkIn, $checkOut)
+    // {
+    //     // Example logic for calculating the total amount
+    //     $roomPrice = 100; // Fetch room price from database based on $roomTypeId
+    //     $days = (strtotime($checkOut) - strtotime($checkIn)) / (60 * 60 * 24);
+    //     return $roomPrice * $days;
+    // }
+
 }

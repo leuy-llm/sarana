@@ -70,27 +70,27 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    <form method="POST" action="{{ route('reservations.store') }}">
+                    <form method="POST" action="{{ route('reservation.store') }}">
                         @csrf
                         <div class="form-group">
                             <label>Full Name</label>
-                            <input type="text" name="name" value="{{ session('name', '') }}" class="form-control" placeholder="Full Name" required>
+                            <input type="text" name="name"  class="form-control" placeholder="Full Name" required>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Phone</label>
-                                <input type="number" min="0" value="{{ session('mobile', '') }}" name="mobile" class="form-control" placeholder="Phone"
+                                <input type="number" min="0"  name="mobile" class="form-control" placeholder="Phone"
                                     required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Email</label>
-                                <input type="email" name="email" value="{{ session('email', '') }}" class="form-control"
+                                <input type="email" name="email"  class="form-control"
                                     placeholder="Email" required>
                             </div>
                         </div>
                         <div class="form-group" style="margin-top: -14px">
                             <label>Address</label>
-                            <input type="text" name="address" value="{{ session('address', '') }}" class="form-control" placeholder="Address" required>
+                            <input type="text" name="address"  class="form-control" placeholder="Address" required>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -128,8 +128,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        
                         <div id="details-section" style="display: none;">
                             <div class="form-group" style="margin-top: -10px">
                                 <label>No. of Days: <span id="num-days">0</span></label>
@@ -138,16 +136,16 @@
                                 <label>Total Amount to Pay: <span id="total-amount">0</span>$</label>
                             </div>
                         </div>
-
-                       
                         {{-- <a href="{{url('reservation/payment/'.$totalAmount)}}" class="btn btn-booking btn-block">Payment</a>
                          --}}
-                         <a href="#" id="payment-button" class="btn btn-booking btn-block">Payment</a>
+                         {{-- <a href="#"  id="payment-button" class="btn btn-booking btn-block">Payment</a> --}}
+                         <button type="submit" class="btn btn-booking btn-block">Proceed to Payment</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+    @include('auth.register')
 @endsection
 
 {{-- @section('script')
@@ -535,16 +533,16 @@
             }
         });
 
-        document.getElementById('payment-button').addEventListener('click', function (event) {
-    event.preventDefault(); // Prevents default navigation
-    const totalAmount = document.getElementById('total-amount').textContent;
-    if (totalAmount > 0) {
-        const url = `{{ url('reservation/payment') }}/${totalAmount}`;
-        window.location.href = url; // Redirect to payment page with totalAmount
-    } else {
-        alert('Please select a valid check-in and check-out date.');
-    }
-});
+//         document.getElementById('payment-button').addEventListener('click', function (event) {
+//     event.preventDefault(); // Prevents default navigation
+//     const totalAmount = document.getElementById('total-amount').textContent;
+//     if (totalAmount > 0) {
+//         const url = `{{ url('reservation/payment') }}/${totalAmount}`;
+//         window.location.href = url; // Redirect to payment page with totalAmount
+//     } else {
+//         alert('Please select a valid check-in and check-out date.');
+//     }
+// });
 
     </script>
 @endsection

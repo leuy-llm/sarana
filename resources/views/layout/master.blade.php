@@ -23,8 +23,9 @@
   <header class="header_wrapper">
     @include('frontend.includes.navbar')
   </header>
-    @yield('content')
+  @yield('content')
   @include('frontend.includes.footer')
+  {{-- @include('auth.register') --}}
 
   @yield('script')
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

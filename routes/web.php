@@ -37,31 +37,34 @@ use App\Models\BookingCalender;
 Route::get('/', function () {
     return view('frontend.home.index');
 });
- /*==================== Export Route =========== */
- Route::get('guest/export/', [GuestController::class, 'export']);
+/*==================== Export Route =========== */
+Route::get('guest/export/', [GuestController::class, 'export']);
 
 
- /*================= HomePage ================= */
- Route::get('/', [HomeController::class, 'index'])->name('homepage');
- /*================= Contact ================  */
- Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
- /* ================ Our Room ================ */
- // Route::get('rooms',[HomeController::class,'ourroom'])->name('')
- Route::get('room_detail/{id}/{type_name}', [HomeController::class, 'roomDetail'])->name('roomDetail');
+/*================= HomePage ================= */
+Route::get('/', [HomeController::class, 'index'])->name('homepage');
+/*================= Contact ================  */
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+/* ================ Our Room ================ */
+// Route::get('rooms',[HomeController::class,'ourroom'])->name('')
+Route::get('room_detail/{id}/{type_name}', [HomeController::class, 'roomDetail'])->name('roomDetail');
 
 
 
- Route::get('/reservation', [ReservationController::class, 'reservation'])->name('reservation');
- Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+/*================= Login =================== */
+Route::get('login', [AuthController::class, 'Auth']);
+Route::post('/submit', [AuthController::class, 'login'])->name('submit_login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('bookings/available-room-types/{checkin_date}', [BookingController::class, 'available_room_types']);
+Route::get('/success', [PaymentController::class, 'success'])->name('success');
 
- /*================= Login =================== */
- Route::get('login', [AuthController::class, 'Auth']);
- Route::post('/submit', [AuthController::class, 'login'])->name('submit_login');
- Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
- Route::get('bookings/available-room-types/{checkin_date}', [BookingController::class, 'available_room_types']);
- Route::get('/success', [PaymentController::class, 'success'])->name('success');
- Route::get('/reservation/payment/{totalAmount}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
- Route::post('/reservation/payment/{totalAmount}', [PaymentController::class, 'processPayment'])->name('payment.process');
+Route::get('/reservation/payment/{totalAmount}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+Route::post('/reservation/payment/{totalAmount}', [PaymentController::class, 'processPayment'])->name('payment.process');
+
+Route::get('/reservation', [ReservationController::class, 'reservation'])->name('reservation');
+Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+
+Route::post('guest/register', [GuestController::class, 'register'])->name('guest.register');
 
 //  Route::get('/admin', function () {
 //      return view('dashboard');
@@ -104,7 +107,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::resource('bookings', BookingController::class);
     Route::get('bookings/available-rooms/{checkin_date}', [BookingController::class, 'available_rooms']);
 
-    
+
     Route::get('bookings/{bookingId}/delete', [App\Http\Controllers\BookingController::class, 'destroy']);
     Route::get('bookings/{id}/detail', [BookingController::class, 'show'])->name('bookings.show');
 
@@ -160,6 +163,4 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::post('queries/store', [UserQueryController::class, 'store'])->name('queries.store');
     Route::get('queries/delete/{id}', [UserQueryController::class, 'delete'])->name('queries.delete');
     Route::put('queries/{id}/mark-as-read', [UserQueryController::class, 'markAsRead'])->name('queries.markAsRead');
-
-   
 });

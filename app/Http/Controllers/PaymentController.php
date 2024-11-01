@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\RoomType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Stripe\Charge;
 use Stripe\PaymentIntent;
@@ -21,6 +22,8 @@ class PaymentController extends Controller
         return view('frontend.booking.payment', compact('totalAmount','settings','roomTypes'));
     }
     
+
+
 
     // public function processPayment(Request $request, $totalAmount,$reservationId)
     // {
@@ -61,14 +64,14 @@ class PaymentController extends Controller
     //         ]);
     //     }
     // }
+
+
     public function processPayment(Request $request,$totalAmount)
 
     {
-
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
         Charge::create ([
-
                 "amount" => $totalAmount * 100,
 
                 "currency" => "usd",
@@ -76,13 +79,16 @@ class PaymentController extends Controller
                 "source" => $request->stripeToken,
                 
                 "description" => "Reservation Payment ." ,
-                
-
         ]);
         Session::flash('success', 'Payment successful!');
         return back();
 
     }
+
+
+
+
+
 
     public function success()
     {

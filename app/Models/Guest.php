@@ -11,13 +11,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Guest extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'name',
-        'email',
-        'mobile',
-        'address',
-        'password',
-    ];
+    // Guest.php model
+    protected $fillable = ['name', 'email', 'mobile', 'address','is_deleted','password'];
+
 
     // public function scopeNotDeleted($query)
     // {

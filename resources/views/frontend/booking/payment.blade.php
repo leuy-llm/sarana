@@ -105,7 +105,6 @@
                             class="require-validation" data-cc-on-file="false"
                             data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
                             @csrf
-
                             <div class='form-row row'>
                                 <div class='col-xs-12 form-group  required'>
                                     <label class='control-label'>Name on Card</label> <input class='form-control'
@@ -144,8 +143,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <button class="btn btn-booking btn-block mt-2" type="submit">Pay Now
-                                        (${{ $totalAmount }})</button>
+                                    <button class="btn btn-primary btn-block" type="submit">Pay Now (${{ $totalAmount }})</button>
                                 </div>
                             </div>
                         </form>

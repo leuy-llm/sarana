@@ -158,5 +158,7 @@ public function roomDetail($id, $type_name)
 //         return redirect()->route('booking.confirm')->with('success', 'Room booked successfully!');
 //     }
 
+
+
     
 }

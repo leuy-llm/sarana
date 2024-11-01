@@ -36,6 +36,7 @@ class GuestController extends Controller
             'email' => 'required|email|max:20|unique:guests,email',
             'mobile' => 'required|numeric|min:11|unique:guests,mobile',
             'address' => 'required|string|max:255',
+
         ]);
 
         // Log::info('Request Data: ', $request->all());
@@ -125,4 +126,31 @@ class GuestController extends Controller
     // public function show(){
 
     // }
+
+    function register(Request $request){
+        
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:guests',
+            'mobile' => 'required|numeric|unique:guests',
+            'address' => 'nullable|string|max:255',
+            'password' => ['required', 'string', 'min:8', 'confirmed'], // 'confirmed' will check if password matches the password_confirmation field
+            
+        ]);
+
+
+        $guest = Guest::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'address' => $request->address,
+            'password' => Hash::make($request->password),
+        ]);
+
+        auth()->guard('guest')->login($guest);
+
+        return redirect()->route('homepage');
+    }
+
+
 }
