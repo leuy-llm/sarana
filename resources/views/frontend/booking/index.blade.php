@@ -39,6 +39,97 @@
             visibility: visible;
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
+
+        .modal-content {
+            -webkit-border-radius: 0;
+            -webkit-background-clip: padding-box;
+            -moz-border-radius: 0;
+            -moz-background-clip: padding;
+            border-radius: 6px;
+            background-clip: padding-box;
+            -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, .5);
+            -moz-box-shadow: 0 0 40px rgba(0, 0, 0, .5);
+            box-shadow: 0 0 40px rgba(0, 0, 0, .5);
+            color: #000;
+            background-color: #fff;
+            border: rgba(0, 0, 0, 0);
+        }
+
+        .modal-message .modal-dialog {
+            width: 400px;
+        }
+
+        .modal-message .modal-body,
+        .modal-message .modal-footer,
+        .modal-message .modal-header,
+        .modal-message .modal-title {
+            background: 0 0;
+            border: none;
+            margin: 0;
+            padding: 0 20px;
+            text-align: center !important;
+            font-family: 'Coda', system-ui;
+        }
+
+        .modal-message .modal-title {
+            font-size: 17px;
+            color: #737373;
+            margin-bottom: 3px;
+        }
+
+        .modal-message .modal-body {
+            color: #737373;
+        }
+
+        .modal-message .modal-header {
+            color: #fff;
+            margin-bottom: 10px;
+            padding: 15px 0 8px;
+        }
+
+        .modal-message .modal-header .fa,
+        .modal-message .modal-header .glyphicon,
+        .modal-message .modal-header .typcn,
+        .modal-message .modal-header .wi {
+            font-size: 30px;
+        }
+
+        .modal-message .modal-footer {
+            margin: 25px 0 20px;
+            padding-bottom: 10px;
+        }
+
+        .modal-backdrop.in {
+            zoom: 1;
+            filter: alpha(opacity=75);
+            -webkit-opacity: .75;
+            -moz-opacity: .75;
+            opacity: .75;
+        }
+
+        .modal-backdrop {
+            background-color: #fff;
+        }
+
+        .modal-message.modal-success .modal-header {
+            color: #53a93f;
+            border-bottom: 3px solid #a0d468;
+        }
+
+        .modal-message.modal-info .modal-header {
+            color: #57b5e3;
+            border-bottom: 3px solid #57b5e3;
+        }
+
+        .modal-message.modal-danger .modal-header {
+            color: #d73d32;
+            border-bottom: 3px solid #e46f61;
+        }
+
+        .modal-message.modal-warning .modal-header {
+            color: #f4b400;
+            border-bottom: 3px solid #ffce5 5;
+        }
     </style>
 @endsection
 @section('content')
@@ -59,6 +150,7 @@
                         class="img-fluid" style="height: 535px; object-fit: cover; border-radius: 3px;" alt="Room Image">
                 </div>
                 <div class="col-md-7">
+
                     <h3 class="reservation-title text-center">Make Your Reservation</h3>
                     @if (session('success'))
                         <div class="alert alert-success">
@@ -72,7 +164,7 @@
                             <label>Full Name</label>
                             <input type="text" name="name" class="form-control" placeholder="Full Name"
                                 value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->name : old('name') }}"
-                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }} required>
+                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
 
                         </div>
                         <div class="form-row">
@@ -80,42 +172,41 @@
                                 <label>Phone</label>
                                 <input type="number" min="0" name="mobile" class="form-control" placeholder="Phone"
                                     value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->mobile : old('name') }}"
-                                    {{ auth()->guard('guest')->check() ? 'readonly' : '' }} required>
+                                    {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Email</label>
                                 <input type="email" name="email" class="form-control" placeholder="Email"
                                     value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->email : old('name') }}"
-                                    {{ auth()->guard('guest')->check() ? 'readonly' : '' }} required>
+                                    {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
                             </div>
                         </div>
                         <div class="form-group" style="margin-top: -14px">
                             <label>Address</label>
                             <input type="text" name="address" class="form-control" placeholder="Address"
                                 value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->address : old('name') }}"
-                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }} required>
+                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="checkIn">Check In</label>
-                                <input type="date" name="check_in_date" required class="form-control checkin_date"
-                                    id="checkIn" required>
+                                <input type="date" name="check_in_date" class="form-control checkin_date" id="checkIn">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="checkOut">Check Out</label>
-                                <input type="date" required name="check_out_date" class="form-control" id="checkOut"
-                                    min="{{ date('Y-m-d') }}" required>
+                                <input type="date"name="check_out_date" class="form-control" id="checkOut"
+                                    min="{{ date('Y-m-d') }}">
                             </div>
                         </div>
                         <div class="form-row" style="margin-top: -14px">
                             <div class="form-group col-md-4">
                                 <label for="room">Rooms</label>
-                                <select name="room_type_id" required class="form-control room-type-list">
+                                <select name="room_type_id" class="form-control room-type-list">
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="adults">Adults</label>
-                                <select id="adults" name="total_adults" required class="form-control" required>
+                                <select id="adults" name="total_adults" class="form-control">
                                     <option value="1" selected>1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -123,7 +214,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="children">Children</label>
-                                <select id="children" name="total_children" class="form-control" required>
+                                <select id="children" name="total_children" class="form-control">
                                     <option value="0" selected>0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -139,255 +230,38 @@
                                 <label>Total Amount to Pay: <span id="total-amount">0</span>$</label>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <div class="col-md-6">
-                                    <button type="submit"  value="true" class="btn btn-booking btn-block">Skip Payment</button>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
 
-                                <a href="#" id="payment-button" class="btn btn-booking btn-block">Proceed to Payment</a>
-                            </div>
+                        <div class="col-md-12">
+                            <input type="hidden" id="bookingId" value="{{ $bookingId }}">
+                            {{-- <a href="#" id="payment-button" class="btn btn-booking btn-block">Proceed to Payment</a> --}}
+                            <button type="submit" class="btn btn-booking btn-block">Booking</button>
                         </div>
-                    </form>
-                    {{-- @else
-                    <div class="alert alert-warning">
-                        Please <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">log in</a> to make a reservation.
-                    </div> --}}
-
                 </div>
+                </form>
             </div>
         </div>
+        </div>
     </section>
+    <div id="modal-success" class="modal modal-message modal-success fade" role="dialog" data-bs-backdrop="static"
+        style="display: none;z-index: 9999" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    {{-- <span class="glyphicon glyphicon-check"></span> --}}
+                    <i class="fa fa-check text-white fa-3x m-auto"></i>
+                </div>
+                <div class="modal-title">Please</div>
+                <div class="modal-body">Sign in to Booking</div>
+                <div class="modal-footer">
+                    <button type="button" id="ok-btn" class="btn btn-success"
+                        style="text-align: center;margin: 0 auto;" data-dismiss="modal">OK</button>
+                </div>
+            </div> <!-- / .modal-content -->
+        </div> <!-- / .modal-dialog -->
+    </div>
+    <!--End Success Modal Templates-->
     @include('auth.register')
 @endsection
-
-{{-- @section('script')
-    <script>
-        $(document).ready(function() {
-            $(".checkin_date").on('blur', function() {
-                var _checkindate = $(this).val();
-                console.log(_checkindate);
-
-                // Encode the date to make it URL-safe
-                var encodedDate = encodeURIComponent(_checkindate);
-
-                // Ajax to get available room types based on check-in date
-                $.ajax({
-                    url: "{{ url('bookings') }}/available-room-types/" + encodedDate,
-                    dataType: 'json',
-                    beforeSend: function() {
-                        $(".room-type-list").html('<option>--- Loading ---</option>');
-                    },
-                    success: function(res) {
-                        var _html = '';
-                        $.each(res.data, function(index, row) {
-                            _html += '<option value="' + row.id + '">' + row.type_name + " - " + row.price + "/night"+
-                                '</option>';
-                        });
-                        $(".room-type-list").html(_html);
-                    }
-                });
-            });
-        });
-    </script>
-@endsection --}}
-
-{{-- @section('script')
-<script>
-    $(document).ready(function () {
-        let roomPrice = 0; // Variable to store the selected room's price
-
-        $(".checkin_date, #checkOut").on('blur', function () {
-            calculateTotalAmount();
-        });
-
-        $(".room-type-list").on('change', function () {
-            roomPrice = $(this).find(':selected').data('price');
-            calculateTotalAmount();
-        });
-
-        $(".checkin_date").on('blur', function () {
-            var _checkindate = $(this).val();
-            console.log(_checkindate);
-
-            // Encode the date to make it URL-safe
-            var encodedDate = encodeURIComponent(_checkindate);
-
-            // Ajax to get available room types based on check-in date
-            $.ajax({
-                url: "{{ url('bookings') }}/available-room-types/" + encodedDate,
-                dataType: 'json',
-                beforeSend: function () {
-                    $(".room-type-list").html('<option>--- Loading ---</option>');
-                },
-                success: function (res) {
-                    var _html = '';
-                    $.each(res.data, function (index, row) {
-                        _html += '<option value="' + row.id + '" data-price="' + row.price + '">' + row.type_name + " - " + "$" + row.price + "/night" + '</option>';
-                    });
-                    $(".room-type-list").html(_html);
-                }
-            });
-        });
-
-        function calculateTotalAmount() {
-            const checkInDate = new Date($('#checkIn').val());
-            const checkOutDate = new Date($('#checkOut').val());
-
-            // Calculate the number of days between the check-in and check-out dates
-            const timeDifference = checkOutDate - checkInDate;
-            const numDays = timeDifference > 0 ? Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) : 0;
-
-            // Calculate the total amount based on the room price and the number of days
-            const totalAmount = numDays * roomPrice;
-
-            // Update the display of number of days and total amount
-            $('#num-days').text(numDays);
-            $('#total-amount').text(totalAmount.toFixed(2));
-        }
-    });
-</script>
-@endsection --}}
-
-{{-- @section('script')
-<script>
-    $(document).ready(function () {
-        let roomPrice = 0; // Variable to store the selected room's price
-
-        $(".checkin_date, #checkOut").on('blur', function () {
-            calculateTotalAmount();
-        });
-
-        $(".room-type-list").on('change', function () {
-            roomPrice = $(this).find(':selected').data('price');
-            calculateTotalAmount();
-        });
-
-        $(".checkin_date").on('blur', function () {
-            var _checkindate = $(this).val();
-
-            // Encode the date to make it URL-safe
-            var encodedDate = encodeURIComponent(_checkindate);
-
-            // Ajax to get available room types based on check-in date
-            $.ajax({
-                url: "{{ url('bookings') }}/available-room-types/" + encodedDate,
-                dataType: 'json',
-                beforeSend: function () {
-                    $(".room-type-list").html('<option>--- Loading ---</option>');
-                },
-                success: function (res) {
-                    var _html = '';
-                    $.each(res.data, function (index, row) {
-                        _html += '<option value="' + row.id + '" data-price="' + row.price + '">' + row.type_name + " - " + row.price + "/night" + '</option>';
-                    });
-                    $(".room-type-list").html(_html);
-
-                    // Auto-select the first available room type and trigger calculation
-                    if (res.data.length > 0) {
-                        const firstRoomOption = $(".room-type-list option:first");
-                        roomPrice = firstRoomOption.data('price'); // Get the price of the first room
-                        firstRoomOption.prop('selected', true); // Automatically select the first room option
-                        calculateTotalAmount(); // Trigger the calculation to update number of days and total amount
-                    }
-                }
-            });
-        });
-
-        function calculateTotalAmount() {
-            const checkInDate = new Date($('#checkIn').val());
-            const checkOutDate = new Date($('#checkOut').val());
-
-            // Calculate the number of days between the check-in and check-out dates
-            const timeDifference = checkOutDate - checkInDate;
-            const numDays = timeDifference > 0 ? Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) : 0;
-
-            // Calculate the total amount based on the room price and the number of days
-            const totalAmount = numDays * roomPrice;
-
-            // Update the display of number of days and total amount
-            $('#num-days').text(numDays);
-            $('#total-amount').text(totalAmount.toFixed(2));
-        }
-    });
-</script>
-@endsection --}}
-
-{{-- នេះជា Script យកពិតប្រាកដ --}}
-{{-- @section('script')
-<script>
-    $(document).ready(function () {
-        let roomPrice = 0; // Variable to store the selected room's price
-
-        $(".checkin_date, #checkOut").on('blur', function () {
-            calculateTotalAmount();
-        });
-
-        $(".room-type-list").on('change', function () {
-            roomPrice = $(this).find(':selected').data('price');
-            calculateTotalAmount();
-        });
-
-        $(".checkin_date").on('blur', function () {
-            var _checkindate = $(this).val();
-
-            // Encode the date to make it URL-safe
-            var encodedDate = encodeURIComponent(_checkindate);
-
-            // Ajax to get available room types based on check-in date
-            $.ajax({
-                url: "{{ url('bookings') }}/available-room-types/" + encodedDate,
-                dataType: 'json',
-                beforeSend: function () {
-                    $(".room-type-list").html('<option>--- Loading ---</option>');
-                },
-                success: function (res) {
-                    var _html = '';
-                    $.each(res.data, function (index, row) {
-                        _html += '<option value="' + row.id + '" data-price="' + row.price + '">' + row.type_name + " - " + row.price + "/night" + '</option>';
-                    });
-                    $(".room-type-list").html(_html);
-
-                    // Auto-select the first available room type and trigger calculation
-                    if (res.data.length > 0) {
-                        const firstRoomOption = $(".room-type-list option:first");
-                        roomPrice = firstRoomOption.data('price'); // Get the price of the first room
-                        firstRoomOption.prop('selected', true); // Automatically select the first room option
-                        calculateTotalAmount(); // Trigger the calculation to update number of days and total amount
-                    }
-                }
-            });
-        });
-
-        function calculateTotalAmount() {
-            const checkInDate = new Date($('#checkIn').val());
-            const checkOutDate = new Date($('#checkOut').val());
-
-            // Calculate the number of days between the check-in and check-out dates
-            const timeDifference = checkOutDate - checkInDate;
-            const numDays = timeDifference > 0 ? Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) : 0;
-
-            // Calculate the total amount based on the room price and the number of days
-            const totalAmount = numDays * roomPrice;
-
-            // Update the display of number of days and total amount
-            $('#num-days').text(numDays);
-            $('#total-amount').text(totalAmount.toFixed(2));
-
-            // Show the details section if both check-in and check-out dates are selected and valid
-            if (numDays > 0 && roomPrice > 0) {
-                $('#details-section').show();
-            } else {
-                $('#details-section').hide();
-            }
-        }
-    });
-</script>
-
-@endsection --}}
-{{-- នេះជា Script យកពិតប្រាកដ --}}
 
 @section('script')
     {{-- <script>
@@ -460,9 +334,9 @@
 </script> --}}
 
     <script>
+        var checkInDateInput = document.getElementById('checkIn');
+        var checkOutDateInput = document.getElementById('checkOut');
         document.addEventListener('DOMContentLoaded', function() {
-            var checkInDateInput = document.getElementById('checkIn');
-            var checkOutDateInput = document.getElementById('checkOut');
 
             checkInDateInput.addEventListener('change', function() {
                 var checkInDate = this.value; // Get the selected check-in date
@@ -475,6 +349,7 @@
                 }
             });
         })
+
         $(document).ready(function() {
             let roomPrice = 0; // Variable to store the selected room's price
 
@@ -487,10 +362,10 @@
             //     roomPrice = $(this).find(':selected').data('price');
             //     calculateTotalAmount();
             // });
-                $(".room-type-list").on('change', function() {
-                    roomPrice = $(this).find(':selected').data('price');
-                    calculateTotalAmount();
-                });
+            $(".room-type-list").on('change', function() {
+                roomPrice = $(this).find(':selected').data('price');
+                calculateTotalAmount();
+            });
 
 
             $(".checkin_date").on('blur', function() {
@@ -529,16 +404,13 @@
                 });
             });
 
-            // Function to calculate the total amount based on dates and room price
             function calculateTotalAmount() {
                 const checkInDate = new Date($('#checkIn').val());
                 const checkOutDate = new Date($('#checkOut').val());
-
                 // Calculate the number of days between the check-in and check-out dates
                 const timeDifference = checkOutDate - checkInDate;
                 const numDays = timeDifference > 0 ? Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) : 0;
 
-                // Calculate the total amount based on the room price and the number of days
                 const totalAmount = numDays * roomPrice;
 
                 // Update the display of number of days and total amount
@@ -554,59 +426,57 @@
             }
         });
 
-        //         document.getElementById('payment-button').addEventListener('click', function (event) {
-        //     event.preventDefault(); // Prevents default navigation
-        //     const totalAmount = document.getElementById('total-amount').textContent;
-        //     if (totalAmount > 0) {
-        //         const url = `{{ url('reservation/payment') }}/${totalAmount}`;
-        //         window.location.href = url; // Redirect to payment page with totalAmount
-        //     } else {
-        //         alert('Please select a valid check-in and check-out date.');
-        //     }
-        // });
 
         document.addEventListener('DOMContentLoaded', function() {
             var reservationForm = document.getElementById('reservation-form');
-
-            // Check if the user is logged in
             var isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
-
-            // Intercept form submission for "Pay Later"
-            reservationForm.addEventListener('submit', function(event) {
-                if (!isLoggedIn) {
-                    event.preventDefault(); // Prevent form submission
-                    $('#registerModal').modal('show'); // Show the login modal
-                }
-            });
-
-            document.getElementById('pay-later-button').addEventListener('click', function(event) {
-                event.preventDefault();
-
-                if (!isLoggedIn) {
-                    $('#registerModal').modal('show');
-                }
-            })
-
-            // Handle 'Proceed to Payment' click event
-            document.getElementById('payment-button').addEventListener('click', function(event) {
-                event.preventDefault(); // Prevents default navigation
-
-                if (!isLoggedIn) {
-                    // If user is not logged in, show the login modal
-                    $('#registerModal').modal('show');
-                } else {
-                    // User is logged in, proceed with payment
-                    const totalAmount = document.getElementById('total-amount').textContent;
-                    if (totalAmount > 0) {
-                        // Redirect to the payment page with the total amount
-                        const url = `{{ url('reservation/payment') }}/${totalAmount}`;
-                        window.location.href = url; // Proceed to payment page
+            // Ensure reservation form exists before proceeding
+            if (reservationForm) {
+                reservationForm.addEventListener('submit', function(event) {
+                    // Prevent submission and show modal if guest is not logged in
+                    if (!isLoggedIn) {
+                        event.preventDefault();
+                        $('#modal-success').modal('show');
                     } else {
-                        // Show an alert if no valid dates or amount is selected
-                        alert('Please select a valid check-in and check-out date.');
+                        // If logged in, check for empty check-in and check-out dates
+                        if (!checkInDateInput.value || !checkOutDateInput.value) {
+                            event.preventDefault(); // Prevent form submission
+                            alert('Please select both check-in and check-out dates before booking.');
+                        }
                     }
-                }
-            });
+                });
+            }
+
+            // Add event listener to the OK button to show the login modal if button exists
+            var okButton = document.getElementById('ok-btn');
+            if (okButton) {
+                okButton.addEventListener('click', function() {
+                    $('#modal-success').modal('hide'); // Hide the success modal
+                    $('#registerModal').modal('show'); // Show the login modal
+                });
+            }
         });
+
+        // Handle 'Proceed to Payment' click event
+        // document.getElementById('payment-button').addEventListener('click', function(event) {
+        // event.preventDefault(); // Prevents default navigation
+
+        // if (!isLoggedIn) {
+        // // If user is not logged in, show the login modal
+        // $('#registerModal').modal('show');
+        // } else {
+        // // User is logged in, proceed with payment
+        // const totalAmount = document.getElementById('total-amount').textContent;
+        // const bookingId = document.getElementById('bookingId').value;
+        // if (totalAmount > 0) {
+        // // Redirect to the payment page with the total amount
+        // const url = `{{ url('reservation/payment') }}/${bookingId}/${totalAmount}`;
+        // window.location.href = url; // Proceed to payment page
+        // } else {
+        // // Show an alert if no valid dates or amount is selected
+        // alert('Please select a valid check-in and check-out date.');
+        // }
+        // }
+        // });
     </script>
 @endsection

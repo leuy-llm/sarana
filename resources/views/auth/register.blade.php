@@ -36,7 +36,7 @@
             justify-content: space-between
         }
 </style>
-<div class="modal fade custom-modal @if ($errors->any()) show @endif" style="z-index: 9999" id="registerModal"
+<div class="modal fade custom-modal @if ($errors->any()) show @endif" id="registerModal"
     tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false"
     @if ($errors->any()) style="display: block" @endif>
     <div class="modal-dialog">

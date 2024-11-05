@@ -58,16 +58,20 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('bookings/available-room-types/{checkin_date}', [BookingController::class, 'available_room_types']);
 Route::get('/reservation/confirmation/{id}', [ReservationController::class, 'confirmation'])->name('booking.confirmation');
 
-Route::get('/reservation/payment/{totalAmount}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
-Route::post('/reservation/payment/{totalAmount}', [PaymentController::class, 'processPayment'])->name('payment.process');
+// Route::get('/reservation/payment/{totalAmount}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+Route::get('/reservation/payment/{totalAmount}/{bookingId}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
+Route::post('/reservation/payments/{totalAmount}', [PaymentController::class, 'processPayment'])->name('payment.process');
 
 Route::get('/reservation', [ReservationController::class, 'reservation'])->name('reservation');
+Route::get('/reservation/skip-payment/{id}/{totalAmount}', [ReservationController::class, 'skipPayment'])->name('booking.skipPayment');
 
-// Route::post('/reservation/store', [ReservationController::class, 'store'])->name('reservation.store');
 // Protect reservation route with 'guest' authentication
 Route::middleware(['auth:guest'])->group(function () {
     Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
 });
+
+// routes/web.php
+Route::delete('/booking/cancel/{id}', [ReservationController::class, 'cancelBooking'])->name('booking.cancel');
 
 
 Route::post('guest/register', [GuestController::class, 'register'])->name('guest.register');

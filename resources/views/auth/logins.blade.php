@@ -36,8 +36,12 @@
     @if ($errors->any()) style="display: block" @endif>
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header text-center" style="background:#661f1f; text-align: center">
-                <h3 class="modal-title text-white text-center" id="registerModalLabel">Sinaka Sign In</h3>
+            <div class="modal-header text-center " style="background:#661f1f;">
+                {{-- <div style="display: flex; justify-content: space-between;align-items: center">
+                    <img src="{{ asset('hotel') }}/image/woman.png" class="welcome-image" style="max-width: 50px;margin-top: 0px" >
+                    <h3 class="modal-title text-white" style="margin:auto;" id="registerModalLabel">Sinaka Sign In</h3>
+                </div> --}}
+                <h3 class="modal-title text-white" id="registerModalLabel">Sinaka Sign In</h3>
                 <button type="button" class=" border-0 close text-white" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

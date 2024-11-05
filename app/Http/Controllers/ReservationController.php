@@ -12,19 +12,14 @@ use Illuminate\Support\Facades\Log;
 
 class ReservationController extends Controller
 {
-    //
-    // function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
     public function reservation()
     {
-
         $data = "Reservation";
+        $bookingId = Booking::latest()->first()->id ?? null; // Example of retrieving the latest booking ID
         $settings = DB::table('settings')->get();
         $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
 
-        return view('frontend.booking.index', compact('data', 'settings', 'roomTypes'));
+        return view('frontend.booking.index', compact('data', 'settings', 'roomTypes', 'bookingId'));
     }
 
     // public function store(Request $request)
@@ -347,15 +342,9 @@ class ReservationController extends Controller
 
         $roomPrice = $room->price;             // Get room price
         $roomTypeName = $room->roomType->type_name; // Get room type name from related RoomType
-
-        // Convert check-in and check-out dates to Carbon instances
         $checkInDate = new \Carbon\Carbon($request->input('check_in_date'));
         $checkOutDate = new \Carbon\Carbon($request->input('check_out_date'));
-
-        // Calculate the number of days between check-in and check-out
         $numDays = $checkInDate->diffInDays($checkOutDate);
-
-        // Calculate total amount based on number of days and room price
         $totalAmount = $numDays * $roomPrice;
 
         // Create a new booking
@@ -376,32 +365,95 @@ class ReservationController extends Controller
             'totalAmount' => $totalAmount,
             'roomType' => $roomTypeName,
             'roomPrice' => $roomPrice
-        ])->with('success', 'Your reservation has been made, and you can complete payment later.');
+        ])->with('success', 'Your reservation has been made');
     }
 
+    // public function skipPayment( Request $request, $totalAmount,$id, $roomPrice)
+    // {
+    //     $booking = Booking::findOrFail($id);
+    //     $booking->payment_status = 'Skipped';
+    //     $booking->status = 'Pending'; // Or whatever status you'd like to set
+    //     $booking->save();
 
+    //     // $totalAmount = $numDays * $roomPrice;
 
-
-
-
-
+    //     return redirect()->route('booking.confirmation', [
+    //         'id' => $booking->id,
+    //         'totalAmount' => $totalAmount,
+    //         'roomPrice' => $roomPrice
+    //     ])->with('success', 'Your reservation has been made, and you can complete payment later.');
+    // }
 
     public function confirmation(Request $request, $id)
-{
-    $booking = Booking::findOrFail($id);
-    $data = "Booking Confirmed!";
-    $settings = DB::table('settings')->get();
-    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+    {
+        $booking = Booking::findOrFail($id);
+        $data = "Booking Confirmed!";
+        $settings = DB::table('settings')->get();
+        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
 
-    // Retrieve total amount and room details from the request
-    $totalAmount = $request->get('totalAmount');
-    $roomType = $request->get('roomType');
-    $roomPrice = $request->get('roomPrice');
+        // Get total amount, room type, and room price from the route parameters or default values
+        $totalAmount = $request->query('totalAmount', 0);
+        $roomType = $request->query('roomType', 'Standard');
+        $roomPrice = $request->query('roomPrice', 0);
 
-    // Check if the user is authenticated
-    $guest = auth()->guard('guest')->user(); // Get the authenticated guest user, or null if not authenticated
+        // Check if the user is authenticated
+        $guest = auth()->guard('guest')->user();
 
-    return view('frontend.booking.success', compact('booking', 'data', 'settings', 'roomTypes', 'totalAmount', 'roomType', 'roomPrice', 'guest'));
-}
+        return view('frontend.booking.success', compact('booking', 'data', 'settings', 'roomTypes', 'totalAmount', 'roomType', 'roomPrice', 'guest'));
+    }
+
+    // BookingController.php
+
+    public function cancelBooking($id)
+    {
+        // Find the booking by ID
+        $booking = Booking::find($id);
+
+        if ($booking) {
+            // Update the status of the booking to 'cancelled'
+            if ($booking->check_in_date <= now()->addDay()) {
+                return redirect()->back()->with('error', 'You cannot cancel a booking within 24 hours of check-in.');
+            }
+            $booking->status = 'cancelled';
+            $booking->save();
+            // Update the room status back to 'available'
+            $room = Room::find($booking->room_id);
+            $room->save();
+
+            // Optionally, add a flash message to notify the guest
+            return redirect()->route('homepage')->with('success', 'Your booking has been successfully cancelled.');
+        } else {
+            // If no booking is found, redirect back with an error message
+            return redirect()->back()->with('error', 'Booking not found or already cancelled.');
+        }
+    }
+    // BookingController.php
+
+    // public function cancelBooking($id)
+    // {
+    //     // Find the booking by ID
+    //     $booking = Booking::where('id', $id)->where('is_deleted', 0)->first();
+
+    //     if ($booking) {
+    //         // Mark the booking as deleted (soft delete)
+    //         $booking->is_deleted = 1;
+    //         $booking->status = 'cancelled'; // Update the status to 'cancelled'
+    //         $booking->save();
+
+    //         // Update the room status back to 'Available'
+    //         $room = Room::find($booking->room_id);
+    //         if ($room) {
+    //             $room->status = 'Available'; // Change room status back to 'Available'
+    //             $room->save();
+    //         }
+
+    //         // Redirect the user with a success message
+    //         return redirect()->route('home')->with('success', 'Your booking has been successfully cancelled.');
+    //     } else {
+    //         // If no booking is found or already deleted, return an error message
+    //         return redirect()->back()->with('error', 'Booking not found or already cancelled.');
+    //     }
+    // }
+
 
 }

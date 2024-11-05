@@ -25,9 +25,10 @@ class HomeController extends Controller
         $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room','Family 3 bedroom','Trip Room','King Room'])->get();
         $facilities = Facility::getFacility();
         $header_title = "Carousels";
+        $contact = DB::table('contact_details')->get();
         
 
-    return view('frontend.home.index', compact('carousels', 'settings', 'rooms', 'about_us', 'roomTypes', 'facilities', 'header_title'));
+    return view('frontend.home.index', compact('carousels', 'contact', 'settings', 'rooms', 'about_us', 'roomTypes', 'facilities', 'header_title'));
 }
 
 

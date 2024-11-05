@@ -45,6 +45,9 @@
   cursor: pointer;
 }
 
+
+
+
     </style>
 @endsection
 @section('content')
@@ -61,5 +64,9 @@
         @include('frontend.includes.our_room')
       </section>
       {{-- @include('auth.register')  --}}
-
+     
+      <div class="welcome-container">
+        <img src="{{ asset('hotel') }}/image/couple.png" alt="Welcome to Sinaka Angkor Hotel" class="welcome-image"
+            style="z-index: 999;">
+    </div>
 @endsection

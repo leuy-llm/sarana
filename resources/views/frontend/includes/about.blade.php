@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" >
     <div class="row flex-lg-row flex-column-reverse">
         @foreach ($about_us as $about)
             <div class="col-lg-6  text-lg-start">

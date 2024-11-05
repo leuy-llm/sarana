@@ -142,8 +142,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-12">
-                                    <button class="btn btn-primary btn-block" type="submit">Pay Now (${{ $totalAmount }})</button>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-primary p-2 btn-block" type="submit">Pay Now (${{ $totalAmount }})</button>
+                                </div>
+                                <div class="col-xs-6">
+                                    <button class="btn btn-primary p-2 btn-block" type="button" onclick="skipPayment()">Skip</button>
                                 </div>
                             </div>
                         </form>
@@ -158,6 +161,10 @@
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
 <script type="text/javascript">
+ function skipPayment() {
+        window.location.href = "{{ route('booking.skipPayment', ['totalAmount' => $totalAmount,'id' => $bookingId]) }}";
+    }
+
     $(function() {
 
 
