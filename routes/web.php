@@ -186,4 +186,10 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::post('banners/store', [BannerController::class, 'store'])->name('banner.store');
     Route::get('banners/delete/{id}', [BannerController::class, 'delete'])->name('banner.delete');
     Route::get('banners/create', [BannerController::class, 'create'])->name('banner.create');
+
+    Route::get('/notifications/clear', function () {
+        session()->forget('notifications');
+        return redirect()->back()->with('success', 'Notifications cleared.');
+    })->name('notifications.clear');
+    
 });

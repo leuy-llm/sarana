@@ -110,25 +110,25 @@
     <div class="container mt-5" style="max-width: 600px;">
         <div class="card shadow-sm">
             <div class="card-body text-center">
-                {{-- @if (session('success'))
+                @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                        <span>! {{ session('success') }}</span>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                @endif --}}
+                @endif
 
                 @if (session('error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>! {{ session('error') }}</strong>
+                        <span>! {{ session('error') }}</span>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 @endif
                 <h1 class="display-4 text-success mb-4">{{ $data }}</h1>
-                <p class="lead text-muted">Thank you for your reservation. Your booking has been successfully.</p>
+                {{-- <p class="lead text-muted">Thank you for your reservation. Your booking has been successfully.</p> --}}
                 <hr class="my-4">
                 <div class="booking-details text-left mt-4">
                     <p><span>Booking ID:</span> #{{ $booking->id }}</p>
@@ -146,8 +146,7 @@
                             style="font-size: 1rem">{{ ucfirst($booking->status) }}</span></p>
                 </div>
                 <div class="flex-row justify-content-between d-flex align-items-between">
-                    <a href="{{ url('/') }}" class="btn mt-4 btn-primary btn-block" style="width: 200px">Return to
-                        Home</a>
+                    <a href="{{ url('/') }}" class="mt-4 " style="width: 200px">Back to Home</a>
                     <form action="{{ route('booking.cancel', $booking->id) }}" method="POST">
                         @csrf
                         @method('DELETE')

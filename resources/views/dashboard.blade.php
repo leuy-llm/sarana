@@ -34,7 +34,7 @@
 @include('layout.chart')
 <!-- end row-->
 
-<div class="row">
+{{-- <div class="row">
     <div class="col-xl-4 col-lg-12">
         <div class="card">
             <div class="card-body">
@@ -251,5 +251,38 @@
 
     </div>
     <!-- end col -->  
-</div>
+</div> --}}
+@endsection
+
+@section('script')
+<script>
+    var roomTypeData = @json($roomTypeBookings);
+
+    const roomTypes = roomTypeData.map(item => item.room_type);
+    const bookingsCount = roomTypeData.map(item => item.bookings_count);
+
+    var options = {
+        chart: {
+            height: 320,
+            type: 'pie',
+        },
+        series: bookingsCount,
+        labels: roomTypes,
+        colors: ['#727cf5', '#0acf97', '#fa5c7c', '#ffbc00'],
+        legend: {
+            position: 'bottom'
+        },
+        tooltip: {
+            y: {
+                formatter: function(value) {
+                    return value + " bookings";
+                }
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#room-type-chart"), options);
+    chart.render();
+</script>
+
 @endsection

@@ -154,33 +154,40 @@ class GuestController extends Controller
     //     return redirect()->back();
     // }
     public function register(Request $request)
-{
-    // Custom validation handling with error bag
-    try {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:guests',
-            'mobile' => 'required|numeric|unique:guests',
-            'address' => 'nullable|string|max:255',
-            'password' => 'required|string|min:8|confirmed',
+    {
+        // Custom validation handling with error bag
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:guests',
+                'mobile' => 'required|numeric|unique:guests',
+                'address' => 'nullable|string|max:255',
+                'password' => 'required|string|min:8|confirmed',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator, 'registerErrors')->withInput();
+        }
+
+        // Registration logic
+        $guest = Guest::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'address' => $request->address,
+            'password' => Hash::make($request->password),
         ]);
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        return redirect()->back()->withErrors($e->validator, 'registerErrors')->withInput();
+
+        auth()->guard('guest')->login($guest);
+
+        $notifications = session()->get('notifications', []);
+        $notifications[] = [
+            'type' => 'new_registration',
+            'message' => 'A new guest has registered: ' . $guest->name,
+            'time' => now()->format('Y-m-d H:i:s'),
+        ];
+        session(['notifications' => $notifications]);
+        return redirect()->back();
     }
-
-    // Registration logic
-    $guest = Guest::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'mobile' => $request->mobile,
-        'address' => $request->address,
-        'password' => Hash::make($request->password),
-    ]);
-
-    auth()->guard('guest')->login($guest);
-
-    return redirect()->back();
-}
 
 
     // public function login(Request $request)
@@ -203,7 +210,7 @@ class GuestController extends Controller
 
     public function login(Request $request)
     {
-       
+
         try {
             $credentials = $request->validate([
                 'email' => ['required', 'email'],
@@ -212,16 +219,14 @@ class GuestController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->validator, 'loginErrors')->withInput();
         }
-    
+
         if (Auth::guard('guest')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('reservation');
         }
-    
+
         // Login failed, return with an error message to loginErrors
         return redirect()->back()->withErrors(['login' => 'Invalid email or password.'], 'loginErrors')->withInput();
-
-        
     }
 
     public function logout()

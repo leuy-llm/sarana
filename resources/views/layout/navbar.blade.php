@@ -37,12 +37,17 @@
                 </a>
             </div>
         </li>
-
+        @php
+            // Retrieve notifications from the session
+            $notifications = session()->get('notifications', []);
+        @endphp
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
                 aria-haspopup="false" aria-expanded="false">
                 <i class="dripicons-bell noti-icon"></i>
-                <span class="noti-icon-badge font"></span>
+                @if (count($notifications) > 0)
+                    <span class="noti-icon-badge font">{{ count($notifications) }}</span>
+                @endif
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
 
@@ -50,8 +55,8 @@
                 <div class="dropdown-item noti-title">
                     <h5 class="m-0">
                         <span class="float-end">
-                            <a href="javascript: void(0);" class="text-dark">
-                                <small>Clear All</small>
+                            <a href="{{ route('notifications.clear') }}" class="text-dark">
+                                <small >Clear All</small>
                             </a>
                         </span>Notification
                     </h5>
@@ -59,17 +64,21 @@
 
                 <div style="max-height: 230px;" data-simplebar="">
                     <!-- item-->
+                    @forelse ($notifications as $notification)
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon bg-primary">
                             <i class="mdi mdi-comment-account-outline"></i>
                         </div>
-                        <p class="notify-details">Caleb Flakelar commented on Admin
-                            <small class="text-muted">1 min ago</small>
+                        <p class="notify-details">{{ $notification['message'] }}
+                            <small class="text-muted">{{ \Carbon\Carbon::parse($notification['time'])->diffForHumans() }}</small>
                         </p>
                     </a>
+                    @empty
+                        <p class="text-center text-muted">No new notifications</p>
+                    @endforelse
 
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon bg-info">
                             <i class="mdi mdi-account-plus"></i>
                         </div>
@@ -110,10 +119,10 @@
                         <p class="text-muted mb-0 user-msg">
                             <small>Wow ! this admin looks good and awesome design</small>
                         </p>
-                    </a>
+                    </a> --}}
 
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon bg-info">
                             <i class="mdi mdi-heart"></i>
                         </div>
@@ -121,7 +130,7 @@
                             <b>Admin</b>
                             <small class="text-muted">13 days ago</small>
                         </p>
-                    </a>
+                    </a> --}}
                 </div>
 
                 <!-- All-->

@@ -20,9 +20,10 @@
 
                 <h4 class="header-title mb-1">Campaigns</h4>
 
-                <div id="dash-campaigns-chart" class="apex-charts" data-colors="#ffbc00,#727cf5,#0acf97"></div>
+                {{-- <div id="dash-campaigns-chart" class="apex-charts" data-colors="#ffbc00,#727cf5,#0acf97"></div> --}}
+                <div id="room-type-chart" class="apex-charts" data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00"></div>
 
-                <div class="row text-center mt-2">
+                {{-- <div class="row text-center mt-2">
                     <div class="col-md-4">
                         <i class="mdi mdi-send widget-icon rounded-circle bg-light-lighten text-muted"></i>
                         <h3 class="fw-normal mt-3">
@@ -44,7 +45,7 @@
                         </h3>
                         <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> Opened</p>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <!-- end card body-->
         </div>
