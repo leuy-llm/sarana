@@ -4,8 +4,14 @@
         background-color: #6351ce;
         color: white;
     }
+    p{
+        font-family: "Poppins", sans-serif;
+    }
+    h6,span{
+        font-family: "Poppins", sans-serif;
+    }
 </style>
-<div class="w-full mt-5">
+<div class="w-full " style="margin-top: 150px">
     <footer class="text-center text-lg-start text-white" style="background-color: #1c2331">
         <section class="d-flex justify-content-between p-4" style="background-color: #6351ce">
             <div class="me-5">
@@ -30,9 +36,9 @@
             <div class="container text-center text-md-start mt-5">
                 <div class="row mt-3">
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold text-white">Products</h6>
-                        <hr class="mb-4 mt-0 d-inline-block mx-auto"
-                            style="width: 60px; background-color: #7c4dff; height: 2px" />
+                        {{-- <h6 class="text-uppercase fw-bold text-white">Products</h6> --}}
+                        {{-- <hr class="mb-4 mt-0 d-inline-block mx-auto"
+                            style="width: 60px; background-color: #7c4dff; height: 2px" /> --}}
                         @foreach ($settings as $data)
                             <img id="site-logo-{{ $data->id }}" src="{{ asset('storage/' . $data->site_logo) }}"
                                 alt="table-user" class="rounded me-3 "
@@ -40,7 +46,7 @@
                         @endforeach
                     </div>
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold text-white">Useful links</h6>
+                        <h6 class="text-uppercase fw-bold text-white" >Useful links</h6>
                         <hr class="mb-4 mt-0 d-inline-block mx-auto"
                             style="width: 60px; background-color: #7c4dff; height: 2px" />
                         <p>
@@ -65,8 +71,9 @@
                             style="width: 60px; background-color: #7c4dff; height: 2px" />
                         @foreach ($contact as $data)
                             <p class="text-white"><i class="fas fa-home mr-3 text-white"></i> {{ $data->address }}</p>
-                            <p class="text-white"><i class="fas fa-envelope mr-3 text-white"></i> {{ $data->email }}
+                            <p class="text-white">{{ $data->email }}
                             </p>
+                            {{-- <i class="fas fa-envelope mr-3 text-white"></i>  --}}
                             <p class="text-white"><i class="fas fa-phone mr-3 text-white"></i> {{ $data->pn1 }}</p>
                             <p class="text-white"><i class="fas fa-phone mr-3 text-white"></i> {{ $data->pn2 }}</p>
                             <p class="text-white"><i class="fas fa-phone mr-3 text-white"></i> {{ $data->pn3 }}</p>

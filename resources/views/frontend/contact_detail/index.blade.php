@@ -1,16 +1,20 @@
 @extends('layout.master')
 @section('content')
-    <section id="home" class="banner_wrapper p-0">
+    <section id="home" class="banner_wrapper p-0 ">
         <div class="overlay">
-            <img src="{{ asset('hotel') }}/image/room5.png" style="width: 100%; height: 90vh; object-fit: cover;"
-                alt="Banner Image">
+            @if ($banner)
+                <img src="{{ asset('storage/' . $banner->banner_image) }}"
+                    style="width: 100%; height: 90vh; object-fit: cover;" alt="Banner Image">
+            @else
+                <p>No banner found for this page.</p>
+            @endif
+
             <div class="img-overlay">
                 <h2>{{ $data }}</h2>
             </div>
         </div>
     </section>
-    <section id="contacts" class="contacts_wrapper">
-
+    <section id="contacts" class="contacts_wrapper mb-5">
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 section-title text-center mb-5">
@@ -23,15 +27,16 @@
                         @csrf
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                placeholder="YourName">
+                            <input type="text" required class="form-control @error('name') is-invalid @enderror"
+                                name="name" placeholder="YourName">
                             @error('name')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email">
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" required
+                                name="email" placeholder="Email">
                             @error('email')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
@@ -68,134 +73,20 @@
                                 <a href="{{ $data->tele }}"><i class="fab fa-telegram"></i></a>
                                 <a href="{{ $data->tripa }}"><i class="fas fa-envelope"></i></a>
                             </div>
-                        @endforeach
+
                     </div>
                 </div>
             </div>
-            <div class="map mt-5">
-                <iframe src="{{ $data->iframe }}" height="470" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
         </div>
     </section>
+    <div class="map w-full mb-3 mx-auto" style="margin-bottom: 50px">
+        <iframe src="{{ $data->iframe }}" height="500px" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    @endforeach
     @include('auth.register')
-    @include('auth.logins')
 @endsection
 
 @section('script')
-    <script>
-         // Functions for notifications
-         function showSuccessNotification(message) {
-            toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": true,
-                "positionClass": "toast-top-right",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "4000",
-                "hideDuration": "2000",
-                "timeOut": "5000",
-                "extendedTimeOut": "4000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut",
-                "toastClass": "custom-toast1 custom-toast-success"
-            };
-
-            toastr.success(message);
-        }
-
-        function showErrorNotification(message) {
-            toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": true,
-                "positionClass": "toast-top-right",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "3000",
-                "hideDuration": "3000",
-                "timeOut": "7000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut",
-                "toastClass": "custom-toast1 custom-toast-error"
-            };
-
-            toastr.error(message);
-        }
-
-        ! function(i) {
-            "use strict";
-            i("#toastr-one").on("click", function(t) {
-                i.NotificationApp.send("Heads up!",
-                    "This alert needs your attention, but it is not super important.", "top-right",
-                    "rgba(0,0,0,0.2)", "info");
-            });
-
-            // Custom function to show success notification
-            function showSuccess(message) {
-                toastr.options = {
-                    "closeButton": true,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": true,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "4000", // Increase duration for slow show
-                    "hideDuration": "2000", // Increase duration for slow hide
-                    "timeOut": "5000",
-                    "extendedTimeOut": "4000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut",
-                    "toastClass": "custom-toast"
-                }
-
-                toastr.success(message);
-            }
-
-            function showError(message) {
-                toastr.options = {
-                    "closeButton": true,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": true,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "3000", // Slow fade in
-                    "hideDuration": "3000", // Slow fade out
-                    "timeOut": "7000", // Time before the notification disappears
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut",
-                    "toastClass": "custom-toast"
-                }
-
-                toastr.error(message);
-            }
-
-            // Check for session success message and display it
-            @if (session('success'))
-                showSuccess('{{ session('success') }}');
-            @endif
-
-            // Check for session error message and display it
-            @if (session('error'))
-                showError('{{ session('error') }}');
-            @endif
-        }
-        (window.jQuery);
-    </script>
+    <script></script>
 @endsection

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Room extends Model
 {
-    protected $fillable = ['room_type_id', 'room_number', 'floor', 'status', 'description', 'price'];
+    protected $fillable = ['room_type_id', 'room_number', 'floor', 'status', 'description', 'price','is_deleted','max_person'];
     use HasFactory;
     public function images()
     {

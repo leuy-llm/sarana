@@ -69,4 +69,5 @@
         <img src="{{ asset('hotel') }}/image/couple.png" alt="Welcome to Sinaka Angkor Hotel" class="welcome-image"
             style="z-index: 999;">
     </div>
+    
 @endsection

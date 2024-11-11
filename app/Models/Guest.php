@@ -36,27 +36,56 @@ class Guest extends Authenticatable
     }
 
 
-    static public function getGuest()
-    {
-        $return = self::select('guests.*')
-            ->where('is_deleted', '=', 0);
+    // static public function getGuest()
+    // {
+    //     $return = self::select('guests.*')
+    //         ->where('is_deleted', '=', 0);
 
-        if (!empty(Request::get('mobile'))) {
-            $return = $return->where('mobile', 'like', '%' . Request::get('mobile') . '%');
-        }
+    //     if (!empty(Request::get('mobile'))) {
+    //         $return = $return->where('mobile', 'like', '%' . Request::get('mobile') . '%');
+    //     }
 
-        if (!empty(Request::get('name'))) {
-            $return = $return->where('name', 'like', '%' . Request::get('name') . '%');
-        }
+    //     if (!empty(Request::get('name'))) {
+    //         $return = $return->where('name', 'like', '%' . Request::get('name') . '%');
+    //     }
 
-        if (!empty(Request::get('email'))) {
-            $return = $return->where('email', 'like', '%' . Request::get('email') . '%');
-        }
-        if (!empty(Request::get('date'))) {
-            $return = $return->whereDate('created_at', '=', Request::get('date'));
-        }
-        $return = $return->orderBy('id', 'desc')
-            ->get();
-        return $return;
+    //     if (!empty(Request::get('email'))) {
+    //         $return = $return->where('email', 'like', '%' . Request::get('email') . '%');
+    //     }
+    //     if (!empty(Request::get('date'))) {
+    //         $return = $return->whereDate('created_at', '=', Request::get('date'));
+    //     }
+    //     $return = $return->orderBy('id', 'desc')
+    //         ->get();
+    //     return $return;
+    // }
+    static public function getGuest($additionalFilters = null)
+{
+    $query = self::select('guests.*')
+        ->where('is_deleted', '=', 0);
+
+    if (!empty(Request::get('mobile'))) {
+        $query = $query->where('mobile', 'like', '%' . Request::get('mobile') . '%');
     }
+
+    if (!empty(Request::get('name'))) {
+        $query = $query->where('name', 'like', '%' . Request::get('name') . '%');
+    }
+
+    if (!empty(Request::get('email'))) {
+        $query = $query->where('email', 'like', '%' . Request::get('email') . '%');
+    }
+
+    if (!empty(Request::get('date'))) {
+        $query = $query->whereDate('created_at', '=', Request::get('date'));
+    }
+
+    // Apply additional filters if provided
+    if ($additionalFilters) {
+        $query = $query->where($additionalFilters);
+    }
+
+    return $query->orderBy('id', 'desc')->get();
+}
+
 }

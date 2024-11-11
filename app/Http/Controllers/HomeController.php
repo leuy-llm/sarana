@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Booking;
 use App\Models\Room;
 use App\Models\Facility;
@@ -38,19 +39,29 @@ public function contact()
     $data = "Contact";
     $settings = DB::table('settings')->get();
     $contact = DB::table('contact_details')->get();
-   // Fetch only the specific room types you want to display
-   $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room','Family 3 bedroom','Trip Room','King Room'])->get();
+    $banner = Banner::where('page_name', 'contact_details')->first();
+    
+    // Debug output to check banner data
+    if (!$banner) {
+        dd('No banner found for contact page.');
+    }
+    
+    // Fetch only the specific room types you want to display
+    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
 
-    return view('frontend.contact_detail.index', compact('data', 'contact', 'settings', 'roomTypes'));
+    return view('frontend.contact_detail.index', compact('data', 'banner', 'contact', 'settings', 'roomTypes'));
 }
+
 
 public function reservation(){
 
     $data = "Reservation";
     $settings = DB::table('settings')->get();
+    $banner = Banner::where('page_name', 'booking')->first();
+    $contact = DB::table('contact_details')->get();
     $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room','Family 3 bedroom','Trip Room','King Room'])->get();
 
-    return view('frontend.booking.index', compact('data', 'settings','roomTypes'));
+    return view('frontend.booking.index', compact('data','banner','contact','settings','roomTypes'));
 }
 
 
@@ -72,13 +83,13 @@ public function roomDetail($id, $type_name)
     $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room','Family 3 bedroom','Trip Room','King Room'])->get();
     // Fetch the room by ID
     $rooms = Room::with('roomType', 'images', 'facilities')->findOrFail($id);
-    
+    $contact = DB::table('contact_details')->get();
     // Optionally check if the slug matches the room type name (optional for better user experience)
     if (Str::slug($rooms->roomType->type_name) !== $type_name) {
         return redirect()->route('roomDetail', ['id' => $id, 'type_name' => Str::slug($rooms->roomType->type_name)]);
     }
     
-    return view('frontend.room_detail.index', compact('rooms', 'settings', 'data','roomTypes'));
+    return view('frontend.room_detail.index', compact('rooms','contact','settings', 'data','roomTypes'));
 }
 
 // public function create(Request $request)

@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Carousel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoomController;
@@ -83,6 +84,8 @@ Route::get('/guest/logout', [GuestController::class, 'logout'])->name('guest.log
 //  Route::get('/admin', function () {
 //      return view('dashboard');
 //  });
+
+Route::post('queries/store', [UserQueryController::class, 'store'])->name('queries.store');
 /* ================== Back End Route ==================== */
 Route::group(['middleware' => ['isAdmin']], function () {
     /*=================== RoomType ========================== */
@@ -174,7 +177,13 @@ Route::group(['middleware' => ['isAdmin']], function () {
     /*================= User Query =================== */
     Route::get('queries', [UserQueryController::class, 'query'])->name('queries.index');
     // Route::get('queries/create',[UserQueryController::class,'create'])->name('queries.create');
-    Route::post('queries/store', [UserQueryController::class, 'store'])->name('queries.store');
+
     Route::get('queries/delete/{id}', [UserQueryController::class, 'delete'])->name('queries.delete');
     Route::put('queries/{id}/mark-as-read', [UserQueryController::class, 'markAsRead'])->name('queries.markAsRead');
+
+
+    Route::get('banners', [BannerController::class, 'banner'])->name('banner.index');
+    Route::post('banners/store', [BannerController::class, 'store'])->name('banner.store');
+    Route::get('banners/delete/{id}', [BannerController::class, 'delete'])->name('banner.delete');
+    Route::get('banners/create', [BannerController::class, 'create'])->name('banner.create');
 });

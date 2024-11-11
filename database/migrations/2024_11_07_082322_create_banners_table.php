@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('user_queries', function (Blueprint $table) {
-            //
-            $table->tinyInteger('seen')->default(0); // Creates a TINYINT column for seen with a default value of 0
+        Schema::create('banners', function (Blueprint $table) {
+            $table->id();
+            $table->string('page_name'); // E.g., 'rooms', 'gallery', 'contact', 'booking'
+            $table->string('banner_image'); // Banner image URL
+            $table->timestamps();
         });
     }
 
@@ -22,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('user_queries', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('banners');
     }
 };

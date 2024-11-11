@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Booking;
 use App\Models\Guest;
 use App\Models\Room;
@@ -17,9 +18,10 @@ class ReservationController extends Controller
         $data = "Reservation";
         $bookingId = Booking::latest()->first()->id ?? null; // Example of retrieving the latest booking ID
         $settings = DB::table('settings')->get();
+        $banner = Banner::where('page_name', 'booking')->first();
         $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
-
-        return view('frontend.booking.index', compact('data', 'settings', 'roomTypes', 'bookingId'));
+        $contact = DB::table('contact_details')->get();
+        return view('frontend.booking.index', compact('data', 'contact', 'banner', 'settings', 'roomTypes', 'bookingId'));
     }
 
     // public function store(Request $request)
@@ -342,6 +344,14 @@ class ReservationController extends Controller
 
         $roomPrice = $room->price;             // Get room price
         $roomTypeName = $room->roomType->type_name; // Get room type name from related RoomType
+
+        // Calculate total guests (adults + children)
+        $totalGuests = $request->input('total_adults') + $request->input('total_children', 0);
+
+        // Check if the total number of guests exceeds the room's max capacity
+        if ($totalGuests > $room->max_person) {
+            return redirect()->back()->withErrors(['message' => 'The selected room cannot accommodate more than ' . $room->max_person . ' people.']);
+        }
         $checkInDate = new \Carbon\Carbon($request->input('check_in_date'));
         $checkOutDate = new \Carbon\Carbon($request->input('check_out_date'));
         $numDays = $checkInDate->diffInDays($checkOutDate);
@@ -365,7 +375,7 @@ class ReservationController extends Controller
             'totalAmount' => $totalAmount,
             'roomType' => $roomTypeName,
             'roomPrice' => $roomPrice
-        ])->with('success', 'Your reservation has been made');
+        ])->with('success', 'Your reservation has been made successfully!');
     }
 
     // public function skipPayment( Request $request, $totalAmount,$id, $roomPrice)
@@ -395,38 +405,71 @@ class ReservationController extends Controller
         $totalAmount = $request->query('totalAmount', 0);
         $roomType = $request->query('roomType', 'Standard');
         $roomPrice = $request->query('roomPrice', 0);
-
+        $contact = DB::table('contact_details')->get();
         // Check if the user is authenticated
         $guest = auth()->guard('guest')->user();
 
-        return view('frontend.booking.success', compact('booking', 'data', 'settings', 'roomTypes', 'totalAmount', 'roomType', 'roomPrice', 'guest'));
+        return view('frontend.booking.success', compact('booking', 'contact', 'data', 'settings', 'roomTypes', 'totalAmount', 'roomType', 'roomPrice', 'guest'));
     }
 
     // BookingController.php
 
+    // public function cancelBooking($id)
+    // {
+    //     // Find the booking by ID
+    //     $booking = Booking::find($id);
+
+    //     if ($booking) {
+    //         // Update the status of the booking to 'cancelled'
+    //         if ($booking->check_in_date <= now()->addDay()) {
+    //             return redirect()->back()->with('error', 'You cannot cancel a booking within 24 hours of check-in.');
+    //         }
+    //         $booking->status = 'cancelled';
+    //         $booking->save();
+    //         // Update the room status back to 'available'
+    //         $room = Room::find($booking->room_id);
+    //         $room->save();
+
+    //         // Optionally, add a flash message to notify the guest
+    //         return redirect()->route('homepage')->with('success', 'Your booking has been successfully cancelled.');
+    //     } else {
+    //         // If no booking is found, redirect back with an error message
+    //         return redirect()->back()->with('error', 'Booking not found or already cancelled.');
+    //     }
+    // }
+
     public function cancelBooking($id)
-    {
-        // Find the booking by ID
-        $booking = Booking::find($id);
+{
+    // Find the booking by ID
+    $booking = Booking::find($id);
 
-        if ($booking) {
-            // Update the status of the booking to 'cancelled'
-            if ($booking->check_in_date <= now()->addDay()) {
-                return redirect()->back()->with('error', 'You cannot cancel a booking within 24 hours of check-in.');
-            }
-            $booking->status = 'cancelled';
-            $booking->save();
-            // Update the room status back to 'available'
-            $room = Room::find($booking->room_id);
-            $room->save();
+    if ($booking) {
+        // Ensure the check_in_date is a valid Carbon instance
+        $checkInDate = \Carbon\Carbon::parse($booking->check_in_date);
 
-            // Optionally, add a flash message to notify the guest
-            return redirect()->route('homepage')->with('success', 'Your booking has been successfully cancelled.');
-        } else {
-            // If no booking is found, redirect back with an error message
-            return redirect()->back()->with('error', 'Booking not found or already cancelled.');
+        // Check if the cancellation is attempted within 24 hours of check-in
+        if ($checkInDate->lessThanOrEqualTo(now()->addDay())) {
+            // Return an error message if the cancellation is within 24 hours
+            return redirect()->back()->with('error', 'You cannot cancel a booking within 24 hours of check-in.');
         }
+
+        // Update the status of the booking to 'cancelled'
+        $booking->status = 'cancelled';
+        $booking->save();
+
+        // Update the room status back to 'available'
+        $room = Room::find($booking->room_id);
+        $room->status = 'available'; // Ensure this field is updated to 'available'
+        $room->save();
+
+        // Add a success flash message and redirect to homepage
+        return redirect()->route('homepage')->with('success', 'Your booking has been successfully cancelled.');
+    } else {
+        // If no booking is found, return an error message
+        return redirect()->back()->with('error', 'Booking not found or already cancelled.');
     }
+}
+
     // BookingController.php
 
     // public function cancelBooking($id)

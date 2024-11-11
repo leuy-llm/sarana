@@ -169,7 +169,7 @@
                                     <th>@lang('label.description')</th>
                                     <th>@lang('label.price')</th>
                                     <th>@lang('label.date')</th>
-                                    <th>@lang('label.status')</th>
+                                    <th>@lang('label.maxPerson')</th>
                                     <th style="width: 75px;">@lang('label.action')</th><!--style="width: 75px;"-->
                                 </tr>
                             </thead>
@@ -211,13 +211,14 @@
                                             {{ date('d-m-Y H:i A', strtotime($room->created_at)) }}
                                         </td>
                                         <td>
-                                            @if ($room->status == 'Available')
+                                            {{-- @if ($room->status == 'Available')
                                                 <span class="badge badge-success-lighten">{{ $room->status }}</span>
                                             @elseif ($room->status == 'Booked')
                                                 <span class="badge badge-danger-lighten">{{ $room->status }}</span>
                                             @elseif ($room->status == 'Maintenance')
                                                 <span class="badge badge-warning-lighten">{{ $room->status }}</span>
-                                            @endif
+                                            @endif --}}
+                                            {{ $room->max_person }}
                                         </td>
                                         <td class="table-action">
                                             <a href="{{ route('rooms.show', $room->id) }}" class="action-icon"> <i

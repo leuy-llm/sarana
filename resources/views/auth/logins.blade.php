@@ -23,15 +23,21 @@
     .modal-body .bottom {
         margin-bottom: -0.5rem;
     }
-    .btn{
+
+    .btn {
+        font-family: "Coda", system-ui;
+    }
+
+    .invalid-feedback {
+        margin-top: -1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .alert-danger{
         font-family: "Coda", system-ui;
         }
-        .invalid-feedback{
-            margin-top: -1rem;
-            margin-bottom: 1rem;
-        }
 </style>
-<div class="modal fade custom-modal @if ($errors->any()) show @endif" style="z-index: 9999" id="loginModal" 
+<div class="modal fade custom-modal @if ($errors->any()) show @endif" style="z-index: 9999" id="loginModal"
     tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false"
     @if ($errors->any()) style="display: block" @endif>
     <div class="modal-dialog modal-dialog-centered">
@@ -48,25 +54,39 @@
             </div>
             <div class="modal-body">
                 <!-- Registration Form -->
-                <form id="guestRegisterForm" method="POST" action="{{ route('guest.login') }}">
+                @if ($errors->loginErrors->has('login'))
+                    <div class="alert text-center alert-danger">
+                        {{ $errors->loginErrors->first('login') }}
+                    </div>
+                @endif
+                <form method="POST" action="{{ route('guest.login') }}">
                     @csrf
-                    <div class="bottom" >
+                    <div class="bottom">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email"  class="form-control @error('email') is-invalid @enderror " id="email"
+                        <input type="email" class="form-control @error('email', 'loginErrors') is-invalid @enderror"
                             name="email" required>
-                        @error('email')
+                        @error('email', 'loginErrors')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-                   
+
                     <div class="bottom">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror " id="password" name="password" required>
-                        @error('password')
+                        <div class="input-group">
+                            <input type="password" class="form-control @error('password', 'loginErrors') is-invalid @enderror" name="password" id="password" required>
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                                    <i class="fas fa-eye" id="eyeIcon"></i>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        @error('password', 'loginErrors')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-                    <button type="submit" class="btn mt-2 btn-primary">Login</button>
+
+                    <button type="submit" id="loginButton" class="btn mt-2 btn-primary">Login</button>
                 </form>
             </div>
         </div>
@@ -74,13 +94,21 @@
 </div>
 <script>
     // JavaScript to trigger modal reopening when there are validation errors
-    @if ($errors->any())
-        $(document).ready(function() {
+    // @if ($errors->any())
+    //     $(document).ready(function() {
+    //         $('#loginModal').modal('show');
+    //     });
+    // @endif
+
+    $(document).ready(function() {
+        // Show the registration modal if there are errors in the register form
+        @if ($errors->registerErrors->any())
+            $('#registerModal').modal('show');
+        @endif
+
+        // Show the login modal if there are errors in the login form
+        @if ($errors->loginErrors->any())
             $('#loginModal').modal('show');
-        });
-    @endif
-
-    
-
-    
+        @endif
+    });
 </script>

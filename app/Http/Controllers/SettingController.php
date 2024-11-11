@@ -21,6 +21,8 @@ class SettingController extends Controller
         return view('back_end.general_setting.index', compact('header_title', 'settings', 'abouts','contacts'));
     }
 
+    
+
     public function create()
     {
         $header_title = "New RoomType";

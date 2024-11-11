@@ -110,14 +110,14 @@
     <div class="container mt-5" style="max-width: 600px;">
         <div class="card shadow-sm">
             <div class="card-body text-center">
-                @if (session('success'))
+                {{-- @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Holy guacamole!</strong> You should check in on some of those fields below.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                @endif
+                @endif --}}
 
                 @if (session('error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -153,9 +153,23 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-booking btn-block mt-4">Cancel Booking</button>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        @if (session('success'))
+            toastr.success('{{ session('success') }}');
+        @endif
+
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error('{{ $error }}');
+            @endforeach
+        @endif
+    </script>
 @endsection

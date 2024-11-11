@@ -146,7 +146,7 @@
                             <a href="{{url('settings')}}">Settings</a>
                         </li>
                         <li>
-                            <a href="pages-pricing.html">Pricing</a>
+                            <a href="{{url('banners')}}">Page Banner</a>
                         </li>
                         <li>
                             <a href="pages-maintenance.html">Maintenance</a>

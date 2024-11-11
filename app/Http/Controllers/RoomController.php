@@ -42,7 +42,10 @@ class RoomController extends Controller
                 'status' => 'nullable|in:Available,Booked,Maintenance',
                 'description' => 'nullable|string',
                 'price' => 'nullable|numeric',
-                'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate each image
+                'images.*' => 'required|image|mimes:jpeg,png,jpg,gif', // Validate each image
+                'facilities' => 'nullable|array', // Validate facilities as an array
+                'facilities.*' => 'exists:facilities,id', // Validate each facility ID exists
+                'max_person' => 'nullable|integer',
             ]);
 
             DB::transaction(function () use ($request) {
@@ -54,6 +57,7 @@ class RoomController extends Controller
                     'status' => $request->input('status', 'Available'),
                     'description' => $request->input('description'),
                     'price' => $request->input('price'),
+                    'max_person' => $request->input('max_person'),
                 ]);
 
                 // Step 2: Handle file uploads and associate images with the room
@@ -102,6 +106,7 @@ class RoomController extends Controller
                 'remove_images.*' => 'nullable|exists:room_images,id', // Validate image IDs to be removed
                 'facilities' => 'nullable|array', // Validate facilities as an array
                 'facilities.*' => 'exists:facilities,id', // Validate each facility ID exists
+                'max_person' => 'nullable|integer',
             ]);
 
             DB::transaction(function () use ($request, $id) {
@@ -116,6 +121,7 @@ class RoomController extends Controller
                     'status' => $request->input('status', 'Available'),
                     'description' => $request->input('description'),
                     'price' => $request->input('price'),
+                    'max_person' => $request->input('max_person'),
                 ]);
 
                 // Step 3: Update room facilities

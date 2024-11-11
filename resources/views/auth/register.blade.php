@@ -36,9 +36,19 @@
             justify-content: space-between
         }
 </style>
-<div class="modal fade custom-modal @if ($errors->any()) show @endif" id="registerModal"
+<div class="modal fade custom-modal @if ($errors->any()) show @endif" id="registerModal" style="z-index: 9999"
     tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false"
     @if ($errors->any()) style="display: block" @endif>
+    {{-- <div id="modal-loading-spinner" class="" style="position: absolute; top: 50%; left: 50%; z-index: 10000; transform: translate(-50%, -50%); display: none;">
+        <div class="spinner-border text-danger" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div> --}}
+    {{-- <div id="loading" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div> --}}
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center" style="background:#661f1f; text-align: center">
@@ -53,50 +63,55 @@
                     @csrf
                     <div class="bottom">
                         <label for="name" class="form-label">Full Name</label>
-                        <input type="text" value="{{old('name')}}" class="form-control id="name"
-                            name="name" required>
+                        <input type="text" value="{{ old('name') }}" class="form-control @error('name', 'registerErrors') is-invalid @enderror" id="name" name="name" required>
+                        @error('name', 'registerErrors')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
                     </div>
-                    <div class="bottom" >
+                    
+                    <div class="bottom">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email"  class="form-control @error('email') is-invalid @enderror " id="email"
-                            name="email" required>
-                        @error('email')
+                        <input type="email" value="{{ old('email') }}" class="form-control @error('email', 'registerErrors') is-invalid @enderror" id="email" name="email" required>
+                        @error('email', 'registerErrors')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="bottom" >
+                    
+                    <div class="bottom">
                         <label for="mobile" class="form-label">Mobile</label>
-                        <input type="number"  class="form-control @error('mobile') is-invalid @enderror " id="mobile"
-                            name="mobile" required>
-                        @error('mobile')
+                        <input type="number" value="{{ old('mobile') }}" class="form-control @error('mobile', 'registerErrors') is-invalid @enderror" id="mobile" name="mobile" required>
+                        @error('mobile', 'registerErrors')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
+                    
+                    <!-- Repeat similar structure for other fields in the registration form -->
+                    
                     <div class="bottom">
                         <label for="address" style="" class="form-label">Address</label>
-                        <input type="text" value="{{old('address')}}" class="form-control @error('address') is-invalid @enderror "
+                        <input type="text" value="{{old('address')}}" class="form-control @error('address', 'registerErrors') is-invalid @enderror"
                             id="address" name="address">
-                        @error('address')
-                            <span class="invalid-feedback">{{ $message }}</span>
-                        @enderror
+                            @error('address', 'registerErrors')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
                     </div>
                     <div class="bottom">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror " id="password" name="password" required>
-                        @error('password')
+                        <input type="password" class="form-control @error('password', 'registerErrors') is-invalid @enderror" id="password" name="password" required>
+                        @error('password', 'registerErrors')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="bottom">
                         <label for="password_confirmation" class="form-label">Confirm Password</label>
-                        <input type="password"  class="form-control  @error('password_confirmation') is-invalid @enderror " id="password_confirmation"
+                        <input type="password"  class="form-control  @error('password_confirmation','registerErrors') is-invalid @enderror " id="password_confirmation"
                             name="password_confirmation" required>
-                            @error('password_confirmation')
+                            @error('password_confirmation', 'registerErrors')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                     </div>
                     <div class="form-row">
-                        <button type="submit" class="btn btn-primary">Register</button>
+                        <button type="submit" id="registerButton" class="btn btn-primary">Register</button>
                         <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" >Do you already have an account?</a>
                     </div>
                 </form>
@@ -107,9 +122,20 @@
 @include('auth.logins')
 <script>
     // JavaScript to trigger modal reopening when there are validation errors
-    @if ($errors->any())
-        $(document).ready(function() {
+    $(document).ready(function() {
+        // Show the registration modal if there are errors in the register form
+        @if ($errors->registerErrors->any())
             $('#registerModal').modal('show');
-        });
-    @endif
+        @endif
+
+        // Show the login modal if there are errors in the login form
+        @if ($errors->loginErrors->any())
+            $('#loginModal').modal('show');
+        @endif
+    });
+
+    
+
+    
+
 </script>

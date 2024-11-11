@@ -197,9 +197,7 @@
                                                 <span class="badge badge-warning-lighten">{{ $booking->status }}</span>
                                             @endif
                                         </td>
-                                        <td>
-                                            {{ $booking->payment_status }}
-                                        </td>
+                                    
                                         <td class="table-action">
                                             <a href="{{ route('rooms.show', $booking->id) }}" class="action-icon"> <i
                                                     class="mdi mdi-eye"></i></a>

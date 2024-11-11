@@ -225,6 +225,7 @@
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.permission.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.role.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.userquery.js"></script>
+        <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.banner.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.users.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.bookings.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.facilitys.js"></script>

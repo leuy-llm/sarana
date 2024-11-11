@@ -7,20 +7,22 @@
     </div>
     <div class="row">
         @foreach ($rooms as $data)
-            <div class="col-md-6 col-sm-12 col-xl-4  mb-md-4 mb-sm-2 ">
+            <div class="col-md-6 col-sm-12 col-xl-4 mb-md-4 mb-sm-2 mb-3">
                 <div class="room-items">
                     @if ($data->images->isNotEmpty())
                         <img src="{{ asset('storage/' . $data->images->first()->image) }}" alt=""
-                            class="img-fluid " style="height: 310px;">
+                            class="img-fluid " style="height: 330px;">
                     @else
                         <img src="{{ asset('default-image.jpg') }}" alt="" class="me-2 img-fluid">
                     @endif
                     <div class="room-item-wrap">
                         <div class="room-content">
-                            <h5 class="text-white mb-lg-3 text-decoration-underline">{{ $data->roomType->type_name }}
-                            </h5>
+                            <h5 class="text-white mb-lg-3 text-decoration-underline">{{ $data->roomType->type_name }}</h5>
                             <p class="text-white"> {{ Str::limit($data->description, 200) }}</p>
-                            <p class="text-white font-bold mt-lg-4">{{ $data->price }} / Per Night</p>
+                            <div class="" style="display: flex; align-items: center;">
+                                <p class="text-white font-bold ">${{ $data->price }} / Per Night</p>
+                                <p class="text-white ml-lg-2">Max {{$data->max_person}} Persons</p>
+                            </div>
                             <a href="{{ route('roomDetail', ['id' => $data->id, 'type_name' => Str::slug($data->roomType->type_name)]) }}" class="main-btn border-white text-white">Read More</a>
                         </div>
                     </div>

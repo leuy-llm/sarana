@@ -10,6 +10,8 @@ class UserQuery extends Model
 
     use HasFactory;
 
+
+
     static public function getUserQuery()
     {
         $return  = self::select('user_queries.*')

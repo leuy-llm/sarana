@@ -5,18 +5,30 @@
         <div class="page-title-box">
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                    <li class="breadcrumb-item active">CRM</li>
+                    {{-- <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li> --}}
+                    <li class="breadcrumb-item active">
+                        {{-- <form method="GET" id="timeRangeForm">
+                            <select name="time_range" class="form-select" onchange="document.getElementById('timeRangeForm').submit()">
+                                <option value="30" {{ request('time_range') == '30' ? 'selected' : '' }}>Past 30 Days</option>
+                                <option value="90" {{ request('time_range') == '90' ? 'selected' : '' }}>Past 90 Days</option>
+                                <option value="365" {{ request('time_range') == '365' ? 'selected' : '' }}>Past 1 Year</option>
+                                <option value="all" {{ request('time_range') == 'all' ? 'selected' : '' }}>All Time</option>
+                            </select>
+                        </form> --}}
+                        
+                    </li>
                 </ol>
             </div>
-            <h4 class="page-title">CRM</h4>
+            <h4 class="page-title">Dashboard</h4>
         </div>
     </div>
 </div>     
+
+
 <!-- end page title --> 
 
 @include('layout.total_all')
+
 
 <!-- end row -->
 @include('layout.chart')

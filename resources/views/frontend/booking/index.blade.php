@@ -40,7 +40,7 @@
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-        .modal-content {
+        /* .modal-content {
             -webkit-border-radius: 0;
             -webkit-background-clip: padding-box;
             -moz-border-radius: 0;
@@ -87,8 +87,8 @@
             padding: 15px 0 8px;
         }
 
-        .modal-message .modal-header .fa,
-        .modal-message .modal-header .glyphicon,
+        .modal-message .modal-header .fa, */
+        /* .modal-message .modal-header .glyphicon,
         .modal-message .modal-header .typcn,
         .modal-message .modal-header .wi {
             font-size: 30px;
@@ -129,14 +129,15 @@
         .modal-message.modal-warning .modal-header {
             color: #f4b400;
             border-bottom: 3px solid #ffce5 5;
-        }
+        } */
     </style>
 @endsection
 @section('content')
     <section id="home" class="banner_wrapper p-0">
         <div class="overlay">
-            <img src="{{ asset('hotel') }}/image/room5.png" style="width: 100%; height: 90vh; object-fit: cover;"
-                alt="Banner Image">
+            @if (isset($banner) && $banner)
+                <img src="{{ asset('storage/' . $banner->banner_image) }}" style="width: 100%; height: 90vh; object-fit: cover;" alt="Banner Image">
+            @endif
             <div class="img-overlay">
                 <h2>{{ $data }}</h2>
             </div>
@@ -144,12 +145,12 @@
     </section>
     <section id="gallery" class="gallery_wrapper" style="margin-top: 60px;">
         <div class="container">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-md-5">
+            <div class="row ">
+                <div class="col-md-6">
                     <img src="https://images.pexels.com/photos/10973940/pexels-photo-10973940.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                         class="img-fluid" style="height: 535px; object-fit: cover; border-radius: 3px;" alt="Room Image">
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-6">
 
                     <h3 class="reservation-title text-center">Make Your Reservation</h3>
                     @if (session('success'))
@@ -210,6 +211,7 @@
                                     <option value="1" selected>1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
+                                    <option value="3">4</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-4">
@@ -218,6 +220,8 @@
                                     <option value="0" selected>0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
+                                    <option value="2">3</option>
+                                    <option value="2">4</option>
                                 </select>
                             </div>
                         </div>
@@ -334,6 +338,15 @@
 </script> --}}
 
     <script>
+        @if (session('success'))
+        toastr.success('{{ session('success') }}');
+    @endif
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            toastr.error('{{ $error }}');
+        @endforeach
+    @endif
         var checkInDateInput = document.getElementById('checkIn');
         var checkOutDateInput = document.getElementById('checkOut');
         document.addEventListener('DOMContentLoaded', function() {
@@ -456,6 +469,7 @@
                 });
             }
         });
+        
 
         // Handle 'Proceed to Payment' click event
         // document.getElementById('payment-button').addEventListener('click', function(event) {

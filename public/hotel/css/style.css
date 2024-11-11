@@ -1292,10 +1292,6 @@ p {
       opacity: 1;
   }
 }
-
-
-
-
 /* Slide Up Animation for Image */
 @keyframes slideUp {
   from {
@@ -1343,6 +1339,38 @@ p {
 html {
   scroll-behavior: smooth; /* Smooth scroll behavior */
 }
+#loading {
+  position: fixed;
+  z-index: 1000;
+  height: 100%;
+  width: 100%;
+  overflow: visible;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.616); /* Optional background */
+}
+
+#loading .spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.3rem;
+  border-color: red; /* Set the spinner border color to red */
+  border-right-color: transparent !important; /* Create the spinner effect */
+  animation: spinner-border 0.75s linear infinite; /* Ensure the spinner animation runs smoothly */
+}
+
+/* Custom spinner animation */
+@keyframes spinner-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
 
 
 

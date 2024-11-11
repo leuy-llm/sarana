@@ -34,6 +34,7 @@
         .upload-box:hover {
             border-color: #999;
         }
+
         /* Style the gallery container */
         #lightgallery {
             display: flex;
@@ -41,7 +42,8 @@
             justify-content: center;
             gap: 20px;
         }
-        #image-gallery{
+
+        #image-gallery {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -49,17 +51,20 @@
             column-gap: 1rem;
             width: 100%;
         }
-        #image-gallery img{
+
+        #image-gallery img {
             max-width: 1;
             width: 100%;
             display: block;
             height: 250px;
             cursor: pointer;
         }
+
         /* Style individual gallery items */
         #lightgallery a {
             display: block;
-            width: 200px; /* Adjust the width as needed */
+            width: 200px;
+            /* Adjust the width as needed */
             height: auto;
             margin: 10px;
         }
@@ -69,15 +74,16 @@
             width: 100%;
             height: auto;
             display: block;
-            
+
         }
-        
+
         /* Custom styles for LightGallery */
         .lg-outer .lg-thumb-outer {
             position: fixed;
             bottom: 0;
             width: 100%;
         }
+
         .lg-outer .lg-thumb-outer .lg-thumb {
             display: flex;
             justify-content: center;
@@ -158,6 +164,18 @@
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.maxPerson') <span class="text-danger">*</span></label>
+                                    <input type="number" value="{{ old('max_person') }}" name="max_person"
+                                        class="form-control  @error('max_person') is-invalid @enderror "
+                                        placeholder="@lang('label.enterPrice') . . ." required="">
+                                    @error('max_person')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
@@ -171,26 +189,32 @@
                                     @enderror
                                 </div>
                             </div>
-                            
+
+
+
                             <div class="col-md-6">
                                 <div class="mb-2">
                                     <label class="form-label">@lang('label.description') <span class="text-danger"></span></label>
-                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" placeholder="@lang('label.enterDescription') . . ."></textarea>
+                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror"
+                                        placeholder="@lang('label.enterDescription') . . ."></textarea>
                                     @error('description')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.facilities') <span class="text-danger">*</span></label>
                                     <div class="">
                                         @foreach ($facilities as $facility)
-                                        <div class="form-check form-check-inline">
-                                            <input type="checkbox" name="facilities[]" id="facility-{{ $facility->id }}" value="{{ $facility->id }}" class="form-check-input">
-                                            <label for="facility-{{ $facility->id }}" class="form-check-label" style="margin-top: 2px;">{{ $facility->name }}</label>
-                                        </div>
+                                            <div class="form-check form-check-inline">
+                                                <input type="checkbox" name="facilities[]"
+                                                    id="facility-{{ $facility->id }}" value="{{ $facility->id }}"
+                                                    class="form-check-input">
+                                                <label for="facility-{{ $facility->id }}" class="form-check-label"
+                                                    style="margin-top: 2px;">{{ $facility->name }}</label>
+                                            </div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -202,25 +226,24 @@
                                         required>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <button class="btn btn-primary btn-rounded" type="submit">@lang('label.submit')</button>
                         <button type="button" class="btn btn-light btn-rounded ">@lang('label.cancel')</button>
                     </form>
                 </div>
             </div>
-            
+
         </div>
-        
-        </div>
-        
-          
-        
+
+    </div>
+
+
+
     </div>
 @endsection
 @section('script')
     <script>
-        
         // lightGallery(document.getElementById('lightgallery'), {
         //     plugins: [lgZoom, lgThumbnail],
         //     speed: 500,
@@ -232,10 +255,10 @@
         // });
 
         document.addEventListener('DOMContentLoaded', function() {
-    var gallery = document.getElementById('image-gallery');
-    var viewer = new Viewer(gallery, {
-      // options
-    });
-  });
+            var gallery = document.getElementById('image-gallery');
+            var viewer = new Viewer(gallery, {
+                // options
+            });
+        });
     </script>
 @endsection

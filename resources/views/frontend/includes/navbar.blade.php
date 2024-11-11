@@ -78,7 +78,7 @@
                     <li class="nav-item mt-2 mt-lg-1">
                         <a class="nav-link"
                             style="font-size: 14px; font-weight: 500; color: #fff; padding: 0.375rem 1rem; border-radius: 1rem; background-color: #661f1f; text-transform: uppercase;"
-                            href="#" data-bs-toggle="modal" data-bs-target="#loginModal" >Login</a>
+                            href="#" data-bs-toggle="modal" id="navbar-login-btn"  data-bs-target="#loginModal" >Login</a>
                     </li>
                     <li class="nav-item mt-2  mt-lg-1">
                         <a class="nav-link"
@@ -86,15 +86,12 @@
                             href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
                     </li>
                 @else
-                    <!-- You can display a "Logout" button or other content if guest is logged in -->
                     <li class="nav-item mt-2 mt-lg-1">
                         <a class="nav-link"
                             style="font-size: 14px; font-weight: 500; color: #fff; padding: 0.375rem 1rem; border-radius: 1rem; background-color: #661f1f; text-transform: uppercase;"
                             href="{{ route('guest.logout') }}">Logout</a>
                     </li>
                 @endif
-
-                
                 <li class="nav-item mt-3 mt-lg-0">
                     <a class="main-btn" href={{ route('reservation') }}
                         style="font-size: 14px; font-weight: 500; text-transform: uppercase;">Book now</a>

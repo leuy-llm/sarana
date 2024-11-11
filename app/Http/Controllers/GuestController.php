@@ -128,31 +128,60 @@ class GuestController extends Controller
 
     // }
 
-    function register(Request $request)
-    {
+    // function register(Request $request)
+    // {
 
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|string|email|max:255|unique:guests',
+    //         'mobile' => 'required|numeric|unique:guests',
+    //         'address' => 'nullable|string|max:255',
+    //         'password' => 'required|string|min:8|confirmed', // assuming password needs confirmation
+
+    //     ]);
+
+
+    //     $guest = Guest::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'mobile' => $request->mobile,
+    //         'address' => $request->address,
+    //         'password' => Hash::make($request->password),
+    //     ]);
+
+    //     auth()->guard('guest')->login($guest);
+
+    //     return redirect()->back();
+    // }
+    public function register(Request $request)
+{
+    // Custom validation handling with error bag
+    try {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:guests',
             'mobile' => 'required|numeric|unique:guests',
             'address' => 'nullable|string|max:255',
-            'password' => 'required|string|min:8|confirmed', // assuming password needs confirmation
-
+            'password' => 'required|string|min:8|confirmed',
         ]);
-
-
-        $guest = Guest::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
-            'address' => $request->address,
-            'password' => Hash::make($request->password),
-        ]);
-
-        auth()->guard('guest')->login($guest);
-
-        return redirect()->back();
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return redirect()->back()->withErrors($e->validator, 'registerErrors')->withInput();
     }
+
+    // Registration logic
+    $guest = Guest::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'mobile' => $request->mobile,
+        'address' => $request->address,
+        'password' => Hash::make($request->password),
+    ]);
+
+    auth()->guard('guest')->login($guest);
+
+    return redirect()->back();
+}
+
 
     // public function login(Request $request)
     // {
@@ -174,21 +203,25 @@ class GuestController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
+       
+        try {
+            $credentials = $request->validate([
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator, 'loginErrors')->withInput();
+        }
+    
         if (Auth::guard('guest')->attempt($credentials)) {
             $request->session()->regenerate();
-
-            // Redirect to the previous page (reservation page)
             return redirect()->intended('reservation');
         }
+    
+        // Login failed, return with an error message to loginErrors
+        return redirect()->back()->withErrors(['login' => 'Invalid email or password.'], 'loginErrors')->withInput();
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+        
     }
 
     public function logout()
