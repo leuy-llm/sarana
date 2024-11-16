@@ -42,7 +42,7 @@ class CarouselController extends Controller
         ]);
 
          // Redirect or return a response
-         return redirect('carousels')->with('success', 'Carousel created successfully.');
+         return redirect('carousels')->with('success', __('label.carouselCreatedSuccess'));
     }
 
     public function destroy($carouselId)
@@ -51,10 +51,10 @@ class CarouselController extends Controller
             $carousel = Carousel::findOrFail($carouselId);
             $carousel->delete();
 
-            return redirect('/carousels')->with('success', __('label.roomDeleteSuccess'));
+            return redirect('/carousels')->with('success', __('label.carouselDeleteSuccess'));
 
         } catch (\Exception $e) {
-            return redirect('/carousels')->with('success', __('label.roomDeleteError'));
+            return redirect('/carousels')->with('success', __('label.carouselDeleteError'));
         }
         return redirect('/carousels');
     }

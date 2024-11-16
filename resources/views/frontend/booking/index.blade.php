@@ -40,7 +40,7 @@
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-        /* .modal-content {
+         .modal-content {
             -webkit-border-radius: 0;
             -webkit-background-clip: padding-box;
             -moz-border-radius: 0;
@@ -51,7 +51,7 @@
             -moz-box-shadow: 0 0 40px rgba(0, 0, 0, .5);
             box-shadow: 0 0 40px rgba(0, 0, 0, .5);
             color: #000;
-            background-color: #fff;
+            /* background-color: #fff; */
             border: rgba(0, 0, 0, 0);
         }
 
@@ -87,8 +87,8 @@
             padding: 15px 0 8px;
         }
 
-        .modal-message .modal-header .fa, */
-        /* .modal-message .modal-header .glyphicon,
+        .modal-message .modal-header .fa, 
+         .modal-message .modal-header .glyphicon,
         .modal-message .modal-header .typcn,
         .modal-message .modal-header .wi {
             font-size: 30px;
@@ -129,7 +129,7 @@
         .modal-message.modal-warning .modal-header {
             color: #f4b400;
             border-bottom: 3px solid #ffce5 5;
-        } */
+        } 
     </style>
 @endsection
 @section('content')
@@ -151,14 +151,12 @@
                         class="img-fluid" style="height: 535px; object-fit: cover; border-radius: 3px;" alt="Room Image">
                 </div>
                 <div class="col-md-6">
-
                     <h3 class="reservation-title text-center">Make Your Reservation</h3>
-                    @if (session('success'))
+                    {{-- @if (session('success'))
                         <div class="alert alert-success">
                             {{ session('success') }}
                         </div>
-                    @endif
-
+                    @endif --}}
                     <form id="reservation-form" method="POST" action="{{ route('reservation.store') }}">
                         @csrf
                         <div class="form-group">
@@ -254,7 +252,7 @@
                     {{-- <span class="glyphicon glyphicon-check"></span> --}}
                     <i class="fa fa-check text-white fa-3x m-auto"></i>
                 </div>
-                <div class="modal-title">Please</div>
+                <div class="modal-title text-center">Please</div>
                 <div class="modal-body">Sign in to Booking</div>
                 <div class="modal-footer">
                     <button type="button" id="ok-btn" class="btn btn-success"

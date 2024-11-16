@@ -4,10 +4,10 @@
 @section('content')
     @php
         $breadcrumbs = [
-            ['title' => __('label.room'), 'url' => route('rooms.index')],
-            ['title' => __('label.editRoom'), 'url' => route('rooms.create')],
+            ['title' => __('label.userName'), 'url' => route('users.index')],
+            ['title' => __('label.editUser'), 'url' => route('users.create')],
         ];
-        $currentPageTitle = __('label.editRooms');
+        $currentPageTitle = __('label.editUsers');
     @endphp
     @include('layout.breadcrumbs', [
         'breadcrumbs' => $breadcrumbs,
@@ -18,12 +18,12 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="row mb-2">
+                {{-- <div class="row mb-2">
                     <div class="col-sm-4">
                         <a href="{{ route('users.index') }}" class="btn btn-secondary btn-rounded mb-2"><span
                                 class=" uil-corner-up-left"></span> @lang('label.back')</a>
                     </div>
-                </div>
+                </div> --}}
                 <form class="needs-validation" enctype="multipart/form-data" action="{{ url('users/' . $user->id) }}"
                     method="POST" novalidate="">
                     @csrf
@@ -166,8 +166,8 @@
 
 
                     </div>
-                    <button class="btn btn-primary btn-rounded" type="submit">@lang('label.submit')</button>
-                    <a href="{{ url('users') }}" class="btn btn-light btn-rounded ">@lang('label.cancel')</a>
+                    <button class="btn btn-primary" type="submit">@lang('label.save')</button>
+                    <a href="{{ url('users') }}" class="btn btn-dark ">@lang('label.cancel')</a>
                 </form>
             </div>
         </div>

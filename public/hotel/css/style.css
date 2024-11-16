@@ -334,6 +334,11 @@ p {
   font-size: 40px;
 }
 
+.about_wrapper span{
+  font-family: "Sail", system-ui;
+  font-size: 40px;
+}
+
 .about_wrapper p{
   font-family: "Playfair Display", serif;
 }

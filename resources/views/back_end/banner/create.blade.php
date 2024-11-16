@@ -2,10 +2,10 @@
 @section('content')
     @php
         $breadcrumbs = [
-            ['title' => __('label.roomType'), 'url' => route('roomtypes.index')],
-            ['title' => __('label.createRoomType'), 'url' => route('roomtypes.create')],
+            ['title' => __('label.banner'), 'url' => route('banner.index')],
+            ['title' => __('label.createBanner'), 'url' => route('banner.create')],
         ];
-        $currentPageTitle = __('label.createRoomTypes');
+        $currentPageTitle = __('label.newBanner');
     @endphp
     @include('layout.breadcrumbs', [
         'breadcrumbs' => $breadcrumbs,
@@ -17,17 +17,17 @@
             <div class="card">
                 <div class="card-body">
                     
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="{{ url('banners') }}" class="btn btn-danger btn-rounded mb-2">
                                 <span class="uil-corner-up-left"></span> @lang('label.back')</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ route('banner.store') }}"
                         method="POST" novalidate="">
                         @csrf
                         <div class="mb-3">
-                            <label class="form-label">@lang('label.page') <span class="text-danger">*</span></label>
+                            <label class="form-label">@lang('label.pageName') <span class="text-danger">*</span></label>
                             <select name="page_name" id="page_name" class="form-control  @error('page_name') is-invalid @enderror select2" data-toggle="select2" required>
                                 @foreach($pageNames as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
@@ -44,8 +44,8 @@
                             @enderror
                         </div>
                         
-                        <button class="btn btn-primary btn-rounded" type="submit">Upload Banner</button>
-                        <button type="button" class="btn btn-light btn-rounded ">@lang('label.cancel')</button>
+                        <button class="btn btn-primary" type="submit">@lang('label.save')</button>
+                        <a href="{{url('banners')}}" class="btn btn-dark">@lang('label.cancel')</a>
                     </form>
                 </div>
             </div>

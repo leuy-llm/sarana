@@ -15,14 +15,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="{{ url('roles') }}" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
                                 data-bs-content="@lang('label.backRole')" data-bs-placement="top" title=""
                                 class="btn btn-secondary btn-rounded mb-2 font">
                                 <span class=" uil-corner-up-left"></span> @lang('label.back')</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ url('/roles') }}" method="POST"
                         novalidate="">
                         @csrf
@@ -36,9 +36,9 @@
                             @enderror
                         </div>
 
-                        <button class="btn btn-primary btn-rounded" type="submit">@lang('label.submit')</button>
+                        <button class="btn btn-primary" type="submit">@lang('label.submit')</button>
 
-                        <a href="{{ url('roles') }}" class="btn btn-light btn-rounded">@lang('label.cancel')</a>
+                        <a href="{{ url('roles') }}" class="btn btn-dark">@lang('label.cancel')</a>
                     </form>
                 </div>
             </div>

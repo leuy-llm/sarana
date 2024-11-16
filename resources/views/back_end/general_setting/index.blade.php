@@ -28,7 +28,7 @@
 @section('content')
     @php
         $breadcrumbs = [['title' => __('label.Setting'), 'url' => route('guests.index')]];
-        $currentPageTitle = __('label.Settings');
+        $currentPageTitle = __('label.Setting');
     @endphp
     @include('layout.breadcrumbs', [
         'breadcrumbs' => $breadcrumbs,

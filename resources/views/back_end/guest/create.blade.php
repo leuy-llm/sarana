@@ -12,7 +12,7 @@ $currentPageTitle =  __('label.newGuest');
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="{{ url('guests') }}"  tabindex="0"
                             data-bs-toggle="popover" 
@@ -21,7 +21,7 @@ $currentPageTitle =  __('label.newGuest');
                             title="" class="btn btn-danger btn-rounded mb-2 font">
                             <span class=" uil-corner-up-left"></span> @lang('label.back')</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ url('/guests') }}" method="POST"
                         novalidate="">
                         @csrf
@@ -61,13 +61,12 @@ $currentPageTitle =  __('label.newGuest');
 
 
                         <div class="mb-3">
-                            <label for="password" class="form-label">@lang('label.password')</label>
+                            <input type="hidden" name="password" class="form-control" placeholder="@lang('label.enterPassword') . . . " required>
+                            {{-- <label for="password" class="form-label">@lang('label.password')</label> --}}
                             <div class="input-group input-group-merge">
-                                <input type="password" name="password" class="form-control"
-                                    placeholder="@lang('label.enterPassword') . . . " required>
-                                <div class="input-group-text" data-password="false">
+                                {{-- <div class="input-group-text" data-password="false">
                                     <span class="password-eye"></span>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 

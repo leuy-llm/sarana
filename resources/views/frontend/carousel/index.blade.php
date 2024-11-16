@@ -227,8 +227,8 @@
                 <div class="card-body ">
                     <div class="d-flex mb-2 flex-wrap justify-content-between align-items-center">
                         <h4 style="margin-top: -12px">@lang('label.images')</h4>
-                        <a href="#m1-o" id="m1-c" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
-                            data-bs-placement="right" data-bs-content="@lang('label.youcan')" title="@lang('label.createNewGuest')"
+                        <a href="{{ url('carousels/create') }}"  tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
+                            data-bs-placement="top" title="@lang('label.createNewCarousel')"
                             class="btn btn-danger mb-2">
                             <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addCarousel')
                         </a>
@@ -245,6 +245,8 @@
                                                 class=" mdi mdi-close-thick fs-5"></i></a>
                                     </div>
                                 </div>
+                                <p class=""><strong>Title:</strong> {{$carousel->name}}</p>
+                                <p class=""><strong>Description:</strong> {{$carousel->description}}</p>
                             </div>
                         @endforeach
                     </div>
@@ -289,7 +291,7 @@
         </div>
     </div>
     <!-- modal 1 -->
-    <div class="modal-container" id="m1-o">
+    {{-- <div class="modal-container" id="m1-o">
         <div class="modal1 bg-white ">
             <h1 class="modal__title mb-3 text-primary">New Carousel</h1>
             <form class="needs-validation" enctype="multipart/form-data" action="{{ url('/carousels') }}" method="POST"
@@ -325,7 +327,7 @@
             </form>
             <a href="#m1-c" class="link-2"></a>
         </div>
-    </div>
+    </div> --}}
 
     <!-- /modal 1 -->
 @endsection
@@ -408,7 +410,7 @@
                             text: cancel,
                             value: null,
                             visible: true,
-                            // className: "btn btn-danger",
+                            className: "",
                             closeModal: true,
                         },
                         confirm: {

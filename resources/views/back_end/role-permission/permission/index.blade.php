@@ -1,8 +1,8 @@
 @extends('layout.app')
 @section('content')
     @php
-        $breadcrumbs = [['title' => __('label.roomList'), 'url' => route('rooms.index')]];
-        $currentPageTitle = __('label.roomList');
+        $breadcrumbs = [['title' => __('label.permissionList'), 'url' => route('permissions.index')]];
+        $currentPageTitle = __('label.permissionList');
     @endphp
     @include('layout.breadcrumbs', [
         'breadcrumbs' => $breadcrumbs,
@@ -16,9 +16,9 @@
                         <div class="col-sm-9">
                             @can('create-permission')
                             <a href="{{ url('permissions/create') }}" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
-                                data-bs-placement="right" data-bs-content="@lang('label.roomCan')" title="@lang('label.createNewRoom')"
+                                data-bs-placement="top"  title="@lang('label.createNewPermission')"
                                 class="btn btn-danger mb-2">
-                                <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addRoom')</a>
+                                <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addPermission')</a>
                                 @endcan
                         </div>
 
@@ -66,12 +66,12 @@
                                             {{-- <a href="{{ route('rooms.show', $permission->id) }}" class="action-icon"> <i
                                                     class="mdi mdi-eye"></i></a> --}}
                                                     @can('update-permission')
-                                            <a href="{{ url('permissions/' . $permission->id . '/edit') }}" class="action-icon"> <i
+                                            <a href="{{ url('permissions/' . $permission->id . '/edit') }}" class="action-icon text-primary"> <i
                                                     class="mdi mdi-square-edit-outline"></i></a>
                                                     @endcan
                                                     @can('delete-permission')
                                             <a href="{{ url('permissions/' . $permission->id . '/delete') }}"
-                                                onclick="confirmation(event)" class="action-icon"> <i
+                                                onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                     class="mdi mdi-delete"></i></a>
                                                      @endcan
                                         </td>
@@ -164,14 +164,14 @@
                             text: cancel,
                             value: null,
                             visible: true,
-                            className: "btn btn-danger",
+                            // className: "btn btn-danger",
                             closeModal: true,
                         },
                         confirm: {
                             text: confirm,
                             value: true,
                             visible: true,
-                            className: "btn btn-primary",
+                            // className: "btn btn-primary",
                             closeModal: true
                         }
                     },

@@ -29,6 +29,8 @@
 
         .booking-details span {
             font-weight: 500;
+            font-family: "Coda", system-ui;
+
 
         }
 
@@ -93,6 +95,10 @@
             font-family: "Coda", system-ui;
 
         }
+        a{
+            font-family: "Coda", system-ui;
+            text-decoration: none;
+        }
 
         .close {
             color: black !important;
@@ -110,24 +116,21 @@
     <div class="container mt-5" style="max-width: 600px;">
         <div class="card shadow-sm">
             <div class="card-body text-center">
+
+                <h1 class="display-4 text-success mb-4">{{ $data }}</h1>
                 @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <span>! {{ session('success') }}</span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <div class="alert alert-success">
+                        {{ session('success') }}
                     </div>
                 @endif
 
                 @if (session('error'))
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <span>! {{ session('error') }}</span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
                     </div>
                 @endif
-                <h1 class="display-4 text-success mb-4">{{ $data }}</h1>
+
+
                 {{-- <p class="lead text-muted">Thank you for your reservation. Your booking has been successfully.</p> --}}
                 <hr class="my-4">
                 <div class="booking-details text-left mt-4">
@@ -147,11 +150,17 @@
                 </div>
                 <div class="flex-row justify-content-between d-flex align-items-between">
                     <a href="{{ url('/') }}" class="mt-4 " style="width: 200px">Back to Home</a>
-                    <form action="{{ route('booking.cancel', $booking->id) }}" method="POST">
+                    {{-- <form action="{{ route('booking.cancel', $booking->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-booking btn-block mt-4">Cancel Booking</button>
+                        <button type="submit" class="btn btn-danger">Cancel Booking</button>
+                    </form> --}}
+                    <form action="{{ route('booking.cancel', $booking->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-block btn-booking">Cancel Booking</button>
                     </form>
+
+
 
                 </div>
             </div>

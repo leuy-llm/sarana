@@ -27,8 +27,8 @@
 @endsection
 @section('content')
     @php
-        $breadcrumbs = [['title' => __('label.roomList'), 'url' => route('rooms.index')]];
-        $currentPageTitle = __('label.roomList');
+        $breadcrumbs = [['title' => __('label.bookingList'), 'url' => route('bookings.index')]];
+        $currentPageTitle = __('label.bookingList');
     @endphp
     @include('layout.breadcrumbs', [
         'breadcrumbs' => $breadcrumbs,
@@ -172,11 +172,14 @@
 
                                         </td>
 
-                                        <td>
+                                        {{-- <td>
                                             {{ Str::limit(\Carbon\Carbon::parse($booking->check_in_date)->translatedFormat('d F Y'), 10) }}
-                                        </td>
+                                        </td> --}}
                                         <td>
-                                            {{ Str::limit(\Carbon\Carbon::parse($booking->check_out_date)->translatedFormat('d F Y'), 10) }}
+                                            {{ date('d-m-Y', strtotime($booking->check_in_date)) }}
+                                        </td> 
+                                        <td>
+                                            {{ date('d-m-Y', strtotime($booking->check_out_date)) }}
                                         </td>
 
                                         <td class="">
@@ -186,7 +189,7 @@
                                         </td>
 
                                         <td>
-                                            {{ Str::limit(\Carbon\Carbon::parse($booking->created_at)->translatedFormat('d F Y'), 10) }}
+                                            {{ date('d-m-Y', strtotime($booking->created_at)) }}
                                         </td>
                                         <td>
                                             @if ($booking->status == 'confirmed')
@@ -199,12 +202,12 @@
                                         </td>
                                     
                                         <td class="table-action">
-                                            <a href="{{ route('rooms.show', $booking->id) }}" class="action-icon"> <i
+                                            <a href="{{ route('rooms.show', $booking->id) }}" class="action-icon text-success"> <i
                                                     class="mdi mdi-eye"></i></a>
-                                            <a href="{{ url('bookings/' . $booking->id . '/edit') }}" class="action-icon">
+                                            <a href="{{ url('bookings/' . $booking->id . '/edit') }}" class="action-icon text-primary">
                                                 <i class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="{{ url('bookings/' . $booking->id . '/delete') }}"
-                                                onclick="confirmation(event)" class="action-icon"> <i
+                                                onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                     class="mdi mdi-delete"></i></a>
                                         </td>
                                     </tr>
@@ -296,14 +299,14 @@
                             text: cancel,
                             value: null,
                             visible: true,
-                            className: "btn btn-danger",
+                            // className: "btn btn-danger",
                             closeModal: true,
                         },
                         confirm: {
                             text: confirm,
                             value: true,
                             visible: true,
-                            className: "btn btn-primary",
+                            // className: "btn btn-primary",
                             closeModal: true
                         }
                     },
@@ -323,8 +326,8 @@
         /*============= Tranlsate ==============*/
         /*============= Tranlsate ==============*/
         var displayText = @json(__('label.display'));
-        var displayRoom = @json(__('label.room'));
-        var showingRoomText =
-            "{{ __('label.showing_rooms', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
+        var displayBooking = @json(__('label.booking'));
+        var showingBookingText =
+            "{{ __('label.showing_bookings', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
     </script>
 @endsection

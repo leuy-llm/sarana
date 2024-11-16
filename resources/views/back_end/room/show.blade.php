@@ -114,12 +114,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="{{ route('rooms.store') }}" class="btn btn-secondary btn-rounded mb-2"><span
                                     class=" uil-corner-up-left"></span> @lang('label.back')</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row">
                         @if ($room->images->isNotEmpty())
                             <div class="col-lg-5">
@@ -148,15 +148,14 @@
 
                                     <!-- Product stock -->
                                     <div class="mt-3">
-                                        <h4>
-                                            @if ($room->status == 'Available')
+                                        <p> @lang('label.status'):
+                                            @if ($room->status == 'active')
                                                 <span class="badge badge-success-lighten">{{ $room->status }}</span>
-                                            @elseif ($room->status == 'Booked')
+                                            @elseif ($room->status == 'inactive')
                                                 <span class="badge badge-danger-lighten">{{ $room->status }}</span>
-                                            @elseif ($room->status == 'Maintenance')
-                                                <span class="badge badge-warning-lighten">{{ $room->status }}</span>
+                                            
                                             @endif
-                                        </h4>
+                                        </p>
                                     </div>
 
                                     <!-- Product description -->

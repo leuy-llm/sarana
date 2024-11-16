@@ -75,7 +75,27 @@ return [
 
   'areYourSure' => ' តើអ្នកពិតជាលុបទិន្នន័យនេះឬទេ?',
   'youWontBe' => 'អ្នកនឹងមិនអាចត្រឡប់ការលុបនេះវិញបានទេ',
-  'ok' => 'យល់ព្រម',
+
+
+  
+    /*================ User ============ */
+
+    'userName'=>'អ្នកប្រើប្រាស់',
+    'fullName'=>'ឈ្មោះ',
+    'gender'=>'ភេទ',
+    'dob'=>'ថ្ងៃខែឆ្នាំ កំណើត',
+    'ok' => 'យល់ព្រម',
+    'addUser' =>'បន្ថែមអ្នកប្រើប្រាស់',
+    'userList'=>'បញ្ជីអ្នកប្រើប្រាស់',
+    'createNewUser'=>'បង្កើតអ្នកប្រើប្រាស់ថ្មី',
+    'showing_users'=> 'បង្ហាញអ្នកប្រើប្រាស់ពី​ :start ទៅ :end នៃ :total នាក់',
+    'enterUserName'=>'បញ្ចូលឈ្មោះអ្នកប្រើប្រាស់',
+    'enterFullname'=>'បញ្ចូលឈ្មោះពេញ',
+    'enterPhone'=>'បញ្ចូលលេខទូរស័ព្ទ',
+    'createUser'=>'បង្កើតអ្នកប្រើប្រាស់',
+    'newUser'=>'អ្នកប្រើប្រាស់ថ្មី',
+    'editUser'=>'កែប្រែអ្នកប្រើប្រាស់',
+    'editUsers'=>'កែប្រែ​ ព័ត៌មានអ្នកប្រើប្រាស់',
 
   /*======= pleacehoder ======= */
   'enterGuestName' => 'បញ្ចូលឈ្មោះអតិថិជន',
@@ -156,6 +176,9 @@ return [
   'addRoom'=>'បន្ថែមបន្ទប់',
   'createNewRoom'=>'បង្កើតបន្ទប់ថ្មី',
   'roomCan'=>'អ្នកអាចបង្កើតបន្ទប់ថ្មីជាមួយព័ត៌មានដែលត្រឹមត្រូវ',
+  'bookingList'=>'បញ្ជីការកក់',
+  'addBooking'=>'បន្ថែមការកក់',
+  'editBooking'=>'កែប្រែការកក់',
 
   'roomPrice'=>'តម្លៃនៃបន្ទប់',
   'roomFloor'=>'ជាន់នៃបន្ទប់',
@@ -168,16 +191,118 @@ return [
   'name'=>'ឈ្មោះ',
   'enterPermissionName'=>'Enter permission name',
   'permissionName'=>'Permission name',
+  'addPermission'=>'បន្ថែមការអនុញ្ញាត',
+  'createNewPermission'=>'បង្កើតការអនុញ្ញាតថ្មី',
+  'newPermission'=>'ការអនុញ្ញាតថ្មី',
+  'createPermission'=>'បង្កើតការអនុញ្ញាត',
+  'permission'=>'ការអនុញ្ញាត',
+  'editPermissions'=>'កែប្រែ ការអនុញ្ញាត',
+  'editPermission'=>'កែប្រែ​ការអនុញ្ញាត',
+  'editRolePermission'=>'កែប្រែ/បន្ថែមសិទ្ធ',
+  'givePermission'=>'ការផ្ដល់សិទ្ធ',
 
   /*=========== Role ============== */
   'showing_permissions' => 'បង្ហាញការអនុញ្ញាតពី​ :start ទៅ :end នៃ :total នាក់',
+  'showing_bookings'=>'បង្ហាញការកក់ពី :start ទៅ :end នៃ​ :total នាក់',
+  'showing_roles'=>'បង្ហាញតួនាទីពី :start ទៅ :end នៃ​ :total នៃតួនាទី',
+  'addRole'=>'បន្ថែមតួនាទី',
+  'roleList'=>'បញ្ជីតួនាទី',
+  'editRole'=>'កែប្រែតួនាទី',
+  'editRoles'=>'កែប្រែ​ តួនាទី',
+  'createNewRole'=>'បង្កើតតួនាទីថ្មី',
+  'newRole'=>'តួនាទីថ្មី',
+  'roleName'=>'ឈ្មោះតួនាទី',
+  'createRole'=>'បង្កើតតួនាទី',
+  'enterRoleName'=>'បញ្ចូលឈ្មោះតួនាទី',
+
+
 
   /*============= Booking ============= */
-  'checkIn'=>'Check_In',
-  'checkOut'=>'Check_Out',
+  'checkIn'=>'ការចូល',
+  'checkOut'=>'ការចេញ',
   'totalAdults'=>'Total_Adults',
   'totalChildren'=>'Total_Children',
-  'avaiableRoom'=>'បន្ទប់ទំនេ'
+  'avaiableRoom'=>'បន្ទប់ទំនេ',
+  'createBooking' => 'បង្កើតការកក់',
+  'newBooking'=>'ការកក់ថ្មី',
+
+
+  /*============= Message alert ============= */ 
+'guestUpdatedSuccess'=>'ធ្វើបច្ចុប្បន្នភាពភ្ញៀវដោយជោគជ័យ.',
+'guestUpdatedError'=>'មាន​បញ្ហា​ក្នុង​ការ​ធ្វើ​បច្ចុប្បន្នភាព​ភ្ញៀវ.',
+'enterId'=>'បញ្ចូលលេខសម្គាល់បន្ទប់',
+'guestDeleteSuccess'=>'ព័ត៌មាន​ភ្ញៀវត្រូវបានលុបដោយជោគជ័យ',
+'guestDeleteError'=>'មានបញ្ញានៅក្នុងការលុបព័ត៌មានភ្ញៀវ, សូមព្យាយាមម្តងទៀត',
+
+
+/*============= Room ============= */
+'roomList'=>'បញ្ជីបន្ទប់',
+'roomid'=>'លេខសម្គាល់បន្ទប់',
+
+/*============= Booking ============= */
+'facilities'=>'គ្រឿងបរិក្ខា',
+'image'=>'រូបភាព',
+
+/*============== Carousels ============ */
+'Carousels'=>'Carousel',
+'addCarousel'=>'បន្ថែម Carousel',
+'createNewCarousel'=>'បង្កើត carousel ថ្មី',
+'newCarousels'=>'Carousels ថ្មី',
+'createCarousels'=>'បង្កើត carousels',
+'enterCarouselName'=>'បញ្ចួលចំណងជើង',
+'title'=>'ចំណងជើង',
+
+/*============== User Query ============ */
+'userQuery'=>'User Query',
+'userQueryList'=>'បញ្ជី User Query',
+'message'=>'ពិពណ៌នា',
+'showing_userquerys'=>'បង្ហាញ query ពី​ :start ទៅ :end នៃ :total នាក់',
+
+
+  /*============== Facility ============ */
+'facilityList'=>'បញ្ជី គ្រឿងបរិក្ខា',
+'facility'=>'គ្រឿងបរិក្ខា',
+'message'=>'ពិពណ៌នា',
+'showing_facilitys'=>'បង្ហាញគ្រឿងបិរក្ខាពី​ :start ទៅ :end នៃ :total គ្រឿង',
+'icon'=>'រូបភាព',
+'addFacility'=>'បន្ថែមគ្រឿងបរិក្ខា',
+'createNewFacility'=>'បង្កើតគ្រឿងបរិក្ខាថ្មី',
+'enterFacilityName'=>'បញ្ចូលឈ្មោះគ្រឿងបរិក្ខា',
+'newFacility'=>'គ្រឿងបរិក្ខាថ្មី',
+'createFacility'=>'បង្កើតគ្រឿងបរិក្ខា',
+'editFacility'=>'កែប្រែ​គ្រឿងបរិក្ខា',
+'editFacilitys'=>'កែប្រែ​ គ្រឿងបរិក្ខា',
+
+
+
+'aboutUs'=>'អំពី​ សុីណាកាអង្គ​ហូរថែល',
+ 'contactSetting'=>'ទំនាក់ទំនង',
+ 'googleMap'=>'តំណភ្ជាប់ផែនទី',
+'phones'=>'លេខទូស័ព្ទ',
+'socialLink'=>'តំណភ្ជាប់បណ្តាញសង្គម',
+'iFrame'=>'ផែនទី',
+'fb'=>'Fb',
+'insta'=>'Insta',
+'tripa'=>'Tripa',
+'tele'=>'Tele',
+'generalSetting'=>'ការកំណត់ទូទៅ',
+'siteTitle'=>'ចំណងជើងគេហទំព័រ',
+'siteLogo'=>'និមិត្តសញ្ញាគេហទំព័រ',
+'Setting'=>'ការកំណត់',
+'editSetting'=>'កែប្រែការកំណត់',
+'editSettings'=>'កែប្រែ ការកំណត់',
+
+  'showing_banners'=>'បង្ហាញផ្ទាំងពី​ :start ទៅ :end នៃ :total ផ្ទាំង',
+  'addBanner'=>'បន្ថែម Banner',
+  'createNewBanner'=>'បង្កើត banner​ ថ្មី',
+  'banner'=>'Banner',
+  'pageName'=>'ចំណងជើង Banner',
+  'bannerImage'=>'រូបភាព Banner',
+  'bannerList'=>'បញ្ជី Banner',
+  'createBanner'=>'បង្កើត banner',
+  'newBanner'=>'Banner ថ្មី',
+
+  
 
 ]
 ?>

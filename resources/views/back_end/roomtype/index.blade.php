@@ -132,11 +132,11 @@
                                                 {{ date('d-m-Y H:i A', strtotime($data->created_at)) }}
                                             </td> 
                                             <td class="table-action">
-                                                <a href="" class="action-icon"> <i class="mdi mdi-eye"></i></a>
+                                                {{-- <a href="" class="action-icon"> <i class="mdi mdi-eye"></i></a> --}}
                                                 <a href="{{ url('roomtypes/' . $data->id . '/edit') }}" id="roomTypeEdit"
-                                                    class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                    class="action-icon text-primary"> <i class="mdi mdi-square-edit-outline"></i></a>
                                                 <a href="{{ url('roomtypes/' . $data->id . '/delete') }}"
-                                                    onclick="confirmation(event)" class="action-icon"> <i
+                                                    onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                         class="mdi mdi-delete"></i></a>
                                             </td>
                                         </tr>
@@ -330,14 +330,14 @@
                             text: cancel,
                             value: null,
                             visible: true,
-                            className: "btn btn-danger",
+                            // className: "btn btn-danger",
                             closeModal: true,
                         },
                         confirm: {
                             text: confirm,
                             value: true,
                             visible: true,
-                            className: "btn btn-primary",
+                            // className: "btn btn-primary",
                             closeModal: true
                         }
                     },

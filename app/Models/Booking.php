@@ -12,6 +12,10 @@ class Booking extends Model
     use HasFactory;
     protected $fillable = ['guest_id', 'room_id', 'check_in_date', 'check_out_date', 'total_adults', 'total_children', 'status', 'payment_status'];
 
+    protected $casts = [
+        'check_in_date' => 'datetime',
+        'check_out_date' => 'datetime',
+    ];
     public function guest()
     {
         return $this->belongsTo(Guest::class);

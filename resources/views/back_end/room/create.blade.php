@@ -110,7 +110,7 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-4">
-                            <a href="{{ route('rooms.store') }}" class="btn btn-danger btn-rounded mb-2"><span
+                            <a href="{{ route('rooms.store') }}" class="btn btn-danger  mb-2"><span
                                     class=" uil-corner-up-left"></span> @lang('label.back')</a>
                         </div>
                     </div>
@@ -180,9 +180,8 @@
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control select2" data-toggle="select2">
-                                        <option value="Available">Available</option>
-                                        <option value="Booked">Booked</option>
-                                        <option value="Maintenance">Maintenance</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
                                     </select>
                                     @error('status')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -221,15 +220,16 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="images">Images</label>
+                                    <label for="images">@lang('label.images')</label>
                                     <input type="file" name="images[]" id="images" class="form-control" multiple
                                         required>
                                 </div>
                             </div>
 
                         </div>
-                        <button class="btn btn-primary btn-rounded" type="submit">@lang('label.submit')</button>
-                        <button type="button" class="btn btn-light btn-rounded ">@lang('label.cancel')</button>
+                        <button class="btn btn-primary" type="submit">@lang('label.submit')</button>
+                        
+                        <a href="{{ url('rooms') }}" class="btn btn-light">@lang('label.cancel')</a>
                     </form>
                 </div>
             </div>

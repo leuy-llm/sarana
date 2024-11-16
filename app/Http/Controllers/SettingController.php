@@ -85,7 +85,7 @@ class SettingController extends Controller
         $setting->save();
 
         // Redirect or return a response
-        return redirect('settings')->with('success', 'Setting updated successfully.');
+        return redirect('settings')-with('success', __('label.settingUpdateSuccess'));
     }
 
 
@@ -115,7 +115,7 @@ class SettingController extends Controller
             'image' => $iconPath, // Store the icon path in the database
         ]);
 
-        return redirect('settings')->with('success', 'Facility created successfully.');
+        return redirect('settings')->with('success', __('label.settingCreatedSuccess'));
     }
 
     public function aboutedit($id)
@@ -156,7 +156,7 @@ class SettingController extends Controller
         ]);
 
         $about->save();
-        return redirect('settings')->with('success', 'Setting updated successfully.');
+        return redirect('settings')->with('success', __('label.settingUpdateSuccess'));
     }
     /*=================== Contact Section ==================== */
     public function contact()
@@ -212,6 +212,6 @@ class SettingController extends Controller
 
         // Save the changes to the facility
         $contact->save();
-        return redirect('settings')->with('success', 'Contact updated successfully.');
+        return redirect('settings')->with('success', __('label.settingUpdateSuccess'));
     }
 }

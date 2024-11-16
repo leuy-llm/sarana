@@ -149,8 +149,8 @@
                                             </div>
                                         </td>
                                         <td class="table-user">
-                                            <img src="{{ asset('admin_dashboard') }}/assets/images/users/avatar-4.jpg"
-                                                alt="table-user" class="me-2 rounded-circle">
+                                            {{-- <img src="{{ asset('admin_dashboard') }}/assets/images/users/avatar-4.jpg"
+                                                alt="table-user" class="me-2 rounded-circle"> --}}
                                             <a href="javascript:void(0);"
                                                 class="text-body fw-semibold">{{ $guest->name }}</a>
                                         </td>
@@ -170,11 +170,11 @@
                                             <span class="badge badge-success-lighten">Active</span>
                                         </td>
                                         <td class="table-action">
-                                            <a href="" class="action-icon"> <i class="mdi mdi-eye"></i></a>
+                                            {{-- <a href="" class="action-icon"> <i class="mdi mdi-eye"></i></a> --}}
                                             <a href="{{ url('guests/' . $guest->id . '/edit') }}"
-                                                class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                class="action-icon text-primary"> <i class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="{{ url('guests/' . $guest->id . '/delete') }}"
-                                                onclick="confirmation(event)" class="action-icon"> <i
+                                                onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                     class="mdi mdi-delete"></i></a>
                                         </td>
                                     </tr>
@@ -266,14 +266,14 @@
                             text: cancel,
                             value: null,
                             visible: true,
-                            className: "btn btn-danger",
+                            // className: "btn btn-danger",
                             closeModal: true,
                         },
                         confirm: {
                             text: confirm,
                             value: true,
                             visible: true,
-                            className: "btn btn-primary",
+                            // className: "btn btn-primary",
                             closeModal: true
                         }
                     },

@@ -30,12 +30,26 @@ class UserQueryController extends Controller
             $query->email = $request->email;
             $query->message = $request->message;
             $query->save();
+            $notifications = session()->get('notifications', []);
+
+            // Generate a new ID based on the count of existing notifications
+            $id = count($notifications) + 1;
+
+            $notifications[] = [
+                'id' => $id,
+                'type' => 'user_query',
+                'message' => 'New user query from ' . $query->name,
+                'time' => now()->format('Y-m-d H:i:s'),
+            ];
+
+            // Store the updated notifications back in the session
+            session(['notifications' => $notifications]);
+
 
             return redirect()->back()->with('success', __('label.queryCreatedSuccess'));
         } catch (\Exception $e) {
-            
+
             return redirect()->back()->with('error', __('label.queryCreatedFail') . $e->getMessage());
-          
         }
     }
 
@@ -47,10 +61,11 @@ class UserQueryController extends Controller
             $query->seen = 1;
             $query->save();
 
-            return redirect('/queries')->with('success', 'Query marked as read');
+            return redirect('/queries')->with('success', __('label.markedSuccess'));
         }
+        //with('success', 'Query marked as read');
 
-        return redirect('/queries')->with('error', 'Query not found');
+        return redirect('/queries')->with('success', __('label.markedError'));
     }
 
     public function delete($id)
@@ -60,7 +75,6 @@ class UserQueryController extends Controller
             $query->delete();
 
             return redirect('/queries')->with('success', __('label.queryDeleteSuccess'));
-
         } catch (\Exception $e) {
             return redirect('/queries')->with('success', __('label.queryDeleteError'));
         }

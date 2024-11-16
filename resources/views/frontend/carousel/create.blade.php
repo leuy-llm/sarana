@@ -2,17 +2,17 @@
 @section('content')
 @php
 $breadcrumbs = [
-    ['title' => __('label.carousel'), 'url' => route('guests.index')],
-    ['title' => __('label.createGuest'), 'url' => route('guests.create')]
+    ['title' => __('label.Carousels'), 'url' => route('carousels.index')],
+    ['title' => __('label.createCarousels'), 'url' => route('carousels.create')]
 ];
-$currentPageTitle =  __('label.newGuest');
+$currentPageTitle =  __('label.newCarousels');
 @endphp
 @include('layout.breadcrumbs', ['breadcrumbs' => $breadcrumbs, 'currentPageTitle' => $currentPageTitle])
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="{{ url('carousels') }}"  tabindex="0"
                             data-bs-toggle="popover" 
@@ -21,7 +21,7 @@ $currentPageTitle =  __('label.newGuest');
                             title="" class="btn btn-danger btn-rounded mb-2 font">
                             <span class=" uil-corner-up-left"></span> @lang('label.back')</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ url('/carousels') }}" method="POST"
                         novalidate="">
                         @csrf
@@ -44,16 +44,15 @@ $currentPageTitle =  __('label.newGuest');
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">@lang('label.descruotui')</label>
-                            <input type="file" value="{{ old('email') }}" name="image"
-                                class="form-control @error('image') is-invalid @enderror" required=""
-                                placeholder="@lang('label.enterEmail') . . . ">
-                            @error('image')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
+                            <label class="form-label">@lang('label.description')</label>
+                            <textarea name="description" class="form-control @error('description') is-invalid @enderror"
+                                        placeholder="@lang('label.enterDescription') . . ."></textarea>
+                                    @error('description')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
                         </div>
-                        <button class="btn btn-primary btn-rounded" type="submit">@lang('label.submit')</button>
-                        <a href="{{ url('carousels') }}" class="btn btn-light btn-rounded">@lang('label.cancel')</a>
+                        <button class="btn btn-primary" type="submit">@lang('label.save')</button>
+                        <a href="{{ url('carousels') }}" class="btn btn-dark">@lang('label.cancel')</a>
                     </form>
                 </div>
             </div>

@@ -1,8 +1,14 @@
 @extends('layout.app')
 @section('content')
     @php
-        $breadcrumbs = [['title' => __('label.guests'), 'url' => route('guests.index')]];
-        $currentPageTitle = __('label.guestList');
+        $breadcrumbs = [
+            ['title' => __('label.permissionList'), 'url' => route('permissions.index')],
+            ['title' => __('label.createPermission'), 'url' => route('permissions.create')],
+        ];
+        $currentPageTitle = __('label.newPermission');
+
+        //translate Date
+
     @endphp
     @include('layout.breadcrumbs', [
         'breadcrumbs' => $breadcrumbs,
@@ -12,14 +18,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="{{ url('permissions') }}" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
                                 data-bs-content="@lang('label.backGuest')" data-bs-placement="top" title=""
                                 class="btn btn-danger btn-rounded mb-2 font">
                                 <span class=" uil-corner-up-left"></span> @lang('label.back')</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ url('/permissions') }}"
                         method="POST" novalidate="">
                         @csrf
@@ -33,8 +39,8 @@
                             @enderror
                         </div>
 
-                        <button class="btn btn-primary btn-rounded" type="submit">@lang('label.submit')</button>
-                        <button type="button" class="btn btn-light btn-rounded">@lang('label.cancel')</button>
+                        <button class="btn btn-primary" type="submit">@lang('label.submit')</button>
+                        <a href="{{url('permissions')}}" class="btn btn-dark">@lang('label.cancel')</a>
                     </form>
                 </div>
             </div>

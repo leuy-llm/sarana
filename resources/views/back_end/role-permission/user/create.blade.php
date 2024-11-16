@@ -94,10 +94,10 @@
 @section('content')
     @php
         $breadcrumbs = [
-            ['title' => __('label.roomList'), 'url' => route('rooms.index')],
-            ['title' => __('label.createRoom'), 'url' => route('rooms.create')],
+            ['title' => __('label.userList'), 'url' => route('users.index')],
+            ['title' => __('label.createUser'), 'url' => route('users.create')],
         ];
-        $currentPageTitle = __('label.createRooms');
+        $currentPageTitle = __('label.newUser');
 
          //translate Date
       
@@ -111,19 +111,20 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="{{ route('users.store') }}" class="btn btn-secondary btn-rounded mb-2"><span
                                     class=" uil-corner-up-left"></span> @lang('label.back')</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ route('users.store') }}"
                         method="POST" novalidate="">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">@lang('label.userName')</label>
+                                    <label class="form-label">@lang('label.userName') <span
+                                        class="text-danger">*</span></label>
                                     <input type="text" name="name" value="{{ old('name') }}"
                                         class="form-control  @error('name') is-invalid @enderror "
                                         placeholder="@lang('label.enterUserName') . . ." required="">
@@ -205,7 +206,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">@lang('label.password')</label>
+                                    <label for="password" class="form-label">@lang('label.password') <span
+                                        class="text-danger">*</span></label>
                                     <div class="input-group input-group-merge">
                                         <input type="password" name="password"
                                             class="form-control @error('password') is-invalid @enderror "
@@ -256,8 +258,8 @@
 
 
                         </div>
-                        <button class="btn btn-primary btn-rounded" type="submit">@lang('label.submit')</button>
-                        <a href="{{ url('users') }}" class="btn btn-light btn-rounded ">@lang('label.cancel')</a>
+                        <button class="btn btn-primary" type="submit">@lang('label.save')</button>
+                        <a href="{{ url('users') }}" class="btn btn-dark">@lang('label.cancel')</a>
                     </form>
                 </div>
             </div>

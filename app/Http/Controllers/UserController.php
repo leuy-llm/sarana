@@ -136,10 +136,10 @@ class UserController extends Controller
         $user->syncRoles($validated['roles']);
 
         // Set a success message in the session
-        return redirect('/users')->with('success', __('label.userUpdatedSuccess'));
+        return redirect('/users')->with('success', __('label.userUpdateSuccess'));
     } catch (\Exception $e) {
         // Set an error message in the session
-        return redirect('/users')->with('error', __('label.userUpdatedError'));
+        return redirect('/users')->with('error', __('label.userUpdateError'));
     }
 }
 

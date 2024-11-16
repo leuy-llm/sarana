@@ -1,8 +1,8 @@
 @extends('layout.app')
 @section('content')
     @php
-        $breadcrumbs = [['title' => __('label.roomList'), 'url' => route('rooms.index')]];
-        $currentPageTitle = __('label.roomList');
+        $breadcrumbs = [['title' => __('label.roleList'), 'url' => route('rooms.index')]];
+        $currentPageTitle = __('label.roleList');
     @endphp
     @include('layout.breadcrumbs', [
         'breadcrumbs' => $breadcrumbs,
@@ -16,7 +16,7 @@
                         <div class="col-sm-9">
                             @can('create-role')
                             <a href="{{ url('roles/create') }}" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
-                                data-bs-placement="right" data-bs-content="@lang('label.roleCan')" title="@lang('label.createNewRole')"
+                                data-bs-placement="top"  title="@lang('label.createNewRole')"
                                 class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addRole')</a>
                                 @endcan
@@ -64,18 +64,18 @@
                                         
                                         <td class="table-action">
                                             @can('create-role')
-                                            <a href="{{ url('roles/' . $role->id . '/give-permissions') }}" class="action-icon"> 
+                                            <a href="{{ url('roles/' . $role->id . '/give-permissions') }}" class="action-icon text-warning"> 
                                                 {{-- <i class="mdi mdi-lock"></i>     --}}
                                                 <i class="mdi mdi-shield-key"></i>
                                             </a>
                                             @endcan
                                             @can('update-role')
-                                            <a href="{{ url('roles/' . $role->id . '/edit') }}" class="action-icon"> <i
+                                            <a href="{{ url('roles/' . $role->id . '/edit') }}" class="action-icon text-primary"> <i
                                                     class="mdi mdi-square-edit-outline"></i></a>
                                                     @endcan
                                             @can('delete-role')
                                             <a href="{{ url('roles/' . $role->id . '/delete') }}"
-                                                onclick="confirmation(event)" class="action-icon"> <i
+                                                onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                     class="mdi mdi-delete"></i></a>
                                                     @endcan
                                         </td>
@@ -168,14 +168,14 @@
                             text: cancel,
                             value: null,
                             visible: true,
-                            className: "btn btn-danger",
+                            // className: "btn btn-danger",
                             closeModal: true,
                         },
                         confirm: {
                             text: confirm,
                             value: true,
                             visible: true,
-                            className: "btn btn-primary",
+                            // className: "btn btn-primary",
                             closeModal: true
                         }
                     },
@@ -196,8 +196,8 @@
         /*============= Tranlsate ==============*/
         /*============= Tranlsate ==============*/
         var displayText = @json(__('label.display'));
-        var displayRoom = @json(__('label.room'));
-        var showingRoomText =
-            "{{ __('label.showing_rooms', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
+        var displayRole = @json(__('label.role'));
+        var showingRoleText =
+            "{{ __('label.showing_roles', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
     </script>
 @endsection

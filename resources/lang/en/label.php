@@ -1,5 +1,7 @@
 <?php
 
+use function PHPSTORM_META\map;
+
 return [
   /* =============== SideBar ================ */
 
@@ -66,6 +68,8 @@ return [
   'resetGuest' => 'Reset Guest',
   'youcan' => 'You can create new guest 👦🏻',
 
+  
+
   'areYourSure' => ' Are you Sure to delete this record?',
   'youWontBe' => "You won't be able to revert this delete'",
   'ok' => 'OK',
@@ -101,7 +105,7 @@ return [
   /*=========== Room Type ===============*/
   'addRoomType' => 'Add RoomType',
   'editRoomType' => 'Edit RoomType',
-  'roomTypeName' => 'RoomType name',
+  'roomTypeName' => 'RoomType',
   'showing_roomtypes' => 'Showing roomtypes _START_ to _END_ of _TOTAL_',
   'newRoomType' => 'New RoomType',
   'createRoomType' => 'Create RoomType​',
@@ -128,6 +132,7 @@ return [
   /*============= Message alert =============== */
   'guestCreatedSuccess' => 'Guest created successfully!',
   'guestCreatedError' => 'There was an error creating the guest.',
+
   'roomTypeCreatedSuccess' => 'A new roomtype was created successfully',
   'roomTypeCreatedError' => 'There was an error creating the roomtype',
   'roomTypeUpdatedSuccess' => 'RoomType updated successfully',
@@ -140,6 +145,58 @@ return [
   'roomDeleteSuccess'=>'Room deleted successfully',
   'roomDeleteError'=>'There was an error delete the room',
 
+  'bookingCreatedSuccess'=>'Booking created successfully!',
+  'bookingCreateError'=>'There was an error creating the booking ',
+  'bookingUpdateSuccess'=>'Booking updated successfully',
+  'bookingUpdateError'=>'There was an error updating the booking',
+  'bookingDeleteSuccess'=>'Booking deleted successfully',
+  'bookingDeleteError'=>'There was an error delete the booking',
+
+  'userCreatedSuccess'=>'User created successfully!',
+  'userCreateError'=>'There was an error creating the user ',
+  'userUpdateSuccess'=>'User updated successfully',
+  'userUpdateError'=>'There was an error updating the user',
+  'userDeleteSuccess'=>'User deleted successfully',
+  'userDeleteError'=>'There was an error delete the user',
+
+  'permissionCreatedSuccess'=>'Permission created successfully!',
+  'permissionCreatedtError'=>'There was an error creating the Permission',
+  'permissionUpdateSuccess'=>'Permission updated successfully',
+  'permissionUpdateError'=>'There was an error updating the permission',
+  'permissionDeleteSuccess'=>'Permission deleted successfully',
+  'permissionDeleteError'=>'There was an error delete the permission',
+
+  'roleCreatedSuccess'=>'Role created successfully!',
+  'roleCreatedtError'=>'There was an error creating the role',
+  'roleUpdateSuccess'=>'Role updated successfully',
+  'roleUpdateError'=>'There was an error updating the role',
+  'roleDeleteSuccess'=>'Role deleted successfully',
+  'roleDeleteError'=>'There was an error delete the role',
+
+  'carouselCreatedSuccess'=>'Carousel created successfully!',
+  'carouselDeleteSuccess'=>'Carousel deleted successfully',
+  'carouselDeleteError'=>'There was an error delete the carousel',
+
+  'queryCreatedSuccess'=>'Query created successfully!',
+  'queryCreatedFail'=>'There was an error creating the query',
+  'markedSuccess'=>'Query marked as read',
+  'markedError'=>'Query not found',
+  'queryDeleteSuccess'=>'Query deleted successfully',
+  'queryDeleteError'=>'There was an error delete the query',
+
+  'facilityCreatedSuccess'=>'Facility created successfully!',
+  'facilityUpdateSuccess'=>'Facility updated successfully',
+  'facilityDeleteSuccess'=>'Facility deleted successfully',
+  'facilityDeleteError'=>'Facilify not found ',
+  'settingUpdateSuccess'=>'Setting updated successfully',
+  'settingCreatedSuccess'=>'Setting created successfully',
+
+
+
+
+
+
+
 
   /* ========================= Room ======================= */
   'rooms' => 'Rooms',
@@ -149,7 +206,7 @@ return [
   'floor' => 'Floor',
   'price' => 'Price',
   'showing_rooms'=>'Showing rooms _START_ to _END_ of _TOTAL_',
-
+  'showing_bookings'=>'Showing bookings _START_ to _END_ of _TOTAL_',
   'createRooms' => 'New Room',
   'createRoom' => 'Create Room',
   'editRooms' => 'Edit Room',
@@ -171,17 +228,44 @@ return [
   'name'=>'Name',
   'enterPermissionName'=>'Enter permission name',
   'permissionName'=>'Permission name',
+  'addPermission'=>'Add Permission',
+  'createNewPermission'=>'Create New Permission',
+  'newPermission'=>'New Permission',
+  'createPermission'=>'Create Permission',
+  'permission'=>'Permission',
+  'editPermissions'=>'Edit Permission',
+  'editPermission'=>'Edit Permission',
+
  
 
     /*=========== Role ============== */
     'showing_permissions' => 'Showing permissions _START_ to _END_ of _TOTAL_',
-
+    'showing_roles'=>'Showing roles _START_ to _END_ of _TOTAL_',
+    'addRole'=>'Add Role',
+  'roleList'=>'Role list',
+  'editRole'=>'Edit Role',
+  'createNewRole'=>'Create new role',
+  'newRole'=>'New role',
+  'roleName'=>'Role name',
+  'createRole'=>'Create role',
+  'enterRoleName'=>'Enter role name',
+  'editRolePermission'=>'Give Permission',
+  'givePermission'=>'Give Permission',
     /*================ User ============ */
 
   'userName'=>'User name',
   'fullName'=>'Full name',
   'gender'=>'Gender',
   'dob'=>'DoB',
+  'showing_users'=> 'Showing users _START_ to _END_ of _TOTAL_',
+  'enterUserName'=>'Enter user name',
+  'enterFullname'=>'Enter full name',
+  'enterPhone'=>'Enter phone number',
+  'createUser'=>'Create User',
+  'newUser'=>'New User',
+  'user'=>'User',
+  'editUser'=>'Edit User',
+  'editUsers'=>'Edit User',
 
   /*============= Booking ============= */
   'checkIn'=>'Check_In',
@@ -190,6 +274,12 @@ return [
   'totalChildren'=>'Total_Children',
   'avaiableRoom'=>'Avaiable Room',
   'reservation'=>'Reservation',
+  'bookingList'=>'Booking List',
+  'addBooking'=>'Add Booking',
+  'createBooking' => 'Create Booking',
+  'newBooking'=>'New Booking',
+  
+  
 
 /*============= Booking ============= */
 'facilities'=>'Facilities',
@@ -207,8 +297,7 @@ return [
 /* ============= About us =========== */
 'aboutUs'=>'About Us',
 'title'=>'Title',
-'aboutUs'=>'About Us',
-'aboutUs'=>'About Us',
+
 
 /*============== Contact ============= */
 'contactSetting'=>'Contacts Setting',
@@ -220,6 +309,66 @@ return [
 'insta'=>'Insta',
 'tripa'=>'Tripa',
 'tele'=>'Tele',
+
+
+/*============= Message alert ============= */ 
+'guestUpdatedSuccess'=>'Guest updated successfully!',
+'guestUpdatedError'=>'There was an error updating the guest.',
+'enterId'=>'Enter room id',
+'guestDeleteSuccess'=>'Guest deleted successfully',
+'guestDeleteError'=>'There was an error delete the guest',
+
+
+/*============= Room ============= */
+'roomList'=>'Room List',
+'roomid'=>'Room ID',
+
+
+/*============== Carousels ============ */
+'Carousels'=>'Carousel',
+'addCarousel'=>'Add Carousel',
+'createNewCarousel'=>'Create new carousel',
+'newCarousels'=>'New Carousels',
+'createCarousels'=>'Create carousels',
+'enterCarouselName'=>'Enter carousel name',
+'title'=>'Title',
+
+/*============== User Query ============ */
+'userQuery'=>'User Query',
+'message'=>'Message',
+'userQueryList'=>'User Query List',
+'showing_userquerys'=>'Showing querys :start to :end of :total',
+'icon'=>'Image',
+
+ /*============== Facility ============ */
+ 'facilityList'=>'Facility List',
+ 'facility'=>'Facility',
+ 'showing_facilitys'=>'Showing facilitys :start to :end of :total',
+ 'addFacility'=>'Add Facility',
+ 'createNewFacility'=>'Create new facility',
+ 'enterFacilityName'=>'Enter facility name',
+ 'newFacility'=>'New facility',
+ 'createFacility'=>'Create facility',
+ 'editFacility'=>'Edit Facility',
+ 'editFacilitys'=>'Edit Facility',
+ 
+
+ /*============== Setting ============= */
+ 'aboutUs'=>'About Us',
+ 'contactSetting'=>'Contact Setting',
+ 'editSetting'=>'Edit Setting',
+  'editSettings'=>'Edit Setting',
+
+  'showing_banners'=>'Showing banners :start to :end of :total',
+  'addBanner'=>'Add Banner',
+  'createNewBanner'=>'Create new banner',
+  'banner'=>'Banner',
+  'pageName'=>'Page Name',
+  'bannerImage'=>'Banner Image',
+  'bannerList'=>'Banner List',
+  'createBanner'=>'Create banner',
+  'newBanner'=>'New banner',
+
   
 
 ]

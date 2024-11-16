@@ -37,8 +37,10 @@ class Room extends Model
     static public function getRoom()
     {
         $return  = self::select('rooms.*')
-            ->where('is_deleted', '=', 0);
-
+        ->where('is_deleted', '=', 0);
+        if (!empty(Request::get('room_id'))) {
+            $return = $return->where('id', '=', Request::get('room_id'));
+        }
         if (!empty(Request::get('room_type_id'))) {
             $return = $return->where('room_type_id', '=', Request::get('room_type_id'));
         }
@@ -62,4 +64,16 @@ class Room extends Model
         $return = $return->orderBy('id', 'desc')->get();
         return $return;
     }
+
+    static public function getRoomFront()
+    {
+        $return  = self::select('rooms.*')
+        ->where('is_deleted', '=', 0)
+        ->where('status', '=', 'active'); // Change 'active' column to 'status'
+
+        $return = $return->orderBy('id', 'desc')->get();
+        return $return;
+    }
+
+
 }

@@ -72,8 +72,9 @@ Route::middleware(['auth:guest'])->group(function () {
 });
 
 // routes/web.php
-Route::delete('/booking/cancel/{id}', [ReservationController::class, 'cancelBooking'])->name('booking.cancel');
+// Route::delete('/booking/cancel/{id}', [ReservationController::class, 'cancelBooking'])->name('booking.cancel');
 
+Route::post('/booking/cancel/{id}', [ReservationController::class, 'cancelBooking'])->name('booking.cancel');
 
 Route::post('guest/register', [GuestController::class, 'register'])->name('guest.register');
 Route::post('guest/login', [GuestController::class, 'login'])->name('guest.login');
@@ -191,5 +192,4 @@ Route::group(['middleware' => ['isAdmin']], function () {
         session()->forget('notifications');
         return redirect()->back()->with('success', 'Notifications cleared.');
     })->name('notifications.clear');
-    
 });

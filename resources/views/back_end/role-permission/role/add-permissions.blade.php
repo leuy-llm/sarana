@@ -3,9 +3,9 @@
      @php
     $breadcrumbs = [
         ['title' => __('label.role'), 'url' => route('roles.index')],
-        ['title' => __('label.editRole'), 'url' => route('roles.edit', $role->id)]
+        ['title' => __('label.givePermission'), 'url' => route('roles.edit', $role->id)]
     ];
-    $currentPageTitle = __('label.editRole');
+    $currentPageTitle = __('label.editRolePermission');
 @endphp
 @include('layout.breadcrumbs', ['breadcrumbs' => $breadcrumbs, 'currentPageTitle' => $currentPageTitle])
     <div class="row">
@@ -16,14 +16,14 @@
                         <div class="">
                             <div class="card-title">@lang('label.role') : {{$role->name}}</div>
                         </div>
-                        <div class="">
+                        {{-- <div class="">
                             <a href="{{ url('roles/') }}" class="btn btn-secondary btn-rounded mb-2"> <span class=" uil-corner-up-left"></span> @lang('label.back')</a>
-                        </div>
+                        </div> --}}
                     </div>
                     <form class="needs-validation" method="POST" action="{{url('roles/'.$role->id.'/give-permissions')}}" novalidate>
                         @csrf
                         @method('PUT')
-                        <label class="form-label">@lang('label.PermissionName')</label>
+                        <label class="form-label">@lang('label.permissionName')</label>
                         <div class="mb-3 mt-2 row ">
                             @foreach ($permissions as $permission)
                                 <div class="form-check col-sm-6 col-md-3 mb-2">
@@ -34,8 +34,8 @@
                             
                         </div>
                        
-                        <button class="btn btn-primary btn-rounded" type="submit">@lang('label.update')</button>
-                        <a href="{{ route('roles.index') }}" class="btn btn-light btn-rounded">@lang('label.cancel')</a>
+                        <button class="btn btn-primary" type="submit">@lang('label.update')</button>
+                        <a href="{{ route('roles.index') }}" class="btn btn-dark">@lang('label.cancel')</a>
                     </form>
                     
                     </div>

@@ -47,10 +47,10 @@ class PermissionController extends Controller
             Permission::create([
                 'name' => $request->name
             ]);
-            return redirect('permissions')->with('success', __('label.permissionCreateSuccess'));
+            return redirect('permissions')->with('success', __('label.permissionCreatedSuccess'));
             // ->with('success', 'Permission created successfully!');
         } catch (\Exception $e) {
-            return redirect('permissions')->with('success', __('label.permissionCreatetError'));
+            return redirect('permissions')->with('success', __('label.permissionCreatedtError'));
             // ->with('error', 'An error occurred while creating the permission.');
         }
     }

@@ -25,31 +25,36 @@
         <!--- Sidemenu -->
         <ul class="side-nav">
             <li class="side-nav-title side-nav-item">Navigation</li>
-            <li class="side-nav-item font">
-                <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false"
+            {{-- <li class="side-nav-item font">
+                <a data-bs-toggle="collapse" href="{{route('app')}}" aria-expanded="false"
                     aria-controls="sidebarDashboards" class="side-nav-link">
                     <i class="uil-home-alt"></i>
-
                     <span> @lang('label.dashboard') </span>
                 </a>
 
+            </li> --}}
+            <li class="side-nav-item font @if (Request::segment(1) == 'dashboard') active @endif"">
+                <a href="{{ url('app') }}" class="side-nav-link">
+                    <i class="uil-calender"></i>
+                    <span> @lang('label.dashboard')  </span>
+                </a>
             </li>
 
-            {{-- <li class="side-nav-title side-nav-item font">Guest Section</li> --}}
+            <li class="side-nav-title side-nav-item font">Guest Section</li>
             <li class="side-nav-item font @if (Request::segment(1) == 'guests') active @endif"">
                 <a href="{{ url('guests') }}" class="side-nav-link">
                     <i class="uil-calender"></i>
                     <span> @lang('label.guest')  </span>
                 </a>
             </li>
-            {{-- <li class="side-nav-title side-nav-item font">Room Section</li> --}}
+            <li class="side-nav-title side-nav-item font">Room Section</li>
             <li class="side-nav-item font @if (Request::segment(1) == 'rooms') active @endif"">
                 <a href="{{url('rooms')}}" class="side-nav-link">
                     <i class="uil-calender"></i>
                     <span> @lang('label.room')  </span>
                 </a>
             </li>
-
+           
             <li class="side-nav-item font @if (Request::segment(1) == 'roomTypes') active @endif">
                 <a href="{{ url('roomtypes') }}" class="side-nav-link">
                     <i class="uil-bed"></i>
@@ -57,13 +62,14 @@
                 </a>
             </li>
             {{-- <li class="side-nav-title side-nav-item font">Reservation Section</li> --}}
+            <li class="side-nav-title side-nav-item font">Booking Section</li>
             <li class="side-nav-item font @if (Request::segment(1) == 'calenders') active @endif"">
                 <a href="{{url('calenders')}}" class="side-nav-link">
                     <i class="uil-calender"></i>
                     <span> @lang('label.calender') </span>
                 </a>
             </li>
-
+          
             <li class="side-nav-item font @if (Request::segment(1) == 'bookings') active @endif">
                 <a href="{{url('bookings')}}" class="side-nav-link">
                     <i class="uil-calender"></i>
@@ -88,6 +94,7 @@
                 </div>
             </li> --}}
             {{-- <li class="side-nav-title side-nav-item font">Management</li> --}}
+            <li class="side-nav-title side-nav-item font">User Section</li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                     <i class="uil-user"></i>
@@ -124,7 +131,7 @@
                     </ul>
                 </div>
             </li>
-            <li class="side-nav-title side-nav-item font">Transition</li>
+            <li class="side-nav-title side-nav-item font">Transition section</li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarPages" aria-expanded="false" aria-controls="sidebarPages" class="side-nav-link">
                     <i class="uil-copy-alt"></i>
@@ -149,7 +156,13 @@
                             <a href="{{url('banners')}}">Page Banner</a>
                         </li>
                         <li>
-                            <a href="pages-maintenance.html">Maintenance</a>
+                            <a href="pages-maintenance.html">Service</a>
+                        </li>
+                        <li>
+                            <a href="pages-maintenance.html">Food</a>
+                        </li>
+                        <li>
+                            <a href="pages-maintenance.html">Drink</a>
                         </li>
                         
                     </ul>

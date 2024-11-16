@@ -18,12 +18,12 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="{{ route('rooms.index') }}" class="btn btn-light btn-rounded mb-2"><span
                                     class=" uil-corner-up-left"></span> @lang('label.back')</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ url('rooms/' . $room->id) }}"
                         method="POST" novalidate="">
                         @csrf
@@ -79,14 +79,24 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
+                                    <label class="form-label">@lang('label.maxPerson') <span class="text-danger">*</span></label>
+                                    <input type="number" value="{{ old('max_person', $room->max_person) }}" name="max_person"
+                                        class="form-control  @error('max_person') is-invalid @enderror "
+                                        placeholder="@lang('label.enterPrice') . . ." required="">
+                                    @error('max_person')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
                                     <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control select2" data-toggle="select2">
-                                        <option value="Available" {{ $room->status == 'Available' ? 'selected' : '' }}>
-                                            Available</option>
-                                        <option value="Booked" {{ $room->status == 'Booked' ? 'selected' : '' }}>Booked
+                                        <option value="active" {{ $room->status == 'active' ? 'selected' : '' }}>
+                                            Active</option>
+                                        <option value="inactive" {{ $room->status == 'inactive' ? 'selected' : '' }}>Inactive
                                         </option>
-                                        <option value="Maintenance" {{ $room->status == 'Maintenance' ? 'selected' : '' }}>
-                                            Maintenance</option>
+                                        
                                     </select>
                                     @error('status')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -99,7 +109,7 @@
                                     <textarea name="description" class="form-control">{{ old('description', $room->description) }}</textarea>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.facilities')</label>
                                     <div>
@@ -143,8 +153,8 @@
                                 @endif
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-rounded" type="submit">@lang('label.update')</button>
-                        <a href="{{ route('rooms.index') }}" class="btn btn-light btn-rounded">@lang('label.cancel')</a>
+                        <button class="btn btn-primary" type="submit">@lang('label.update')</button>
+                        <a href="{{ route('rooms.index') }}" class="btn btn-light">@lang('label.cancel')</a>
                     </form>
                 </div>
             </div>

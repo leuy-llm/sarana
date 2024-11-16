@@ -1,3 +1,46 @@
+<style>
+    .notification {
+        position: absolute;
+        top: 9px;
+        right: -5px;
+        background-color: #28a745;
+        /* Green background */
+        color: white;
+        /* White text */
+        font-size: 14px;
+        /* Adjust font size as needed */
+        font-weight: bold;
+        padding: 8px;
+        border-radius: 80%;
+        line-height: 1;
+        min-width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .disabled {
+        pointer-events: none;
+        /* Prevent click events */
+        opacity: 0.5;
+        /* Make it look dimmed */
+        cursor: not-allowed;
+        /* Show "not allowed" cursor */
+    }
+
+    .list-group-item {
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .notify-details {
+        margin-left: 10px;
+    }
+</style>
 <div class="navbar-custom">
     <ul class="list-unstyled topbar-menu float-end mb-0">
         <li class="dropdown notification-list d-lg-none">
@@ -15,8 +58,8 @@
         <li class="dropdown notification-list topbar-dropdown">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
                 aria-haspopup="false" aria-expanded="false">
-                <img src="{{ asset('admin_dashboard') }}/assets/images/flags/en-kh.png" alt="user-image"
-                    class="me-0 me-sm-1" height="12">
+                <img src="{{ asset('admin_dashboard') }}/assets/images/flags/world.png" alt="user-image"
+                    class="me-0 me-sm-1" height="20px">
                 <span class="align-middle d-none d-sm-inline-block font">@lang('label.language')</span> <i
                     class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
             </a>
@@ -38,16 +81,17 @@
             </div>
         </li>
         @php
-            // Retrieve notifications from the session
-            $notifications = session()->get('notifications', []);
-        @endphp
+    // Retrieve notifications from the session
+    $notifications = session()->get('notifications', []);
+    $notificationCount = count($notifications);
+@endphp
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
                 aria-haspopup="false" aria-expanded="false">
-                <i class="dripicons-bell noti-icon"></i>
-                @if (count($notifications) > 0)
-                    <span class="noti-icon-badge font">{{ count($notifications) }}</span>
-                @endif
+                <i class="dripicons-bell noti-icon "></i>
+                @if ($notificationCount > 0)
+                <span class="notification">{{ $notificationCount }}</span>
+            @endif
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
 
@@ -56,7 +100,7 @@
                     <h5 class="m-0">
                         <span class="float-end">
                             <a href="{{ route('notifications.clear') }}" class="text-dark">
-                                <small >Clear All</small>
+                                <small>Clear All</small>
                             </a>
                         </span>Notification
                     </h5>
@@ -65,17 +109,19 @@
                 <div style="max-height: 230px;" data-simplebar="">
                     <!-- item-->
                     @forelse ($notifications as $notification)
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-primary">
-                            <i class="mdi mdi-comment-account-outline"></i>
-                        </div>
-                        <p class="notify-details">{{ $notification['message'] }}
-                            <small class="text-muted">{{ \Carbon\Carbon::parse($notification['time'])->diffForHumans() }}</small>
-                        </p>
-                    </a>
-                    @empty
-                        <p class="text-center text-muted">No new notifications</p>
-                    @endforelse
+                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <div class="notify-icon bg-primary">
+                        <i class="mdi mdi-comment-account-outline"></i>
+                    </div>
+                    <p class="notify-details">{{ $notification['message'] }}
+                        <small class="text-muted">
+                            {{ \Carbon\Carbon::parse($notification['time'])->diffForHumans() }}
+                        </small>
+                    </p>
+                </a>
+            @empty
+                <p class="text-center text-muted">No new notifications</p>
+            @endforelse
 
                     <!-- item-->
                     {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
@@ -132,14 +178,30 @@
                         </p>
                     </a> --}}
                 </div>
-
                 <!-- All-->
-                <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
-                    View All
-                </a>
+                {{-- @if (!empty($notifications))
+                <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all"
+               data-bs-toggle="modal" data-bs-target="#notificationsModal">
+                View All
+            </a>
+            @endif --}}
+            @if ($notificationCount > 0)
+            <a href="javascript:void(0);" class="dropdown-item text-center bg-primary text-white notify-item notify-all"
+                data-bs-toggle="modal" data-bs-target="#notificationsModal">
+                View All
+            </a>
+        @else
+            <a href="javascript:void(0);" class="dropdown-item text-center text-muted notify-item notify-all disabled"
+                aria-disabled="true">
+                View All
+            </a>
+        @endif
 
             </div>
         </li>
+
+        <!-- Modal for Viewing All Notifications -->
+
 
         <li class="dropdown notification-list d-none d-sm-inline-block">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
@@ -152,8 +214,7 @@
                     <div class="row g-0">
                         <div class="col">
                             <a class="dropdown-icon-item" href="#">
-                                <img src="{{ asset('admin_dashboard') }}/assets/images/brands/slack.png"
-                                    alt="slack">
+                                <img src="{{ asset('admin_dashboard') }}/assets/images/brands/slack.png" alt="slack">
                                 <span>Slack</span>
                             </a>
                         </div>
@@ -330,6 +391,40 @@
                         </div>
                     </div>
                 </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationsModalLabel">All Notifications</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if (!empty($notifications))
+                    <div class="list-group">
+                        @foreach ($notifications as $notification)
+                            <div class="list-group-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6>{{ $notification['message'] }}</h6>
+                                        <small
+                                            class="text-muted">{{ \Carbon\Carbon::parse($notification['time'])->diffForHumans() }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-center text-muted">No notifications available.</p>
+                @endif
+            </div>
+            <div class="modal-footer">
+                <a href="{{ route('notifications.clear') }}" class="btn btn-danger">Clear All Notifications</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

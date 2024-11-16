@@ -57,7 +57,7 @@ class BookingController extends Controller
         $booking->status = $request->status;
         $booking->save();
 
-        return redirect()->route('bookings.index')->with('success', 'Booking created successfully');
+        return redirect()->route('bookings.index')->with('success', __('label.bookingCreatedSuccess'));
     }
 
 
@@ -154,7 +154,7 @@ class BookingController extends Controller
         $booking->save();
 
         // Redirect to a relevant page (e.g., bookings index) with a success message
-        return redirect()->route('bookings.index')->with('success', 'Booking updated successfully');
+        return redirect()->route('bookings.index')->with('success', __('label.bookingUpdateSuccess'));
     }
 
     public function destroy($bookingId)
@@ -165,10 +165,12 @@ class BookingController extends Controller
             $booking->is_deleted = 1;
             $booking->save();
 
-            return redirect('/bookings')->with('success', 'The Booking was marked as deleted successfully');
+            return redirect('/bookings')->with('success', __('label.bookingDeleteSuccess'));
+            //with('success', 'The Booking was marked as deleted successfully');
         }
 
-        return redirect('/bookings')->with('error', 'Booking not found');
+        return redirect('/bookings')->with('error', __('label.bookingDeleteError'));
+        //with('error', 'Booking not found');
     }
 
 

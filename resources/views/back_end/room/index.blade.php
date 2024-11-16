@@ -43,9 +43,17 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="mb-3">
+                                        <label class="form-label">@lang('label.roomid')</label>
+                                        <input type="number" name="room_id" value="{{ Request::get('room_id') }}"
+                                            class="form-control " placeholder="@lang('label.enterId') . . .">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="mb-3">
                                         {{-- <label class="form-label">@lang('label.roomTypeName')</label>
                                         <input type="text" name="roomTypeName" value="{{ Request::get('name') }}"
                                             placeholder="@lang('label.enterRoomTypeName') . . ." class="form-control filter"> --}}
+                                            
                                         <label class="form-label">@lang('label.roomTypeName')</label>
                                         <select name="room_type_id" id="room_type_id" class="form-control select2"
                                             data-toggle="select2">
@@ -85,14 +93,11 @@
                                         <label class="form-label">@lang('label.status')</label>
                                         <select name="status" class="form-control select2" data-toggle="select2">
                                             <option value="" selected>@lang('label.selectStatus')</option>
-                                            <option value="Available"
-                                                {{ Request::get('status') == 'Available' ? 'selected' : '' }}>Available
+                                            <option value="active"
+                                                {{ Request::get('status') == 'active' ? 'selected' : '' }}>Active
                                             </option>
-                                            <option value="Booked"
-                                                {{ Request::get('status') == 'Booked' ? 'selected' : '' }}>Booked</option>
-                                            <option value="Maintenance"
-                                                {{ Request::get('status') == 'Maintenance' ? 'selected' : '' }}>Maintenance
-                                            </option>
+                                            <option value="inactive"
+                                                {{ Request::get('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                                         </select>
                                     </div>
                                 </div>
@@ -168,8 +173,9 @@
 
                                     <th>@lang('label.description')</th>
                                     <th>@lang('label.price')</th>
-                                    <th>@lang('label.date')</th>
                                     <th>@lang('label.maxPerson')</th>
+                                    <th>@lang('label.status')</th>
+                                    <th>@lang('label.date')</th>
                                     <th style="width: 75px;">@lang('label.action')</th><!--style="width: 75px;"-->
                                 </tr>
                             </thead>
@@ -177,10 +183,12 @@
                                 @foreach ($rooms as $room)
                                     <tr>
                                         <td>
-                                            <div class="form-check">
+                                            <div class="form-check" style="display: none">
                                                 <input type="checkbox" class="form-check-input" id="customCheck2">
                                                 <label class="form-check-label" for="customCheck2">&nbsp;</label>
                                             </div>
+                                         
+                                            
                                         </td>
                                         <td>
                                             {{ $room->roomType->type_name }}
@@ -207,25 +215,28 @@
                                         <td>
                                             {{ $room->price }}
                                         </td>
+                                       
+                                        
+                                        <td>
+                                            {{ $room->max_person }}
+                                        </td>
+                                        <td>
+                                            @if ($room->status == 'active')
+                                                <span class="badge badge-success-lighten">{{ $room->status }}</span>
+                                            @elseif ($room->status == 'inactive')
+                                                <span class="badge badge-danger-lighten">{{ $room->status }}</span>
+                                            @endif
+                                        
+                                        </td>
                                         <td>
                                             {{ date('d-m-Y H:i A', strtotime($room->created_at)) }}
                                         </td>
-                                        <td>
-                                            {{-- @if ($room->status == 'Available')
-                                                <span class="badge badge-success-lighten">{{ $room->status }}</span>
-                                            @elseif ($room->status == 'Booked')
-                                                <span class="badge badge-danger-lighten">{{ $room->status }}</span>
-                                            @elseif ($room->status == 'Maintenance')
-                                                <span class="badge badge-warning-lighten">{{ $room->status }}</span>
-                                            @endif --}}
-                                            {{ $room->max_person }}
-                                        </td>
                                         <td class="table-action">
-                                            <a href="{{ route('rooms.show', $room->id) }}" class="action-icon"> <i
+                                            <a href="{{ route('rooms.show', $room->id) }}" class="action-icon text-success"> <i
                                                     class="mdi mdi-eye"></i></a>
-                                            <a href="{{ url('rooms/' . $room->id . '/edit') }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                            <a href="{{ url('rooms/' . $room->id . '/edit') }}" class="action-icon text-primary"> <i class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="{{ url('rooms/' . $room->id . '/delete') }}"
-                                                onclick="confirmation(event)" class="action-icon"> <i
+                                                onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                     class="mdi mdi-delete"></i></a>
                                         </td>
                                     </tr>
@@ -317,14 +328,14 @@
                             text: cancel,
                             value: null,
                             visible: true,
-                            className: "btn btn-danger",
+                            // className: "btn btn-danger",
                             closeModal: true,
                         },
                         confirm: {
                             text: confirm,
                             value: true,
                             visible: true,
-                            className: "btn btn-primary",
+                            // className: "btn btn-primary",
                             closeModal: true
                         }
                     },

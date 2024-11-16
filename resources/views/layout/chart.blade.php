@@ -7,18 +7,27 @@
                         <i class="mdi mdi-dots-vertical"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">Today</a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">Yesterday</a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">Last Week</a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">Last Month</a>
+                        <a href="javascript:void(0);" class="dropdown-item filter-option" data-filter="all_time">All Time</a>
+                        <a href="javascript:void(0);" class="dropdown-item filter-option" data-filter="today">Today</a>
+                        <a href="javascript:void(0);" class="dropdown-item filter-option" data-filter="yesterday">Yesterday</a>
+                        <a href="javascript:void(0);" class="dropdown-item filter-option" data-filter="last_week">Last Week</a>
+                        <a href="javascript:void(0);" class="dropdown-item filter-option" data-filter="last_month">Last Month</a>
                     </div>
                 </div>
 
-                <h4 class="header-title mb-1">Campaigns</h4>
+                <h4 class="header-title mb-1">
+                    Popular Room Types - {{ ucfirst(str_replace('_', ' ', $filter)) }}
+                </h4>
+                <!-- Check if there's any data -->
+                @if(count($roomTypeBookings) > 0)
+                <div id="room-type-chart"></div>
+                @else
+                <div class="text-center mt-4">
+                    <h5>No data available for {{ ucfirst(str_replace('_', ' ', $filter)) }}</h5>
+                    <p class="text-muted">No bookings found for the selected time period.</p>
+                </div>
+                @endif                
+                
 
                 {{-- <div id="dash-campaigns-chart" class="apex-charts" data-colors="#ffbc00,#727cf5,#0acf97"></div> --}}
                 <div id="room-type-chart" class="apex-charts" data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00"></div>
@@ -57,10 +66,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="dropdown float-end">
-                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{-- <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="mdi mdi-dots-vertical"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
+                    </a> --}}
+                    {{-- <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item">Today</a>
                         <!-- item-->
@@ -69,30 +78,12 @@
                         <a href="javascript:void(0);" class="dropdown-item">Last Week</a>
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item">Last Month</a>
-                    </div>
+                    </div> --}}
                 </div>
                 
-                <h4 class="header-title mb-3">Revenue</h4>
-
-                <div class="chart-content-bg">
-                    <div class="row text-center">
-                        <div class="col-md-6">
-                            <p class="text-muted mb-0 mt-3">Current Month</p>
-                            <h2 class="fw-normal mb-3">
-                                <span>$42,025</span>
-                            </h2>
-                        </div>
-                        <div class="col-md-6">
-                            <p class="text-muted mb-0 mt-3">Previous Month</p>
-                            <h2 class="fw-normal mb-3">
-                                <span>$74,651</span>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-
+                <h4 class="header-title mb-3">Monthly Booking Trend</h4>
                 <div dir="ltr">
-                    <div id="dash-revenue-chart" class="apex-charts" data-colors="#0acf97,#fa5c7c"></div>
+                    <div id="booking-line-chart" class="apex-charts" data-colors="#0acf97,#fa5c7c"></div>
                 </div>
 
             </div>

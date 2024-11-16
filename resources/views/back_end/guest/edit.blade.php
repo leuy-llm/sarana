@@ -12,11 +12,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-sm-4">
                             <a href="{{ url('guests/') }}" class="btn btn-danger btn-rounded mb-2"> <span class=" uil-corner-up-left"></span> @lang('label.back')</a>
                         </div>
-                    </div>
+                    </div> --}}
                     <form class="needs-validation" method="POST" action="{{ url('guests/' . $guest->id) }}" novalidate>
                         @csrf
                         @method('PUT')
@@ -42,17 +42,17 @@
                                 data-provide="typeahead" id="the-basics" placeholder="Address">
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">@lang('label.password')</label>
+                            {{-- <label for="password" class="form-label">@lang('label.password')</label> --}}
                             <div class="input-group input-group-merge">
-                                <input type="password" name="password" class="form-control"
+                                <input type="hidden" name="password" class="form-control"
                                     placeholder="Enter your password">
-                                <div class="input-group-text" data-password="false">
+                                {{-- <div class="input-group-text" data-password="false">
                                     <span class="password-eye"></span>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-rounded" type="submit">@lang('label.update')</button>
-                        <button type="button" class="btn btn-light btn-rounded">@lang('label.cancel')</button>
+                        <button class="btn btn-primary " type="submit">@lang('label.update')</button>
+                        <a href="{{url('guests')}}" class="btn btn-dark">@lang('label.cancel')</a>
                     </form>
                 </div>
             </div>

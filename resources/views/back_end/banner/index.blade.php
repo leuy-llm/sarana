@@ -47,8 +47,8 @@
 @section('content')
     <div iv class="container-fluid">
         @php
-            $breadcrumbs = [['title' => __('label.userQuery'), 'url' => route('queries.index')]];
-            $currentPageTitle = __('label.userQuery');
+            $breadcrumbs = [['title' => __('label.banner'), 'url' => route('queries.index')]];
+            $currentPageTitle = __('label.bannerList');
         @endphp
         @include('layout.breadcrumbs', [
             'breadcrumbs' => $breadcrumbs,
@@ -62,9 +62,9 @@
                         <div class="row mb-2">
                             <div class="col-sm-9">
                                 <a href="{{ route('banner.create') }}" tabindex="0" data-bs-toggle="popover"
-                                    data-bs-trigger="hover" data-bs-placement="right" data-bs-content="@lang('label.CanBooking')"
-                                    title="@lang('label.createNewBooking')" class="btn btn-danger mb-2">
-                                    <i class="mdi mdi-plus-circle me-1"></i>Add New Banner</a>
+                                    data-bs-trigger="hover" data-bs-placement="top" 
+                                    title="@lang('label.createNewBanner')" class="btn btn-danger mb-2">
+                                    <i class="mdi mdi-plus-circle me-1"></i>@lang('label.addBanner')</a>
                             </div>
     
                         </div>
@@ -111,7 +111,7 @@
                                                  </form>
                                                 <a href="{{ route('banner.delete',$data->id) }}"
                                                     onclick="confirmation(event)" class="action-icon"> 
-                                                    <i class="mdi mdi-delete text-white btn btn-danger" style=""></i></a>
+                                                    <i class="mdi mdi-delete text-danger" style=""></i></a>
                                                       
                                             </td>
                                         </tr>
@@ -290,8 +290,8 @@
 
         /*============= Tranlsate ==============*/
         var displayText = @json(__('label.display'));
-        var displayRoomType = @json(__('label.roomType'));
-        var showingRoomTypeText =
-            "{{ __('label.showing_roomtypes', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
+        var displayBanner = @json(__('label.banner'));
+        var showingBannerText =
+            "{{ __('label.showing_banners', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
     </script>
 @endsection

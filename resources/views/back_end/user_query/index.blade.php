@@ -48,7 +48,7 @@
     <div iv class="container-fluid">
         @php
             $breadcrumbs = [['title' => __('label.userQuery'), 'url' => route('queries.index')]];
-            $currentPageTitle = __('label.userQuery');
+            $currentPageTitle = __('label.userQueryList');
         @endphp
         @include('layout.breadcrumbs', [
             'breadcrumbs' => $breadcrumbs,
@@ -110,7 +110,7 @@
                                                      @method('PUT')
                                                  </form>
                                                 <a href="{{ route('queries.delete',$data->id) }}"
-                                                    onclick="confirmation(event)" class="action-icon"> 
+                                                    onclick="confirmation(event)" class="action-icon text-danger"> 
                                                     <i class="mdi mdi-delete"></i></a>
                                                         {{-- <i class="mdi mdi-email-open"></i> --}}
                                             </td>
@@ -290,8 +290,8 @@
 
         /*============= Tranlsate ==============*/
         var displayText = @json(__('label.display'));
-        var displayRoomType = @json(__('label.roomType'));
-        var showingRoomTypeText =
-            "{{ __('label.showing_roomtypes', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
+        var displayUserQuery = @json(__('label.userQuery'));
+        var showingUserQueryText =
+            "{{ __('label.showing_userquerys', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
     </script>
 @endsection

@@ -39,16 +39,14 @@ class GuestController extends Controller
             'address' => 'required|string|max:255',
 
         ]);
-
-        // Log::info('Request Data: ', $request->all());
-        $strippedMobile = preg_replace('/\D/', '', $request->mobile);
         try {
             // Create a new Guest record
             $guest = new Guest();
             $guest->name = $request->name;
             $guest->email = $request->email;
-            $guest->mobile = $strippedMobile;
+            $guest->mobile = $request->mobile;
             $guest->address = $request->address;
+            $guest->password = '';
             $guest->save();
 
             // Set a success message in the session
@@ -81,7 +79,7 @@ class GuestController extends Controller
         $guest->email = $request->email;
         $guest->mobile = $request->mobile;
         $guest->address = $request->address;
-
+        $guest->password = '';
         $guest->save();
 
         return redirect('/guests')->with('success', __('label.guestUpdatedSuccess'));
@@ -96,10 +94,10 @@ class GuestController extends Controller
             $guest->save();
 
             // return redirect('/guests')->with('success', 'The guest was marked as deleted successfully');
-            return redirect('/guests')->with('success', __('label.roomDeleteSuccess'));
+            return redirect('/guests')->with('success', __('label.guestDeleteSuccess'));
         }
 
-        return redirect('/guests')->with('error', __('label.roomDeleteError'));
+        return redirect('/guests')->with('error', __('label.guestDeleteError'));
     }
 
 
@@ -178,16 +176,24 @@ class GuestController extends Controller
         ]);
 
         auth()->guard('guest')->login($guest);
-
+        // Add a notification when a new query is created
         $notifications = session()->get('notifications', []);
+
+        // Generate a new ID based on the count of existing notifications
+        $id = count($notifications) + 1;
+
         $notifications[] = [
+            'id' => $id,
             'type' => 'new_registration',
             'message' => 'A new guest has registered: ' . $guest->name,
             'time' => now()->format('Y-m-d H:i:s'),
         ];
+
+        // Store the updated notifications back in the session
         session(['notifications' => $notifications]);
         return redirect()->back();
     }
+
 
 
     // public function login(Request $request)

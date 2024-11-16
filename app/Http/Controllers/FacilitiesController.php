@@ -48,7 +48,7 @@ class FacilitiesController extends Controller
         ]);
 
         // Redirect or return a response
-        return redirect('facilitys')->with('success', 'Facility created successfully.');
+        return redirect('facilitys')->with('success', __('label.facilityCreatedSuccess'));
     }
 
    
@@ -94,7 +94,7 @@ class FacilitiesController extends Controller
         $facility->save();
 
         // Redirect or return a response
-        return redirect('facilitys')->with('success', 'Facility updated successfully.');
+        return redirect('facilitys')->with('success', __('label.facilityUpdateSuccess'));
     }
 
 
@@ -107,9 +107,9 @@ class FacilitiesController extends Controller
             $facility->is_deleted = 1;
             $facility->save();
 
-            return redirect('/facilitys')->with('success', 'The RoomType was marked as deleted successfully');
+            return redirect('/facilitys')->with('success', __('label.facilityDeleteSuccess'));
         }
 
-        return redirect('/facilitys')->with('error', 'RoomType not found');
+        return redirect('/facilitys')->with('error', __('label.facilityDeleteError'));
     }
 }

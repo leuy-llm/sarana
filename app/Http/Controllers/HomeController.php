@@ -21,7 +21,7 @@ class HomeController extends Controller
         $carousels = DB::table('carousels')->get();
         $settings = DB::table('settings')->get();
         $about_us = DB::table('about_us')->get();
-        $rooms = Room::getRoom();
+        $rooms = Room::getRoomFront();
         // Fetch only the specific room types you want to display
         $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room','Family 3 bedroom','Trip Room','King Room'])->get();
         $facilities = Facility::getFacility();

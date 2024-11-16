@@ -4,7 +4,7 @@
         <div class="page-title-box" style="margin-top: -20px">
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="{{ url('admin') }}">@lang('label.dashboard')</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('app') }}">@lang('label.dashboard')</a></li>
                     @foreach ($breadcrumbs as $breadcrumb)
                         @if (!$loop->last)
                             <li class="breadcrumb-item"><a href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['title'] }}</a></li>

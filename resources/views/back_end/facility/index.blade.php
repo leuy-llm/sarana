@@ -47,8 +47,8 @@
 @section('content')
     <div iv class="container-fluid">
         @php
-            $breadcrumbs = [['title' => __('label.roomType'), 'url' => route('roomtypes.index')]];
-            $currentPageTitle = __('label.roomTypeList');
+            $breadcrumbs = [['title' => __('label.facility'), 'url' => route('facilitys.index')]];
+            $currentPageTitle = __('label.facilityList');
         @endphp
         @include('layout.breadcrumbs', [
             'breadcrumbs' => $breadcrumbs,
@@ -64,9 +64,9 @@
                             <div class="col-sm-4">
                                 <a href="{{ url('facilitys/create') }}" tabindex="0" data-bs-toggle="popover"
                                     data-bs-trigger="hover"
-                                    data-bs-content="You can create new roomtype with correct imformation 🧑🏻"
-                                    title="Create RoomType !" class="btn btn-danger mb-2">
-                                    <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addRoomType')</a>
+                                    data-bs-placement="top"
+                                    title="@lang('label.createNewFacility')" class="btn btn-danger mb-2">
+                                    <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addFacility')</a>
                             </div>
 
                         </div>
@@ -116,9 +116,9 @@
                                             <td class="table-action">
                                               
                                                 <a href="{{ url('facilitys/' . $data->id . '/edit') }}" id="roomTypeEdit"
-                                                    class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                    class="action-icon text-primary"> <i class="mdi mdi-square-edit-outline"></i></a>
                                                 <a href="{{ url('facilitys/' . $data->id . '/delete') }}"
-                                                    onclick="confirmation(event)" class="action-icon"> <i
+                                                    onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                         class="mdi mdi-delete"></i></a>
                                             </td>
                                         </tr>
@@ -336,8 +336,8 @@
 
         /*============= Tranlsate ==============*/
         var displayText = @json(__('label.display'));
-        var displayRoomType = @json(__('label.roomType'));
-        var showingRoomTypeText =
-            "{{ __('label.showing_roomtypes', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
+        var displayFacility = @json(__('label.facility'));
+        var showingFacilityText =
+            "{{ __('label.showing_facilitys', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
     </script>
 @endsection
