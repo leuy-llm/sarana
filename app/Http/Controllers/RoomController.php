@@ -39,7 +39,7 @@ class RoomController extends Controller
                 'room_type_id' => 'required|exists:room_types,id',
                 'room_number' => 'required|string|unique:rooms,room_number',
                 'floor' => 'nullable|integer',
-                'status' => 'nullable|in:active,inactive',
+                'status' => 'required|boolean',
                 'description' => 'nullable|string',
                 'price' => 'nullable|numeric',
                 'images.*' => 'required|image|mimes:jpeg,png,jpg,gif', // Validate each image
@@ -99,7 +99,7 @@ class RoomController extends Controller
                 'room_type_id' => 'required|exists:room_types,id',
                 'room_number' => 'required|string|unique:rooms,room_number,' . $id,
                 'floor' => 'nullable|integer',
-                'status' => 'nullable|in:active,inactive',
+                'status' => 'required|boolean',
                 'description' => 'nullable|string',
                 'price' => 'nullable|numeric',
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate each image
@@ -185,4 +185,12 @@ class RoomController extends Controller
         $header_title = "Room Details";
         return view('back_end.room.show', compact('room', 'header_title'));
     }
+
+    public function toggleActive(Room $room)
+{
+    $room->status = !$room->status; // Toggle status (0 to 1, or 1 to 0)
+    $room->save();
+
+    return redirect()->back()->with('success', 'Room status updated!');
+}
 }

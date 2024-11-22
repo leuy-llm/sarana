@@ -1,12 +1,12 @@
 <div class="leftside-menu">
 
     <!-- LOGO -->
-    <a href="index.html" class="logo text-center logo-light">
-        <span class="logo-lg">
-            <img src="{{ asset('admin_dashboard') }}/assets/images/logo.png" alt="" height="16">
+    <a href="{{route('app')}}" class="logo text-center logo-light">
+        <span class="logo-lg ">
+            <img src="{{ asset('admin_dashboard') }}/assets/images/logo1.png" alt="" height="60px">
         </span>
         <span class="logo-sm">
-            <img src="{{ asset('admin_dashboard') }}/images/logo_sm.png" alt="" height="16">
+            <img src="{{ asset('admin_dashboard') }}/images/logo1.png" alt="" height="16">
         </span>
     </a>
 
@@ -156,13 +156,16 @@
                             <a href="{{url('banners')}}">Page Banner</a>
                         </li>
                         <li>
-                            <a href="pages-maintenance.html">Service</a>
+                            <a href="{{url('gallerys')}}">Gallery</a>
                         </li>
                         <li>
-                            <a href="pages-maintenance.html">Food</a>
+                            <a href="{{url('services')}}">Service</a>
                         </li>
                         <li>
-                            <a href="pages-maintenance.html">Drink</a>
+                            <a href="pages-maintenance.html">Food&Drink</a>
+                        </li>
+                        <li>
+                            <a href="pages-maintenance.html">Metting</a>
                         </li>
                         
                     </ul>

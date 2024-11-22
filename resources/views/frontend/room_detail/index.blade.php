@@ -2,8 +2,10 @@
 @section('content')
     <section id="home" class="banner_wrapper p-0">
         <div class="overlay">
-            <img src="{{ asset('hotel') }}/image/rooms/room_banner.png" style="width: 100%; height: 90vh; object-fit: cover;"
-                alt="Banner Image">
+            @if($banner)
+                <img src="{{ asset('storage/' . $banner->banner_image) }}" style="width: 100%; height: 90vh; object-fit: cover;"
+                alt="{{ $rooms->roomType->type_name }} Banner">
+            @endif
             <div class="img-overlay">
                 <h2>{{ $rooms->roomType->type_name }} {{$data}}</h2>
             </div>

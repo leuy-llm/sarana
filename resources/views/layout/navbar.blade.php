@@ -3,7 +3,7 @@
         position: absolute;
         top: 9px;
         right: -5px;
-        background-color: #28a745;
+        background-color: #f43506;
         /* Green background */
         color: white;
         /* White text */
@@ -11,10 +11,10 @@
         /* Adjust font size as needed */
         font-weight: bold;
         padding: 8px;
-        border-radius: 80%;
+        border-radius: 100%;
         line-height: 1;
         min-width: 20px;
-        height: 20px;
+        height: 22px;
         display: flex;
         align-items: center;
         justify-content: center;

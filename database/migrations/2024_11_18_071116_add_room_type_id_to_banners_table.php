@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('services', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('image')->nullable();
-            $table->text('description')->nullable();
-            $table->timestamps();
+        Schema::table('banners', function (Blueprint $table) {
+            //
+            $table->unsignedBigInteger('room_type_id')->nullable()->after('page_name');
+            $table->foreign('room_type_id')->references('id')->on('room_types')->onDelete('cascade');
         });
     }
 
@@ -25,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('services');
+        Schema::table('banners', function (Blueprint $table) {
+            //
+        });
     }
 };

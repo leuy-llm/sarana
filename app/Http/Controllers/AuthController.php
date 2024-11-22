@@ -330,7 +330,7 @@ class AuthController extends Controller
         $currentRooms = Room::count();
         $currentRoomTypes = RoomType::count();
         $currentUsers = User::count();
-        $header_title = "Dashboard";
+        $header_title =   __('label.dashboard');
 
         // $roomTypeBookings = Booking::join('rooms', 'bookings.room_id', '=', 'rooms.id')
         // ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')

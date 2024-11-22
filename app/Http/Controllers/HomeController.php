@@ -82,6 +82,7 @@ public function roomDetail($id, $type_name)
     $settings = DB::table('settings')->get();
     $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room','Family 3 bedroom','Trip Room','King Room'])->get();
     // Fetch the room by ID
+    $banner = Banner::where('page_name', 'rooms')->first(); 
     $rooms = Room::with('roomType', 'images', 'facilities')->findOrFail($id);
     $contact = DB::table('contact_details')->get();
     // Optionally check if the slug matches the room type name (optional for better user experience)
@@ -89,8 +90,37 @@ public function roomDetail($id, $type_name)
         return redirect()->route('roomDetail', ['id' => $id, 'type_name' => Str::slug($rooms->roomType->type_name)]);
     }
     
-    return view('frontend.room_detail.index', compact('rooms','contact','settings', 'data','roomTypes'));
+    return view('frontend.room_detail.index', compact('rooms','contact','settings','banner', 'data','roomTypes'));
 }
+// public function roomDetail($id, $type_name)
+// {
+//     $data = "Details";
+//     $settings = DB::table('settings')->get();
+//     $roomTypes = RoomType::whereIn('type_name', [
+//         'Deluxe Double Room', 'Deluxe Twin Room', 
+//         'Studio Suite Room', 'Family 3 bedroom', 
+//         'Trip Room', 'King Room'
+//     ])->get();
+
+//     // Fetch the room by ID
+//     $rooms = Room::with('roomType', 'images', 'facilities')->findOrFail($id);
+    
+//     // Fetch banner specific to the room type
+//     $banner = Banner::where('room_type_id', $rooms->room_type_id)->first();
+
+//     $contact = DB::table('contact_details')->get();
+
+//     // Ensure slug matches the room type name
+//     if (Str::slug($rooms->roomType->type_name) !== $type_name) {
+//         return redirect()->route('roomDetail', [
+//             'id' => $id, 
+//             'type_name' => Str::slug($rooms->roomType->type_name)
+//         ]);
+//     }
+    
+//     return view('frontend.room_detail.index', compact('rooms', 'contact', 'settings', 'banner', 'data', 'roomTypes'));
+// }
+
 
 // public function create(Request $request)
 //     {

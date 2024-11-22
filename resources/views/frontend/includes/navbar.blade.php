@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" href="">
             @foreach ($settings as $setting)
-                <img src="{{ asset('storage/' . $setting->site_logo) }}" style="height: 50px" class="img-fluid"
+                <img src="{{ asset('storage/' . $setting->site_logo) }}" style="height: 70px" class="img-fluid"
                     alt="" />
             @endforeach
         </a>
@@ -31,11 +31,16 @@
 
                             @if ($room)
                                 <li>
-                                    <a class="dropdown-item"
+                                    {{-- <a class="dropdown-item"
                                         style="font-size: 15px; padding-top: 10px; border-bottom: 1px solid #dee2e6; font-weight: 500; text-transform: uppercase;"
                                         href="{{ route('roomDetail', ['id' => $room->id, 'type_name' => Str::slug($room->roomType->type_name)]) }}">
                                         {{ $room->roomType->type_name }}
-                                    </a>
+                                    </a> --}}
+                                    <a class="dropdown-item" style="font-size: 15px; padding-top: 10px; border-bottom: 1px solid #dee2e6; font-weight: 500; text-transform: uppercase;"
+                                        href="{{ route('roomDetail', ['id' => $room->id, 'type_name' => Str::slug($room->roomType->type_name)]) }}">
+                                        {{ $room->roomType->type_name }}
+                                        </a>
+
                                 </li>
                             @endif
                         @endforeach

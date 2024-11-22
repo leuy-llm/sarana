@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{{ !empty($header_title) ? $header_title : '' }} - Hotel</title>
+    <title style="font-family: 'Hanuman', 'serif'!important;">{{ !empty($header_title) ? $header_title : '' }} @lang('label.for_hotel')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
     <meta content="Coderthemes" name="author">
@@ -52,6 +52,7 @@
         <script src="https://unpkg.com/air-datepicker@2.2.3/dist/js/datepicker.min.js"></script>
             @yield('style')
                 <style >
+                   
                 .font {
                     font - family: 'Hanuman', 'serif'!important;
                 }
@@ -229,6 +230,8 @@
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.users.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.bookings.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.facilitys.js"></script>
+        <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.services.js"></script>
+        <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.gallerys.js"></script>
 
         <!-- Typehead -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor/handlebars.min.js"></script>
@@ -287,6 +290,7 @@
     <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.calendar.js"></script>
     <!-- end demo js-->
 
+   
 
         @yield('script')
         </body>

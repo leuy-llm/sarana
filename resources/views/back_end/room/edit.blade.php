@@ -92,10 +92,8 @@
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control select2" data-toggle="select2">
-                                        <option value="active" {{ $room->status == 'active' ? 'selected' : '' }}>
-                                            Active</option>
-                                        <option value="inactive" {{ $room->status == 'inactive' ? 'selected' : '' }}>Inactive
-                                        </option>
+                                        <option value="1" {{ $gallery->status == 1 ? 'selected' : '' }}>Active</option>
+                                        <option value="0" {{ $gallery->status == 0 ? 'selected' : '' }}>Inactive</option>
                                         
                                     </select>
                                     @error('status')

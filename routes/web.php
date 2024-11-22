@@ -19,8 +19,10 @@ use App\Http\Controllers\FacilitiesController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\BookingCalenderController;
 use App\Http\Controllers\BookTestController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserQueryController;
 use App\Models\BookingCalender;
 
@@ -187,6 +189,15 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::post('banners/store', [BannerController::class, 'store'])->name('banner.store');
     Route::get('banners/delete/{id}', [BannerController::class, 'delete'])->name('banner.delete');
     Route::get('banners/create', [BannerController::class, 'create'])->name('banner.create');
+    Route::resource('services', ServiceController::class);
+    Route::get('services/{servicesId}/delete', [App\Http\Controllers\ServiceController::class, 'destroy']);
+
+    /*================= Gallery Route =================== */
+    Route::resource('gallerys', GalleryController::class);
+    Route::post('/gallerys/{gallery}/toggle-active', [GalleryController::class, 'toggleActive'])->name('gallery.toggleActive');
+    Route::post('/services/{service}/toggle-active', [ServiceController::class, 'toggleActive'])->name('service.toggleActive');
+    Route::post('/rooms/{room}/toggle-active', [RoomController::class, 'toggleActive'])->name('room.toggleActive');
+    Route::get('gallerys/{galleryId}/delete', [GalleryController::class, 'destroy']);
 
     Route::get('/notifications/clear', function () {
         session()->forget('notifications');

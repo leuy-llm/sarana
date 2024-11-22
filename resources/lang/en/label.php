@@ -15,7 +15,7 @@ return [
   'role' => 'Role',
   'userManage' => 'User Management',
   'permissionList' => 'Permission List',
-  'permissions'=>'permission',
+  'permissions' => 'permission',
   'calender' => 'Calender',
 
   /*=========== Languages ================*/
@@ -68,7 +68,7 @@ return [
   'resetGuest' => 'Reset Guest',
   'youcan' => 'You can create new guest 👦🏻',
 
-  
+
 
   'areYourSure' => ' Are you Sure to delete this record?',
   'youWontBe' => "You won't be able to revert this delete'",
@@ -97,8 +97,8 @@ return [
   'selectRoomType' => 'Select roomtype',
   'selectStatus' => 'Select status',
   'selectType' => 'Select type',
-  'enterDescription'=>'Type description here',
-  
+  'enterDescription' => 'Type description here',
+
 
   /* =========== Placeholder end ============ */
 
@@ -121,8 +121,6 @@ return [
   'amenity' => 'Amenity',
   'noAmenities' => 'No amenities',
 
-
-
   /*========= Export Data ========== */
   'cvs' => 'CVS',
   'excel' => 'Excel',
@@ -137,59 +135,59 @@ return [
   'roomTypeCreatedError' => 'There was an error creating the roomtype',
   'roomTypeUpdatedSuccess' => 'RoomType updated successfully',
   'roomTypeUpdatedError' => 'There was an error upading the roomType',
-  
-  'roomCreatedSuccess'=>'Room created successfully!',
-  'roomCreatedError'=>'There was an error creating the room',
-  'roomUpdateSuccess'=>'Room updated successfully',
-  'roomUpdateError'=>'There was an error updating the room',
-  'roomDeleteSuccess'=>'Room deleted successfully',
-  'roomDeleteError'=>'There was an error delete the room',
 
-  'bookingCreatedSuccess'=>'Booking created successfully!',
-  'bookingCreateError'=>'There was an error creating the booking ',
-  'bookingUpdateSuccess'=>'Booking updated successfully',
-  'bookingUpdateError'=>'There was an error updating the booking',
-  'bookingDeleteSuccess'=>'Booking deleted successfully',
-  'bookingDeleteError'=>'There was an error delete the booking',
+  'roomCreatedSuccess' => 'Room created successfully!',
+  'roomCreatedError' => 'There was an error creating the room',
+  'roomUpdateSuccess' => 'Room updated successfully',
+  'roomUpdateError' => 'There was an error updating the room',
+  'roomDeleteSuccess' => 'Room deleted successfully',
+  'roomDeleteError' => 'There was an error delete the room',
 
-  'userCreatedSuccess'=>'User created successfully!',
-  'userCreateError'=>'There was an error creating the user ',
-  'userUpdateSuccess'=>'User updated successfully',
-  'userUpdateError'=>'There was an error updating the user',
-  'userDeleteSuccess'=>'User deleted successfully',
-  'userDeleteError'=>'There was an error delete the user',
+  'bookingCreatedSuccess' => 'Booking created successfully!',
+  'bookingCreateError' => 'There was an error creating the booking ',
+  'bookingUpdateSuccess' => 'Booking updated successfully',
+  'bookingUpdateError' => 'There was an error updating the booking',
+  'bookingDeleteSuccess' => 'Booking deleted successfully',
+  'bookingDeleteError' => 'There was an error delete the booking',
 
-  'permissionCreatedSuccess'=>'Permission created successfully!',
-  'permissionCreatedtError'=>'There was an error creating the Permission',
-  'permissionUpdateSuccess'=>'Permission updated successfully',
-  'permissionUpdateError'=>'There was an error updating the permission',
-  'permissionDeleteSuccess'=>'Permission deleted successfully',
-  'permissionDeleteError'=>'There was an error delete the permission',
+  'userCreatedSuccess' => 'User created successfully!',
+  'userCreateError' => 'There was an error creating the user ',
+  'userUpdateSuccess' => 'User updated successfully',
+  'userUpdateError' => 'There was an error updating the user',
+  'userDeleteSuccess' => 'User deleted successfully',
+  'userDeleteError' => 'There was an error delete the user',
 
-  'roleCreatedSuccess'=>'Role created successfully!',
-  'roleCreatedtError'=>'There was an error creating the role',
-  'roleUpdateSuccess'=>'Role updated successfully',
-  'roleUpdateError'=>'There was an error updating the role',
-  'roleDeleteSuccess'=>'Role deleted successfully',
-  'roleDeleteError'=>'There was an error delete the role',
+  'permissionCreatedSuccess' => 'Permission created successfully!',
+  'permissionCreatedtError' => 'There was an error creating the Permission',
+  'permissionUpdateSuccess' => 'Permission updated successfully',
+  'permissionUpdateError' => 'There was an error updating the permission',
+  'permissionDeleteSuccess' => 'Permission deleted successfully',
+  'permissionDeleteError' => 'There was an error delete the permission',
 
-  'carouselCreatedSuccess'=>'Carousel created successfully!',
-  'carouselDeleteSuccess'=>'Carousel deleted successfully',
-  'carouselDeleteError'=>'There was an error delete the carousel',
+  'roleCreatedSuccess' => 'Role created successfully!',
+  'roleCreatedtError' => 'There was an error creating the role',
+  'roleUpdateSuccess' => 'Role updated successfully',
+  'roleUpdateError' => 'There was an error updating the role',
+  'roleDeleteSuccess' => 'Role deleted successfully',
+  'roleDeleteError' => 'There was an error delete the role',
 
-  'queryCreatedSuccess'=>'Query created successfully!',
-  'queryCreatedFail'=>'There was an error creating the query',
-  'markedSuccess'=>'Query marked as read',
-  'markedError'=>'Query not found',
-  'queryDeleteSuccess'=>'Query deleted successfully',
-  'queryDeleteError'=>'There was an error delete the query',
+  'carouselCreatedSuccess' => 'Carousel created successfully!',
+  'carouselDeleteSuccess' => 'Carousel deleted successfully',
+  'carouselDeleteError' => 'There was an error delete the carousel',
 
-  'facilityCreatedSuccess'=>'Facility created successfully!',
-  'facilityUpdateSuccess'=>'Facility updated successfully',
-  'facilityDeleteSuccess'=>'Facility deleted successfully',
-  'facilityDeleteError'=>'Facilify not found ',
-  'settingUpdateSuccess'=>'Setting updated successfully',
-  'settingCreatedSuccess'=>'Setting created successfully',
+  'queryCreatedSuccess' => 'Query created successfully!',
+  'queryCreatedFail' => 'There was an error creating the query',
+  'markedSuccess' => 'Query marked as read',
+  'markedError' => 'Query not found',
+  'queryDeleteSuccess' => 'Query deleted successfully',
+  'queryDeleteError' => 'There was an error delete the query',
+
+  'facilityCreatedSuccess' => 'Facility created successfully!',
+  'facilityUpdateSuccess' => 'Facility updated successfully',
+  'facilityDeleteSuccess' => 'Facility deleted successfully',
+  'facilityDeleteError' => 'Facilify not found ',
+  'settingUpdateSuccess' => 'Setting updated successfully',
+  'settingCreatedSuccess' => 'Setting created successfully',
 
 
 
@@ -205,171 +203,182 @@ return [
   'newRoom' => 'New Room',
   'floor' => 'Floor',
   'price' => 'Price',
-  'showing_rooms'=>'Showing rooms _START_ to _END_ of _TOTAL_',
-  'showing_bookings'=>'Showing bookings _START_ to _END_ of _TOTAL_',
+  'showing_rooms' => 'Showing rooms _START_ to _END_ of _TOTAL_',
+  'showing_bookings' => 'Showing bookings _START_ to _END_ of _TOTAL_',
   'createRooms' => 'New Room',
   'createRoom' => 'Create Room',
   'editRooms' => 'Edit Room',
   'editRoom' => 'Edit Room',
   'remove' => 'Remove',
-  'currentImage'=>'Current Images',
+  'currentImage' => 'Current Images',
   'images' => 'Images',
-  'searchRoom'=>'Search Room',
-  'addRoom'=>'Add Room',
-  'createNewRoom'=>'Create New Room',
-  'roomCan'=>'You can create new room with correct information ',
-  
-  'roomPrice'=>'Room Price',
-  'roomFloor'=>'Room Floor',
-  'addDate'=>'Added Date',
-  'detailRoom'=>'Room Detail',
-  'management'=>'Management',
-  'guardName'=>'Guard Name',
-  'name'=>'Name',
-  'enterPermissionName'=>'Enter permission name',
-  'permissionName'=>'Permission name',
-  'addPermission'=>'Add Permission',
-  'createNewPermission'=>'Create New Permission',
-  'newPermission'=>'New Permission',
-  'createPermission'=>'Create Permission',
-  'permission'=>'Permission',
-  'editPermissions'=>'Edit Permission',
-  'editPermission'=>'Edit Permission',
+  'searchRoom' => 'Search Room',
+  'addRoom' => 'Add Room',
+  'createNewRoom' => 'Create New Room',
+  'roomCan' => 'You can create new room with correct information ',
 
- 
+  'roomPrice' => 'Room Price',
+  'roomFloor' => 'Room Floor',
+  'addDate' => 'Added Date',
+  'detailRoom' => 'Room Detail',
+  'management' => 'Management',
+  'guardName' => 'Guard Name',
+  'name' => 'Name',
+  'enterPermissionName' => 'Enter permission name',
+  'permissionName' => 'Permission name',
+  'addPermission' => 'Add Permission',
+  'createNewPermission' => 'Create New Permission',
+  'newPermission' => 'New Permission',
+  'createPermission' => 'Create Permission',
+  'permission' => 'Permission',
+  'editPermissions' => 'Edit Permission',
+  'editPermission' => 'Edit Permission',
 
-    /*=========== Role ============== */
-    'showing_permissions' => 'Showing permissions _START_ to _END_ of _TOTAL_',
-    'showing_roles'=>'Showing roles _START_ to _END_ of _TOTAL_',
-    'addRole'=>'Add Role',
-  'roleList'=>'Role list',
-  'editRole'=>'Edit Role',
-  'createNewRole'=>'Create new role',
-  'newRole'=>'New role',
-  'roleName'=>'Role name',
-  'createRole'=>'Create role',
-  'enterRoleName'=>'Enter role name',
-  'editRolePermission'=>'Give Permission',
-  'givePermission'=>'Give Permission',
-    /*================ User ============ */
 
-  'userName'=>'User name',
-  'fullName'=>'Full name',
-  'gender'=>'Gender',
-  'dob'=>'DoB',
-  'showing_users'=> 'Showing users _START_ to _END_ of _TOTAL_',
-  'enterUserName'=>'Enter user name',
-  'enterFullname'=>'Enter full name',
-  'enterPhone'=>'Enter phone number',
-  'createUser'=>'Create User',
-  'newUser'=>'New User',
-  'user'=>'User',
-  'editUser'=>'Edit User',
-  'editUsers'=>'Edit User',
+
+  /*=========== Role ============== */
+  'showing_permissions' => 'Showing permissions _START_ to _END_ of _TOTAL_',
+  'showing_roles' => 'Showing roles _START_ to _END_ of _TOTAL_',
+  'addRole' => 'Add Role',
+  'roleList' => 'Role list',
+  'editRole' => 'Edit Role',
+  'createNewRole' => 'Create new role',
+  'newRole' => 'New role',
+  'roleName' => 'Role name',
+  'createRole' => 'Create role',
+  'enterRoleName' => 'Enter role name',
+  'editRolePermission' => 'Give Permission',
+  'givePermission' => 'Give Permission',
+  /*================ User ============ */
+
+  'userName' => 'User name',
+  'fullName' => 'Full name',
+  'gender' => 'Gender',
+  'dob' => 'DoB',
+  'showing_users' => 'Showing users _START_ to _END_ of _TOTAL_',
+  'enterUserName' => 'Enter user name',
+  'enterFullname' => 'Enter full name',
+  'enterPhone' => 'Enter phone number',
+  'createUser' => 'Create User',
+  'newUser' => 'New User',
+  'user' => 'User',
+  'editUser' => 'Edit User',
+  'editUsers' => 'Edit User',
 
   /*============= Booking ============= */
-  'checkIn'=>'Check_In',
-  'checkOut'=>'Check_Out',
-  'totalAdults'=>'Total_Adults',
-  'totalChildren'=>'Total_Children',
-  'avaiableRoom'=>'Avaiable Room',
-  'reservation'=>'Reservation',
-  'bookingList'=>'Booking List',
-  'addBooking'=>'Add Booking',
+  'checkIn' => 'Check_In',
+  'checkOut' => 'Check_Out',
+  'totalAdults' => 'Total_Adults',
+  'totalChildren' => 'Total_Children',
+  'avaiableRoom' => 'Avaiable Room',
+  'reservation' => 'Reservation',
+  'bookingList' => 'Booking List',
+  'addBooking' => 'Add Booking',
   'createBooking' => 'Create Booking',
-  'newBooking'=>'New Booking',
-  
-  
-
-/*============= Booking ============= */
-'facilities'=>'Facilities',
-'image'=>'Image',
+  'newBooking' => 'New Booking',
 
 
-/*========== Setting ============= */
-'Settings'=>'Settings',
-'Setting'=>'Setting',
-'generalSetting'=>'General Setting',
-'siteTitle'=>'Site Title',
-'siteLogo'=>'Site Logo',
+
+  /*============= Booking ============= */
+  'facilities' => 'Facilities',
+  'image' => 'Image',
 
 
-/* ============= About us =========== */
-'aboutUs'=>'About Us',
-'title'=>'Title',
+  /*========== Setting ============= */
+  'Settings' => 'Settings',
+  'Setting' => 'Setting',
+  'generalSetting' => 'General Setting',
+  'siteTitle' => 'Site Title',
+  'siteLogo' => 'Site Logo',
 
 
-/*============== Contact ============= */
-'contactSetting'=>'Contacts Setting',
-'googleMap'=>'Google Map',
-'phones'=>'Phone Number',
-'socialLink'=>'Social Link',
-'iFrame'=>'IFrame',
-'fb'=>'Fb',
-'insta'=>'Insta',
-'tripa'=>'Tripa',
-'tele'=>'Tele',
+  /* ============= About us =========== */
+  'aboutUs' => 'About Us',
+  'title' => 'Title',
 
 
-/*============= Message alert ============= */ 
-'guestUpdatedSuccess'=>'Guest updated successfully!',
-'guestUpdatedError'=>'There was an error updating the guest.',
-'enterId'=>'Enter room id',
-'guestDeleteSuccess'=>'Guest deleted successfully',
-'guestDeleteError'=>'There was an error delete the guest',
+  /*============== Contact ============= */
+  'contactSetting' => 'Contacts Setting',
+  'googleMap' => 'Google Map',
+  'phones' => 'Phone Number',
+  'socialLink' => 'Social Link',
+  'iFrame' => 'IFrame',
+  'fb' => 'Fb',
+  'insta' => 'Insta',
+  'tripa' => 'Tripa',
+  'tele' => 'Tele',
 
 
-/*============= Room ============= */
-'roomList'=>'Room List',
-'roomid'=>'Room ID',
+  /*============= Message alert ============= */
+  'guestUpdatedSuccess' => 'Guest updated successfully!',
+  'guestUpdatedError' => 'There was an error updating the guest.',
+  'enterId' => 'Enter room id',
+  'guestDeleteSuccess' => 'Guest deleted successfully',
+  'guestDeleteError' => 'There was an error delete the guest',
 
 
-/*============== Carousels ============ */
-'Carousels'=>'Carousel',
-'addCarousel'=>'Add Carousel',
-'createNewCarousel'=>'Create new carousel',
-'newCarousels'=>'New Carousels',
-'createCarousels'=>'Create carousels',
-'enterCarouselName'=>'Enter carousel name',
-'title'=>'Title',
+  /*============= Room ============= */
+  'roomList' => 'Room List',
+  'roomid' => 'Room ID',
 
-/*============== User Query ============ */
-'userQuery'=>'User Query',
-'message'=>'Message',
-'userQueryList'=>'User Query List',
-'showing_userquerys'=>'Showing querys :start to :end of :total',
-'icon'=>'Image',
 
- /*============== Facility ============ */
- 'facilityList'=>'Facility List',
- 'facility'=>'Facility',
- 'showing_facilitys'=>'Showing facilitys :start to :end of :total',
- 'addFacility'=>'Add Facility',
- 'createNewFacility'=>'Create new facility',
- 'enterFacilityName'=>'Enter facility name',
- 'newFacility'=>'New facility',
- 'createFacility'=>'Create facility',
- 'editFacility'=>'Edit Facility',
- 'editFacilitys'=>'Edit Facility',
- 
+  /*============== Carousels ============ */
+  'Carousels' => 'Carousel',
+  'addCarousel' => 'Add Carousel',
+  'createNewCarousel' => 'Create new carousel',
+  'newCarousels' => 'New Carousels',
+  'createCarousels' => 'Create carousels',
+  'enterCarouselName' => 'Enter carousel name',
+  'title' => 'Title',
 
- /*============== Setting ============= */
- 'aboutUs'=>'About Us',
- 'contactSetting'=>'Contact Setting',
- 'editSetting'=>'Edit Setting',
-  'editSettings'=>'Edit Setting',
+  /*============== User Query ============ */
+  'userQuery' => 'User Query',
+  'message' => 'Message',
+  'userQueryList' => 'User Query List',
+  'showing_userquerys' => 'Showing querys :start to :end of :total',
+  'icon' => 'Image',
 
-  'showing_banners'=>'Showing banners :start to :end of :total',
-  'addBanner'=>'Add Banner',
-  'createNewBanner'=>'Create new banner',
-  'banner'=>'Banner',
-  'pageName'=>'Page Name',
-  'bannerImage'=>'Banner Image',
-  'bannerList'=>'Banner List',
-  'createBanner'=>'Create banner',
-  'newBanner'=>'New banner',
+  /*============== Facility ============ */
+  'facilityList' => 'Facility List',
+  'facility' => 'Facility',
+  'showing_facilitys' => 'Showing facilitys :start to :end of :total',
+  'addFacility' => 'Add Facility',
+  'createNewFacility' => 'Create new facility',
+  'enterFacilityName' => 'Enter facility name',
+  'newFacility' => 'New facility',
+  'createFacility' => 'Create facility',
+  'editFacility' => 'Edit Facility',
+  'editFacilitys' => 'Edit Facility',
 
-  
 
-]
-?>
+  /*============== Setting ============= */
+  'aboutUs' => 'About Us',
+  'contactSetting' => 'Contact Setting',
+  'editSetting' => 'Edit Setting',
+  'editSettings' => 'Edit Setting',
+
+  'showing_banners' => 'Showing banners :start to :end of :total',
+  'addBanner' => 'Add Banner',
+  'createNewBanner' => 'Create new banner',
+  'banner' => 'Banner',
+  'pageName' => 'Page Name',
+  'bannerImage' => 'Banner Image',
+  'bannerList' => 'Banner List',
+  'createBanner' => 'Create banner',
+  'newBanner' => 'New banner',
+  'selectRoomTypeBanner' => 'Select banner of room',
+  'selectPageName' => 'Select page name',
+  'service' => 'Service',
+  'serviceList' => 'Service list',
+  'createNewService' => 'Create new service',
+  'showing_services' => 'Showing services :start to :end of :total',
+  'addService' => 'Add service',
+  'enterServiceName' => 'Enter service name',
+  'newService' => 'New service',
+  'createService' => 'Create service',
+  'for_hotel' => 'for Hotel',
+  'editServices'=>'Edit Service',
+  'editService'=>'Edit Service',
+
+
+];

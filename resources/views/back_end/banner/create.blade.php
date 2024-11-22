@@ -16,24 +16,19 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    
-                    {{-- <div class="row mb-2">
-                        <div class="col-sm-4">
-                            <a href="{{ url('banners') }}" class="btn btn-danger btn-rounded mb-2">
-                                <span class="uil-corner-up-left"></span> @lang('label.back')</a>
-                        </div>
-                    </div> --}}
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ route('banner.store') }}"
                         method="POST" novalidate="">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">@lang('label.pageName') <span class="text-danger">*</span></label>
                             <select name="page_name" id="page_name" class="form-control  @error('page_name') is-invalid @enderror select2" data-toggle="select2" required>
-                                @foreach($pageNames as $key => $value)
+                                <option value="" selected disabled>@lang('label.selectPageName')</option>
+                                @foreach ($pageNames as $key => $value)
                                     <option value="{{ $key }}">{{ $value }}</option>
                                 @endforeach
                             </select>
                         </div>
+                        
                         <div class="mb-3">
                             <label class="form-label">@lang('label.bannerImage') <span class="text-danger">*</span></label>
                             <input type="file" value="{{ old('banner_image') }}" name="banner_image"
@@ -44,9 +39,40 @@
                             @enderror
                         </div>
                         
+                        
                         <button class="btn btn-primary" type="submit">@lang('label.save')</button>
                         <a href="{{url('banners')}}" class="btn btn-dark">@lang('label.cancel')</a>
                     </form>
+                    {{-- <form class="needs-validation" enctype="multipart/form-data" action="{{ route('banner.store') }}"
+                        method="POST" novalidate="">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">@lang('label.pageName') <span class="text-danger">*</span></label>
+                            <select name="page_name" id="page_name" class="form-control select2" required>
+                                <option value="" selected disabled>@lang('label.selectPageName')</option>
+                                @foreach ($pageNames as $key => $value)
+                                    <option value="{{ $key }}">{{ $value }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3" id="room_type_div" style="display: none;">
+                            <label class="form-label">@lang('label.roomType') <span class="text-danger">*</span></label>
+                            <select name="room_type_id" id="room_type_id" class="form-control select2" >
+                                <option value="">@lang('label.selectRoomTypeBanner')</option>
+                                @foreach ($roomTypes as $roomType)
+                                    <option value="{{ $roomType->id }}">{{ $roomType->type_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">@lang('label.bannerImage') <span class="text-danger">*</span></label>
+                            <input type="file" name="banner_image" id="banner_image" class="form-control" required>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">@lang('label.save')</button>
+                        <a href="{{url('banners')}}" class="btn btn-dark">@lang('label.cancel')</a>
+                    </form> --}}
+
                 </div>
             </div>
         </div>
@@ -55,13 +81,22 @@
 
 @section('script')
     <script>
-        function addAmenityField() {
-            const wrapper = document.getElementById('amenities-wrapper');
-            const newField = document.createElement('div');
-            newField.className = 'amenity-item mb-2';
-            newField.innerHTML =
-                '<input type="text" name="amenities[]" class="form-control" placeholder="@lang('label.enterAmenity') . . ." required="">';
-            wrapper.appendChild(newField);
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const pageNameSelect = document.getElementById('page_name');
+            const roomTypeDiv = document.getElementById('room_type_div');
+
+            // Show or hide the Room Type dropdown based on the selected Page Name
+            pageNameSelect.addEventListener('change', function() {
+                // Check if "Rooms Page" is selected
+                if (this.value === 'rooms') {
+                    roomTypeDiv.style.display = 'block'; // Show the Room Type dropdown
+                } else {
+                    roomTypeDiv.style.display = 'none'; // Hide the Room Type dropdown
+                }
+            });
+
+            // Trigger the change event on page load in case of form prefill
+            pageNameSelect.dispatchEvent(new Event('change'));
+        });
     </script>
 @endsection

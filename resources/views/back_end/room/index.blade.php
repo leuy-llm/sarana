@@ -23,6 +23,51 @@
         .popover-header {
             font-family: 'Hanuman', 'serif' !important;
         }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 34px;
+            height: 20px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* background-color: #ccc; */
+            background: #e64a3b;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #4CAF50;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(14px);
+        }
     </style>
 @endsection
 @section('content')
@@ -221,12 +266,20 @@
                                             {{ $room->max_person }}
                                         </td>
                                         <td>
-                                            @if ($room->status == 'active')
+                                            {{-- @if ($room->status == 'active')
                                                 <span class="badge badge-success-lighten">{{ $room->status }}</span>
                                             @elseif ($room->status == 'inactive')
                                                 <span class="badge badge-danger-lighten">{{ $room->status }}</span>
-                                            @endif
-                                        
+                                            @endif --}}
+                                            <form method="POST"
+                                                    action="{{ route('room.toggleActive', $room->id) }}">
+                                                    @csrf
+                                                    <label class="switch">
+                                                        <input type="checkbox" onchange="this.form.submit()"
+                                                            {{ $room->status ? 'checked' : '' }}>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </form>
                                         </td>
                                         <td>
                                             {{ date('d-m-Y H:i A', strtotime($room->created_at)) }}
