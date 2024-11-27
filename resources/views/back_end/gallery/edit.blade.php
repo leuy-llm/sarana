@@ -34,7 +34,7 @@
                             <input type="file" value="{{ old('image') }}" name="image"
                                 class="form-control  @error('image') is-invalid @enderror ">
                             @if ($gallery->image)
-                                <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{$gallery->title}}"
+                                <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title }}"
                                     class="img-thumbnail mt-2" width="100px">
                             @endif
                             @error('image')
