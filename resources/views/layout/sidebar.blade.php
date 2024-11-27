@@ -165,7 +165,7 @@
                             <a href="pages-maintenance.html">Food&Drink</a>
                         </li>
                         <li>
-                            <a href="pages-maintenance.html">Metting</a>
+                            <a href="{{url('meetings')}}">Metting</a>
                         </li>
                         
                     </ul>

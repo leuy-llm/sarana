@@ -20,6 +20,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\BookingCalenderController;
 use App\Http\Controllers\BookTestController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\MettingController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ServiceController;
@@ -192,10 +193,14 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::resource('services', ServiceController::class);
     Route::get('services/{servicesId}/delete', [App\Http\Controllers\ServiceController::class, 'destroy']);
 
+    Route::resource('meetings', MettingController::class);
+    Route::get('meetings/{meetingId}/delete', [App\Http\Controllers\MettingController::class, 'destroy']);
+
     /*================= Gallery Route =================== */
     Route::resource('gallerys', GalleryController::class);
     Route::post('/gallerys/{gallery}/toggle-active', [GalleryController::class, 'toggleActive'])->name('gallery.toggleActive');
     Route::post('/services/{service}/toggle-active', [ServiceController::class, 'toggleActive'])->name('service.toggleActive');
+    Route::post('/meetings/{meeting}/toggle-active', [MettingController::class, 'toggleActive'])->name('meeting.toggleActive');
     Route::post('/rooms/{room}/toggle-active', [RoomController::class, 'toggleActive'])->name('room.toggleActive');
     Route::get('gallerys/{galleryId}/delete', [GalleryController::class, 'destroy']);
 
