@@ -84,40 +84,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-2">
-                            <div class="d-grid">
-                                <button class="btn btn-lg font-16 btn-danger" id="btn-new-event">
-                                    Status Indicators</button>
-                            </div>
-                            <div id="external-events" class="m-t-20">
-                                <br>
-                                <p class="text-muted">These are the notes for booking</p>
-                                <div class="external-event bg-success-lighten text-success " style="font-size: 12px"
-                                    data-class="bg-success">
-                                    <i class="mdi mdi-checkbox-blank-circle vertical-middle"></i>
-                                    Reservation confirmed
-                                </div>
-
-                                <div class="external-event bg-warning-lighten text-warning" style="font-size: 12px"
-                                    data-class="bg-warning">
-                                    <i class="mdi mdi-checkbox-blank-circle  vertical-middle"></i>
-                                    Reservation pending
-                                </div>
-                                <div class="external-event bg-danger-lighten text-danger" style="font-size: 12px"
-                                    data-class="bg-danger">
-                                    <i class="mdi mdi-checkbox-blank-circle vertical-middle"></i>
-                                    Reservation canceled
-                                </div>
-                                <div class="external-event bg-secondary-lighten  text-secondary " style="font-size: 12px"
-                                    data-class="bg-secodary">
-                                    <i class="mdi mdi-checkbox-blank-circle vertical-middle"></i>
-                                    Reservation in the past
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-lg-10 ">
+                        <div class="col-lg-12">
                             <div class="mt-4 mt-lg-0 ">
                                 <!-- Legend placed here -->
 
@@ -161,218 +128,254 @@
     </div>
 @endsection
 @section('script')
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/scheduler@5.11.3/main.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.11.3/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/resource-timeline@5.11.3/main.min.js"></script> --}}
     <script>
-        //     (function($) {
-        //     "use strict";
+        // $(document).ready(function() {
+        //     $('#calendar').fullCalendar({
+        //         header: {
+        //             left: 'month,agendaWeek,agendaDay,listWeek',
+        //             center: 'title',
+        //             right: 'prev,today,next'
 
-        //     function CalendarApp() {
-        //         this.$calendar = $("#calendar");
-        //         this.$calendarObj = null;
-        //     }
+        //         },
+        //         plugins: ['resourceTimeline'], // Include resourceTimeline plugin
 
-        //     CalendarApp.prototype.onEventClick = function(event) {
-        //         alert("Event: " + event.event.title);
-        //         // Handle your event click logic here
-        //     };
-
-        //     CalendarApp.prototype.init = function(bookings) {
-
-
-        //         const events = bookings.map(booking => {
-        //             const guestName = booking.guest ? booking.guest.name : 'Unknown Guest';
-        //             const roomTypeName = booking.room && booking.room.room_type ? booking.room.room_type.type_name : 'Unknown Room Type';
-        //             const totalAdults = booking.total_adults || 0;
-        //             const totalChildren = booking.total_children || 0;
-
-        //             return {
-        //                 title: `${guestName} - ${roomTypeName} - Adults: ${totalAdults}, Children: ${totalChildren}`,
-        //                 start: booking.check_in_date,
-        //                 end: booking.check_out_date,
-        //                 className: 'bg-info',
-        //                 extendedProps: {
-        //                     total_adults: totalAdults,
-        //                     total_children: totalChildren
-        //                 }
-        //             };
-        //         });
-        //         // Initialize the calendar
-        //         this.$calendarObj = new FullCalendar.Calendar(this.$calendar[0], {
-        //             initialView: "dayGridMonth",
-        //             headerToolbar: {
-        //                 left: "prev,next today",
-        //                 center: "title",
-        //                 right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+        //         initialView: 'resourceTimelineDay', // Timeline view
+        //         resources: [{
+        //                 id: 'a',
+        //                 title: 'Room A'
         //             },
-        //             events: events, // Use the transformed bookings as events
-        //             editable: true,
-        //             selectable: true,
-        //             eventClick: (event) => this.onEventClick(event)
-        //         });
-
-        //         this.$calendarObj.render();
-        //     };
-
-        //     // Initialize the app with booking data
-        //     $(document).ready(function() {
-        //         const bookings = @json($bookings); // Pass Laravel bookings data to JavaScript
-        //         const calendarApp = new CalendarApp();
-        //         calendarApp.init(bookings);
-        //     });
-
-        // })(window.jQuery);
-        // (function($) {
-        //     "use strict";
-
-        //     function CalendarApp() {
-        //         this.$calendar = $("#calendar");
-        //         this.$calendarObj = null;
-        //     }
-
-        //     CalendarApp.prototype.onEventClick = function(event) {
-        //         alert("Event: " + event.event.title);
-        //     };
-
-        //     CalendarApp.prototype.init = function(bookings) {
-        //         // Map the bookings data to FullCalendar event format
-        //         const events = bookings.map(booking => {
-        //             const guestName = booking.guest ? booking.guest.name : 'Unknown Guest';
-        //             const roomTypeName = booking.room && booking.room.room_type ? booking.room.room_type.type_name : 'Unknown Room Type';
-        //             const totalAdults = booking.total_adults || 0;
-        //             const totalChildren = booking.total_children || 0;
-
-        //             // Determine if the booking is past the check-out date
-        //             const today = new Date();
-        //             const checkOutDate = new Date(booking.check_out_date);
-        //             const eventClassName = checkOutDate < today ? 'bg-danger' : 'bg-info';
-
-        //             return {
-        //                 title: `${guestName} - ${roomTypeName} - Adults: ${totalAdults}, Children: ${totalChildren}`,
-        //                 start: booking.check_in_date,
-        //                 end: booking.check_out_date,
-        //                 className: eventClassName, // Use the determined class name
-        //                 extendedProps: {
-        //                     total_adults: totalAdults,
-        //                     total_children: totalChildren
-        //                 }
-        //             };
-        //         });
-
-        //         // Initialize the calendar
-        //         this.$calendarObj = new FullCalendar.Calendar(this.$calendar[0], {
-        //             initialView: "dayGridMonth",
-        //             headerToolbar: {
-        //                 left: "prev,next today",
-        //                 center: "title",
-        //                 right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+        //             {
+        //                 id: 'b',
+        //                 title: 'Room B'
         //             },
-        //             events: events, 
-        //             editable: true,
-        //             selectable: true,
-        //             eventClick: (event) => this.onEventClick(event)
-        //         });
-
-        //         this.$calendarObj.render();
-        //     };
-
-        //     // Initialize the app with booking data
-        //     $(document).ready(function() {
-        //         const bookings = @json($bookings); // Pass Laravel bookings data to JavaScript
-        //         const calendarApp = new CalendarApp();
-        //         calendarApp.init(bookings);
+        //         ],
+        //         events: '/events', // Route to fetch events
         //     });
+        // });
 
-        // })(window.jQuery);
 
-        // (function($) {
-        //     "use strict";
 
-        //     function CalendarApp() {
-        //         this.$calendar = $("#calendar");
-        //         this.$calendarObj = null;
-        //     }
 
-        //     CalendarApp.prototype.onEventClick = function(event) {
-        //         alert("Event: " + event.event.title);
-        //     };
 
-        //     CalendarApp.prototype.onEventMouseEnter = function(info) {
-        //         const tooltipContent = `
-    //             <div>
-    //                 <strong>Guest:</strong> ${info.event.extendedProps.guestName}<br>
-    //                 <strong>Room Type:</strong> ${info.event.extendedProps.roomTypeName}<br>
-    //                 <strong>Total Adults:</strong> ${info.event.extendedProps.total_adults}<br>
-    //                 <strong>Total Children:</strong> ${info.event.extendedProps.total_children}
-    //             </div>
-    //         `;
 
-        //         const tooltip = $('<div class="tooltip-content"></div>').html(tooltipContent).appendTo('body');
+            (function($) {
+            "use strict";
 
-        //         $(info.el).on('mousemove', function(e) {
-        //             tooltip.css({
-        //                 top: e.pageY + 10 + 'px',
-        //                 left: e.pageX + 10 + 'px'
-        //             });
-        //         });
-        //     };
+            function CalendarApp() {
+                this.$calendar = $("#calendar");
+                this.$calendarObj = null;
+            }
 
-        //     CalendarApp.prototype.onEventMouseLeave = function(info) {
-        //         $('.tooltip-content').remove();
-        //     };
+            CalendarApp.prototype.onEventClick = function(event) {
+                alert("Event: " + event.event.title);
+                // Handle your event click logic here
+            };
 
-        //     CalendarApp.prototype.init = function(bookings) {
-        //         // Map the bookings data to FullCalendar event format
-        //         const events = bookings.map(booking => {
-        //             const guestName = booking.guest ? booking.guest.name : 'Unknown Guest';
-        //             const roomTypeName = booking.room && booking.room.room_type ? booking.room.room_type.type_name : 'Unknown Room Type';
-        //             const totalAdults = booking.total_adults || 0;
-        //             const totalChildren = booking.total_children || 0;
+            CalendarApp.prototype.init = function(bookings) {
 
-        //             // Determine if the booking is past the check-out date
-        //             const today = new Date();
-        //             const checkOutDate = new Date(booking.check_out_date);
-        //             const eventClassName = checkOutDate < today ? 'bg-danger' : 'bg-info';
 
-        //             return {
-        //                 title: `${guestName} - ${roomTypeName} - Adults: ${totalAdults}, Children: ${totalChildren}`,
-        //                 start: booking.check_in_date,
-        //                 end: booking.check_out_date,
-        //                 className: eventClassName, // Use the determined class name
-        //                 extendedProps: {
-        //                     guestName: guestName,
-        //                     roomTypeName: roomTypeName,
-        //                     total_adults: totalAdults,
-        //                     total_children: totalChildren
-        //                 }
-        //             };
-        //         });
+                const events = bookings.map(booking => {
+                    const guestName = booking.guest ? booking.guest.name : 'Unknown Guest';
+                    const roomTypeName = booking.room && booking.room.room_type ? booking.room.room_type.type_name : 'Unknown Room Type';
+                    const totalAdults = booking.total_adults || 0;
+                    const totalChildren = booking.total_children || 0;
 
-        //         // Initialize the calendar
-        //         this.$calendarObj = new FullCalendar.Calendar(this.$calendar[0], {
-        //             initialView: "dayGridMonth",
-        //             headerToolbar: {
-        //                 left: "prev,next today",
-        //                 center: "title",
-        //                 right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
-        //             },
-        //             events: events, 
-        //             editable: true,
-        //             selectable: true,
-        //             eventClick: (event) => this.onEventClick(event),
-        //             eventMouseEnter: (info) => this.onEventMouseEnter(info),
-        //             eventMouseLeave: (info) => this.onEventMouseLeave(info)
-        //         });
+                    return {
+                        title: `${guestName} - ${roomTypeName} - Adults: ${totalAdults}, Children: ${totalChildren}`,
+                        start: booking.check_in_date,
+                        end: booking.check_out_date,
+                        className: 'bg-info',
+                        extendedProps: {
+                            total_adults: totalAdults,
+                            total_children: totalChildren
+                        }
+                    };
+                });
+                // Initialize the calendar
+                this.$calendarObj = new FullCalendar.Calendar(this.$calendar[0], {
+                    initialView: "dayGridMonth",
+                    headerToolbar: {
+                        left: "prev,next today",
+                        center: "title",
+                        right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+                    },
+                    events: events, // Use the transformed bookings as events
+                    editable: true,
+                    selectable: true,
+                    eventClick: (event) => this.onEventClick(event)
+                });
 
-        //         this.$calendarObj.render();
-        //     };
+                this.$calendarObj.render();
+            };
 
-        //     // Initialize the app with booking data
-        //     $(document).ready(function() {
-        //         const bookings = @json($bookings); // Pass Laravel bookings data to JavaScript
-        //         const calendarApp = new CalendarApp();
-        //         calendarApp.init(bookings);
-        //     });
+            // Initialize the app with booking data
+            $(document).ready(function() {
+                const bookings = @json($bookings); // Pass Laravel bookings data to JavaScript
+                const calendarApp = new CalendarApp();
+                calendarApp.init(bookings);
+            });
 
-        // })(window.jQuery);
+        })(window.jQuery);
+        (function($) {
+            "use strict";
+
+            function CalendarApp() {
+                this.$calendar = $("#calendar");
+                this.$calendarObj = null;
+            }
+
+            CalendarApp.prototype.onEventClick = function(event) {
+                alert("Event: " + event.event.title);
+            };
+
+            CalendarApp.prototype.init = function(bookings) {
+                // Map the bookings data to FullCalendar event format
+                const events = bookings.map(booking => {
+                    const guestName = booking.guest ? booking.guest.name : 'Unknown Guest';
+                    const roomTypeName = booking.room && booking.room.room_type ? booking.room.room_type.type_name : 'Unknown Room Type';
+                    const totalAdults = booking.total_adults || 0;
+                    const totalChildren = booking.total_children || 0;
+
+                    // Determine if the booking is past the check-out date
+                    const today = new Date();
+                    const checkOutDate = new Date(booking.check_out_date);
+                    const eventClassName = checkOutDate < today ? 'bg-danger' : 'bg-info';
+
+                    return {
+                        title: `${guestName} - ${roomTypeName} - Adults: ${totalAdults}, Children: ${totalChildren}`,
+                        start: booking.check_in_date,
+                        end: booking.check_out_date,
+                        className: eventClassName, // Use the determined class name
+                        extendedProps: {
+                            total_adults: totalAdults,
+                            total_children: totalChildren
+                        }
+                    };
+                });
+
+                // Initialize the calendar
+                this.$calendarObj = new FullCalendar.Calendar(this.$calendar[0], {
+                    initialView: "dayGridMonth",
+                    headerToolbar: {
+                        left: "prev,next today",
+                        center: "title",
+                        right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+                    },
+                    events: events, 
+                    editable: true,
+                    selectable: true,
+                    eventClick: (event) => this.onEventClick(event)
+                });
+
+                this.$calendarObj.render();
+            };
+
+            // Initialize the app with booking data
+            $(document).ready(function() {
+                const bookings = @json($bookings); // Pass Laravel bookings data to JavaScript
+                const calendarApp = new CalendarApp();
+                calendarApp.init(bookings);
+            });
+
+        })(window.jQuery);
+
+        (function($) {
+            "use strict";
+
+            function CalendarApp() {
+                this.$calendar = $("#calendar");
+                this.$calendarObj = null;
+            }
+
+            CalendarApp.prototype.onEventClick = function(event) {
+                alert("Event: " + event.event.title);
+            };
+
+            CalendarApp.prototype.onEventMouseEnter = function(info) {
+                const tooltipContent = `
+                <div>
+                    <strong>Guest:</strong> ${info.event.extendedProps.guestName}<br>
+                    <strong>Room Type:</strong> ${info.event.extendedProps.roomTypeName}<br>
+                    <strong>Total Adults:</strong> ${info.event.extendedProps.total_adults}<br>
+                    <strong>Total Children:</strong> ${info.event.extendedProps.total_children}
+                </div>
+            `;
+
+                const tooltip = $('<div class="tooltip-content"></div>').html(tooltipContent).appendTo('body');
+
+                $(info.el).on('mousemove', function(e) {
+                    tooltip.css({
+                        top: e.pageY + 10 + 'px',
+                        left: e.pageX + 10 + 'px'
+                    });
+                });
+            };
+
+            CalendarApp.prototype.onEventMouseLeave = function(info) {
+                $('.tooltip-content').remove();
+            };
+
+            CalendarApp.prototype.init = function(bookings) {
+                // Map the bookings data to FullCalendar event format
+                const events = bookings.map(booking => {
+                    const guestName = booking.guest ? booking.guest.name : 'Unknown Guest';
+                    const roomTypeName = booking.room && booking.room.room_type ? booking.room.room_type.type_name : 'Unknown Room Type';
+                    const totalAdults = booking.total_adults || 0;
+                    const totalChildren = booking.total_children || 0;
+
+                    // Determine if the booking is past the check-out date
+                    const today = new Date();
+                    const checkOutDate = new Date(booking.check_out_date);
+                    const eventClassName = checkOutDate < today ? 'bg-danger' : 'bg-info';
+
+                    return {
+                        title: `${guestName} - ${roomTypeName} - Adults: ${totalAdults}, Children: ${totalChildren}`,
+                        start: booking.check_in_date,
+                        end: booking.check_out_date,
+                        className: eventClassName, // Use the determined class name
+                        extendedProps: {
+                            guestName: guestName,
+                            roomTypeName: roomTypeName,
+                            total_adults: totalAdults,
+                            total_children: totalChildren
+                        }
+                    };
+                });
+
+                // Initialize the calendar
+                this.$calendarObj = new FullCalendar.Calendar(this.$calendar[0], {
+                    initialView: "dayGridMonth",
+                    headerToolbar: {
+                        left: "prev,next today",
+                        center: "title",
+                        right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+                    },
+                    events: events, 
+                    editable: true,
+                    selectable: true,
+                    eventClick: (event) => this.onEventClick(event),
+                    eventMouseEnter: (info) => this.onEventMouseEnter(info),
+                    eventMouseLeave: (info) => this.onEventMouseLeave(info)
+                });
+
+                this.$calendarObj.render();
+            };
+
+            // Initialize the app with booking data
+            $(document).ready(function() {
+                const bookings = @json($bookings); // Pass Laravel bookings data to JavaScript
+                const calendarApp = new CalendarApp();
+                calendarApp.init(bookings);
+            });
+
+        })(window.jQuery);
 
         // (function($) {
         //     "use strict";
@@ -488,13 +491,13 @@
         //     };
         //     CalendarApp.prototype.onEventMouseEnter = function(info) {
         //         const tooltipContent = `
-        //         <div>
-        //             <strong>Guest:</strong> ${info.event.extendedProps.guestName}<br>
-        //             <strong>Room Type:</strong> ${info.event.extendedProps.roomTypeName}<br>
-        //             <strong>Total Adults:</strong> ${info.event.extendedProps.total_adults}<br>
-        //             <strong>Total Children:</strong> ${info.event.extendedProps.total_children}
-        //         </div>
-        //     `;
+    //         <div>
+    //             <strong>Guest:</strong> ${info.event.extendedProps.guestName}<br>
+    //             <strong>Room Type:</strong> ${info.event.extendedProps.roomTypeName}<br>
+    //             <strong>Total Adults:</strong> ${info.event.extendedProps.total_adults}<br>
+    //             <strong>Total Children:</strong> ${info.event.extendedProps.total_children}
+    //         </div>
+    //     `;
 
         //         const tooltip = $('<div class="tooltip-content"></div>').html(tooltipContent).appendTo('body');
 
@@ -588,129 +591,155 @@
 
         // })(window.jQuery);
 
-        (function($) {
-    "use strict";
+        // (function($) {
+        //     "use strict";
 
-    function CalendarApp() {
-        this.$calendar = $("#calendar");
-        this.$calendarObj = null;
-    }
+        //     function CalendarApp() {
+        //         this.$calendar = $("#calendar");
+        //         this.$calendarObj = null;
+        //     }
 
-    CalendarApp.prototype.onEventClick = function(info) {
-        // Format the dates using moment.js
-        const formattedCheckInDate = moment(info.event.start).format('DD-MM-YYYY');
-        const formattedCheckOutDate = moment(info.event.end).format('DD-MM-YYYY');
+        //     CalendarApp.prototype.onEventClick = function(info) {
+        //         // Format the dates using moment.js
+        //         const formattedCheckInDate = moment(info.event.start).format('DD-MM-YYYY');
+        //         const formattedCheckOutDate = moment(info.event.end).format('DD-MM-YYYY');
 
-        // Populate the modal with booking data
-        $('#modalGuestName').text(info.event.extendedProps.guestName);
-        $('#modalRoomType').text(info.event.extendedProps.roomTypeName);
-        $('#modalCheckInDate').text(formattedCheckInDate);
-        $('#modalCheckOutDate').text(formattedCheckOutDate);
-        $('#modalTotalAdults').text(info.event.extendedProps.total_adults);
-        $('#modalTotalChildren').text(info.event.extendedProps.total_children);
+        //         // Populate the modal with booking data
+        //         $('#modalGuestName').text(info.event.extendedProps.guestName);
+        //         $('#modalRoomType').text(info.event.extendedProps.roomTypeName);
+        //         $('#modalCheckInDate').text(formattedCheckInDate);
+        //         $('#modalCheckOutDate').text(formattedCheckOutDate);
+        //         $('#modalTotalAdults').text(info.event.extendedProps.total_adults);
+        //         $('#modalTotalChildren').text(info.event.extendedProps.total_children);
 
-        // Open the modal
-        $('#bookingDetailsModal').modal('show');
-    };
+        //         // Open the modal
+        //         $('#bookingDetailsModal').modal('show');
+        //     };
 
-    CalendarApp.prototype.onEventMouseEnter = function(info) {
-        const tooltipContent = `
-            <div>
-                <strong>Guest:</strong> ${info.event.extendedProps.guestName}<br>
-                <strong>Room Type:</strong> ${info.event.extendedProps.roomTypeName}<br>
-                <strong>Total Adults:</strong> ${info.event.extendedProps.total_adults}<br>
-                <strong>Total Children:</strong> ${info.event.extendedProps.total_children}
-            </div>
-        `;
+        //     CalendarApp.prototype.onEventMouseEnter = function(info) {
+        //         const tooltipContent = `
+    //     <div>
+    //         <strong>Guest:</strong> ${info.event.extendedProps.guestName}<br>
+    //         <strong>Room Type:</strong> ${info.event.extendedProps.roomTypeName}<br>
+    //         <strong>Total Adults:</strong> ${info.event.extendedProps.total_adults}<br>
+    //         <strong>Total Children:</strong> ${info.event.extendedProps.total_children}
+    //     </div>
+    // `;
 
-        const tooltip = $('<div class="tooltip-content"></div>').html(tooltipContent).appendTo('body');
+        //         const tooltip = $('<div class="tooltip-content"></div>').html(tooltipContent).appendTo('body');
 
-        $(info.el).on('mousemove', function(e) {
-            // Position the tooltip above the mouse cursor
-            const tooltipHeight = tooltip.outerHeight();
-            tooltip.css({
-                top: e.pageY - tooltipHeight - 10 + 'px', // Adjust the -10 for some padding
-                left: e.pageX + 10 + 'px' // Adjust the +10 for some padding
-            });
-        });
-    };
+        //         $(info.el).on('mousemove', function(e) {
+        //             // Position the tooltip above the mouse cursor
+        //             const tooltipHeight = tooltip.outerHeight();
+        //             tooltip.css({
+        //                 top: e.pageY - tooltipHeight - 10 + 'px', // Adjust the -10 for some padding
+        //                 left: e.pageX + 10 + 'px' // Adjust the +10 for some padding
+        //             });
+        //         });
+        //     };
 
-    CalendarApp.prototype.onEventMouseLeave = function(info) {
-        $('.tooltip-content').remove();
-    };
+        //     CalendarApp.prototype.onEventMouseLeave = function(info) {
+        //         $('.tooltip-content').remove();
+        //     };
 
-    CalendarApp.prototype.init = function(bookings) {
-        // Map the bookings data to FullCalendar event format
-        const events = bookings.map(booking => {
-            const guestName = booking.guest ? booking.guest.name : 'Unknown Guest';
-            const roomTypeName = booking.room && booking.room.room_type ? booking.room.room_type.type_name : 'Unknown Room Type';
-            const totalAdults = booking.total_adults || 0;
-            const totalChildren = booking.total_children || 0;
+        //     CalendarApp.prototype.init = function(bookings) {
+        //         // Map the bookings data to FullCalendar event format
+        //         const events = bookings.map(booking => {
+        //             const guestName = booking.guest ? booking.guest.name : 'Unknown Guest';
+        //             const roomTypeName = booking.room && booking.room.room_type ? booking.room.room_type
+        //                 .type_name : 'Unknown Room Type';
+        //             const totalAdults = booking.total_adults || 0;
+        //             const totalChildren = booking.total_children || 0;
 
-            let eventClassName;
-            const today = new Date();
-            const checkOutDate = new Date(booking.check_out_date);
+        //             let eventClassName;
+        //             const today = new Date();
+        //             const checkOutDate = new Date(booking.check_out_date);
 
-            if (checkOutDate < today) {
-                eventClassName = 'bg-secondary border-0'; // Past check-out date
-            } else {
-                switch (booking.status) {
-                    case 'pending':
-                        eventClassName = 'bg-warning border-0';
-                        break;
-                    case 'confirmed':
-                        eventClassName = 'bg-success border-0';
-                        break;
-                    case 'canceled':
-                        eventClassName = 'bg-danger border-0';
-                        break;
-                    default:
-                        eventClassName = 'bg-info border-0'; // Default class for ongoing or future bookings
-                }
-            }
+        //             if (checkOutDate < today) {
+        //                 eventClassName = 'bg-secondary border-0'; // Past check-out date
+        //             } else {
+        //                 switch (booking.status) {
+        //                     case 'pending':
+        //                         eventClassName = 'bg-warning border-0';
+        //                         break;
+        //                     case 'confirmed':
+        //                         eventClassName = 'bg-success border-0';
+        //                         break;
+        //                     case 'canceled':
+        //                         eventClassName = 'bg-danger border-0';
+        //                         break;
+        //                     default:
+        //                         eventClassName =
+        //                         'bg-info border-0'; // Default class for ongoing or future bookings
+        //                 }
+        //             }
 
-            return {
-                title: `${guestName} - ${roomTypeName} - Adults: ${totalAdults}, Children: ${totalChildren}`,
-                start: booking.check_in_date,
-                end: booking.check_out_date,
-                className: eventClassName, // Use the determined class name
-                extendedProps: {
-                    guestName: guestName,
-                    roomTypeName: roomTypeName,
-                    total_adults: totalAdults,
-                    total_children: totalChildren,
-                    status: booking.status
-                }
-            };
-        });
+        //             return {
+        //                 title: `${guestName} - ${roomTypeName} - Adults: ${totalAdults}, Children: ${totalChildren}`,
+        //                 start: booking.check_in_date,
+        //                 end: booking.check_out_date,
+        //                 className: eventClassName, // Use the determined class name
+        //                 extendedProps: {
+        //                     guestName: guestName,
+        //                     roomTypeName: roomTypeName,
+        //                     total_adults: totalAdults,
+        //                     total_children: totalChildren,
+        //                     status: booking.status
+        //                 }
+        //             };
+        //         });
 
-        // Initialize the calendar
-        this.$calendarObj = new FullCalendar.Calendar(this.$calendar[0], {
-            initialView: "dayGridMonth",
-            headerToolbar: {
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
-            },
-            events: events,
-            editable: false,
-            selectable: false,
-            eventClick: (info) => this.onEventClick(info),
-            eventMouseEnter: (info) => this.onEventMouseEnter(info),
-            eventMouseLeave: (info) => this.onEventMouseLeave(info)
-        });
+        //         // Initialize the calendar
+        //         this.$calendarObj = new FullCalendar.Calendar(this.$calendar[0], {
+        //             initialView: "dayGridMonth",
+        //             headerToolbar: {
+        //                 left: "prev,next today",
+        //                 center: "title",
+        //                 right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+        //             },
+        //             events: events,
+        //             editable: false,
+        //             selectable: false,
+        //             eventClick: (info) => this.onEventClick(info),
+        //             eventMouseEnter: (info) => this.onEventMouseEnter(info),
+        //             eventMouseLeave: (info) => this.onEventMouseLeave(info)
+        //         });
 
-        this.$calendarObj.render();
-    };
+        //         this.$calendarObj.render();
+        //     };
 
-    // Initialize the app with booking data
-    $(document).ready(function() {
-        const bookings = @json($bookings); // Pass Laravel bookings data to JavaScript
-        const calendarApp = new CalendarApp();
-        calendarApp.init(bookings);
-    });
+        //     // Initialize the app with booking data
+        //     $(document).ready(function() {
+        //         const bookings = @json($bookings); // Pass Laravel bookings data to JavaScript
+        //         const calendarApp = new CalendarApp();
+        //         calendarApp.init(bookings);
+        //     });
 
-})(window.jQuery);
+        // })(window.jQuery);
 
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     var calendarEl = document.getElementById('calendar');
+
+        //     var calendar = new FullCalendar.Calendar(calendarEl, {
+        //         schedulerLicenseKey: 'YOUR_LICENSE_KEY', // Replace with your FullCalendar Scheduler license key
+        //         initialView: 'resourceTimelineDay', // Timeline view
+        //         resources: [
+        //             { id: 'a', title: 'Room A' },
+        //             { id: 'b', title: 'Room B' },
+        //         ],
+        //         events: '/events', // Route to fetch events
+        //     });
+
+        //     calendar.render();
+        // });
+        // var calendar = new Calendar(calendarEl, {
+        //     initialView: 'resourceTimelineFourDays',
+        //     views: {
+        //         resourceTimelineFourDays: {
+        //         type: 'resourceTimeline',
+        //         duration: { days: 4 }
+        //         }
+        //     }
+        //     });
     </script>
 @endsection

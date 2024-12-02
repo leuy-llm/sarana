@@ -13,7 +13,6 @@
 
         .text-truncate {
             max-width: 100px;
-            /* Adjust the width as needed */
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
@@ -23,6 +22,76 @@
         .popover-header {
             font-family: 'Hanuman', 'serif' !important;
         }
+
+        .three-state-switch {
+            position: relative;
+            width: 120px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            background-color: #ccc;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            /* border: 1px solid #ea0808; */
+        }
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            font-size: 14px;
+            color: black;
+            transition: color 0.3s ease;
+        }
+
+        .label {
+            flex: 1;
+            text-align: center;
+            z-index: 2;
+            font-size: 12px;
+            padding: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .knob {
+            position: absolute;
+            top: 3px;
+            width: calc(100% / 3 - 6px);
+            height: 24px;
+            background-color: #ffc107;
+            border-radius: 12px;
+            transition: left 0.3s ease, background-color 0.3s ease;
+            z-index: 1;
+        }
+
+        .slider[data-status="pending"] .knob {
+            background-color: #ffc107;
+            margin-left: 5px;
+            text-align: center;
+        }
+
+        .slider[data-status="confirmed"] .knob {
+            background-color: #28a745;
+        }
+
+        .slider[data-status="canceled"] .knob {
+            background-color: #dc3545;
+        }
+
+        .slider[data-status="pending"] .label.pending,
+        .slider[data-status="confirmed"] .label.confirmed,
+        .slider[data-status="canceled"] .label.canceled {
+            color: white;
+        }
+
+ 
+
+
+
+
     </style>
 @endsection
 @section('content')
@@ -119,7 +188,6 @@
                                 title="@lang('label.createNewBooking')" class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addBooking')</a>
                         </div>
-
                     </div>
                     <div class="table-responsive">
                         <table class="table table-centered table-striped dt-responsive nowrap w-100"
@@ -155,13 +223,9 @@
                                             </div>
                                         </td>
                                         <td>
-
                                             {{ Str::limit($booking->guest->name, 5) }}
-
-
                                         </td>
                                         <td>
-
                                             @if ($booking->room && $booking->room->roomType)
                                                 {{ $booking->room->room_number }} -
                                                 {{ Str::limit($booking->room->roomType->type_name, 5) }}
@@ -169,42 +233,94 @@
                                                 {{ $booking->room->room_number ?? 'N/A' }} -
                                                 {{ $booking->room->roomType->type_name ?? 'N/A' }}
                                             @endif
-
                                         </td>
-
                                         {{-- <td>
                                             {{ Str::limit(\Carbon\Carbon::parse($booking->check_in_date)->translatedFormat('d F Y'), 10) }}
                                         </td> --}}
                                         <td>
                                             {{ date('d-m-Y', strtotime($booking->check_in_date)) }}
-                                        </td> 
+                                        </td>
                                         <td>
                                             {{ date('d-m-Y', strtotime($booking->check_out_date)) }}
                                         </td>
-
                                         <td class="">
                                             {{ $booking->total_adults }}
                                         <td>
                                             {{ $booking->total_children }}
                                         </td>
-
                                         <td>
                                             {{ date('d-m-Y', strtotime($booking->created_at)) }}
                                         </td>
                                         <td>
-                                            @if ($booking->status == 'confirmed')
-                                                <span class="badge badge-success-lighten">{{ $booking->status }}</span>
-                                            @elseif ($booking->status == 'canceled')
-                                                <span class="badge badge-danger-lighten">{{ $booking->status }}</span>
-                                            @elseif ($booking->status == 'pending')
-                                                <span class="badge badge-warning-lighten">{{ $booking->status }}</span>
-                                            @endif
+                                           
+                                            {{-- <form method="POST"
+                                                    action="{{ route('booking.toggleActive', $booking->id) }}">
+                                                    @csrf
+                                                    <label class="switch">
+                                                        <input type="checkbox" onchange="this.form.submit()"
+                                                            {{ $data->status ? 'checked' : '' }}>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </form> --}}
+                                            {{-- 
+                                                <form method="POST" action="{{ route('booking.toggleActive', $booking->id) }}">
+                                                    @csrf
+                                                    <label class="switch">
+                                                        <input type="checkbox" onchange="this.form.submit()" 
+                                                            {{ $booking->status == 'confirmed' ? 'checked' : '' }}>
+                                                        <span class="slider round"></span>
+                                                    </label>
+                                                </form> --}}
+
+                                            {{-- <form method="POST"
+                                                action="{{ route('booking.toggleActive', $booking->id) }}">
+                                                @csrf
+                                                <div class="three-state-switch">
+                                                    <div class="slider" data-status="{{ $booking->status }}">
+                                                        <span class="label pending">P</span>
+                                                        <span class="label confirmed">Con</span>
+                                                        <span class="label canceled">Can</span>
+                                                        <div class="knob"></div>
+                                                    </div>
+                                                    <input type="hidden" name="status" id="status"
+                                                        value="{{ $booking->status }}">
+                                                </div>
+                                            </form> --}}
+                                            {{-- <form method="POST"
+                                                action="{{ route('booking.toggleActive', $booking->id) }}">
+                                                @csrf
+                                                <div class="three-state-switch">
+                                                    <div class="slider" data-status="{{ $booking->status }}">
+                                                        <span class="label pending">P</span>
+                                                        <span class="label confirmed">Con</span>
+                                                        <span class="label canceled">Can</span>
+                                                        <div class="knob"></div>
+                                                    </div>
+                                                    <input type="hidden" name="status" id="status"
+                                                        value="{{ $booking->status }}">
+                                                </div>
+                                            </form> --}}
+                                            <form method="POST" action="{{ route('booking.toggleActive', $booking->id) }}">
+                                                @csrf
+                                                <div class="three-state-switch">
+                                                    <div class="slider" data-status="{{ $booking->status }}">
+                                                        <span class="label pending">P</span>
+                                                        <span class="label confirmed">Con</span>
+                                                        <span class="label canceled">Can</span>
+                                                        <div class="knob"></div>
+                                                    </div>
+                                                    <input type="hidden" name="status" id="status" value="{{ $booking->status }}">
+                                                </div>
+                                            </form> 
+                                                                                 
+                                                                                 
                                         </td>
-                                    
+
                                         <td class="table-action">
-                                            <a href="{{ route('rooms.show', $booking->id) }}" class="action-icon text-success"> <i
-                                                    class="mdi mdi-eye"></i></a>
-                                            <a href="{{ url('bookings/' . $booking->id . '/edit') }}" class="action-icon text-primary">
+                                            <a href="{{ route('rooms.show', $booking->id) }}"
+                                                class="action-icon text-success"> <i class="mdi mdi-eye"></i></a>
+                                            <a href="{{ url('bookings/' . $booking->id . '/edit') }}"
+                                                class="action-icon text-primary">
                                                 <i class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="{{ url('bookings/' . $booking->id . '/delete') }}"
                                                 onclick="confirmation(event)" class="action-icon text-danger"> <i
@@ -329,5 +445,130 @@
         var displayBooking = @json(__('label.booking'));
         var showingBookingText =
             "{{ __('label.showing_bookings', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
+
+
+        // document.querySelectorAll('.three-state-switch').forEach(function(switchElement) {
+        //     const slider = switchElement.querySelector('.slider');
+        //     const knob = slider.querySelector('.knob');
+        //     const input = switchElement.querySelector('#status');
+        //     const statuses = ['pending', 'confirmed', 'canceled'];
+
+        //     function updateKnobPosition(status) {
+        //         const index = statuses.indexOf(status);
+        //         knob.style.left = `${index * 40}px`; // Adjust for your layout
+        //         slider.setAttribute('data-status', status); // Set status for CSS updates
+        //     }
+
+        //     // Initialize with the current status
+        //     updateKnobPosition(input.value);
+
+        //     slider.addEventListener('click', function() {
+        //         const currentStatus = slider.getAttribute('data-status');
+        //         const currentIndex = statuses.indexOf(currentStatus);
+        //         const nextIndex = (currentIndex + 1) % statuses.length;
+        //         const nextStatus = statuses[nextIndex];
+
+        //         // Update UI
+        //         updateKnobPosition(nextStatus);
+
+        //         // Update hidden input value
+        //         input.value = nextStatus;
+
+        //         // Submit the form (if needed)
+        //         switchElement.closest('form').submit();
+        //     });
+        // });
+        // document.querySelectorAll('.three-state-switch').forEach(function(switchElement) {
+        //     const slider = switchElement.querySelector('.slider');
+        //     const knob = slider.querySelector('.knob');
+        //     const input = switchElement.querySelector('#status');
+        //     const labels = slider.querySelectorAll('.label');
+        //     const statuses = ['pending', 'confirmed', 'canceled'];
+
+        //     function updateKnobPosition(status) {
+        //         const index = statuses.indexOf(status);
+        //         if (index === -1) return;
+
+        //         // Calculate knob position based on label width
+        //         const labelWidth = slider.offsetWidth / statuses.length;
+        //         knob.style.left = `${index * labelWidth}px`;
+
+        //         // Set the status for styling
+        //         slider.setAttribute('data-status', status);
+
+        //         // Update input value
+        //         input.value = status;
+
+        //         // Update label colors
+        //         labels.forEach((label, i) => {
+        //             label.style.color = i === index ? 'white' : 'black';
+        //         });
+        //     }
+
+        //     // Initialize with the current status
+        //     updateKnobPosition(input.value);
+
+        //     // Add click event for switching status
+        //     slider.addEventListener('click', function(event) {
+        //         const rect = slider.getBoundingClientRect();
+        //         const clickX = event.clientX - rect.left;
+
+        //         const labelWidth = slider.offsetWidth / statuses.length;
+        //         const clickedIndex = Math.floor(clickX / labelWidth);
+
+        //         if (clickedIndex >= 0 && clickedIndex < statuses.length) {
+        //             const nextStatus = statuses[clickedIndex];
+        //             updateKnobPosition(nextStatus);
+
+        //             // Optionally submit the form
+        //             switchElement.closest('form').submit();
+        //         }
+        //     });
+        // });
+
+        document.querySelectorAll('.three-state-switch').forEach(function(switchElement) {
+            const slider = switchElement.querySelector('.slider');
+            const knob = slider.querySelector('.knob');
+            const input = switchElement.querySelector('#status');
+            const labels = slider.querySelectorAll('.label');
+            const statuses = ['pending', 'confirmed', 'canceled'];
+
+            function updateKnobPosition(status) {
+                const index = statuses.indexOf(status);
+                if (index === -1) return;
+
+                const labelWidth = slider.offsetWidth / statuses.length;
+                knob.style.left = `${index * labelWidth}px`;
+                slider.setAttribute('data-status', status);
+
+                // Update label colors
+                labels.forEach((label, i) => {
+                    label.style.color = i === index ? 'white' : 'black';
+                });
+            }
+
+            // Initialize with the current status from the backend
+            updateKnobPosition(input.value);
+
+            slider.addEventListener('click', function(event) {
+                const rect = slider.getBoundingClientRect();
+                const clickX = event.clientX - rect.left;
+
+                const labelWidth = slider.offsetWidth / statuses.length;
+                const clickedIndex = Math.floor(clickX / labelWidth);
+
+                if (clickedIndex >= 0 && clickedIndex < statuses.length) {
+                    const nextStatus = statuses[clickedIndex];
+                    updateKnobPosition(nextStatus);
+
+                    // Update the hidden input value
+                    input.value = nextStatus;
+
+                    // Submit the form
+                    switchElement.closest('form').submit();
+                }
+            });
+        });
+
     </script>
 @endsection

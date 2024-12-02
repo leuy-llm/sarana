@@ -379,6 +379,8 @@ return [
   'for_hotel' => 'for Hotel',
   'editServices'=>'Edit Service',
   'editService'=>'Edit Service',
+  'meetingList'=>'Metting List',
+  'meeting'=>'Meeting',
 
 
 ];

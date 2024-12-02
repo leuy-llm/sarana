@@ -256,10 +256,8 @@
             var checkInDateInput = document.getElementById('check_in_date');
             var checkOutDateInput = document.getElementById('check_out_date');
 
-            // Initially disable the check-out date input
             checkOutDateInput.disabled = true;
 
-            // Set the min attribute for check-out date based on check-in date selection
             checkInDateInput.addEventListener('change', function() {
                 var checkInDate = this.value; // Get the selected check-in date
 

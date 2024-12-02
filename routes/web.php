@@ -202,6 +202,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::post('/services/{service}/toggle-active', [ServiceController::class, 'toggleActive'])->name('service.toggleActive');
     Route::post('/meetings/{meeting}/toggle-active', [MettingController::class, 'toggleActive'])->name('meeting.toggleActive');
     Route::post('/rooms/{room}/toggle-active', [RoomController::class, 'toggleActive'])->name('room.toggleActive');
+    Route::post('/bookings/{booking}/toggle-active', [BookingController::class, 'toggleActive'])->name('booking.toggleActive');
     Route::get('gallerys/{galleryId}/delete', [GalleryController::class, 'destroy']);
 
     Route::get('/notifications/clear', function () {

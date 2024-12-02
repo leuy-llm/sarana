@@ -42,7 +42,8 @@
             /* Your desired error background color */
         }
 
-        .switch {
+         /* General styling for the switch */
+         .switch {
             position: relative;
             display: inline-block;
             width: 34px;
@@ -62,10 +63,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* background-color: #ccc; */
             background: #e64a3b;
             transition: 0.4s;
             border-radius: 34px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .slider:before {
@@ -78,6 +79,7 @@
             background-color: white;
             transition: 0.4s;
             border-radius: 50%;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         input:checked+.slider {
@@ -86,6 +88,44 @@
 
         input:checked+.slider:before {
             transform: translateX(14px);
+        }
+
+        .switch .slider::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        /* Triangle for the tooltip */
+        .slider::before-tooltip {
+            content: "";
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent transparent #333 transparent;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .switch:hover .slider::after {
+            opacity: 1;
         }
     </style>
 @endsection
@@ -147,11 +187,12 @@
                                             <td>
                                                 {{-- <img src="{{ asset('storage/' . $data->image) }}" alt="table-user"
                                                     class="rounded me-3" height="48"> --}}
-                                                    @if ($data->images->isNotEmpty())
+                                                @if ($data->images->isNotEmpty())
                                                     <img src="{{ asset('storage/' . $data->images->first()->image) }}"
-                                                        alt="{{$data->title}}" class="rounded me-3" height="48">
+                                                        alt="{{ $data->title }}" class="rounded me-3" id="mainImage"
+                                                        height="48">
                                                 @else
-                                                    <img src="{{ asset('default-image.jpg') }}" alt="{{$data->title}}"
+                                                    <img src="{{ asset('default-image.jpg') }}" alt="{{ $data->title }}"
                                                         class="me-2 rounded-circle">
                                                 @endif
                                             </td>
@@ -167,7 +208,8 @@
                                                     @csrf
                                                     <label class="switch">
                                                         <input type="checkbox" onchange="this.form.submit()"
-                                                            {{ $data->availability ? 'checked' : '' }}>
+                                                            {{ $data->availability ? 'checked' : '' }}
+                                                            data-tooltip="{{ $data->availability ? 'Active' : 'Inactive' }}">
                                                         <span class="slider round"></span>
                                                     </label>
                                                 </form>
@@ -199,45 +241,15 @@
 @endsection
 @section('script')
     <script>
-        // $(document).ready(function() {
-        //     $('body').on('click', '#roomTypeEdit', function(event) {
-        //         event.preventDefault();
-        //         var url = $(this).data('url');
-        //         $.get(url, function(data) {
-        //             // Populate the form fields with the data
-        //             $('#editRoomType').modal('show');
-        //             $('#edit-id').val(data.id);
-        //             $('#edit-type_name').val(data.type_name);
-        //             // Update form action URL if necessary
-        //             $('form').attr('action', '{{ url('roomtypes/') }}/' + data.id);
-        //         });
-        //     });
-        // });
 
-        // Handle form submission via AJAX
-        // $('#editRoomType form').on('submit', function(event) {
-        //     event.preventDefault();
-        //     var form = $(this);
-        //     var action = form.attr('action');
-        //     var formData = form.serialize();
+document.querySelectorAll('.switch input').forEach(input => {
+            const slider = input.nextElementSibling;
+            slider.setAttribute('data-tooltip', input.checked ? 'Active' : 'Inactive');
 
-        //     $.ajax({
-        //         url: action,
-        //         type: 'POST',
-        //         data: formData,
-        //         success: function(response) {
-        //             $('#editRoomType').modal('hide');
-        //             showSuccessNotification(response.success);
-        //         },
-        //         error: function(xhr) {
-        //             var errorMsg = xhr.responseJSON.error || 'An error occurred';
-        //             showErrorNotification(errorMsg);
-        //         }
-        //     });
-        // });
-        //Message alert
-        // Function to show success notification
-        // Custom function to show success notification
+            input.addEventListener('change', function() {
+                slider.setAttribute('data-tooltip', this.checked ? 'Active' : 'Inactive');
+            });
+        });
         function showSuccessNotification(message) {
             toastr.options = {
                 "closeButton": true,
@@ -396,6 +408,13 @@
                     }
                 });
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var gallery = document.getElementById('mainImage');
+            var viewer = new Viewer(gallery, {
+                // options
+            });
+        });
 
 
         /*============= Tranlsate ==============*/

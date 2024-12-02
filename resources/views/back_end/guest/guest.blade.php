@@ -74,14 +74,14 @@
                                     <div class="mb-3">
                                         <button type="submit" style="margin-top: 29px;" class="btn btn-primary font"
                                             tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
-                                            data-bs-content="@lang('label.searchGuest')" data-bs-placement="top"
-                                            title="">@lang('label.search')</button>
+                                            data-bs-content="@lang('label.searchGuest')" data-bs-placement="top"> <i
+                                                class="mdi mdi-filter"></i> @lang('label.search')</button>
                                     </div>
                                     <div class="mb-3">
                                         <a href="{{ url('/guests') }}" tabindex="0" data-bs-toggle="popover"
                                             data-bs-trigger="hover" data-bs-content="@lang('label.resetGuest')"
                                             data-bs-placement="top" title="" class="btn btn-success"
-                                            style="margin-top: 29px">@lang('label.reset')</a>
+                                            style="margin-top: 29px"><i class="mdi mdi-restore"></i> @lang('label.reset')</a>
                                     </div>
                                 </div>
                             </div>
@@ -98,8 +98,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-9">
                             <a href="{{ url('guests/create') }}" tabindex="0" data-bs-toggle="popover"
-                                data-bs-trigger="hover" data-bs-placement="right"
-                                data-bs-content="@lang('label.youcan')"
+                                data-bs-trigger="hover" data-bs-placement="right" data-bs-content="@lang('label.youcan')"
                                 title="@lang('label.createNewGuest')" class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addGuest')</a>
                         </div>
@@ -172,7 +171,8 @@
                                         <td class="table-action">
                                             {{-- <a href="" class="action-icon"> <i class="mdi mdi-eye"></i></a> --}}
                                             <a href="{{ url('guests/' . $guest->id . '/edit') }}"
-                                                class="action-icon text-primary"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                class="action-icon text-primary"> <i
+                                                    class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="{{ url('guests/' . $guest->id . '/delete') }}"
                                                 onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                     class="mdi mdi-delete"></i></a>
@@ -182,8 +182,8 @@
                             </tbody>
                         </table>
                     </div>
-                </div> 
-            </div> 
+                </div>
+            </div>
         </div>
     </div>
 @endsection

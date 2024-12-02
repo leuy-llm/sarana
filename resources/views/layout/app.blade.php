@@ -47,6 +47,13 @@
     <!-- third party css end -->
     <!-- CSS -->
     <link rel="stylesheet" href="https://unpkg.com/air-datepicker@2.2.3/dist/css/datepicker.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/scheduler/main.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/scheduler/main.js"></script>
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> --}}
 
         <!-- JavaScript -->
         <script src="https://unpkg.com/air-datepicker@2.2.3/dist/js/datepicker.min.js"></script>
@@ -240,6 +247,7 @@
 
         <!-- Demo -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.typehead.js"></script>
+        <script src='fullcalendar-scheduler/dist/index.global.js'></script>
 
         <!-- Timepicker -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.timepicker.js"></script>

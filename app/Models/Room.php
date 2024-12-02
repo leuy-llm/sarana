@@ -53,7 +53,7 @@ class Room extends Model
         if (!empty(Request::get('price'))) {
             $return = $return->where('price', 'like', '%' . Request::get('price') . '%');
         }
-        if (!empty(Request::get('status'))) {
+        if (Request::has('status')) {
             $return = $return->where('status', '=', Request::get('status'));
         }
 

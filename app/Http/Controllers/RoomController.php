@@ -139,7 +139,6 @@ class RoomController extends Controller
                         $imagePaths[] = ['room_id' => $room->id, 'image' => $path];
                     }
 
-                    // Insert new images into the RoomImage table
                     RoomImage::insert($imagePaths);
                 }
 
@@ -155,7 +154,6 @@ class RoomController extends Controller
                 }
             });
 
-            // Only set success message after a successful update
             return redirect()->route('rooms.index')->with('success', __('label.roomUpdateSuccess'));
         } catch (\Exception $e) {
             return redirect()->route('rooms.index', $id)->with('error', __('label.roomUpdateError') . $e->getMessage());
@@ -170,13 +168,10 @@ class RoomController extends Controller
         if (!empty($room)) {
             $room->is_deleted = 1;
             $room->save();
-
             return redirect('/rooms')->with('success', __('label.roomDeleteSuccess'));
-            // with('success', 'The Room was marked as deleted successfully');
         }
 
         return redirect('/rooms')->with('error', __('label.roomDeleteError'));
-        // ->with('error', 'Room not found');
     }
 
     public function show($id)

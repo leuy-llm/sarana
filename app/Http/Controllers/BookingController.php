@@ -20,7 +20,7 @@ class BookingController extends Controller
 
         return view('back_end.booking.index', compact('header_title', 'bookings'));
     }
-   
+
 
 
     public function create()
@@ -61,6 +61,21 @@ class BookingController extends Controller
     }
 
 
+    // public function available_rooms(Request $request, $checkin_date)
+    // {
+    //     $arooms = DB::table('rooms')
+    //         ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
+    //         ->select('rooms.id', 'rooms.room_number', 'room_types.type_name')
+    //         ->whereNotIn('rooms.id', function ($query) use ($checkin_date) {
+    //             $query->select('room_id')
+    //                 ->from('bookings')
+    //                 ->whereRaw("'$checkin_date' BETWEEN check_in_date AND check_out_date");
+    //         })
+    //         ->get();
+
+    //     return response()->json(['data' => $arooms]);
+    // }
+
     public function available_rooms(Request $request, $checkin_date)
     {
         $arooms = DB::table('rooms')
@@ -69,6 +84,7 @@ class BookingController extends Controller
             ->whereNotIn('rooms.id', function ($query) use ($checkin_date) {
                 $query->select('room_id')
                     ->from('bookings')
+                    ->where('status', '!=', 'canceled') // Exclude only non-canceled bookings
                     ->whereRaw("'$checkin_date' BETWEEN check_in_date AND check_out_date");
             })
             ->get();
@@ -76,11 +92,12 @@ class BookingController extends Controller
         return response()->json(['data' => $arooms]);
     }
 
+
     public function available_room_types(Request $request, $checkin_date)
     {
         $availableRoomTypes = DB::table('room_types')
             ->join('rooms', 'room_types.id', '=', 'rooms.room_type_id')
-            ->select('room_types.id','rooms.price', 'room_types.type_name')
+            ->select('room_types.id', 'rooms.price', 'room_types.type_name')
             ->where('rooms.is_deleted', '=', 0)  // Filter out deleted rooms
             ->whereNotIn('rooms.id', function ($query) use ($checkin_date) {
                 $query->select('room_id')
@@ -175,4 +192,25 @@ class BookingController extends Controller
 
 
     public function show($id) {}
+
+    // public function toggleActive(Booking $booking)
+    // {
+    //     $booking->status = !$booking->status; // Toggle status (0 to 1, or 1 to 0)
+    //     $booking->save();
+
+    //     return redirect()->back()->with('success', 'Booking status updated!');
+    // }
+
+    public function toggleActive(Request $request, $id)
+    {
+        $booking = Booking::findOrFail($id);
+        $status = $request->input('status');
+
+        if (in_array($status, ['pending', 'confirmed', 'canceled'])) {
+            $booking->status = $status;
+            $booking->save();
+        }
+
+        return redirect()->back()->with('success', 'Booking status updated successfully!');
+    }
 }

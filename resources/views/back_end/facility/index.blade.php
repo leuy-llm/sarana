@@ -114,7 +114,6 @@
 
 
                                             <td class="table-action">
-                                              
                                                 <a href="{{ url('facilitys/' . $data->id . '/edit') }}" id="roomTypeEdit"
                                                     class="action-icon text-primary"> <i class="mdi mdi-square-edit-outline"></i></a>
                                                 <a href="{{ url('facilitys/' . $data->id . '/delete') }}"
@@ -274,7 +273,6 @@
                     "hideMethod": "fadeOut",
                     "toastClass": "custom-toast"
                 }
-
                 toastr.error(message);
             }
 
@@ -312,14 +310,14 @@
                             text: cancel,
                             value: null,
                             visible: true,
-                            className: "btn btn-danger",
+                            // className: "btn btn-danger",
                             closeModal: true,
                         },
                         confirm: {
                             text: confirm,
                             value: true,
                             visible: true,
-                            className: "btn btn-primary",
+                            // className: "btn btn-primary",
                             closeModal: true
                         }
                     },

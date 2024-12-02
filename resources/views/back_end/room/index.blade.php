@@ -23,6 +23,8 @@
         .popover-header {
             font-family: 'Hanuman', 'serif' !important;
         }
+
+        /* General styling for the switch */
         .switch {
             position: relative;
             display: inline-block;
@@ -43,10 +45,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* background-color: #ccc; */
             background: #e64a3b;
             transition: 0.4s;
             border-radius: 34px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .slider:before {
@@ -59,6 +61,7 @@
             background-color: white;
             transition: 0.4s;
             border-radius: 50%;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         input:checked+.slider {
@@ -67,6 +70,44 @@
 
         input:checked+.slider:before {
             transform: translateX(14px);
+        }
+
+        .switch .slider::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        /* Triangle for the tooltip */
+        .slider::before-tooltip {
+            content: "";
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent transparent #333 transparent;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .switch:hover .slider::after {
+            opacity: 1;
         }
     </style>
 @endsection
@@ -89,8 +130,9 @@
                                 <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">@lang('label.roomid')</label>
-                                        <input type="number" name="room_id" value="{{ Request::get('room_id') }}"
-                                            class="form-control " placeholder="@lang('label.enterId') . . .">
+                                        <input type="number" min="0" name="room_id"
+                                            value="{{ Request::get('room_id') }}" class="form-control "
+                                            placeholder="@lang('label.enterId') . . .">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -98,7 +140,7 @@
                                         {{-- <label class="form-label">@lang('label.roomTypeName')</label>
                                         <input type="text" name="roomTypeName" value="{{ Request::get('name') }}"
                                             placeholder="@lang('label.enterRoomTypeName') . . ." class="form-control filter"> --}}
-                                            
+
                                         <label class="form-label">@lang('label.roomTypeName')</label>
                                         <select name="room_type_id" id="room_type_id" class="form-control select2"
                                             data-toggle="select2">
@@ -122,15 +164,17 @@
                                 <div class="col-sm-3">
                                     <div class="mb-3">
                                         <label class="form-label">@lang('label.floor')</label>
-                                        <input type="number" name="floor" value="{{ Request::get('floor') }}"
-                                            class="form-control" placeholder="@lang('label.enterFloor') . . .">
+                                        <input type="number" min="0" name="floor"
+                                            value="{{ Request::get('floor') }}" class="form-control"
+                                            placeholder="@lang('label.enterFloor') . . .">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="mb-2">
                                         <label class="form-label">@lang('label.price')</label>
-                                        <input type="number" name="price" value="{{ Request::get('price') }}"
-                                            class="form-control" placeholder="@lang('label.enterPrice') . . .">
+                                        <input type="number" min="0" name="price"
+                                            value="{{ Request::get('price') }}" class="form-control"
+                                            placeholder="@lang('label.enterPrice') . . .">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -138,11 +182,11 @@
                                         <label class="form-label">@lang('label.status')</label>
                                         <select name="status" class="form-control select2" data-toggle="select2">
                                             <option value="" selected>@lang('label.selectStatus')</option>
-                                            <option value="active"
-                                                {{ Request::get('status') == 'active' ? 'selected' : '' }}>Active
+                                            <option value="1" {{ Request::get('status') == 1 ? 'selected' : '' }}>
+                                                Active
                                             </option>
-                                            <option value="inactive"
-                                                {{ Request::get('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                            <option value="0" {{ Request::get('status') == 0 ? 'selected' : '' }}>
+                                                Inactive</option>
                                         </select>
                                     </div>
                                 </div>
@@ -153,19 +197,19 @@
                                             class="form-control" placeholder="@lang('label.date') . . .">
                                     </div>
                                 </div>
-
                                 <div class="col-sm-3 d-flex gap-2">
                                     <div class="mb-3">
                                         <button type="submit" style="margin-top: 29px;" class="btn btn-primary font"
                                             tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
-                                            data-bs-content="@lang('label.searchRoom')" data-bs-placement="top"
-                                            title="">@lang('label.search')</button>
+                                            data-bs-content="@lang('label.searchRoom')" data-bs-placement="top" title=""><i
+                                                class="mdi mdi-filter"></i> @lang('label.search')
+                                        </button>
                                     </div>
                                     <div class="mb-3">
                                         <a href="{{ url('/rooms') }}" tabindex="0" data-bs-toggle="popover"
                                             data-bs-trigger="hover" data-bs-content="@lang('label.resetGuest')"
                                             data-bs-placement="top" title="" class="btn btn-success"
-                                            style="margin-top: 29px">@lang('label.reset')</a>
+                                            style="margin-top: 29px"><i class="mdi mdi-restore"></i> @lang('label.reset') </a>
                                     </div>
                                 </div>
                             </div>
@@ -232,8 +276,8 @@
                                                 <input type="checkbox" class="form-check-input" id="customCheck2">
                                                 <label class="form-check-label" for="customCheck2">&nbsp;</label>
                                             </div>
-                                         
-                                            
+
+
                                         </td>
                                         <td>
                                             {{ $room->roomType->type_name }}
@@ -260,34 +304,31 @@
                                         <td>
                                             {{ $room->price }}
                                         </td>
-                                       
-                                        
+
+
                                         <td>
                                             {{ $room->max_person }}
                                         </td>
                                         <td>
-                                            {{-- @if ($room->status == 'active')
-                                                <span class="badge badge-success-lighten">{{ $room->status }}</span>
-                                            @elseif ($room->status == 'inactive')
-                                                <span class="badge badge-danger-lighten">{{ $room->status }}</span>
-                                            @endif --}}
-                                            <form method="POST"
-                                                    action="{{ route('room.toggleActive', $room->id) }}">
-                                                    @csrf
-                                                    <label class="switch">
-                                                        <input type="checkbox" onchange="this.form.submit()"
-                                                            {{ $room->status ? 'checked' : '' }}>
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                </form>
+                                            <form method="POST" action="{{ route('room.toggleActive', $room->id) }}">
+                                                @csrf
+                                                <label class="switch">
+                                                    <input type="checkbox" onchange="this.form.submit()"
+                                                        {{ $room->status ? 'checked' : '' }}
+                                                        data-tooltip="{{ $room->status ? 'Active' : 'Inactive' }}">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </form>
                                         </td>
                                         <td>
-                                            {{ date('d-m-Y H:i A', strtotime($room->created_at)) }}
+                                            {{ date('d-m-Y', strtotime($room->created_at)) }}
                                         </td>
                                         <td class="table-action">
-                                            <a href="{{ route('rooms.show', $room->id) }}" class="action-icon text-success"> <i
-                                                    class="mdi mdi-eye"></i></a>
-                                            <a href="{{ url('rooms/' . $room->id . '/edit') }}" class="action-icon text-primary"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                            <a href="{{ route('rooms.show', $room->id) }}"
+                                                class="action-icon text-success"> <i class="mdi mdi-eye"></i></a>
+                                            <a href="{{ url('rooms/' . $room->id . '/edit') }}"
+                                                class="action-icon text-primary"> <i
+                                                    class="mdi mdi-square-edit-outline"></i></a>
                                             <a href="{{ url('rooms/' . $room->id . '/delete') }}"
                                                 onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                     class="mdi mdi-delete"></i></a>
@@ -304,6 +345,15 @@
 @endsection
 @section('script')
     <script>
+        document.querySelectorAll('.switch input').forEach(input => {
+            const slider = input.nextElementSibling;
+            slider.setAttribute('data-tooltip', input.checked ? 'Active' : 'Inactive');
+
+            input.addEventListener('change', function() {
+                slider.setAttribute('data-tooltip', this.checked ? 'Active' : 'Inactive');
+            });
+        });
+
         ! function(i) {
             "use strict";
 

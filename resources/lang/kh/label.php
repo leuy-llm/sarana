@@ -265,8 +265,8 @@ return [
   /*============= Booking ============= */
   'checkIn' => 'ការចូល',
   'checkOut' => 'ការចេញ',
-  'totalAdults' => 'Total_Adults',
-  'totalChildren' => 'Total_Children',
+  'totalAdults' => 'ពេញវ័យ',
+  'totalChildren' => 'ក្មេង',
   'avaiableRoom' => 'បន្ទប់ទំនេ',
   'createBooking' => 'បង្កើតការកក់',
   'newBooking' => 'ការកក់ថ្មី',
@@ -318,8 +318,6 @@ return [
   'editFacility' => 'កែប្រែ​គ្រឿងបរិក្ខា',
   'editFacilitys' => 'កែប្រែ​ គ្រឿងបរិក្ខា',
 
-
-
   'aboutUs' => 'អំពី​ សុីណាកាអង្គ​ហូរថែល',
   'contactSetting' => 'ទំនាក់ទំនង',
   'googleMap' => 'តំណភ្ជាប់ផែនទី',
@@ -359,7 +357,6 @@ return [
   'for_hotel' => 'សម្រាប់សណ្ឋាគារ',
   'editServices'=>'កែប្រែ ព័ត៌មានសេវាកម្ម',
   'editService'=>'កែប្រែសេវាកម្ម',
-
-
-
+  'meetingList'=>'Meeting List',
+  'meeting'=>'Meeting',
 ];

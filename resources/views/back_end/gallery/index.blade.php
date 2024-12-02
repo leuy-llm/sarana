@@ -20,28 +20,23 @@
 
         .custom-toast-success {
             background-color: #155724;
-            /* Success background color */
             color: #fff;
-            /* Success text color */
         }
 
         .custom-toast-error {
             background-color: #721c24;
-            /* Error background color */
             color: #fff;
-            /* Error text color */
         }
 
         .toast-success.custom-toast {
             background-color: #0acf97 !important;
-            /* Your desired background color */
         }
 
         .toast-error.custom-toast {
             background-color: #f44336 !important;
-            /* Your desired error background color */
         }
 
+        /* General styling for the switch */
         .switch {
             position: relative;
             display: inline-block;
@@ -62,10 +57,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* background-color: #ccc; */
             background: #e64a3b;
             transition: 0.4s;
             border-radius: 34px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .slider:before {
@@ -78,6 +73,7 @@
             background-color: white;
             transition: 0.4s;
             border-radius: 50%;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         input:checked+.slider {
@@ -86,6 +82,44 @@
 
         input:checked+.slider:before {
             transform: translateX(14px);
+        }
+
+        .switch .slider::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        /* Triangle for the tooltip */
+        .slider::before-tooltip {
+            content: "";
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent transparent #333 transparent;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .switch:hover .slider::after {
+            opacity: 1;
         }
     </style>
 @endsection
@@ -153,20 +187,14 @@
                                             <td>
                                                 {{ Str::limit($data->description, 10) }}
                                             </td>
-                                            <td>
-                                                {{-- <form method="POST" action="{{ route('gallery.toggleActive', $data->id) }}">
-                                                    @csrf
-                                                    <button type="submit" class="{{ $data->status ? 'btn-success' : 'btn-danger' }}">
-                                                        {{ $data->status ? 'Active' : 'Inactive' }}
-                                                    </button>
-                                                </form>    
-                                                                                             --}}
+                                            <td>                                        
                                                 <form method="POST"
                                                     action="{{ route('gallery.toggleActive', $data->id) }}">
                                                     @csrf
                                                     <label class="switch">
                                                         <input type="checkbox" onchange="this.form.submit()"
-                                                            {{ $data->status ? 'checked' : '' }}>
+                                                            {{ $data->status ? 'checked' : '' }}
+                                                            data-tooltip="{{ $data->status ? 'Active' : 'Inactive' }}">
                                                         <span class="slider round"></span>
                                                     </label>
                                                 </form>
@@ -200,6 +228,15 @@
 @endsection
 @section('script')
     <script>
+        document.querySelectorAll('.switch input').forEach(input => {
+            const slider = input.nextElementSibling;
+            slider.setAttribute('data-tooltip', input.checked ? 'Active' : 'Inactive');
+
+            input.addEventListener('change', function() {
+                slider.setAttribute('data-tooltip', this.checked ? 'Active' : 'Inactive');
+            });
+        });
+
         // $(document).ready(function() {
         //     $('body').on('click', '#roomTypeEdit', function(event) {
         //         event.preventDefault();
@@ -262,8 +299,6 @@
             toastr.success(message);
         }
 
-
-        // Custom function to show error notification
         function showErrorNotification(message) {
             toastr.options = {
                 "closeButton": true,
@@ -295,7 +330,6 @@
                     "rgba(0,0,0,0.2)", "info");
             });
 
-            // Custom function to show success notification
             function showSuccess(message) {
                 toastr.options = {
                     "closeButton": true,
@@ -341,8 +375,6 @@
 
                 toastr.error(message);
             }
-
-            // Check for session success message and display it
             @if (session('success'))
                 showSuccess('{{ session('success') }}');
             @endif
@@ -353,7 +385,6 @@
             @endif
         }
         (window.jQuery);
-
 
 
         /* =============== Remove RoomType ============ */
