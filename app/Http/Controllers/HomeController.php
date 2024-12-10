@@ -7,7 +7,9 @@ use App\Models\Booking;
 use App\Models\Room;
 use App\Models\Facility;
 use App\Models\Guest;
+use App\Models\Meeting;
 use App\Models\RoomType;
+use App\Models\Tour;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -64,18 +66,6 @@ public function reservation(){
     return view('frontend.booking.index', compact('data','banner','contact','settings','roomTypes'));
 }
 
-
-// public function roomDetail($id)
-// {
-//     $data = "Details";
-//     $settings = DB::table('settings')->get();
-//     $rooms = Room::with('roomType', 'images', 'facilities')->findOrFail($id);
-//     // Fetch only the specific room types you want to display
-//     $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room','Family 3 bedroom','Trip Room','King Room'])->get();
-
-//     return view('frontend.room_detail.index', compact('rooms', 'settings', 'data', 'roomTypes'));
-// }
-
 public function roomDetail($id, $type_name)
 {
     $data = "Details";
@@ -91,6 +81,83 @@ public function roomDetail($id, $type_name)
     }
     
     return view('frontend.room_detail.index', compact('rooms','contact','settings','banner', 'data','roomTypes'));
+}
+
+
+public function service()
+{
+    $data = "Service";
+    $settings = DB::table('settings')->get();
+    $services = DB::table('services')->where('status', 1)->get();
+    $banner = Banner::where('page_name', 'service')->first();
+    $contact = DB::table('contact_details')->get();
+    
+
+    // if (!$banner) {
+    //     dd('No banner found for services page.');
+    // }
+    
+    // Fetch only the specific room types you want to display
+    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+
+    return view('frontend.service.index', compact('data', 'banner', 'services','contact', 'settings', 'roomTypes'));
+}
+
+public function gallery()
+{
+    $data = "Gallery";
+    $settings = DB::table('settings')->get();
+    $galleries = DB::table('galleries')->where('status', 1)->get();
+    $banner = Banner::where('page_name', 'gallery')->first();
+    // $services = DB::table('services')->where('status', 1)->get();
+    $contact = DB::table('contact_details')->get();
+    
+
+    // if (!$banner) {
+    //     dd('No banner found for services page.');
+    // }
+    
+    // Fetch only the specific room types you want to display
+    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+
+    return view('frontend.gallery.index', compact('data', 'banner','galleries','contact', 'settings', 'roomTypes'));
+}
+
+
+public function meeting(){
+    $data = "Meeting";
+    $settings = DB::table('settings')->get();
+    $meetings = Meeting::with('images')->where('availability', 1)->get();
+    $banner = Banner::where('page_name', 'meeting')->first();
+    $contact = DB::table('contact_details')->get();
+    
+
+    // if (!$banner) {
+    //     dd('No banner found for services page.');
+    // }
+    
+    // Fetch only the specific room types you want to display
+    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+
+    return view('frontend.meeting.index', compact('data', 'banner','meetings','contact', 'settings', 'roomTypes'));
+}
+
+public function tour(){
+    $data = "Restaurant";
+    $settings = DB::table('settings')->get();
+    $tours = Tour::with('images')->where('is_featured', 1)->get();
+    $banner = Banner::where('page_name', 'meeting')->first();
+    $contact = DB::table('contact_details')->get();
+    
+
+    // if (!$banner) {
+    //     dd('No banner found for services page.');
+    // }
+    
+    // Fetch only the specific room types you want to display
+    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+
+    return view('frontend.meeting.index', compact('data', 'banner','contact', 'settings', 'roomTypes','tours'));
 }
 // public function roomDetail($id, $type_name)
 // {

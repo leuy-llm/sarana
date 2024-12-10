@@ -20,24 +20,30 @@
 
         .custom-toast-success {
             background-color: #155724;
+            /* Success background color */
             color: #fff;
+            /* Success text color */
         }
 
         .custom-toast-error {
             background-color: #721c24;
+            /* Error background color */
             color: #fff;
+            /* Error text color */
         }
 
         .toast-success.custom-toast {
             background-color: #0acf97 !important;
+            /* Your desired background color */
         }
 
         .toast-error.custom-toast {
             background-color: #f44336 !important;
+            /* Your desired error background color */
         }
 
-        /* General styling for the switch */
-        .switch {
+         /* General styling for the switch */
+         .switch {
             position: relative;
             display: inline-block;
             width: 34px;
@@ -127,8 +133,8 @@
 @section('content')
     <div iv class="container-fluid">
         @php
-            $breadcrumbs = [['title' => __('label.gallery'), 'url' => route('gallerys.index')]];
-            $currentPageTitle = __('label.galleryList');
+            $breadcrumbs = [['title' => __('label.restaurant'), 'url' => route('restaurants.index')]];
+            $currentPageTitle = __('label.restaurantList');
         @endphp
         @include('layout.breadcrumbs', [
             'breadcrumbs' => $breadcrumbs,
@@ -142,15 +148,14 @@
                     <div class="card-body">
                         <div class="row mb-2">
                             <div class="col-sm-4">
-                                <a href="{{ url('gallerys/create') }}" tabindex="0" data-bs-toggle="popover"
-                                    data-bs-trigger="hover" data-bs-placement="top" title="@lang('label.createNewGallery')"
+                                <a href="{{ url('restaurants/create') }}" tabindex="0" data-bs-toggle="popover"
+                                    data-bs-trigger="hover" data-bs-placement="top" title="@lang('label.createNewRes')"
                                     class="btn btn-danger mb-2">
-                                    <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addGallery')</a>
+                                    <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addRes')</a>
                             </div>
                         </div>
-
                         <div class="table-responsive">
-                            <table class="table table-centered w-100 dt-responsive nowrap" id="gallery-datatable">
+                            <table class="table table-centered w-100 dt-responsive nowrap" id="restaurant-datatable">
                                 <thead class="table-dark">
                                     <tr class="even">
                                         <th class="all" style="width: 20px;">
@@ -164,12 +169,11 @@
                                         <th class="all">@lang('label.description')</th>
                                         <th class="all">@lang('label.status')</th>
                                         <th>@lang('label.date')</th>
-
                                         <th style="width: 85px;">@lang('label.action')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($galleries as $data)
+                                    @foreach ($restaurant as $data)
                                         <tr>
                                             <td>
                                                 <div class="form-check">
@@ -182,14 +186,14 @@
                                                     class="rounded me-3" height="48">
                                             </td>
                                             <td>
-                                                {{ $data->title }}
+                                                {{ $data->name }}
                                             </td>
                                             <td>
                                                 {{ Str::limit($data->description, 10) }}
                                             </td>
-                                            <td>                                        
+                                            <td>
                                                 <form method="POST"
-                                                    action="{{ route('gallery.toggleActive', $data->id) }}">
+                                                    action="{{ route('restaurant.toggleActive', $data->id) }}">
                                                     @csrf
                                                     <label class="switch">
                                                         <input type="checkbox" onchange="this.form.submit()"
@@ -198,18 +202,15 @@
                                                         <span class="slider round"></span>
                                                     </label>
                                                 </form>
-
                                             </td>
                                             <td>
                                                 {{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}
                                             </td>
-
                                             <td class="table-action">
-
-                                                <a href="{{ url('gallerys/' . $data->id . '/edit') }}" id="roomTypeEdit"
+                                                <a href="{{ url('restaurants/' . $data->id . '/edit') }}"
                                                     class="action-icon text-primary"> <i
                                                         class="mdi mdi-square-edit-outline"></i></a>
-                                                <a href="{{ url('gallerys/' . $data->id . '/delete') }}"
+                                                <a href="{{ url('restaurants/' . $data->id . '/delete') }}"
                                                     onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                         class="mdi mdi-delete"></i></a>
                                             </td>
@@ -236,7 +237,7 @@
                 slider.setAttribute('data-tooltip', this.checked ? 'Active' : 'Inactive');
             });
         });
-
+        
         function showSuccessNotification(message) {
             toastr.options = {
                 "closeButton": true,
@@ -260,6 +261,8 @@
             toastr.success(message);
         }
 
+
+        // Custom function to show error notification
         function showErrorNotification(message) {
             toastr.options = {
                 "closeButton": true,
@@ -291,6 +294,7 @@
                     "rgba(0,0,0,0.2)", "info");
             });
 
+            // Custom function to show success notification
             function showSuccess(message) {
                 toastr.options = {
                     "closeButton": true,
@@ -336,6 +340,8 @@
 
                 toastr.error(message);
             }
+
+            // Check for session success message and display it
             @if (session('success'))
                 showSuccess('{{ session('success') }}');
             @endif
@@ -346,6 +352,7 @@
             @endif
         }
         (window.jQuery);
+
 
 
         /* =============== Remove RoomType ============ */
@@ -393,8 +400,7 @@
 
         /*============= Tranlsate ==============*/
         var displayText = @json(__('label.display'));
-        var displayGallery= @json(__('label.gallery'));
-        var showingGalleryText =
-            "{{ __('label.showing_gallerys', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
+        var displayRes = @json(__('label.restaurant'));
+        var showingResText = "{{ __('label.showing_res', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
     </script>
 @endsection

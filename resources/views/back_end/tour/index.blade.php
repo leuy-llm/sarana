@@ -15,7 +15,7 @@
             font-size: 14px;
             /* Font size */
             font-family: Arial, sans-serif;
-            /* Font family */
+
         }
 
         .custom-toast-success {
@@ -127,8 +127,8 @@
 @section('content')
     <div iv class="container-fluid">
         @php
-            $breadcrumbs = [['title' => __('label.gallery'), 'url' => route('gallerys.index')]];
-            $currentPageTitle = __('label.galleryList');
+            $breadcrumbs = [['title' => __('label.tour'), 'url' => route('tours.index')]];
+            $currentPageTitle = __('label.tourList');
         @endphp
         @include('layout.breadcrumbs', [
             'breadcrumbs' => $breadcrumbs,
@@ -140,17 +140,17 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row mb-2">
+                        {{-- <div class="row mb-2">
                             <div class="col-sm-4">
-                                <a href="{{ url('gallerys/create') }}" tabindex="0" data-bs-toggle="popover"
-                                    data-bs-trigger="hover" data-bs-placement="top" title="@lang('label.createNewGallery')"
+                                <a href="{{ url('tours/create') }}" tabindex="0" data-bs-toggle="popover"
+                                    data-bs-trigger="hover" data-bs-placement="top" title="@lang('label.createNewTour')"
                                     class="btn btn-danger mb-2">
-                                    <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addGallery')</a>
+                                    <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addTour')</a>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="table-responsive">
-                            <table class="table table-centered w-100 dt-responsive nowrap" id="gallery-datatable">
+                            <table class="table table-centered w-100 dt-responsive nowrap" id="tour-datatable">
                                 <thead class="table-dark">
                                     <tr class="even">
                                         <th class="all" style="width: 20px;">
@@ -162,14 +162,17 @@
                                         <th class="all">@lang('label.image')</th>
                                         <th class="all">@lang('label.title')</th>
                                         <th class="all">@lang('label.description')</th>
-                                        <th class="all">@lang('label.status')</th>
+                                        <th class="all">@lang('label.price')</th>
+                                        <th class="all">@lang('label.duration')</th>
+                                        <th class="all">@lang('label.location')</th>
+                                        <th class="all">@lang('label.featured')</th>
                                         <th>@lang('label.date')</th>
 
                                         <th style="width: 85px;">@lang('label.action')</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($galleries as $data)
+                                    @foreach ($tours as $data)
                                         <tr>
                                             <td>
                                                 <div class="form-check">
@@ -178,38 +181,53 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <img src="{{ asset('storage/' . $data->image) }}" alt="table-user"
-                                                    class="rounded me-3" height="48">
+                                                {{-- <img src="{{ asset('storage/' . $data->image) }}" alt="{{$data->name}}"
+                                                    class="rounded me-3" height="48"> --}}
+                                                @php
+                                                    // Get the primary image for the tour
+                                                    $primaryImage = $data->images()->where('is_primary', true)->first();
+                                                @endphp
+
+                                                @if ($primaryImage)
+                                                    <img src="{{ asset('storage/' . $primaryImage->image) }}"
+                                                        alt="{{ $data->name }}" class="rounded me-3" height="48" width="60">
+                                                @else
+                                                    <span>No image</span>
+                                                @endif
                                             </td>
                                             <td>
-                                                {{ $data->title }}
+                                                {{ $data->name }}
                                             </td>
                                             <td>
                                                 {{ Str::limit($data->description, 10) }}
                                             </td>
-                                            <td>                                        
-                                                <form method="POST"
-                                                    action="{{ route('gallery.toggleActive', $data->id) }}">
-                                                    @csrf
-                                                    <label class="switch">
-                                                        <input type="checkbox" onchange="this.form.submit()"
-                                                            {{ $data->status ? 'checked' : '' }}
-                                                            data-tooltip="{{ $data->status ? 'Active' : 'Inactive' }}">
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                </form>
-
+                                            <td>
+                                                ${{ $data->price }}
                                             </td>
+                                            <td>
+                                                {{ $data->duration }}
+                                            </td>
+                                            <td>
+                                                {{ $data->location }}
+                                            </td>
+                                            <td>
+                                                @if ($data->is_featured)
+                                                    <span class="badge bg-success">Yes</span>
+                                                @else
+                                                    <span class="badge bg-secondary">No</span>
+                                                @endif
+                                            </td>
+
                                             <td>
                                                 {{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}
                                             </td>
 
                                             <td class="table-action">
 
-                                                <a href="{{ url('gallerys/' . $data->id . '/edit') }}" id="roomTypeEdit"
+                                                <a href="{{ url('tours/' . $data->id . '/edit') }}" id="roomTypeEdit"
                                                     class="action-icon text-primary"> <i
                                                         class="mdi mdi-square-edit-outline"></i></a>
-                                                <a href="{{ url('gallerys/' . $data->id . '/delete') }}"
+                                                <a href="{{ url('tours/' . $data->id . '/delete') }}"
                                                     onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                         class="mdi mdi-delete"></i></a>
                                             </td>
@@ -393,7 +411,7 @@
 
         /*============= Tranlsate ==============*/
         var displayText = @json(__('label.display'));
-        var displayGallery= @json(__('label.gallery'));
+        var displayGallery = @json(__('label.gallery'));
         var showingGalleryText =
             "{{ __('label.showing_gallerys', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
     </script>

@@ -240,6 +240,8 @@
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.services.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.gallerys.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.meetings.js"></script>
+        <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.restaurants.js"></script>
+        <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.tours.js"></script>
 
         <!-- Typehead -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor/handlebars.min.js"></script>

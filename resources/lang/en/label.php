@@ -382,5 +382,33 @@ return [
   'meetingList'=>'Metting List',
   'meeting'=>'Meeting',
 
+  /*=============== Food & Drink for Hotel ========== */
+  'restaurant'=>'Food & Drink',
+  'showing_res'=>'Showing food & drink :start to :end of :total ',
+  'addRes'=>'Add Food / Drink',
+  'restaurantList'=>'Food & Drink list​',
+  'createNewRes'=>'Create New Food / Drink ',
+  'createRes'=>'Create Food/Drink',
+  'newRes'=>'New Food / Drink ',
+  'enterResName'=>'Enter food or drink name',
+  'editRes'=>'Edit Food / Drink',
+  /*=============== Gallery for Hotel ============= */
+  'gallery'=>'Gallery',
+  'showing_gallerys'=>'Showing gallerys :start to :end of :total',
+  'addGallery'=>'Add Gallery',
+  'galleryList'=>'Gallery list',
+  'createNewGallery'=>'Create New Gallery',
+  'createGallery'=>'Create Gallery',
+  'newGallery'=>'New Gallery ',
+  'enterGalleryName'=>'Enter gallery name',
+  'editGallery'=>'Edit Gallery',
 
+  /* =============== Tours for Hotel ============== */
+  'tour'=>'Tour',
+  'duration'=>'Duration',
+  'featured'=>'Featured',
+  'addTour'=>'Add Tour',
+  'tourList'=>'Tours list',
+  'createNewTour'=>'Create new tour',
+  'page'=>'Pages'
 ];

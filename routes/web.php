@@ -23,9 +23,12 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MettingController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TourController;
 use App\Http\Controllers\UserQueryController;
 use App\Models\BookingCalender;
+use App\Models\Restaurant;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +55,14 @@ Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 /* ================ Our Room ================ */
 // Route::get('rooms',[HomeController::class,'ourroom'])->name('')
 Route::get('room_detail/{id}/{type_name}', [HomeController::class, 'roomDetail'])->name('roomDetail');
+
+Route::get('service', [HomeController::class, 'service'])->name('service');
+Route::get('gallery', [HomeController::class, 'gallery'])->name('gallery');
+Route::get('meeting', [HomeController::class, 'meeting'])->name('meeting');
+Route::get('restaurant', [HomeController::class, 'restaurant'])->name('restaurant');
+Route::get('tour', [HomeController::class, 'tour'])->name('tour');
+
+
 
 
 
@@ -197,10 +208,15 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::get('meetings/{meetingId}/delete', [App\Http\Controllers\MettingController::class, 'destroy']);
 
     /*================= Gallery Route =================== */
+    Route::resource('restaurants', RestaurantController::class);
+    Route::resource('tours', TourController::class);
+
+    /*================= Gallery Route =================== */
     Route::resource('gallerys', GalleryController::class);
     Route::post('/gallerys/{gallery}/toggle-active', [GalleryController::class, 'toggleActive'])->name('gallery.toggleActive');
     Route::post('/services/{service}/toggle-active', [ServiceController::class, 'toggleActive'])->name('service.toggleActive');
     Route::post('/meetings/{meeting}/toggle-active', [MettingController::class, 'toggleActive'])->name('meeting.toggleActive');
+    Route::post('/restaurants/{restaurant}/toggle-active', [RestaurantController::class, 'toggleActive'])->name('restaurant.toggleActive');
     Route::post('/rooms/{room}/toggle-active', [RoomController::class, 'toggleActive'])->name('room.toggleActive');
     Route::post('/bookings/{booking}/toggle-active', [BookingController::class, 'toggleActive'])->name('booking.toggleActive');
     Route::get('gallerys/{galleryId}/delete', [GalleryController::class, 'destroy']);

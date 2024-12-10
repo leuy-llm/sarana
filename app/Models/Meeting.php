@@ -12,8 +12,9 @@ class Meeting extends Model
     protected $fillable = ['title','description','availability'];
 
     public function images()
-    {
-        return $this->hasMany(MeetingImage::class);
-    }
+{
+    return $this->hasMany(MeetingImage::class, 'meeting_id');
+}
+
 
 }

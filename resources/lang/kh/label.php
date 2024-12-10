@@ -298,10 +298,10 @@ return [
   'title' => 'ចំណងជើង',
 
   /*============== User Query ============ */
-  'userQuery' => 'User Query',
-  'userQueryList' => 'បញ្ជី User Query',
+  'userQuery' => 'មតិអ្នកប្រើប្រាស់',
+  'userQueryList' => 'បញ្ជី មតិអ្នកប្រើប្រាស់',
   'message' => 'ពិពណ៌នា',
-  'showing_userquerys' => 'បង្ហាញ query ពី​ :start ទៅ :end នៃ :total នាក់',
+  'showing_userquerys' => 'បង្ហាញ មតិអ្នកប្រើប្រាស់ ពី​ :start ទៅ :end នៃ :total នាក់',
 
 
   /*============== Facility ============ */
@@ -359,4 +359,32 @@ return [
   'editService'=>'កែប្រែសេវាកម្ម',
   'meetingList'=>'Meeting List',
   'meeting'=>'Meeting',
+
+  'restaurant'=>'ភេជ្ជៈ​ & ម្ហូបអាហារ',
+  'showing_res'=>'បង្ហាញភេជ្ជៈ​ & ម្ហូបអាហារ :start ទៅ :end នៃ :totalភេជ្ជៈ​&ម្ហូបអាហារ ',
+  'addRes'=>'បន្ថែមម្ហូបអាហារ​​ / ភេជ្ជៈ​ ',
+  'restaurantList'=>'បញ្ជី អាហារ & ភេជ្ជៈ​',
+  'createNewRes'=>'បង្កើតម្ហូបអាហារ​ឬភេជ្ជៈ​​ថ្មី ',
+  'createRes'=>'បង្កើតម្ហូបអាហារឬភេជ្ជៈ',
+  'newRes'=>'ម្ហូបអាហារ​ ឬ ភេជ្ជៈថ្មី',
+  'enterResName'=>'បញ្ចូលឈ្មោះម្ហូបឬភេជ្ជៈ',
+  'editRes'=>'កែប្រែម្ហូបអាហារឬភេជ្ជៈ',
+
+  'gallery'=>'កម្រងរូបភាព',
+  'showing_gallerys'=>'បង្ហាញរូបភាព :start ទៅ :end នៃ :total កម្រងរូបភាព',
+  'addGallery'=>'បន្ថែមកម្រងរូបភាព',
+  'galleryList'=>'បញ្ជី​ កម្រងរូបភាព',
+  'createNewGallery'=>'បង្កើតកម្រងរូបភាពថ្មី',
+  'createGallery'=>'បង្កើតកម្រងរូបភាព',
+  'newGallery'=>'កម្រងរូបភាពថ្មី',
+  'enterGalleryName'=>'បញ្ចូលឈ្មោះកម្រងរូបភាព',
+  'editGallery'=>'កែប្រែ​ កម្រងរូបភាព',
+
+  'tour'=>'ដំណើរកំសាន្ត',
+  'duration'=>'រយៈពេល',
+  'featured'=>'លក្ខណៈពិសេស',
+  'tourList'=>'បញ្ជី​ នៃដំណើរកំសាន្ត',
+   'page'=>'គេហទំព័រ',
+   'editTour'=>'កែប្រែ ដំណើរកំសាន្ត'
+  
 ];

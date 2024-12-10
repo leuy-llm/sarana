@@ -27,7 +27,8 @@ class BannerController extends Controller
             'rooms' => 'Rooms Page',
             'contact_details' => 'Contact Page',
             'booking' => 'Reservation Page',
-            'gallery' => 'Gallery Page'
+            'gallery' => 'Gallery Page',
+            'service'=>'Service Page'
         ];
 
         $header_title = "Create Banner";

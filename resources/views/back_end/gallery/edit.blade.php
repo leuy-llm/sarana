@@ -5,7 +5,7 @@
             ['title' => __('label.gallery'), 'url' => route('gallerys.index')],
             ['title' => __('label.editGallery'), 'url' => route('gallerys.create')],
         ];
-        $currentPageTitle = __('label.editGalllerys');
+        $currentPageTitle = __('label.editGallery');
     @endphp
     @include('layout.breadcrumbs', [
         'breadcrumbs' => $breadcrumbs,
