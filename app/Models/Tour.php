@@ -14,7 +14,6 @@ class Tour extends Model
         'price',
         'duration',
         'location',
-        'is_featured',
     ];
 
     // Relationship: A Tour has many images
@@ -23,6 +22,5 @@ class Tour extends Model
         return $this->hasMany(TourImage::class);
     }
 
-    
     use HasFactory;
 }

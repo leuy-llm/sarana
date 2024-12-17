@@ -69,7 +69,7 @@ class Room extends Model
     {
         $return  = self::select('rooms.*')
         ->where('is_deleted', '=', 0)
-        ->where('status', '=', 'active'); // Change 'active' column to 'status'
+        ->where('status', '=', 1); // Change 'active' column to 'status'
 
         $return = $return->orderBy('id', 'desc')->get();
         return $return;

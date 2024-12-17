@@ -20,8 +20,8 @@
                             <h5 class="text-white mb-lg-3 text-decoration-underline">{{ $data->roomType->type_name }}</h5>
                             <p class="text-white"> {{ Str::limit($data->description, 200) }}</p>
                             <div class="" style="display: flex; align-items: center;">
-                                <p class="text-white font-bold ">${{ $data->price }} / Per Night</p>
-                                <p class="text-white ml-lg-2">Max {{$data->max_person}} Persons</p>
+                                <p class="text-white font-bold">${{ $data->price }} / Per Night</p>
+                                <p class="text-white ml-lg-3" style="margin-top: 1px;">Max {{$data->max_person}} Persons</p>
                             </div>
                             <a href="{{ route('roomDetail', ['id' => $data->id, 'type_name' => Str::slug($data->roomType->type_name)]) }}" class="main-btn border-white text-white">Read More</a>
                         </div>

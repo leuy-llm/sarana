@@ -143,12 +143,12 @@
     </div>
 </div> --}}
     <div class="col-lg-6 col-xl-3">
-        <div class="card" style="border-left: 4px solid #FF8911;background:#674188;">
+        <div class="card" style="border-left: 4px solid #FF8911;">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <h5 class="text-white fw-normal mt-0 text-truncate" title="New Leads">TOTAL BOOKINGS</h5>
-                        <h3 class="my-2 py-1 text-white">{{ $currentBookings }}</h3>
+                        <h5 class="fw-normal mt-0 text-truncate" title="New Leads">TOTAL BOOKINGS</h5>
+                        <h3 class="my-2 py-1">{{ $currentBookings }}</h3>
                     </div>
                     <div class="col-6">
                         <div class="text-end">
@@ -160,14 +160,14 @@
         </div>
     </div>
     <div class="col-lg-6 col-xl-3">
-        <div class="card" style="border-left: 4px solid #4f73df;background:#1F2544;">
+        <div class="card" style="border-left: 4px solid #4f73df;">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-7">
-                        <h5 class="fw-normal text-white text-truncate mt-0 text-uppercase" title="Confirmed Bookings">
+                        <h5 class="fw-normal text-truncate mt-0 text-uppercase" title="Confirmed Bookings">
                             Confirmed
                             Bookings</h5>
-                        <h3 class="my-2 py-1 text-white">{{ $confirmedBookings }}</h3>
+                        <h3 class="my-2 py-1">{{ $confirmedBookings }}</h3>
                     </div>
                     <div class="col-5">
                         <div class="text-end">
@@ -180,14 +180,13 @@
     </div>
 
     <div class="col-lg-6 col-xl-3">
-        <div class="card bg-danger" style="border-left: 4px solid #1F2544;">
+        <div class="card" style="border-left: 4px solid #1F2544;">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-7">
-                        <h5 class="fw-normal text-white text-truncate mt-0 text-uppercase"
-                            title="Cancelled  Bookings<">Cancelled
+                        <h5 class="fw-normal text-truncate mt-0 text-uppercase" title="Cancelled  Bookings<">Cancelled
                             Bookings</h5>
-                        <h3 class="my-2 py-1 text-white">{{ $cancelledBookings }}</h3>
+                        <h3 class="my-2 py-1">{{ $cancelledBookings }}</h3>
                     </div>
                     <div class="col-5">
                         <div class="text-end">
@@ -199,13 +198,13 @@
         </div>
     </div>
     <div class="col-lg-6 col-xl-3">
-        <div class="card" style="border-left: 4px solid #0acf97;;background: #00215E" >
+        <div class="card" style="border-left: 4px solid #0acf97;">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-7">
-                        <h5 class="fw-normal text-white text-truncate mt-0 text-uppercase" title="Cancelled  Bookings">Pending
+                        <h5 class="fw-normal text-truncate mt-0 text-uppercase" title="Cancelled  Bookings">Pending
                             Bookings</h5>
-                        <h3 class="my-2 py-1 text-white">{{ $pendingBookings }}</h3>
+                        <h3 class="my-2 py-1">{{ $pendingBookings }}</h3>
                     </div>
                     <div class="col-5">
                         <div class="text-end">
@@ -246,17 +245,16 @@
         </div>
     </div>
     <div class="col-lg-6 col-xl-3">
-        <div class="card" style="border-left: 4px solid #aee211;background: #001B79;">
+        <div class="card" style="border-left: 4px solid #001B79;">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-7">
-                        <h5 class="fw-normal text-truncate text-uppercase text-white mt-0" title="query">Queries</h5>
-                        <h3 class="my-2 py-1 text-white">{{ $currentQueries }}</h3>
+                        <h5 class="fw-normal text-truncate text-uppercase mt-0" title="query">Queries</h5>
+                        <h3 class="my-2 py-1">{{ $currentQueries }}</h3>
                     </div>
                     <div class="col-5">
                         <div class="text-end">
-                            <i class="mdi mdi-comment-question-outline "
-                                style="font-size: 65px;color:#fff"></i>
+                            <i class="mdi mdi-comment-question-outline " style="font-size: 65px;color:#a49999"></i>
                         </div>
                     </div>
                 </div>

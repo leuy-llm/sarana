@@ -57,8 +57,8 @@
                         aria-expanded="false"> facilities
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" style="font-size: 15px; padding-top: 10px; border-bottom: 1px solid #dee2e6; font-weight: 500; text-transform: uppercase; " href="{{url('restaurant')}}">Food & Drink</a></li>
-                        <li><a class="dropdown-item" style="font-size: 15px; padding-top: 10px; font-weight: 500; text-transform: uppercase;" href="{{ route('meeting') }}">Meetings</a></li>
+                        <li><a class="dropdown-item" style="font-size: 13px; padding-top: 10px; border-bottom: 1px solid #dee2e6; font-weight: 500; text-transform: uppercase; " href="{{url('restaurant')}}">Food & Drink</a></li>
+                        <li><a class="dropdown-item" style="font-size: 13px; padding-top: 10px; font-weight: 500; text-transform: uppercase;" href="{{ route('meeting') }}">Meetings</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

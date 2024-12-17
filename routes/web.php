@@ -210,6 +210,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     /*================= Gallery Route =================== */
     Route::resource('restaurants', RestaurantController::class);
     Route::resource('tours', TourController::class);
+    Route::get('tours/{tourId}/delete', [TourController::class, 'destroy']);
 
     /*================= Gallery Route =================== */
     Route::resource('gallerys', GalleryController::class);

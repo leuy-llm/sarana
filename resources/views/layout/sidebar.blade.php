@@ -40,17 +40,17 @@
                 </a>
             </li>
 
-            <li class="side-nav-title side-nav-item font">Guest Section</li>
+            {{-- <li class="side-nav-title side-nav-item font">Guest Section</li> --}}
             <li class="side-nav-item font @if (Request::segment(1) == 'guests') active @endif"">
                 <a href="{{ url('guests') }}" class="side-nav-link">
-                    <i class="uil-calender"></i>
+                    <i class="uil-user"></i>
                     <span> @lang('label.guest') </span>
                 </a>
             </li>
-            <li class="side-nav-title side-nav-item font">Room Section</li>
+            {{-- <li class="side-nav-title side-nav-item font">Room Section</li> --}}
             <li class="side-nav-item font @if (Request::segment(1) == 'rooms') active @endif"">
                 <a href="{{ url('rooms') }}" class="side-nav-link">
-                    <i class="uil-calender"></i>
+                    <i class="uil-bed"></i>
                     <span> @lang('label.room') </span>
                 </a>
             </li>
@@ -62,7 +62,7 @@
                 </a>
             </li>
             {{-- <li class="side-nav-title side-nav-item font">Reservation Section</li> --}}
-            <li class="side-nav-title side-nav-item font">Booking Section</li>
+            {{-- <li class="side-nav-title side-nav-item font">Booking Section</li> --}}
             <li class="side-nav-item font @if (Request::segment(1) == 'calenders') active @endif"">
                 <a href="{{ url('calenders') }}" class="side-nav-link">
                     <i class="uil-calender"></i>
@@ -94,7 +94,7 @@
                 </div>
             </li> --}}
             {{-- <li class="side-nav-title side-nav-item font">Management</li> --}}
-            <li class="side-nav-title side-nav-item font">User Section</li>
+            {{-- <li class="side-nav-title side-nav-item font">User Section</li> --}}
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
                     aria-controls="sidebarEcommerce" class="side-nav-link">

@@ -145,7 +145,7 @@ public function meeting(){
 public function tour(){
     $data = "Restaurant";
     $settings = DB::table('settings')->get();
-    $tours = Tour::with('images')->where('is_featured', 1)->get();
+    $tours = Tour::with('images')->get();
     $banner = Banner::where('page_name', 'meeting')->first();
     $contact = DB::table('contact_details')->get();
     
@@ -157,7 +157,7 @@ public function tour(){
     // Fetch only the specific room types you want to display
     $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
 
-    return view('frontend.meeting.index', compact('data', 'banner','contact', 'settings', 'roomTypes','tours'));
+    return view('frontend.tour.index', compact('data', 'banner','contact', 'settings', 'roomTypes','tours'));
 }
 // public function roomDetail($id, $type_name)
 // {

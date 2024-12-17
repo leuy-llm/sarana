@@ -33,16 +33,31 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.price') <span class="text-danger">*</span></label>
-                                    <input type="number" step="0.01" value="{{ old('price', $tour->price) }}"
+                                    <input type="number"  step="0.01" value="{{ old('price', $tour->price) }}"
                                         name="price" class="form-control @error('price') is-invalid @enderror"
                                         placeholder="@lang('label.enterPrice') . . ." required="">
                                     @error('price')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
+                            </div> --}}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.price') <span class="text-danger">*</span></label>
+                                    <div class="input-group flex-nowrap">
+                                        <span class="input-group-text text-danger" id="basic-addon1">$</span>
+                                        <input type="text" name="price" step="0.01"
+                                        class="form-control @error('tour') is-invalid @enderror"
+                                        value="{{ old('price', $tour->price) }}"
+                                        required>
+                                    @error('price')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                    </div>                                                
+                                </div>                                               
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -67,23 +82,12 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.description') <span class="text-danger">*</span></label>
                                     <textarea name="description" class="form-control @error('description') is-invalid @enderror"
                                         placeholder="@lang('label.enterDescription') . . .">{{ old('description', $tour->description) }}</textarea>
                                     @error('description')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-check mb-3" style="margin-top: 50px">
-                                    <input type="checkbox" name="is_featured" value="1"
-                                        class="form-check-input @error('is_featured') is-invalid @enderror" id="is_featured"
-                                        {{ $tour->is_featured ? 'checked' : '' }}>
-                                    <label class="form-check-label">@lang('label.featured')</label>
-                                    @error('is_featured')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -94,42 +98,23 @@
                                     <input type="file" name="images[]"
                                         class="form-control @error('images') is-invalid @enderror" multiple>
 
-                                    <!-- Display existing images -->
-                                    <div class="mt-3">
-                                        <label>@lang('label.currentImage'):</label>
-                                        <div class="row mt-2">
-                                            @foreach ($tour->images as $image)
-                                                <div class="col-md-4 col-sm-6 col-xl-4">
-                                                    <img src="{{ asset('storage/' . $image->image) }}" alt="Tour Image"
-                                                        class="rounded mb-1" height="200px" style="max-width: 100%"
-                                                        width="300px">
-                                                    <div class="row my-1">
-                                                        <div class="col-6">
-                                                            <div class="d-flex gap-1">
-                                                                <input type="radio" name="primary_image_id"
-                                                                id="is_primary_{{ $image->id }}"
-                                                                value="{{ $image->id }}"
-                                                                {{ $image->is_primary ? 'checked' : '' }}>
-                                                                <label for="is_primary_{{ $image->id }}" style="margin-top: 3px" >
-                                                                    Set as Primary
-                                                                </label>
-                                                            </div>
-                                                           
+                                        @if ($tour->images->isNotEmpty())
+                                        <div class="mb-3 mt-2">
+                                            <label>@lang('label.currentImage'):</label>
+                                            <div class="row mt-2 ">
+                                                @foreach ($tour->images as $image)
+                                                    <div class="col-md-4 col-sm-6 col-xl-3">
+                                                        <img src="{{ asset('storage/' . $image->image) }}" class="rounded mb-1"
+                                                            height="150px" style="max-width: 100%" width="200px" alt="Room Image">
+                                                        <div class="d-flex gap-1">
+                                                            <input type="checkbox" name="remove_images[]" value="{{ $image->id }}">
+                                                            <label for="remove_images[]" class="text-danger">@lang('label.remove')</label>
                                                         </div>
-                                                        <div class="col-6 ">
-                                                            <div class="d-flex gap-1">
-                                                                <input type="checkbox" name="remove_images[]" class=""  value="{{ $image->id }}">
-                                                                <label for="remove_images[]" style="margin-top: 3px" class="text-danger">@lang('label.remove')</label>
-                                                            </div>
-                                                        </div>
-                                                       
                                                     </div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
                                         </div>
-
-                                    </div>
-
+                                    @endif
                                     @error('images')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror

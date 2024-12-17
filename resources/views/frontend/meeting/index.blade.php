@@ -88,10 +88,9 @@
                     @endforeach
                 </div>
             </div>
-
             <div class="service-12">
                 <div class="container">
-                    {{-- <div class="row">
+                    <div class="row">
                         <div class="col-lg-12">
                             @foreach ($meetings as $meeting)
                                 <p style="line-height: 2.8; text-align: justify">{{ $meeting->description }}</p>
@@ -104,7 +103,7 @@
                                 <div class="col-md-6 mt-3 img-hover">
                                     <img src="{{ asset('storage/' . $image->image) }}" alt="Meeting Image"
                                         class="img-fluid rounded shadow"
-                                        style="width: 100%; max-width: 600px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                                        style="width: 100%; max-width: 700px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                                 </div>
                             @else
                                 <div class="col-md-6 mt-3 img-hover">
@@ -114,8 +113,8 @@
                             @endif
                         @endforeach
 
-                    </div> --}}
-                    <div class="row">
+                    </div>
+                    {{-- <div class="row">
                         <div class="col-lg-6">
                             @foreach ($meetings as $meeting)
                                 <p style="line-height: 2.8; text-align: justify">{{ $meeting->description }}</p>
@@ -141,7 +140,7 @@
                                     </div>
                                 @endif
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

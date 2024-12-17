@@ -165,9 +165,7 @@
                                         <th class="all">@lang('label.price')</th>
                                         <th class="all">@lang('label.duration')</th>
                                         <th class="all">@lang('label.location')</th>
-                                        <th class="all">@lang('label.featured')</th>
                                         <th>@lang('label.date')</th>
-
                                         <th style="width: 85px;">@lang('label.action')</th>
                                     </tr>
                                 </thead>
@@ -181,19 +179,14 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                {{-- <img src="{{ asset('storage/' . $data->image) }}" alt="{{$data->name}}"
-                                                    class="rounded me-3" height="48"> --}}
-                                                @php
-                                                    // Get the primary image for the tour
-                                                    $primaryImage = $data->images()->where('is_primary', true)->first();
-                                                @endphp
-
-                                                @if ($primaryImage)
-                                                    <img src="{{ asset('storage/' . $primaryImage->image) }}"
-                                                        alt="{{ $data->name }}" class="rounded me-3" height="48" width="60">
-                                                @else
-                                                    <span>No image</span>
-                                                @endif
+                                                @if ($data->images->isNotEmpty())
+                                                <img src="{{ asset('storage/' . $data->images->first()->image) }}"
+                                                    alt="{{$data->name}}" class="rounded me-3" height="50px" width="80px">
+                                            @else
+                                                <img src="{{ asset('default-image.jpg') }}" alt="table-user"
+                                                    class="me-2 rounded-circle">
+                                            @endif
+                                                
                                             </td>
                                             <td>
                                                 {{ $data->name }}
@@ -211,19 +204,9 @@
                                                 {{ $data->location }}
                                             </td>
                                             <td>
-                                                @if ($data->is_featured)
-                                                    <span class="badge bg-success">Yes</span>
-                                                @else
-                                                    <span class="badge bg-secondary">No</span>
-                                                @endif
-                                            </td>
-
-                                            <td>
                                                 {{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('d F Y') }}
                                             </td>
-
                                             <td class="table-action">
-
                                                 <a href="{{ url('tours/' . $data->id . '/edit') }}" id="roomTypeEdit"
                                                     class="action-icon text-primary"> <i
                                                         class="mdi mdi-square-edit-outline"></i></a>
