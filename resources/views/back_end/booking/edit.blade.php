@@ -208,13 +208,18 @@
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
                                     <select name="status"
-                                        class="form-control @error('status') is-invalid @enderror select2" data-toggle="select2" >
-                                        <option value="confirmed" {{ $booking->status == 'confirmed' ? 'selected' : '' }}>
-                                            Confirmed</option>
+                                        class="form-control @error('status') is-invalid @enderror select2"
+                                        data-toggle="select2">
+                                        {{-- <option value="confirmed" {{ $booking->status == 'confirmed' ? 'selected' : '' }}>
+                                            Confirmed</option> --}}
                                         <option value="canceled" {{ $booking->status == 'canceled' ? 'selected' : '' }}>
                                             Canceled</option>
                                         <option value="pending" {{ $booking->status == 'pending' ? 'selected' : '' }}>
                                             Pending</option>
+                                        <option value="checked-in"
+                                            {{ $booking->status == 'checked-in' ? 'selected' : '' }}>Checked_In</option>
+                                        <option value="checked-out"
+                                            {{ $booking->status == 'checked-out' ? 'selected' : '' }}>Checked_Out</option>
                                     </select>
                                     @error('status')
                                         <span class="invalid-feedback">{{ $message }}</span>

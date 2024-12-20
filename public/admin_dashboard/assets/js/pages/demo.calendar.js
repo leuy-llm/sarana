@@ -96,7 +96,6 @@
 // })(window.jQuery);
 (function($) {
     "use strict";
-
     function CalendarApp() {
         this.$body = $("body");
         this.$calendar = $("#calendar");
@@ -159,7 +158,7 @@
                 right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
             },
             editable: true,
-            droppable: false,
+            droppable: true,
             selectable: true,
             dateClick: (info) => this.onSelect(info),
             eventClick: (event) => this.onEventClick(event),

@@ -184,7 +184,7 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-7">
-                        <h5 class="fw-normal text-truncate mt-0 text-uppercase" title="Cancelled  Bookings<">Cancelled
+                        <h5 class="fw-normal text-truncate mt-0 text-uppercase" title="Cancelled  Bookings">Cancelled
                             Bookings</h5>
                         <h3 class="my-2 py-1">{{ $cancelledBookings }}</h3>
                     </div>
@@ -197,12 +197,13 @@
             </div>
         </div>
     </div>
+
     <div class="col-lg-6 col-xl-3">
         <div class="card" style="border-left: 4px solid #0acf97;">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-7">
-                        <h5 class="fw-normal text-truncate mt-0 text-uppercase" title="Cancelled  Bookings">Pending
+                        <h5 class="fw-normal text-truncate  mt-0 text-uppercase" title="Cancelled  Bookings">Pending
                             Bookings</h5>
                         <h3 class="my-2 py-1">{{ $pendingBookings }}</h3>
                     </div>
@@ -215,8 +216,62 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="col-lg-6 col-xl-3">
+        <div class="card" style="border-left: 4px solid #1F2544;">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-7">
+                        <h5 class="fw-normal text-truncate mt-0 text-uppercase" title="Checked-In Today">Checked-In
+                            Today</h5>
+                        <h3 class="my-2 py-1">{{ $checkInsToday }}</h3>
+                    </div>
+                    <div class="col-5">
+                        <div class="text-end">
+                            <i class="mdi mdi-alert-circle" style="font-size: 65px;color:#674188;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-xl-3">
+        <div class="card" style="border-left: 4px solid #1F2544;">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-7">
+                        <h5 class="fw-normal text-truncate mt-0 text-uppercase" title="Checked-Out Today">Checked-Out
+                            Today</h5>
+                        <h3 class="my-2 py-1">{{ $checkOutsToday }}</h3>
+                    </div>
+                    <div class="col-5">
+                        <div class="text-end">
+                            <i class="mdi mdi-alert-circle" style="font-size: 65px;color:#674188;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="col-lg-6 col-xl-3">
+        <div class="card" style="border-left: 4px solid #1F2544;">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-7">
+                        <h5 class="fw-normal text-truncate  mt-0 text-uppercase" title="Cancelled  Bookings">Guests
+                            Currently Staying</h5>
+                        <h3 class="my-2 py-1">{{ $guestsStayingToday }}</h3>
+                    </div>
+                    <div class="col-5">
+                        <div class="text-end">
+                            <i class="mdi mdi-alert-circle" style="font-size: 65px;color:#674188;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
         <div class="page-title-box">

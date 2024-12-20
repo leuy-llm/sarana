@@ -190,8 +190,10 @@
                                     <select name="status" class="form-control select2" data-toggle="select2">
                                         <option value="" selected disabled>Choose Status</option>
                                         <option value="confirmed">Confirmed</option>
-                                        <option value="canceled">Canceled</option>
+                                        <option value="cancelled">Canceled</option>
                                         <option value="pending">Pending</option>
+                                        <option value="checked-in">Checked_In</option>
+                                        <option value="checked-out">Checked_Out</option>
                                     </select>
                                     @error('status')
                                         <span class="invalid-feedback">{{ $message }}</span>

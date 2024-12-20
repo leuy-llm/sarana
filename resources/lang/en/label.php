@@ -264,6 +264,8 @@ return [
   'user' => 'User',
   'editUser' => 'Edit User',
   'editUsers' => 'Edit User',
+  'calenderList' => 'Calendar List',
+  'report'=>'Report',
 
   /*============= Booking ============= */
   'checkIn' => 'Check_In',
@@ -276,7 +278,21 @@ return [
   'addBooking' => 'Add Booking',
   'createBooking' => 'Create Booking',
   'newBooking' => 'New Booking',
-
+  'bookingDetail'=>'Booking Detail',
+  'reportReservation'=>'Report Reservation',
+  'staying'=>'Currently Staying',
+  'leave'=>'Left',
+  'confirmed'=>'Confirmed',
+  'stay'=>'Stay',
+  'check_in'=>'Check In',
+  'checked_in'=>'Checked In',
+  'checked_out'=>'Checked Out',
+  'check_out'=>'Check Out',
+  'bookingType'=>'Booking Type',
+  'daily'=>'Daily',
+  'weekly'=>'Weekly',
+  'monthly'=>'Monthly',
+  'yearly'=>'Yearly',
 
 
   /*============= Booking ============= */

@@ -52,16 +52,32 @@ return [
   'password' => 'លេខសម្ងាត់',
   'email' => 'អ៊ីម៉ែល',
   'date' => 'កាលបរិច្ឆេទ',
+  'calenderList' => 'ប្រតិទិនភ្ញៀវ​ ដែលកក់រួចរាល់',
+  'reportReservation'=>'របាយការណ៍នៃការកក់',
+  'report'=>'របាយការណ៍',
+  'staying'=>'កំពុងស្នាក់នៅ',
+  'leave'=>'ចាកចេញ',
+  'confirmed'=>'បញ្ចាក់',
+  'check_in'=>'ចូលស្នាក់នៅ',
+  'checked_in'=>'Checked In',
+  'check_out'=>'ចាកចេញ',
+  'checked_out'=>'បានចាកចេញ',
+  'checked_in' => 'បានស្នាក់នៅ',
+  'cancelled'=>'បានលុបចោលការកក់',
+
+  // 'checked_out'=>'Checked Out',
+
 
   /*​============= Create Guest ========== */
   'createDate' => 'កាលបរិច្ឆេទបង្កើត',
   'createGuests' => 'បង្កើត ព៍ត៌មានភ្ញៀវ',
   'createGuest' => 'បង្កើតភ្ញៀវ',
   'createNewGuest' => 'បង្កើតភ្ញៀវថ្មី​ !',
+  'bookingDetail'=>'ព័ត៌មានលម្អិតនៃការកក់',
 
   /*​============= Create Guest ========== */
   'createDate' => 'កាលបរិច្ឆេទបង្កើត',
-  'createGuests' => 'បង្កើត ព៍ត៌មានភ្ញៀវ',
+  'createGuests' => 'បង្កើត ព័ត៌មានភ្ញៀវ',
   'createGuest' => 'បង្កើតភ្ញៀវ',
   'createNewGuest' => 'បង្កើតភ្ញៀវថ្មី​ !',
   'backGuest' => 'ត្រូឡប់ទៅកាន់បញ្ចីអតិជន',

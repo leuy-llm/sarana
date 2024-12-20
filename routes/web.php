@@ -22,6 +22,7 @@ use App\Http\Controllers\BookTestController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\MettingController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ServiceController;
@@ -226,4 +227,15 @@ Route::group(['middleware' => ['isAdmin']], function () {
         session()->forget('notifications');
         return redirect()->back()->with('success', 'Notifications cleared.');
     })->name('notifications.clear');
+
+    Route::get('/reports', [ReportController::class, 'index'])
+    ->name('reports.index');
+    Route::get('/reports/reservations', [ReportController::class, 'reservationReport'])
+    ->name('reports.reservations');
+    Route::get('/reports/reservations/export', [ReportController::class, 'exportReservationReport'])
+    ->name('reports.reservations.export');
+
+
+
+    
 });

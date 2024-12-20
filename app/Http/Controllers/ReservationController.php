@@ -366,7 +366,7 @@ class ReservationController extends Controller
         $booking->check_out_date = $request->input('check_out_date');
         $booking->total_adults = $request->input('total_adults');
         $booking->total_children = $request->input('total_children');
-        $booking->status = 'pending';
+        $booking->status = 'confirmed';
         $booking->payment_status = 'unpaid';
         $booking->save();
 

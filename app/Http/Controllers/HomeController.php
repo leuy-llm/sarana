@@ -25,249 +25,248 @@ class HomeController extends Controller
         $about_us = DB::table('about_us')->get();
         $rooms = Room::getRoomFront();
         // Fetch only the specific room types you want to display
-        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room','Family 3 bedroom','Trip Room','King Room'])->get();
+        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
         $facilities = Facility::getFacility();
         $header_title = "Carousels";
         $contact = DB::table('contact_details')->get();
-        
-
-    return view('frontend.home.index', compact('carousels', 'contact', 'settings', 'rooms', 'about_us', 'roomTypes', 'facilities', 'header_title'));
-}
 
 
-
-public function contact()
-{
-    $data = "Contact";
-    $settings = DB::table('settings')->get();
-    $contact = DB::table('contact_details')->get();
-    $banner = Banner::where('page_name', 'contact_details')->first();
-    
-    // Debug output to check banner data
-    if (!$banner) {
-        dd('No banner found for contact page.');
+        return view('frontend.home.index', compact('carousels', 'contact', 'settings', 'rooms', 'about_us', 'roomTypes', 'facilities', 'header_title'));
     }
-    
-    // Fetch only the specific room types you want to display
-    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
-
-    return view('frontend.contact_detail.index', compact('data', 'banner', 'contact', 'settings', 'roomTypes'));
-}
 
 
-public function reservation(){
 
-    $data = "Reservation";
-    $settings = DB::table('settings')->get();
-    $banner = Banner::where('page_name', 'booking')->first();
-    $contact = DB::table('contact_details')->get();
-    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room','Family 3 bedroom','Trip Room','King Room'])->get();
+    public function contact()
+    {
+        $data = "Contact";
+        $settings = DB::table('settings')->get();
+        $contact = DB::table('contact_details')->get();
+        $banner = Banner::where('page_name', 'contact_details')->first();
 
-    return view('frontend.booking.index', compact('data','banner','contact','settings','roomTypes'));
-}
+        // Debug output to check banner data
+        if (!$banner) {
+            dd('No banner found for contact page.');
+        }
 
-public function roomDetail($id, $type_name)
-{
-    $data = "Details";
-    $settings = DB::table('settings')->get();
-    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room','Family 3 bedroom','Trip Room','King Room'])->get();
-    // Fetch the room by ID
-    $banner = Banner::where('page_name', 'rooms')->first(); 
-    $rooms = Room::with('roomType', 'images', 'facilities')->findOrFail($id);
-    $contact = DB::table('contact_details')->get();
-    // Optionally check if the slug matches the room type name (optional for better user experience)
-    if (Str::slug($rooms->roomType->type_name) !== $type_name) {
-        return redirect()->route('roomDetail', ['id' => $id, 'type_name' => Str::slug($rooms->roomType->type_name)]);
+        // Fetch only the specific room types you want to display
+        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+
+        return view('frontend.contact_detail.index', compact('data', 'banner', 'contact', 'settings', 'roomTypes'));
     }
-    
-    return view('frontend.room_detail.index', compact('rooms','contact','settings','banner', 'data','roomTypes'));
-}
 
 
-public function service()
-{
-    $data = "Service";
-    $settings = DB::table('settings')->get();
-    $services = DB::table('services')->where('status', 1)->get();
-    $banner = Banner::where('page_name', 'service')->first();
-    $contact = DB::table('contact_details')->get();
-    
+    public function reservation()
+    {
 
-    // if (!$banner) {
-    //     dd('No banner found for services page.');
+        $data = "Reservation";
+        $settings = DB::table('settings')->get();
+        $banner = Banner::where('page_name', 'booking')->first();
+        $contact = DB::table('contact_details')->get();
+        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+
+        return view('frontend.booking.index', compact('data', 'banner', 'contact', 'settings', 'roomTypes'));
+    }
+
+    public function roomDetail($id, $type_name)
+    {
+        $data = "Details";
+        $settings = DB::table('settings')->get();
+        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+        // Fetch the room by ID
+        $banner = Banner::where('page_name', 'rooms')->first();
+        $rooms = Room::with('roomType', 'images', 'facilities')->findOrFail($id);
+        $contact = DB::table('contact_details')->get();
+        // Optionally check if the slug matches the room type name (optional for better user experience)
+        if (Str::slug($rooms->roomType->type_name) !== $type_name) {
+            return redirect()->route('roomDetail', ['id' => $id, 'type_name' => Str::slug($rooms->roomType->type_name)]);
+        }
+
+        return view('frontend.room_detail.index', compact('rooms', 'contact', 'settings', 'banner', 'data', 'roomTypes'));
+    }
+
+
+    public function service()
+    {
+        $data = "Service";
+        $settings = DB::table('settings')->get();
+        $services = DB::table('services')->where('status', 1)->get();
+        $banner = Banner::where('page_name', 'service')->first();
+        $contact = DB::table('contact_details')->get();
+
+
+        // if (!$banner) {
+        //     dd('No banner found for services page.');
+        // }
+
+        // Fetch only the specific room types you want to display
+        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+
+        return view('frontend.service.index', compact('data', 'banner', 'services', 'contact', 'settings', 'roomTypes'));
+    }
+
+    public function gallery()
+    {
+        $data = "Gallery";
+        $settings = DB::table('settings')->get();
+        $galleries = DB::table('galleries')->where('status', 1)->get();
+        $banner = Banner::where('page_name', 'gallery')->first();
+        // $services = DB::table('services')->where('status', 1)->get();
+        $contact = DB::table('contact_details')->get();
+
+
+        // if (!$banner) {
+        //     dd('No banner found for services page.');
+        // }
+
+        // Fetch only the specific room types you want to display
+        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+
+        return view('frontend.gallery.index', compact('data', 'banner', 'galleries', 'contact', 'settings', 'roomTypes'));
+    }
+
+
+    public function meeting()
+    {
+        $data = "Meeting";
+        $settings = DB::table('settings')->get();
+        $meetings = Meeting::with('images')->where('availability', 1)->get();
+        $banner = Banner::where('page_name', 'meeting')->first();
+        $contact = DB::table('contact_details')->get();
+
+
+        // if (!$banner) {
+        //     dd('No banner found for services page.');
+        // }
+
+        // Fetch only the specific room types you want to display
+        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+
+        return view('frontend.meeting.index', compact('data', 'banner', 'meetings', 'contact', 'settings', 'roomTypes'));
+    }
+
+    public function tour()
+    {
+        $data = "Restaurant";
+        $settings = DB::table('settings')->get();
+        $tours = Tour::with('images')->get();
+        $banner = Banner::where('page_name', 'meeting')->first();
+        $contact = DB::table('contact_details')->get();
+
+
+        // if (!$banner) {
+        //     dd('No banner found for services page.');
+        // }
+
+        // Fetch only the specific room types you want to display
+        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+
+        return view('frontend.tour.index', compact('data', 'banner', 'contact', 'settings', 'roomTypes', 'tours'));
+    }
+    // public function roomDetail($id, $type_name)
+    // {
+    //     $data = "Details";
+    //     $settings = DB::table('settings')->get();
+    //     $roomTypes = RoomType::whereIn('type_name', [
+    //         'Deluxe Double Room', 'Deluxe Twin Room', 
+    //         'Studio Suite Room', 'Family 3 bedroom', 
+    //         'Trip Room', 'King Room'
+    //     ])->get();
+
+    //     // Fetch the room by ID
+    //     $rooms = Room::with('roomType', 'images', 'facilities')->findOrFail($id);
+
+    //     // Fetch banner specific to the room type
+    //     $banner = Banner::where('room_type_id', $rooms->room_type_id)->first();
+
+    //     $contact = DB::table('contact_details')->get();
+
+    //     // Ensure slug matches the room type name
+    //     if (Str::slug($rooms->roomType->type_name) !== $type_name) {
+    //         return redirect()->route('roomDetail', [
+    //             'id' => $id, 
+    //             'type_name' => Str::slug($rooms->roomType->type_name)
+    //         ]);
+    //     }
+
+    //     return view('frontend.room_detail.index', compact('rooms', 'contact', 'settings', 'banner', 'data', 'roomTypes'));
     // }
-    
-    // Fetch only the specific room types you want to display
-    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
-
-    return view('frontend.service.index', compact('data', 'banner', 'services','contact', 'settings', 'roomTypes'));
-}
-
-public function gallery()
-{
-    $data = "Gallery";
-    $settings = DB::table('settings')->get();
-    $galleries = DB::table('galleries')->where('status', 1)->get();
-    $banner = Banner::where('page_name', 'gallery')->first();
-    // $services = DB::table('services')->where('status', 1)->get();
-    $contact = DB::table('contact_details')->get();
-    
-
-    // if (!$banner) {
-    //     dd('No banner found for services page.');
-    // }
-    
-    // Fetch only the specific room types you want to display
-    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
-
-    return view('frontend.gallery.index', compact('data', 'banner','galleries','contact', 'settings', 'roomTypes'));
-}
 
 
-public function meeting(){
-    $data = "Meeting";
-    $settings = DB::table('settings')->get();
-    $meetings = Meeting::with('images')->where('availability', 1)->get();
-    $banner = Banner::where('page_name', 'meeting')->first();
-    $contact = DB::table('contact_details')->get();
-    
+    // public function create(Request $request)
+    //     {
+    //         $checkIn = $request->input('check_in_date');
+    //         $checkOut = $request->input('check_out_date');
 
-    // if (!$banner) {
-    //     dd('No banner found for services page.');
-    // }
-    
-    // Fetch only the specific room types you want to display
-    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+    //         // Parse dates
+    //         $checkInDate = Carbon::parse($checkIn);
+    //         $checkOutDate = Carbon::parse($checkOut);
 
-    return view('frontend.meeting.index', compact('data', 'banner','meetings','contact', 'settings', 'roomTypes'));
-}
+    //         // Fetch rooms that are not booked during the requested dates
+    //         $availableRooms = Room::whereDoesntHave('bookings', function ($query) use ($checkInDate, $checkOutDate) {
+    //             $query->where(function ($query) use ($checkInDate, $checkOutDate) {
+    //                 $query->whereBetween('check_in_date', [$checkInDate, $checkOutDate])
+    //                       ->orWhereBetween('check_out_date', [$checkInDate, $checkOutDate])
+    //                       ->orWhere(function($query) use ($checkInDate, $checkOutDate) {
+    //                           $query->where('check_in_date', '<=', $checkInDate)
+    //                                 ->where('check_out_date', '>=', $checkOutDate);
+    //                       });
+    //             });
+    //         })->get();
 
-public function tour(){
-    $data = "Restaurant";
-    $settings = DB::table('settings')->get();
-    $tours = Tour::with('images')->get();
-    $banner = Banner::where('page_name', 'meeting')->first();
-    $contact = DB::table('contact_details')->get();
-    
+    //         return view('frontend.booking.index', compact('availableRooms'));
+    //     }
 
-    // if (!$banner) {
-    //     dd('No banner found for services page.');
-    // }
-    
-    // Fetch only the specific room types you want to display
-    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+    //     public function store(Request $request)
+    //     {
+    //         // Validate the request
+    //         $validatedData = $request->validate([
+    //             'name' => 'required|string|max:255',
+    //             'mobile' => 'required|numeric',
+    //             'email' => 'required|email|max:255',
+    //             'address' => 'required|string|max:255',
+    //             'check_in_date' => 'required|date|after_or_equal:today',
+    //             'check_out_date' => 'required|date|after:check_in',
+    //             'room_id' => 'required|exists:rooms,id',
+    //             'total_adults' => 'required|integer|min:1',
+    //             'total_children' => 'required|integer|min:0',
+    //         ]);
 
-    return view('frontend.tour.index', compact('data', 'banner','contact', 'settings', 'roomTypes','tours'));
-}
-// public function roomDetail($id, $type_name)
-// {
-//     $data = "Details";
-//     $settings = DB::table('settings')->get();
-//     $roomTypes = RoomType::whereIn('type_name', [
-//         'Deluxe Double Room', 'Deluxe Twin Room', 
-//         'Studio Suite Room', 'Family 3 bedroom', 
-//         'Trip Room', 'King Room'
-//     ])->get();
+    //         // First, create a guest record
+    //         $guest = Guest::create([
+    //             'name' => $validatedData['name'],
+    //             'mobile' => $validatedData['mobile'],
+    //             'email' => $validatedData['email'],
+    //             'address' => $validatedData['address'],
+    //         ]);
 
-//     // Fetch the room by ID
-//     $rooms = Room::with('roomType', 'images', 'facilities')->findOrFail($id);
-    
-//     // Fetch banner specific to the room type
-//     $banner = Banner::where('room_type_id', $rooms->room_type_id)->first();
+    //         // Check if the room is available
+    //         $room = Room::findOrFail($request->input('room_id'));
+    //         $checkInDate = Carbon::parse($request->input('check_in_date'));
+    //         $checkOutDate = Carbon::parse($request->input('check_out_date'));
 
-//     $contact = DB::table('contact_details')->get();
+    //         $isBooked = $room->bookings()->where(function ($query) use ($checkInDate, $checkOutDate) {
+    //             $query->whereBetween('check_in_date', [$checkInDate, $checkOutDate])
+    //                   ->orWhereBetween('check_out_date', [$checkInDate, $checkOutDate])
+    //                   ->orWhere(function ($query) use ($checkInDate, $checkOutDate) {
+    //                       $query->where('check_in_date', '<=', $checkInDate)
+    //                             ->where('check_out_date', '>=', $checkOutDate);
+    //                   });
+    //         })->exists();
 
-//     // Ensure slug matches the room type name
-//     if (Str::slug($rooms->roomType->type_name) !== $type_name) {
-//         return redirect()->route('roomDetail', [
-//             'id' => $id, 
-//             'type_name' => Str::slug($rooms->roomType->type_name)
-//         ]);
-//     }
-    
-//     return view('frontend.room_detail.index', compact('rooms', 'contact', 'settings', 'banner', 'data', 'roomTypes'));
-// }
+    //         if ($isBooked) {
+    //             return back()->withErrors('The selected room is not available for the chosen dates.');
+    //         }
 
+    //         // Proceed with booking
+    //         Booking::create([
+    //             'guest_id' => $guest->id,
+    //             'room_id' => $room->id,
+    //             'check_in_date' => $validatedData['check_in_date'],
+    //             'check_out_date' => $validatedData['check_out_date'],
+    //             'total_adults' => $validatedData['total_adults'],
+    //             'total_children' => $validatedData['total_children'],
+    //         ]);
 
-// public function create(Request $request)
-//     {
-//         $checkIn = $request->input('check_in_date');
-//         $checkOut = $request->input('check_out_date');
-
-//         // Parse dates
-//         $checkInDate = Carbon::parse($checkIn);
-//         $checkOutDate = Carbon::parse($checkOut);
-
-//         // Fetch rooms that are not booked during the requested dates
-//         $availableRooms = Room::whereDoesntHave('bookings', function ($query) use ($checkInDate, $checkOutDate) {
-//             $query->where(function ($query) use ($checkInDate, $checkOutDate) {
-//                 $query->whereBetween('check_in_date', [$checkInDate, $checkOutDate])
-//                       ->orWhereBetween('check_out_date', [$checkInDate, $checkOutDate])
-//                       ->orWhere(function($query) use ($checkInDate, $checkOutDate) {
-//                           $query->where('check_in_date', '<=', $checkInDate)
-//                                 ->where('check_out_date', '>=', $checkOutDate);
-//                       });
-//             });
-//         })->get();
-
-//         return view('frontend.booking.index', compact('availableRooms'));
-//     }
-
-//     public function store(Request $request)
-//     {
-//         // Validate the request
-//         $validatedData = $request->validate([
-//             'name' => 'required|string|max:255',
-//             'mobile' => 'required|numeric',
-//             'email' => 'required|email|max:255',
-//             'address' => 'required|string|max:255',
-//             'check_in_date' => 'required|date|after_or_equal:today',
-//             'check_out_date' => 'required|date|after:check_in',
-//             'room_id' => 'required|exists:rooms,id',
-//             'total_adults' => 'required|integer|min:1',
-//             'total_children' => 'required|integer|min:0',
-//         ]);
-
-//         // First, create a guest record
-//         $guest = Guest::create([
-//             'name' => $validatedData['name'],
-//             'mobile' => $validatedData['mobile'],
-//             'email' => $validatedData['email'],
-//             'address' => $validatedData['address'],
-//         ]);
-
-//         // Check if the room is available
-//         $room = Room::findOrFail($request->input('room_id'));
-//         $checkInDate = Carbon::parse($request->input('check_in_date'));
-//         $checkOutDate = Carbon::parse($request->input('check_out_date'));
-
-//         $isBooked = $room->bookings()->where(function ($query) use ($checkInDate, $checkOutDate) {
-//             $query->whereBetween('check_in_date', [$checkInDate, $checkOutDate])
-//                   ->orWhereBetween('check_out_date', [$checkInDate, $checkOutDate])
-//                   ->orWhere(function ($query) use ($checkInDate, $checkOutDate) {
-//                       $query->where('check_in_date', '<=', $checkInDate)
-//                             ->where('check_out_date', '>=', $checkOutDate);
-//                   });
-//         })->exists();
-
-//         if ($isBooked) {
-//             return back()->withErrors('The selected room is not available for the chosen dates.');
-//         }
-
-//         // Proceed with booking
-//         Booking::create([
-//             'guest_id' => $guest->id,
-//             'room_id' => $room->id,
-//             'check_in_date' => $validatedData['check_in_date'],
-//             'check_out_date' => $validatedData['check_out_date'],
-//             'total_adults' => $validatedData['total_adults'],
-//             'total_children' => $validatedData['total_children'],
-//         ]);
-
-//         return redirect()->route('booking.confirm')->with('success', 'Room booked successfully!');
-//     }
-
-
-
-    
+    //         return redirect()->route('booking.confirm')->with('success', 'Room booked successfully!');
+    //     }
 }

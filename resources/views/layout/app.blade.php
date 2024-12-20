@@ -249,7 +249,7 @@
 
         <!-- Demo -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.typehead.js"></script>
-        <script src='fullcalendar-scheduler/dist/index.global.js'></script>
+        {{-- <script src='fullcalendar-scheduler/dist/index.global.js'></script> --}}
 
         <!-- Timepicker -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.timepicker.js"></script>
