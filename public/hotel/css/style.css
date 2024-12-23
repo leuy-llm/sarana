@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Coda:wght@400;800&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Sail&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 /* @import url('//fonts.googleapis.com/css?family=Montserrat:300,400,500'); */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 * {
@@ -13,7 +14,7 @@
   --primary-color: #012832;
   --secondary-color: #caa169;
   --bg-color: #f4f4f4;
-  --bg-white: #fff;
+  --bg-white: #eff3f8;
   --bg-black: #000;
 
   --primary-font: "Poppins", sans-serif;
@@ -26,7 +27,7 @@
 }
 
 body {
-  font-family: var(--primary-font);
+  /* font-family: var(--primary-font); */
   background: var(--bg-white);
 }
 
@@ -117,7 +118,7 @@ h5 {
   line-height: 1;
   color: var(--primary-text);
   font-weight: 500;
-  font-family: var(--secondary-font);
+  /* font-family: var(--secondary-font); */
 }
 
 h6 {
@@ -126,7 +127,7 @@ h6 {
   margin-bottom: 0.9375rem;
   text-transform: uppercase;
   font-weight: 300;
-  font-family: var(--secondary-font);
+  /* font-family: var(--secondary-font); */
 }
 
 p {

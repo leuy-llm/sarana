@@ -95,6 +95,7 @@
             padding-top: 5px !important;
             border: 1px solid #0056b3;
             box-shadow: 0px 0px 3px #0056b3;
+            
         }
     </style>
 @endsection

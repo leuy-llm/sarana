@@ -1,5 +1,6 @@
 @extends('layout.master')
 @section('style')
+
     <style>
         /* Modal styles */
 .modal {
@@ -45,17 +46,14 @@
   cursor: pointer;
 }
 
-
-
-
     </style>
 @endsection
 @section('content')
-    <section  class="banner_wrapper p-0">
+    <section  class="banner_wrapper p-0 " data-aos="fade-up" data-aos-duration="2000">
         @include('frontend.includes.carousel')
     </section>
     <!--========= About ==========-->
-    <section id="about" class="about_wrapper">
+    <section id="about" class="about_wrapper" >
         @include('frontend.includes.about')
         @yield('content')
     </section>
@@ -73,15 +71,7 @@
 @endsection
 
 @section('script')
-<script>
-  // @if (session('success'))
-  //     toastr.success('{{ session('success') }}');
-  // @endif
-
-  // @if ($errors->any())
-  //     @foreach ($errors->all() as $error)
-  //         toastr.error('{{ $error }}');
-  //     @endforeach
-  // @endif
+</script>
+  AOS.init();
 </script>
 @endsection

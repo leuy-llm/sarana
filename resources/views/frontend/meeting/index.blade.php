@@ -64,7 +64,7 @@
     </style>
 @endsection
 @section('content')
-    <section id="home" class="banner_wrapper p-0 ">
+    <section id="home" class="banner_wrapper p-0 " data-aos="zoom-in" data-aos-duration="2000">
         <div class="overlay">
             @if ($banner)
                 <img src="{{ asset('storage/' . $banner->banner_image) }}"
@@ -82,9 +82,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 section-title text-center mb-5">
-                    <h6 class="text-center">Explore our meeting plans and schedules</h6>
+                    <h6 class="text-center" data-aos="fade-right">Explore our meeting plans and schedules</h6>
                     @foreach ($meetings as $meeting)
-                        <h3 style="margin-top: -10px">{{ $meeting->title }}</h3>
+                        <h3 style="margin-top: -10px" data-aos="fade-right" data-aos-duration="1500">{{ $meeting->title }}</h3>
                     @endforeach
                 </div>
             </div>
@@ -93,14 +93,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             @foreach ($meetings as $meeting)
-                                <p style="line-height: 2.8; text-align: justify">{{ $meeting->description }}</p>
+                                <p style="line-height: 2.8; text-align: justify" data-aos="fade-right" data-aos-duration="2000">{{ $meeting->description }}</p>
                             @endforeach
                         </div>
                     </div>
                     <div class="row">
                         @foreach ($meeting->images as $image)
                             @if ($meeting->images->isNotEmpty())
-                                <div class="col-md-6 mt-3 img-hover">
+                                <div class="col-md-6 mt-3 img-hover" data-aos="fade-down" data-aos-duration="1500">
                                     <img src="{{ asset('storage/' . $image->image) }}" alt="Meeting Image"
                                         class="img-fluid rounded shadow"
                                         style="width: 100%; max-width: 700px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">

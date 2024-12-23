@@ -57,11 +57,20 @@ Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 // Route::get('rooms',[HomeController::class,'ourroom'])->name('')
 Route::get('room_detail/{id}/{type_name}', [HomeController::class, 'roomDetail'])->name('roomDetail');
 
+
+
 Route::get('service', [HomeController::class, 'service'])->name('service');
 Route::get('gallery', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('meeting', [HomeController::class, 'meeting'])->name('meeting');
 Route::get('restaurant', [HomeController::class, 'restaurant'])->name('restaurant');
 Route::get('tour', [HomeController::class, 'tour'])->name('tour');
+Route::get('/room/filter', [HomeController::class, 'filterRooms'])->name('rooms.filter');
+// Route::post('/rooms/sort', [HomeController::class, 'room'])->name('rooms.sort');
+Route::post('/rooms/sort', [HomeController::class, 'sortRooms'])->name('rooms.sort');
+
+
+
+Route::get('room', [HomeController::class, 'room'])->name('room');
 
 
 

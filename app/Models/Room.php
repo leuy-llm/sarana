@@ -65,15 +65,38 @@ class Room extends Model
         return $return;
     }
 
-    static public function getRoomFront()
-    {
-        $return  = self::select('rooms.*')
-        ->where('is_deleted', '=', 0)
-        ->where('status', '=', 1); // Change 'active' column to 'status'
+//     static public function getRoomFront($sortBy = 'price', $orderBy = 'desc')
+// {
+//     $return = self::select('rooms.*')
+//         ->where('is_deleted', '=', 0)
+//         ->where('status', '=', 1)
 
-        $return = $return->orderBy('id', 'desc')->get();
-        return $return;
+//         ->orderBy($sortBy, $orderBy) // Apply dynamic sorting
+//         ->paginate(3);
+
+//     return $return;
+// }
+
+static public function getRoomFront($sortBy = 'price', $orderBy = 'desc')
+{
+    // Ensure valid sort columns
+    $validSortColumns = ['price', 'created_at', 'updated_at']; // Add more fields here if needed
+
+    if (!in_array($sortBy, $validSortColumns)) {
+        $sortBy = 'price'; // Default fallback
     }
+
+    // Dynamically apply sorting and pagination
+    $return = self::select('rooms.*')
+        ->where('is_deleted', '=', 0)
+        ->where('status', '=', 1)
+        ->orderBy($sortBy, $orderBy)  // Apply dynamic sorting
+        ->paginate(3);  // Paginate rooms (limit per page)
+
+    return $return;
+}
+
+
 
 
 }

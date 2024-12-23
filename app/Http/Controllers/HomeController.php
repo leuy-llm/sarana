@@ -34,6 +34,325 @@ class HomeController extends Controller
         return view('frontend.home.index', compact('carousels', 'contact', 'settings', 'rooms', 'about_us', 'roomTypes', 'facilities', 'header_title'));
     }
 
+    //     public function room(Request $request)
+    // {
+    //     $data = "Room";
+    //     $settings = DB::table('settings')->get();
+    //     $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+    //     $banner = Banner::where('page_name', 'rooms')->first();
+    //     $contact = DB::table('contact_details')->get();
+
+    //     // Get sort and order from the request or set default
+    //     $sortBy = $request->get('sort_by', 'price');
+    //     $orderBy = $request->get('order_by', 'desc');
+
+    //     // Pass the sort and order to the Room model
+    //     $rooms = Room::getRoomFront($sortBy, $orderBy);
+
+    //     return view('frontend.rooms.index', compact('data', 'rooms', 'banner', 'contact', 'settings', 'roomTypes', 'sortBy', 'orderBy'));
+    // }
+
+    public function room(Request $request)
+{
+    $data = "Room";
+    $settings = DB::table('settings')->get();
+    $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+    $banner = Banner::where('page_name', 'rooms')->first();
+    $contact = DB::table('contact_details')->get();
+
+    // Get filtering and sorting criteria
+    $checkInDate = $request->input('check_in_date');
+    $checkOutDate = $request->input('check_out_date');
+    $adults = $request->input('adults', 0);
+    $children = $request->input('children', 0);
+    $totalPersons = $adults + $children;
+
+    $sortBy = $request->get('sort_by', 'price');
+    $orderBy = $request->get('order_by', 'desc');
+
+    // Filter and sort rooms
+    $rooms = Room::where('status', 1)
+        ->where('is_deleted', 0)
+        ->when($checkInDate && $checkOutDate, function ($query) use ($checkInDate, $checkOutDate) {
+            $query->whereDoesntHave('bookings', function ($q) use ($checkInDate, $checkOutDate) {
+                $q->where('check_in_date', '<', $checkOutDate)
+                  ->where('check_out_date', '>', $checkInDate);
+            });
+        })
+        ->when($totalPersons > 0, function ($query) use ($totalPersons) {
+            $query->where('max_person', '>=', $totalPersons);
+        })
+        ->orderBy($sortBy, $orderBy)
+        ->with(['images', 'roomType'])
+        ->paginate(6);
+
+    if ($request->ajax()) {
+        return response()->json(['rooms' => view('frontend.rooms.room_list', compact('rooms'))->render()]);
+    }
+
+    return view('frontend.rooms.index', compact(
+        'data',
+        'rooms',
+        'banner',
+        'contact',
+        'settings',
+        'roomTypes',
+        'sortBy',
+        'orderBy',
+        'checkInDate',
+        'checkOutDate',
+        'adults',
+        'children'
+    ));
+}
+
+//     public function room(Request $request)
+// {
+//     $data = "Room";
+//     $settings = DB::table('settings')->get();
+//     $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+//     $banner = Banner::where('page_name', 'rooms')->first();
+//     $contact = DB::table('contact_details')->get();
+
+//     // Get filter data from the request
+//     $checkInDate = $request->input('check_in_date');
+//     $checkOutDate = $request->input('check_out_date');
+//     $adults = $request->input('adults', 0);
+//     $children = $request->input('children', 0);
+//     $totalPersons = $adults + $children;
+
+//     // Ensure dates are in the correct format (YYYY-MM-DD)
+//     $checkInDate = \Carbon\Carbon::parse($checkInDate)->format('Y-m-d');
+//     $checkOutDate = \Carbon\Carbon::parse($checkOutDate)->format('Y-m-d');
+
+//     // Get sort and order from the request or set default
+//     $sortBy = $request->get('sort_by', 'price');
+//     $orderBy = $request->get('order_by', 'desc');
+
+//     // Query the filtered and sorted rooms
+//     $rooms = Room::where('status', 1)
+//         ->where('is_deleted', 0)
+//         ->whereDoesntHave('bookings', function ($query) use ($checkInDate, $checkOutDate) {
+//             $query->where(function ($subQuery) use ($checkInDate, $checkOutDate) {
+//                 $subQuery->whereBetween('check_in_date', [$checkInDate, $checkOutDate])
+//                          ->orWhereBetween('check_out_date', [$checkInDate, $checkOutDate])
+//                          ->orWhere(function ($query) use ($checkInDate, $checkOutDate) {
+//                              $query->where('check_in_date', '<', $checkInDate)
+//                                    ->where('check_out_date', '>', $checkOutDate);
+//                          });
+//             });
+//         })
+//         ->where('max_person', '>=', $totalPersons)
+//         ->orderBy($sortBy, $orderBy) // Apply sorting
+//         ->with(['images', 'roomType'])
+//         ->paginate(3); // Adjust the pagination value as needed
+
+//     // Return the rooms section as part of the AJAX response
+//     if ($request->ajax()) {
+//         return response()->json(['rooms' => view('frontend.rooms.room_list', compact('rooms'))->render()]);
+//     }
+
+//     // For regular requests, return the full view
+//     return view('frontend.rooms.index', compact('data', 'rooms', 'banner', 'contact', 'settings', 'roomTypes', 'sortBy', 'orderBy'));
+// }
+    
+
+    // public function filterRooms(Request $request)
+    // {
+    //     $checkInDate = $request->input('check_in_date');
+    //     $checkOutDate = $request->input('check_out_date');
+    //     $adults = $request->input('adults');
+    //     $children = $request->input('children');
+
+    //     $totalPersons = $adults + $children;
+
+    //     $rooms = Room::where('status', 1)
+    //         ->where('is_deleted', 0)
+    //         ->whereDoesntHave('bookings', function ($query) use ($checkInDate, $checkOutDate) {
+    //             $query->where('check_in_date', '<', $checkOutDate)
+    //                   ->where('check_out_date', '>', $checkInDate);
+    //         })
+    //         ->where('max_person', '>=', $totalPersons)
+    //         ->with(['images', 'roomType'])
+    //         ->get();
+
+    //     if ($request->ajax()) {
+    //         return view('frontend.rooms.room_list', compact('rooms'))->render();
+    //     }
+
+    //     $settings = DB::table('settings')->get();
+    //     $contact = DB::table('contact_details')->get();
+
+    //     return view('frontend.rooms.index', compact(
+    //         'rooms', 
+    //         'checkInDate', 
+    //         'checkOutDate', 
+    //         'adults', 
+    //         'children', 
+    //         'settings', 
+    //         'contact'
+    //     ));
+    // }
+
+    // public function filterRooms(Request $request)
+    // {
+    //     $checkInDate = $request->input('check_in_date');
+    //     $checkOutDate = $request->input('check_out_date');
+    //     $adults = $request->input('adults', 0);
+    //     $children = $request->input('children', 0);
+
+    //     $totalPersons = $adults + $children;
+
+    //     // Validate the date inputs to avoid null values in the query
+    //     if (!$checkInDate || !$checkOutDate) {
+    //         return response()->json(['error' => 'Both check-in and check-out dates are required'], 400);
+    //     }
+
+    //     try {
+    //         $rooms = Room::where('status', 1)
+    //             ->where('is_deleted', 0)
+    //             ->whereDoesntHave('bookings', function ($query) use ($checkInDate, $checkOutDate) {
+    //                 $query->where('check_in_date', '<', $checkOutDate)
+    //                     ->where('check_out_date', '>', $checkInDate);
+    //             })
+    //             ->where('max_person', '>=', $totalPersons)
+    //             ->with(['images', 'roomType'])
+    //             ->get();
+
+    //         if ($request->ajax()) {
+    //             return view('frontend.rooms.room_list', compact('rooms'))->render();
+    //         }
+
+    //         $settings = DB::table('settings')->get();
+    //         $contact = DB::table('contact_details')->get();
+
+    //         return view('frontend.rooms.index', compact(
+    //             'rooms',
+    //             'checkInDate',
+    //             'checkOutDate',
+    //             'adults',
+    //             'children',
+    //             'settings',
+    //             'contact'
+    //         ));
+    //     } catch (\Exception $e) {
+    //         return response()->json(['error' => $e->getMessage()], 500);
+    //     }
+    // }
+
+    public function filterRooms(Request $request)
+{
+    $checkInDate = $request->input('check_in_date');
+    $checkOutDate = $request->input('check_out_date');
+    $adults = $request->input('adults', 0);
+    $children = $request->input('children', 0);
+    $totalPersons = $adults + $children;
+
+    $rooms = Room::where('status', 1)
+        ->where('is_deleted', 0)
+        ->when($checkInDate && $checkOutDate, function ($query) use ($checkInDate, $checkOutDate) {
+            $query->whereDoesntHave('bookings', function ($q) use ($checkInDate, $checkOutDate) {
+                $q->where('check_in_date', '<', $checkOutDate)
+                  ->where('check_out_date', '>', $checkInDate);
+            });
+        })
+        ->where('max_person', '>=', $totalPersons)
+        ->with(['images', 'roomType'])
+        ->paginate(6);
+
+    return view('frontend.rooms.room_list', compact('rooms'))->render();
+}
+
+public function sortRooms(Request $request)
+{
+    $sortBy = $request->get('sort_by', 'price');
+    $orderBy = $request->get('order_by', 'asc');
+
+    $rooms = Room::where('status', 1)
+        ->where('is_deleted', 0)
+        ->orderBy($sortBy, $orderBy)
+        ->with(['images', 'roomType'])
+        ->paginate(6);
+
+    return response()->json([
+        'rooms' => view('frontend.rooms.room_list', compact('rooms'))->render()
+    ]);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // public function filterRooms(Request $request)
+    // {
+    //     $checkInDate = $request->input('check_in_date');
+    //     $checkOutDate = $request->input('check_out_date');
+    //     $adults = (int) $request->input('adults', 0);
+    //     $children = (int) $request->input('children', 0);
+
+    //     $totalPersons = $adults + $children;
+
+    //     // Validate the date inputs to ensure no null values
+    //     if (empty($checkInDate) || empty($checkOutDate)) {
+    //         return response()->json([
+    //             'error' => 'Both check-in and check-out dates are required'
+    //         ], 400);
+    //     }
+
+    //     try {
+    //         // Fetch available rooms
+    //         $rooms = Room::where('status', 1)
+    //             ->where('is_deleted', 0)
+    //             ->whereDoesntHave('bookings', function ($query) use ($checkInDate, $checkOutDate) {
+    //                 $query->where('check_in_date', '<', $checkOutDate)
+    //                       ->where('check_out_date', '>', $checkInDate);
+    //             })
+    //             ->where('max_person', '>=', $totalPersons)
+    //             ->with([
+    //                 'images',
+    //                 'roomType',
+    //                 'bookings' => function ($query) use ($checkInDate, $checkOutDate) {
+    //                     $query->where('check_in_date', '<', $checkOutDate)
+    //                           ->where('check_out_date', '>', $checkInDate);
+    //                 }
+    //             ])
+    //             ->get();
+
+    //         if ($request->ajax()) {
+    //             return view('frontend.rooms.room_list', compact('rooms'))->render();
+    //         }
+
+    //         $settings = DB::table('settings')->get();
+    //         $contact = DB::table('contact_details')->get();
+
+    //         return view('frontend.rooms.index', compact(
+    //             'rooms',
+    //             'checkInDate',
+    //             'checkOutDate',
+    //             'adults',
+    //             'children',
+    //             'settings',
+    //             'contact'
+    //         ));
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'error' => 'An unexpected error occurred: ' . $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+
+
+
+
+
 
 
     public function contact()

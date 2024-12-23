@@ -297,13 +297,54 @@
         <!-- third party js ends -->
 
         
-    <!-- demo app -->
-    <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.calendar.js"></script>
-    <!-- end demo js-->
-
-   
-
+        <!-- demo app -->
+        <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.calendar.js"></script>
+        
         @yield('script')
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animations for text and images
+        gsap.from(".animated-title", {
+            scrollTrigger: {
+                trigger: ".animated-title",
+                start: "top 80%", // Trigger animation when top of element reaches 80% of viewport
+                toggleActions: "play none none none",
+            },
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            stagger: 0.3,
+            ease: "power3.out",
+        });
+
+        gsap.from(".animated-paragraph", {
+            scrollTrigger: {
+                trigger: ".animated-paragraph",
+                start: "top 90%",
+                toggleActions: "play none none none",
+            },
+            opacity: 0,
+            x: -50,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+        });
+
+        gsap.from(".hotel-right-side img", {
+            scrollTrigger: {
+                trigger: ".hotel-right-side img",
+                start: "top 80%",
+                toggleActions: "play none none none",
+            },
+            opacity: 0,
+            scale: 0.8,
+            duration: 1,
+            ease: "power3.out",
+        });
+    });
+        </script>
         </body>
 
 </html>
