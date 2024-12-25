@@ -11,7 +11,7 @@
         font-family: "Poppins", sans-serif;
     }
 </style>
-<div class="w-full " style="margin-top: 150px">
+<div class="w-full ">
     <footer class="text-center text-lg-start text-white" style="background-color: #1c2331">
         <section class="d-flex justify-content-between p-4" style="background-color: #6351ce">
             <div class="me-5">

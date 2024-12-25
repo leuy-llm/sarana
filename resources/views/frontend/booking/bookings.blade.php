@@ -2,7 +2,11 @@
 @section('style')
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #eff3f8;
+            font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        label{
+            font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
 
         .reservation-title {
@@ -40,7 +44,7 @@
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-         .modal-content {
+        .modal-content {
             -webkit-border-radius: 0;
             -webkit-background-clip: padding-box;
             -moz-border-radius: 0;
@@ -87,8 +91,8 @@
             padding: 15px 0 8px;
         }
 
-        .modal-message .modal-header .fa, 
-         .modal-message .modal-header .glyphicon,
+        .modal-message .modal-header .fa,
+        .modal-message .modal-header .glyphicon,
         .modal-message .modal-header .typcn,
         .modal-message .modal-header .wi {
             font-size: 30px;
@@ -129,14 +133,18 @@
         .modal-message.modal-warning .modal-header {
             color: #f4b400;
             border-bottom: 3px solid #ffce5 5;
-        } 
+        }
+        input[type="date"]{
+            cursor: pointer;
+        }
     </style>
 @endsection
 @section('content')
     <section id="home" class="banner_wrapper p-0">
         <div class="overlay">
             @if (isset($banner) && $banner)
-                <img src="{{ asset('storage/' . $banner->banner_image) }}" style="width: 100%; height: 90vh; object-fit: cover;" alt="Banner Image">
+                <img src="{{ asset('storage/' . $banner->banner_image) }}"
+                    style="width: 100%; height: 90vh; object-fit: cover;" alt="Banner Image">
             @endif
             <div class="img-overlay">
                 <h2>{{ $data }}</h2>
@@ -145,26 +153,28 @@
     </section>
     <section id="gallery" class="gallery_wrapper" style="margin-top: 60px;">
         <div class="container">
-            <div class="row ">
+            <div class="row">
                 <div class="col-md-6">
-                    <img src="https://images.pexels.com/photos/10973940/pexels-photo-10973940.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        class="img-fluid" style="height: 535px; object-fit: cover; border-radius: 3px;" alt="Room Image">
+                    <img src="{{ asset('storage/' . $rooms->images->first()->image) }}" class="img-fluid"
+                        style="height: 500px; object-fit: cover; border-radius: 3px;"
+                        alt="{{ $rooms->roomType->type_name }}">
+                    <h4
+                        style="font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-weight:600;font-size: 25px;">
+                        {{ $rooms->roomType->type_name }}</h4>
+                    <h4
+                        style="font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-weight:400; margin-top: -10px;">
+                        $ {{ number_format($rooms->price, 0) }}</h4>
                 </div>
                 <div class="col-md-6">
                     <h3 class="reservation-title text-center">Make Your Reservation</h3>
-                    {{-- @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif --}}
-                    <form id="reservation-form" method="POST" action="{{ route('reservation.store') }}">
+
+                    <form id="reservation-form" action="{{ route('books.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label>Full Name</label>
                             <input type="text" name="name" class="form-control" placeholder="Full Name"
                                 value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->name : old('name') }}"
                                 {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
-
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -186,43 +196,54 @@
                                 value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->address : old('name') }}"
                                 {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
                         </div>
-                        <div class="form-row">
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="checkIn">Check In</label>
-                                <input type="date" name="check_in_date" class="form-control checkin_date" id="checkIn">
+                                <input type="date" value="{{ $checkIn }}" disabled name="check_in_date"
+                                    class="form-control checkin_date" id="checkIn">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="checkOut">Check Out</label>
-                                <input type="date"name="check_out_date" class="form-control" id="checkOut"
+                                <input type="date" value="{{ $checkOut }}" disabled name="check_out_date"
+                                    class="form-control" id="checkOut" min="{{ date('Y-m-d') }}">
+                            </div>
+                        </div> --}}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="checkIn">Check In</label>
+                                <input type="date" name="check_in_date" class="form-control checkin_date" id="checkIn"
+                                    value="{{ $checkIn ?? old('check_in_date') }}" {{ $checkIn ? 'readonly' : '' }}>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="checkOut">Check Out</label>
+                                <input type="date" name="check_out_date" class="form-control" id="checkOut"
+                                    value="{{ $checkOut ?? old('check_out_date') }}" {{ $checkOut ? 'readonly' : '' }}
                                     min="{{ date('Y-m-d') }}">
                             </div>
                         </div>
+
+
+
+                        {{-- <label for="room">Rooms</label>
+                                <input type="text" value="{{ $rooms->roomType->type_name }}" disabled class="form-control"> --}}
+                        <!-- Hidden input field to submit room_type_id -->
+                        <input type="hidden" name="room_type_id" value="{{ $rooms->roomType->id }}">
+
                         <div class="form-row" style="margin-top: -14px">
-                            <div class="form-group col-md-4">
-                                <label for="room">Rooms</label>
-                                <input type="text" name="room_type_id" class="form-control room-type-list">
-                                </input>
+
+                            <div class="form-group col-md-6">
+                                <label for="adults">Children</label>
+                                <input type="number" min="0" name="total_children" class="form-control"
+                                    id="checkOut" value="{{ $children ?? old('total_children') }}"
+                                    {{ $children ? 'readonly' : '' }}>
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-6">
                                 <label for="adults">Adults</label>
-                                <select id="adults" name="total_adults" class="form-control">
-                                    <option value="1" selected>1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="3">4</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="children">Children</label>
-                                <select id="children" name="total_children" class="form-control">
-                                    <option value="0" selected>0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="2">3</option>
-                                    <option value="2">4</option>
-                                </select>
+                                <input type="number" min="1" name="total_adults" class="form-control" id="checkOut"
+                                    value="{{ $adults ?? old('total_adults') }}" {{ $adults ? 'readonly' : '' }}>
                             </div>
                         </div>
+
                         <div id="details-section" style="display: none;">
                             <div class="form-group" style="margin-top: -10px">
                                 <label>No. of Days: <span id="num-days">0</span></label>
@@ -232,10 +253,8 @@
                                 <label>Total Amount to Pay: <span id="total-amount">0</span>$</label>
                             </div>
                         </div>
-
-                        <div class="col-md-12">
-                            <input type="hidden" id="bookingId" value="{{ $bookingId }}">
-                            {{-- <a href="#" id="payment-button" class="btn btn-booking btn-block">Proceed to Payment</a> --}}
+                        <div class="col-md-12 d-flex">
+                            {{-- <button href="#" id="payment-button" class="btn btn-booking btn-block">Proceed to Payment</button> --}}
                             <button type="submit" class="btn btn-booking btn-block">Booking</button>
                         </div>
                 </div>
@@ -266,85 +285,16 @@
 @endsection
 
 @section('script')
-    {{-- <script>
-    $(document).ready(function () {
-        let roomPrice = 0; // Variable to store the selected room's price
-
-        $(".checkin_date, #checkOut").on('blur', function () {
-            calculateTotalAmount();
-        });
-
-        $(".room-type-list").on('change', function () {
-            roomPrice = $(this).find(':selected').data('price');
-            calculateTotalAmount();
-        });
-
-        $(".checkin_date").on('blur', function () {
-            var _checkindate = $(this).val();
-
-            // Encode the date to make it URL-safe
-            var encodedDate = encodeURIComponent(_checkindate);
-
-            // Ajax to get available room types based on check-in date
-            $.ajax({
-                url: "{{ url('bookings') }}/available-room-types/" + encodedDate,
-                dataType: 'json',
-                beforeSend: function () {
-                    $(".room-type-list").html('<option>--- Loading ---</option>');
-                },
-                success: function (res) {
-                    var _html = '';
-                    $.each(res.data, function (index, row) {
-                        _html += '<option value="' + row.id + '" data-price="' + row.price + '">' + row.type_name + " - " + row.price + "/night" + '</option>';
-                    });
-                    $(".room-type-list").html(_html);
-
-                    // Auto-select the first available room type and trigger calculation
-                    if (res.data.length > 0) {
-                        const firstRoomOption = $(".room-type-list option:first");
-                        roomPrice = firstRoomOption.data('price'); // Get the price of the first room
-                        firstRoomOption.prop('selected', true); // Automatically select the first room option
-                        calculateTotalAmount(); // Trigger the calculation to update number of days and total amount
-                    }
-                }
-            });
-        });
-
-        function calculateTotalAmount() {
-            const checkInDate = new Date($('#checkIn').val());
-            const checkOutDate = new Date($('#checkOut').val());
-
-            // Calculate the number of days between the check-in and check-out dates
-            const timeDifference = checkOutDate - checkInDate;
-            const numDays = timeDifference > 0 ? Math.ceil(timeDifference / (1000 * 60 * 60 * 24)) : 0;
-
-            // Calculate the total amount based on the room price and the number of days
-            const totalAmount = numDays * roomPrice;
-
-            // Update the display of number of days and total amount
-            $('#num-days').text(numDays);
-            $('#total-amount').text(totalAmount.toFixed(2));
-
-            // Smooth transition: Show or hide the details section with sliding animation
-            if (numDays > 0 && roomPrice > 0) {
-                $('#details-section').slideDown(200); // Show with sliding effect
-            } else {
-                $('#details-section').slideUp(200); // Hide with sliding effect
-            }
-        }
-    });
-</script> --}}
-
     <script>
         @if (session('success'))
-        toastr.success('{{ session('success') }}');
-    @endif
+            toastr.success('{{ session('success') }}');
+        @endif
 
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            toastr.error('{{ $error }}');
-        @endforeach
-    @endif
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error('{{ $error }}');
+            @endforeach
+        @endif
         var checkInDateInput = document.getElementById('checkIn');
         var checkOutDateInput = document.getElementById('checkOut');
         document.addEventListener('DOMContentLoaded', function() {
@@ -437,74 +387,6 @@
         //     }
         // });
 
-        $(document).ready(function() {
-    let roomPrice = 0; // Variable to store the selected room's price
-
-    // Trigger AJAX when the check-in date changes
-    $(".checkin_date").on('blur', function() {
-        var _checkindate = $(this).val();
-
-        // Encode the date to make it URL-safe
-        var encodedDate = encodeURIComponent(_checkindate);
-
-        // Ajax to get available room types based on check-in date
-        $.ajax({
-            url: "{{ url('bookings') }}/available-room-types/" + encodedDate,
-            dataType: 'json',
-            beforeSend: function() {
-                $(".room-type-list").val('--- Loading ---'); // Display loading message in input
-            },
-            success: function(res) {
-                if (res.data.length > 0) {
-                    // Prepare a string of available room types and prices
-                    let roomOptions = res.data.map(row => `${row.type_name} - $${row.price}/night`).join(', ');
-                    
-                    // Update the room type input with available options
-                    $(".room-type-list").val(roomOptions);
-
-                    // Auto-select the first room and update the price
-                    roomPrice = res.data[0].price; // Price of the first room
-                    calculateTotalAmount(); // Trigger the calculation
-                } else {
-                    // If no rooms are available
-                    $(".room-type-list").val('No rooms available');
-                    roomPrice = 0; // Reset price
-                    calculateTotalAmount(); // Trigger calculation to reset total amount
-                }
-            },
-            error: function() {
-                $(".room-type-list").val('Failed to load rooms'); // Handle error case
-            }
-        });
-    });
-
-    // Recalculate total amount when check-in or check-out date changes
-    $(".checkin_date, #checkOut").on('change blur', function() {
-        calculateTotalAmount();
-    });
-
-    // Function to calculate total amount
-    function calculateTotalAmount() {
-        const checkInDate = new Date($(".checkin_date").val());
-        const checkOutDate = new Date($("#checkOut").val());
-
-        if (!isNaN(checkInDate) && !isNaN(checkOutDate) && checkOutDate > checkInDate) {
-            const days = (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24);
-            const totalAmount = days * roomPrice;
-
-            $("#num-days").text(days); // Update number of days
-            $("#total-amount").text(totalAmount.toFixed(2)); // Update total amount to pay
-            $("#hidden-total-amount").val(totalAmount.toFixed(2)); // Update hidden input for form submission
-            $("#details-section").show(); // Show details section
-        } else {
-            $("#num-days").text(0);
-            $("#total-amount").text(0);
-            $("#hidden-total-amount").val(0);
-            $("#details-section").hide(); // Hide details section if dates are invalid
-        }
-    }
-});
-
 
         document.addEventListener('DOMContentLoaded', function() {
             var reservationForm = document.getElementById('reservation-form');
@@ -535,7 +417,7 @@
                 });
             }
         });
-        
+
 
         // Handle 'Proceed to Payment' click event
         // document.getElementById('payment-button').addEventListener('click', function(event) {

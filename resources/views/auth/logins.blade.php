@@ -85,8 +85,7 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-
-                    <button type="submit" id="loginButton" class="btn mt-2 btn-primary">Login</button>
+                    <button type="submit" id="loginButton" class="btn mt-3 px-4 btn-primary">Login</button>
                 </form>
             </div>
         </div>

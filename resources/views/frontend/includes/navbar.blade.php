@@ -65,9 +65,9 @@
                 <li class="nav-item">
                     <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;" href="{{route('tour')}}">Tour</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;" href="{{route('gallery')}}">Gallery</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;"
                         href="{{ route('contact') }}">Contact</a>
@@ -90,10 +90,10 @@
                             href="{{ route('guest.logout') }}">Logout</a>
                     </li>
                 @endif
-                <li class="nav-item mt-3 mt-lg-0">
+                {{-- <li class="nav-item mt-3 mt-lg-0">
                     <a class="main-btn" href={{ route('reservation') }}
                         style="font-size: 13px; font-weight: 500; text-transform: uppercase;">Book now</a>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>

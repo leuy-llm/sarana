@@ -28,7 +28,7 @@
 
 body {
   /* font-family: var(--primary-font); */
-  background: var(--bg-white);
+  background-color: #eff3f8;
 }
 
 ::selection{

@@ -228,7 +228,8 @@ class GuestController extends Controller
 
         if (Auth::guard('guest')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('reservation');
+            // return redirect()->intended('booking/create');
+            return redirect()->back();
         }
 
         // Login failed, return with an error message to loginErrors

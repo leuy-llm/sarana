@@ -57,6 +57,7 @@ Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 // Route::get('rooms',[HomeController::class,'ourroom'])->name('')
 Route::get('room_detail/{id}/{type_name}', [HomeController::class, 'roomDetail'])->name('roomDetail');
 
+Route::get('property', [HomeController::class, 'property'])->name('property');
 
 
 Route::get('service', [HomeController::class, 'service'])->name('service');
@@ -70,7 +71,9 @@ Route::post('/rooms/sort', [HomeController::class, 'sortRooms'])->name('rooms.so
 
 
 
-Route::get('room', [HomeController::class, 'room'])->name('room');
+
+// Route::get('room', [HomeController::class, 'room'])->name('room');
+Route::get('room', [HomeController::class, 'rooms'])->name('room');
 
 
 
@@ -90,9 +93,15 @@ Route::post('/reservation/payments/{totalAmount}', [PaymentController::class, 'p
 Route::get('/reservation', [ReservationController::class, 'reservation'])->name('reservation');
 Route::get('/reservation/skip-payment/{id}/{totalAmount}', [ReservationController::class, 'skipPayment'])->name('booking.skipPayment');
 
+// Route::get('books/{id}',[HomeController::class, 'booking'])->name('books');
+Route::get('/books/create', [HomeController::class, 'createBooking'])->name('books.create');
+Route::get('booking/{room}', [BookingController::class, 'show'])->name('booking.show');
+
+
 // Protect reservation route with 'guest' authentication
 Route::middleware(['auth:guest'])->group(function () {
     Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::post('/books/create', [HomeController::class, 'bookstore'])->name('books.store');
 });
 
 // routes/web.php
