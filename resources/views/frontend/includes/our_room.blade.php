@@ -1,7 +1,7 @@
-<div class="container-fluid">
+<div class="container-fluid mt-5">
     <div class="row">
         <div class="col-sm-12 section-title text-center mb-5">
-            <h6 data-aos="zoom-in">What I can do for you</h6>
+            <h6 data-aos="zoom-in" style="font-weight: bold;font-size: 20px">What I can do for you</h6>
             <h3 data-aos="zoom-in"> Our Favorite Rooms</h3>
         </div>
     </div>
@@ -39,6 +39,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
+       
         .room-card {
             position: relative;
             overflow: hidden;
@@ -137,7 +138,7 @@
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
     </style>
-    <div class="container mt-5">
+    <div class="container mt-5" >
         <div class="owl-carousel">
             @foreach ($rooms as $data)
                 <div class="room-card">

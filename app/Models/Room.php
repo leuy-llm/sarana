@@ -11,13 +11,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Room extends Model
 {
-    protected $fillable = ['room_type_id', 'room_number', 'floor', 'status', 'description', 'price','is_deleted','max_person'];
+    protected $fillable = ['room_type_id', 'room_number', 'floor', 'status', 'description', 'price','is_deleted','max_person','view_type','bed_type','room_size','rating','special_price','extra_bed_capacity'];
     use HasFactory;
     public function images()
     {
         return $this->hasMany(RoomImage::class);
     }
-
     public function roomType()
     {
         return $this->belongsTo(RoomType::class, 'room_type_id');

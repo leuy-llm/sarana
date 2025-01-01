@@ -180,17 +180,15 @@
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control select2" data-toggle="select2">
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
+                                        <option value="" selected disabled>@lang('label.selectStatus')</option>
+                                        <option value="1" {{ old('status') === '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="0" {{ old('status') === '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                     @error('status')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-
-
-
                             <div class="col-md-6">
                                 <div class="mb-2">
                                     <label class="form-label">@lang('label.description') <span class="text-danger"></span></label>
@@ -225,7 +223,47 @@
                                         required>
                                 </div>
                             </div>
-
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">View Type</label>
+                                    <input type="text" name="view_type" value="{{ old('view_type') }}" class="form-control" placeholder="Enter view type">
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Bed Type</label>
+                                    <input type="text" name="bed_type" value="{{ old('bed_type') }}" class="form-control" placeholder="Enter bed type">
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Room Size (sq ft)</label>
+                                    <input type="number" name="room_size" value="{{ old('room_size') }}" class="form-control" placeholder="Enter room size">
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Rating</label>
+                                    <input type="number" step="0.1" name="rating" value="{{ old('rating') }}" class="form-control" placeholder="Enter room rating (1-5)">
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Special Price</label>
+                                    <input type="number" name="special_price" value="{{ old('special_price') }}" class="form-control" placeholder="Enter special price">
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Extra Bed Capacity</label>
+                                    <input type="number" name="extra_bed_capacity" value="{{ old('extra_bed_capacity') }}" class="form-control" placeholder="Enter extra bed capacity">
+                                </div>
+                            </div>
                         </div>
                         <button class="btn btn-primary" type="submit">@lang('label.submit')</button>
                         

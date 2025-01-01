@@ -19,7 +19,7 @@
             /* font-family: Arial, sans-serif; */
             /* background-color: #f8f9fa; */
             background-color: #eff3f8;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Jost', serif
         }
 
 
@@ -46,14 +46,13 @@
         }
 
         h5 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: bold;
+            font-family: 'Jost', serif font-weight: bold;
 
             font-size: 20px;
         }
 
         h6 {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Jost', serif
         }
 
 
@@ -65,10 +64,10 @@
 
         .search-box {
             background-color: #f8f9fa;
-            border: 1px solid #413d3d;
+            /* border: 1px solid #413d3d; */
             border-radius: 3px 3px;
             /* padding: 20px; */
-            max-width: 350px;
+            max-width: 350px;   
             margin: auto;
 
         }
@@ -87,7 +86,7 @@
         }
 
         .form-control {
-            font-family: "Montserrat", sans-serif;
+            font-family: 'Jost', serif
         }
 
         .clear-btn {
@@ -107,12 +106,12 @@
         }
 
         span {
-            font-family: "Montserrat", sans-serif;
+            font-family: 'Jost', serif
         }
 
         label {
             font-size: 15px;
-            font-family: "Montserrat", sans-serif;
+            font-family: 'Jost', serif
         }
 
         h5 {
@@ -183,69 +182,14 @@
 
         }
 
-        .card1 {
-            border-radius: 0.5rem;
-            background: white;
-            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.15);
-            position: relative;
-            color: #434343;
-            transition: border 0.3s ease, box-shadow 0.3s ease;
-
+        .card-body h5 {
+            font-weight: bold;
+            font-family: 'Jost', serif
         }
 
-
-        .card1 .card__container {
-            padding: 2rem;
-            width: 100%;
-            height: 100%;
-            background: white;
-            /* border-radius: 1rem; */
-            position: relative;
-        }
-
-        .card1 .card__header {
-            margin-bottom: 1rem;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .card1 .card__body {
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .card1::before {
-            position: absolute;
-            top: 5.1rem;
-            right: -14.9px;
-            content: '';
-            background: #283593;
-            height: 28px;
-            width: 28px;
-            padding: 0.8rem;
-
-            transform: rotate(45deg);
-            z-index: -1;
-
-        }
-
-        .card1::after {
-            position: absolute;
-            content: attr(data-label);
-            /* top: 3.7rem; */
-            /* top: 146px; */
-            top: 47px;
-
-            right: -21px;
-            padding: 0.4rem;
-            width: 10rem;
-            background: #3949ab;
-            color: white;
-            text-align: center;
-            /* font-family: 'Roboto', sans-serif; */
-            font-family: "Montserrat", sans-serif;
-            box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
-            font-weight: 600;
-            letter-spacing: 1px;
-            font-size: 24px;
+        .card-body h6,
+        span {
+            font-family: 'Jost', serif
         }
 
         input[type="date"]::-webkit-calendar-picker-indicator {
@@ -254,19 +198,20 @@
         }
 
         input {
-            font-family: "Montserrat", sans-serif;
+            font-family: 'Jost', serif
         }
 
         p.text-muted.small {
-            font-family: "Montserrat", sans-serif;
+            font-family: 'Jost', serif
         }
 
         p.text-muted {
-            font-family: "Montserrat", sans-serif;
+            font-family: 'Jost', serif
         }
 
         h5.text-primary {
             font-size: 25px;
+            font-family: 'jost'
         }
 
         .card:hover {
@@ -281,8 +226,7 @@
             transition: border 0.3s ease, box-shadow 0.3s ease;
             -moz-appearance: none;
             cursor: pointer;
-            font-family: "Montserrat", sans-serif;
-
+            font-family: 'Jost', serif
         }
 
         .results-header .text-primary {
@@ -320,25 +264,109 @@
             border-radius: 5px;
         }
 
-        .noUi-touch-area {
-            background: #0274e6;
+        .original-price {
+            position: relative;
+            color: #6c757d;
+            /* Muted color for original price */
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .original-price::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            /* Fully drawn line by default */
+            height: 1px;
+            background-color: #dc3545;
+            /* Red color for the line */
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .card-body .btn {
+            display: inline-block;
+            margin-top: 10px;
+            /* Adds spacing between buttons and content */
+        }
+
+        .card-body .btn:hover {
+            background-color: #007bff;
+            /* Button hover effect */
+            color: #fff;
+            /* Text color on hover */
+        }
+
+        .d-flex.flex-column .btn {
+            margin-bottom: 10px;
+            /* Adds spacing between "More details" and "Book now" buttons */
+        }
+
+        @media (max-width: 768px) {
+            .card-body .btn {
+                width: 100%;
+                /* Full width for smaller screens */
+            }
+        }
+
+        .sort-dropdown {
+            /* font-family: Arial, sans-serif; */
+            font-size: 14px;
 
         }
 
-        .noUi-tooltip {
-            /* background: #0274e6; */
-            border-radius: 5px;
+        .sort-dropdown select {
+            border: 1px solid #ddd;
+            border-radius: 4px;
             padding: 5px 10px;
-            /* color: #fff; */
+            /* background-color: #fff; */
+            color: #333;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+            min-width: 160px;
         }
 
-        .noUi-handle {
-            /* background: #73583c;
-            border: 1px solid #a67c52; */
-            height: 20px;
-            width: 20px;
-            border-radius: 5 0%;
+        .sort-dropdown select:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         }
+
+        .sort-dropdown select option {
+            font-size: 14px;
+            color: #555;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .sort-dropdown .text-primary {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-step {
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .progress-step.active {
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .highlight {
+            border: 2px solid #007bff;
+            background-color: #e7f1ff;
+            transition: background-color 0.5s, border 0.5s;
+        }
+
     </style>
 @endsection
 @section('content')
@@ -346,7 +374,6 @@
         <div class="overlay" data-aos="zoom-in" data-aos-duration="2000">
             <img src="https://images.pexels.com/photos/453201/pexels-photo-453201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 style="width: 100%; height: 90vh; object-fit: cover;" alt="">
-
             <div class="img-overlay">
                 <h2> {{ $data }}</h2>
             </div>
@@ -356,7 +383,15 @@
         <div class="container-fluid p-5">
             <div class="row">
                 <div class="col-sm-12 section-title text-center mb-5">
-                    <h3>OUR ROOMS</h3>
+                    {{-- <h3>OUR ROOMS</h3> --}}
+                    <div class="progress-container">
+                        <div class="d-flex justify-content-between">
+                            <div class="progress-step active">Search<br><small>Choose your favorite room</small></div>
+                            <div class="progress-step">Booking<br><small>Enter your booking details</small></div>
+                            <div class="progress-step">Checkout<br><small>Use your preferred payment method</small></div>
+                            <div class="progress-step">Confirmation<br><small>Receive a confirmation email</small></div>
+                        </div>
+                    </div>
                     <div class="h-line bg-dark"></div>
                 </div>
             </div>
@@ -407,7 +442,7 @@
                                 <input type="date" name="check_in" id="checkin" class="form-control shadow-none me-1"
                                     required>
                             </div>
-                            <div class="px-3">
+                            <div class="px-3 pt-3">
                                 <label for="checkout" class="form-label">Check Out</label>
                                 <input type="date" name="check_out" id="checkout" class="form-control shadow-none me-1"
                                     required>
@@ -438,7 +473,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="px-3 pt-3">
                                 <label for="price-range" class="form-label">Price Range</label>
                                 <div id="price-range-slider" style="margin: 20px 0;"></div>
@@ -446,35 +480,40 @@
                                     <span id="price-min">50</span> - <span id="price-max">5000</span>
                                 </p>
                             </div>
-
-
-
                             <div class="px-3 mb-3">
-                                <button type="button" id="search-btn" class="btn btn-primary shadow-none py-2 w-100"
-                                    style="border-radius: 0;">Search Rooms</button>
+                                <button type="button" id="search-btn" class="btn btn-primary mb-3 shadow-none py-2 w-100"
+                                    style="border-radius: 0;">Apply Filter</button>
                             </div>
                         </form>
-
-
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-12">
-                    <div class="results-header">
-                        {{-- <h4><span class="text-primary">{{ $rooms->count() }}</span> results found</h4> --}}
-                        <div class="d-flex items-center justify-between py-2">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <span class="text-primary me-1 small">Sort by</span>
+                    <div id="rooms-container" class="container py-4">
+                        <div class="results-header">
+                            <div class="d-flex justify-content-between align-items-center py-2 w-100">
+                                <!-- Left Side: Sort Dropdown -->
+                                <span class="total-rooms d-flex align-items-center">
+                                    You found <strong>{{ $rooms->count() }}</strong> rooms
+                                </span>
+                                </span>
+                                <div class="d-flex align-items-center sort-dropdown">
+                                    {{-- <span class="text-primary me-1 small">Sort by</span> --}}
+                                    <select class="form-select form-select-sm shadow-none">
+                                        <option value="default">Sort by: Default</option>
+                                        <option value="price_low_high">Sort by: Lowest Price</option>
+                                        <option value="price_high_low">Sort by: Highest Price</option>
+
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="rooms-container" class="container py-4">
                         @foreach ($rooms as $room)
-                            <div class="card mb-4 shadow border-0" data-aos="fade-down" data-aos-duration="1000">
+                            <div class="card mb-4 shadow border-0">
                                 <div class="row g-0">
                                     <div class="col-md-5">
                                         <img src="{{ asset('storage/' . $room->images->first()->image) }}"
-                                            alt="{{ $room->roomType->type_name }}" class="img-fluid rounded-start"
-                                            style="height: 100%; width: 700px; object-fit: cover;">
+                                            alt="{{ $room->roomType->type_name }} image" class="img-fluid rounded-start"
+                                            style="height: 300px; width: 700px; object-fit: cover;" loading="lazy">
                                     </div>
                                     <div class="col-md-5">
                                         <div class="card-body">
@@ -482,62 +521,85 @@
                                             <p class="text-muted small">
                                                 <i class="bi bi-geo-alt-fill text-primary"></i> Siem Reap
                                             </p>
-                                            <h6 class="mb-2"
-                                                style="font-family: 'Montserrat', sans-serif;font-weight:400;">Facilities
-                                            </h6>
+                                            @if ($room->special_price)
+                                                <h6 class="mb-2 text-uppercase" style="margin-top: -5px;">Special Price</h6>
+                                                <div class="text-success">
+                                                    <strong>$ {{ number_format($room->special_price, 0) }}</strong>
+                                                    <span class="original-price ms-2">
+                                                        $ {{ number_format($room->price, 0) }}
+                                                    </span>
+                                                </div>
+                                                {{-- @else
+                                                <div>
+                                                    <strong>$ {{ number_format($room->price, 0) }}</strong>
+                                                </div> --}}
+                                            @endif
+
+
+
+                                            <div class="d-flex align-items-center">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i
+                                                        class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-1 text-muted' }}"></i>
+                                                @endfor
+                                                {{-- <span class="ms-2">({{ $room->rating }} / 5)</span> --}}
+                                            </div>
+                                            {{-- <h6 class="mt-3">Facilities</h6>
                                             @if ($room->facilities->isNotEmpty())
                                                 @foreach ($room->facilities as $facility)
                                                     <span
                                                         class="badge bg-light text-dark text-wrap">{{ $facility->name }}</span>
                                                 @endforeach
-                                            @endif
-                                            <h6 class="mb-2"
-                                                style="font-family: 'Montserrat', sans-serif;font-weight:400;'">Guests</h6>
-                                            <div class="">
-
+                                            @endif --}}
+                                            <h6 class="mt-3 text-uppercase">Guests</h6>
+                                            <div>
                                                 <span class="badge bg-light text-dark">Max: {{ $room->max_person }}
                                                     Persons</span>
                                             </div>
-                                          
                                         </div>
                                     </div>
                                     <div
                                         class="col-md-2 d-flex flex-column justify-content-center align-items-center text-center bg-light">
                                         <div>
-                                            @if ($room->is_special_offer)
-                                                <span class="badge bg-danger text-white mb-2">SPECIAL OFFER</span>
+                                            @if ($room->special_price)
+                                                <span class="badge bg-danger text-white p-2 rounded-0 mb-2 mt-3 text-uppercase">SPECIAL OFFER</span>
+                                                <p class="mb-1 text-muted text-uppercase">From</p>
+                                                <h5 class="text-primary">${{ number_format($room->special_price, 0) }}
+                                                </h5>
+                                                <p class="text-muted text-uppercase">per night</p>
+                                            @else
+                                                <p class="mb-1 text-muted text-uppercase">From</p>
+                                                <h5 class="text-primary">${{ number_format($room->price, 0) }}</h5>
+                                                <p class="text-muted text-uppercase">per night</p>
                                             @endif
-                                            <p class="mb-1 text-muted">From</p>
-                                            <h5 class="text-primary">$ {{ number_format($room->price, 0) }}</h5>
-                                            <p class="text-muted">per night</p>
                                         </div>
-                                        {{-- <a href="{{ route('roomDetail', ['id' => $room->id, 'type_name' => $room->roomType->type_name]) }}"
-                                            class="btn btn-outline-primary shadow-none w-100">Select</a> --}}
-                                            {{-- <a href="{{ route('roomDetail', ['id' => $room->id, 'type_name' => $room->roomType->type_name, 'check_in_date' => $checkIn, 'check_out_date' => $checkOut, 'adults' => $adults, 'children' => $children]) }}"
-                                                class="btn btn-outline-primary shadow-none w-100">
-                                                Select
-                                             </a> --}}
-                                             {{-- <a href="{{ route('roomDetail', ['id' => $room->id, 'type_name' => $room->roomType->type_name]) }}?check_in={{ request('check_in') }}&check_out={{ request('check_out') }}" class="btn btn-outline-primary shadow-none w-100">Select</a> --}}
-                                             <a href="{{ route('roomDetail', ['id' => $room->id, 'type_name' => Str::slug($room->roomType->type_name), 'check_in_date' => $checkIn, 'check_out_date' => $checkOut, 'adults' => $adults, 'children' => $children]) }}" class="btn btn-outline-primary shadow-none">
-                                                View Details
+                                       
+                                        {{-- <a href="{{ route('books.create', ['room_id' => $room->id, 'check_in' => $checkIn, 'check_out' => $checkOut, 'adults' => $adults, 'children' => $children]) }}"
+                                            class=" mb-2 text-left py-1 w-100 text-primary text-decoration-none shadow-none px-2"
+                                            style="font-size: 14px;background:#f1f2f3;">
+                                            Select Booking Date
+                                        </a> --}}
+                                        <a href="#" 
+                                            class="select-booking-date mb-2 text-left py-1 w-100 text-primary text-decoration-none shadow-none px-2"
+                                            style="font-size: 14px; background:#f1f2f3;">
+                                                Select Booking Date
                                             </a>
-                                            
 
-                                             
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-
-                        {{ $rooms->appends(request()->query())->links() }}
+                        <div class="d-flex justify-content-center">
+                            {{ $rooms->appends(request()->query())->links() }}
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
         </div>
         </div>
     </section>
-    @include('auth.register')
 @endsection
 @section('script')
     <script>
@@ -644,5 +706,25 @@
                 value: Math.round(priceValues[1])
             }).appendTo('#filter-form');
         });
+
+
+        //Select Date 
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add click event listener to all "Select Booking Date" links
+            document.querySelectorAll('.select-booking-date').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault(); // Prevent default behavior of the link
+                    
+                    // Scroll to the Check In field
+                    const checkInField = document.getElementById('checkin');
+                    checkInField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    // Highlight the Check In field (optional)
+                    checkInField.classList.add('highlight');
+                    setTimeout(() => checkInField.classList.remove('highlight'), 2000);
+                });
+            });
+        });
+
     </script>
 @endsection

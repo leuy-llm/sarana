@@ -42,11 +42,18 @@ class RoomController extends Controller
                 'status' => 'required|boolean',
                 'description' => 'nullable|string',
                 'price' => 'nullable|numeric',
-                'images.*' => 'required|image|mimes:jpeg,png,jpg,gif', // Validate each image
-                'facilities' => 'nullable|array', // Validate facilities as an array
-                'facilities.*' => 'exists:facilities,id', // Validate each facility ID exists
+                'special_price' => 'nullable|numeric',
+                'rating' => 'nullable|numeric|between:0,5',
+                'view_type' => 'nullable|string',
+                'bed_type' => 'nullable|string',
+                'room_size' => 'nullable|numeric',
+                'extra_bed_capacity' => 'nullable|integer',
+                'images.*' => 'required|image|mimes:jpeg,png,jpg,gif',
+                'facilities' => 'nullable|array',
+                'facilities.*' => 'exists:facilities,id',
                 'max_person' => 'nullable|integer',
             ]);
+
 
             DB::transaction(function () use ($request) {
                 // Step 1: Create the room
@@ -54,11 +61,18 @@ class RoomController extends Controller
                     'room_type_id' => $request->input('room_type_id'),
                     'room_number' => $request->input('room_number'),
                     'floor' => $request->input('floor'),
-                    'status' => $request->input('status', 'active'),
+                    'status' => $request->input('status'),
                     'description' => $request->input('description'),
                     'price' => $request->input('price'),
+                    'special_price' => $request->input('special_price'),
+                    'rating' => $request->input('rating'),
+                    'view_type' => $request->input('view_type'),
+                    'bed_type' => $request->input('bed_type'),
+                    'room_size' => $request->input('room_size'),
+                    'extra_bed_capacity' => $request->input('extra_bed_capacity'),
                     'max_person' => $request->input('max_person'),
                 ]);
+
 
                 // Step 2: Handle file uploads and associate images with the room
                 $uploadedImages = $request->file('images'); // Assuming this is an array of uploaded files
@@ -102,10 +116,16 @@ class RoomController extends Controller
                 'status' => 'required|boolean',
                 'description' => 'nullable|string',
                 'price' => 'nullable|numeric',
-                'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate each image
-                'remove_images.*' => 'nullable|exists:room_images,id', // Validate image IDs to be removed
-                'facilities' => 'nullable|array', // Validate facilities as an array
-                'facilities.*' => 'exists:facilities,id', // Validate each facility ID exists
+                'special_price' => 'nullable|numeric',
+                'rating' => 'nullable|numeric|between:0,5',
+                'view_type' => 'nullable|string',
+                'bed_type' => 'nullable|string',
+                'room_size' => 'nullable|numeric',
+                'extra_bed_capacity' => 'nullable|integer',
+                'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+                'remove_images.*' => 'nullable|exists:room_images,id',
+                'facilities' => 'nullable|array',
+                'facilities.*' => 'exists:facilities,id',
                 'max_person' => 'nullable|integer',
             ]);
 
@@ -118,9 +138,15 @@ class RoomController extends Controller
                     'room_type_id' => $request->input('room_type_id'),
                     'room_number' => $request->input('room_number'),
                     'floor' => $request->input('floor'),
-                    'status' => $request->input('status', 'active'),
+                    'status' => $request->input('status'),
                     'description' => $request->input('description'),
                     'price' => $request->input('price'),
+                    'special_price' => $request->input('special_price'),
+                    'rating' => $request->input('rating'),
+                    'view_type' => $request->input('view_type'),
+                    'bed_type' => $request->input('bed_type'),
+                    'room_size' => $request->input('room_size'),
+                    'extra_bed_capacity' => $request->input('extra_bed_capacity'),
                     'max_person' => $request->input('max_person'),
                 ]);
 
@@ -176,16 +202,16 @@ class RoomController extends Controller
 
     public function show($id)
     {
-        $room = Room::with('roomType', 'images','facilities')->findOrFail($id);
+        $room = Room::with('roomType', 'images', 'facilities')->findOrFail($id);
         $header_title = "Room Details";
         return view('back_end.room.show', compact('room', 'header_title'));
     }
 
     public function toggleActive(Room $room)
-{
-    $room->status = !$room->status; // Toggle status (0 to 1, or 1 to 0)
-    $room->save();
+    {
+        $room->status = !$room->status; // Toggle status (0 to 1, or 1 to 0)
+        $room->save();
 
-    return redirect()->back()->with('success', 'Room status updated!');
-}
+        return redirect()->back()->with('success', 'Room status updated!');
+    }
 }

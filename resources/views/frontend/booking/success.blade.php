@@ -131,9 +131,9 @@
                 @endif
 
 
-                {{-- <p class="lead text-muted">Thank you for your reservation. Your booking has been successfully.</p> --}}
+                <p class="lead text-muted">Thank you for your reservation. Your booking has been successfully.</p>
                 <hr class="my-4">
-                <div class="booking-details text-left mt-4">
+                {{-- <div class="booking-details text-left mt-4">
                     <p><span>Booking ID:</span> #{{ $booking->id }}</p>
                     <p><span>Room Type:</span> {{ $roomType }}</p>
                     <p><span>Room Price per Night:</span> ${{ number_format($roomPrice, 2) }}</p>
@@ -147,21 +147,31 @@
                     <p><span>Total Amount:</span> ${{ number_format($totalAmount, 2) }}</p>
                     <p>Booking Status: <span class="badge badge-success"
                             style="font-size: 1rem">{{ ucfirst($booking->status) }}</span></p>
-                </div>
-                <div class="flex-row justify-content-between d-flex align-items-between">
-                    <a href="{{ url('/') }}" class="mt-4 " style="width: 200px">Back to Home</a>
+                </div> --}}
+                {{-- <div class="flex-row justify-content-between d-flex align-items-between">
+                    <a href="{{ url('/') }}" class="mt-4 " style="width: 200px">Back to Home</a> --}}
                     {{-- <form action="{{ route('booking.cancel', $booking->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Cancel Booking</button>
                     </form> --}}
-                    <form action="{{ route('booking.cancel', $booking->id) }}" method="POST">
+                    {{-- <form action="{{ route('booking.cancel', $booking->id) }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-block btn-booking">Cancel Booking</button>
-                    </form>
-
-
-
+                    </form> --}}
+                    <h3>Booking Confirmation</h3>
+                    <p>Thank you for your reservation, {{ $booking->guest->name }}!</p>
+                    <p>Here are your booking details:</p>
+                    <ul>
+                        <li>Room: {{ $booking->room->roomType->type_name }}</li>
+                        <li>Room Number: {{ $booking->room->room_number }}</li>
+                        <li>Check-in Date: {{ $booking->check_in_date }}</li>
+                        <li>Check-out Date: {{ $booking->check_out_date }}</li>
+                        <li>Total Adults: {{ $booking->total_adults }}</li>
+                        <li>Total Children: {{ $booking->total_children }}</li>
+                        <li>Status: {{ ucfirst($booking->status) }}</li>
+                        <li>Payment Status: {{ ucfirst($booking->payment_status) }}</li>
+                    </ul>
                 </div>
             </div>
         </div>

@@ -36,9 +36,7 @@
             <div class="container text-center text-md-start mt-5">
                 <div class="row mt-3">
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        {{-- <h6 class="text-uppercase fw-bold text-white">Products</h6> --}}
-                        {{-- <hr class="mb-4 mt-0 d-inline-block mx-auto"
-                            style="width: 60px; background-color: #7c4dff; height: 2px" /> --}}
+                    
                         @foreach ($settings as $data)
                             <img id="site-logo-{{ $data->id }}" src="{{ asset('storage/' . $data->site_logo) }}"
                                 alt="table-user" class="rounded me-3 "
@@ -73,7 +71,7 @@
                             <p class="text-white"><i class="fas fa-home mr-3 text-white"></i> {{ $data->address }}</p>
                             <p class="text-white">{{ $data->email }}
                             </p>
-                            {{-- <i class="fas fa-envelope mr-3 text-white"></i>  --}}
+                          
                             <p class="text-white"><i class="fas fa-phone mr-3 text-white"></i> {{ $data->pn1 }}</p>
                             <p class="text-white"><i class="fas fa-phone mr-3 text-white"></i> {{ $data->pn2 }}</p>
                             <p class="text-white"><i class="fas fa-phone mr-3 text-white"></i> {{ $data->pn3 }}</p>

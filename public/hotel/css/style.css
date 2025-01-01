@@ -4,6 +4,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 /* @import url('//fonts.googleapis.com/css?family=Montserrat:300,400,500'); */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i');
+@import url('https://fonts.googleapis.com/css?family=Bree+Serif');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -43,6 +47,7 @@ header {
   font-style: normal;
   font-size: 15px;
   z-index: 9999;
+  
 }
 a {
   text-decoration: none;
@@ -965,12 +970,12 @@ p {
 	width: 100%;
 } 
 
-.form-control {
-  margin-bottom: 20px;
-  border-radius: 5px;
-  font-family: "Playfair Display", serif;
- 
-}
+  /* .form-control {
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-family: "Playfair Display", serif;
+  
+  } */
 
 .btn-primary1 {
   background-color: #d6a323;

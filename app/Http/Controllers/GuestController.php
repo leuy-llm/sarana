@@ -7,9 +7,11 @@ use App\Models\Guest;
 use App\Exports\GuestExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 class GuestController extends Controller
 {
@@ -151,49 +153,141 @@ class GuestController extends Controller
 
     //     return redirect()->back();
     // }
-    public function register(Request $request)
-    {
-        // Custom validation handling with error bag
-        try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:guests',
-                'mobile' => 'required|numeric|unique:guests',
-                'address' => 'nullable|string|max:255',
-                'password' => 'required|string|min:8|confirmed',
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return redirect()->back()->withErrors($e->validator, 'registerErrors')->withInput();
-        }
+    // public function register(Request $request)
+    // {
+    //     // Custom validation handling with error bag
+    //     try {
+    //         $request->validate([
+    //             'name' => 'required|string|max:255',
+    //             'email' => 'required|string|email|max:255|unique:guests',
+    //             'mobile' => 'required|numeric|unique:guests',
+    //             'address' => 'nullable|string|max:255',
+    //             'password' => 'required|string|min:8|confirmed',
+    //         ]);
+    //     } catch (\Illuminate\Validation\ValidationException $e) {
+    //         return redirect()->back()->withErrors($e->validator, 'registerErrors')->withInput();
+    //     }
 
-        // Registration logic
-        $guest = Guest::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
-            'address' => $request->address,
-            'password' => Hash::make($request->password),
-        ]);
+    //     // Registration logic
+    //     $guest = Guest::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'mobile' => $request->mobile,
+    //         'address' => $request->address,
+    //         'password' => Hash::make($request->password),
+    //     ]);
 
-        auth()->guard('guest')->login($guest);
-        // Add a notification when a new query is created
-        $notifications = session()->get('notifications', []);
+    //     auth()->guard('guest')->login($guest);
 
-        // Generate a new ID based on the count of existing notifications
-        $id = count($notifications) + 1;
+    //     $guest->sendEmailVerificationNotification();
+    //     // Add a notification when a new query is created
+    //     $notifications = session()->get('notifications', []);
 
-        $notifications[] = [
-            'id' => $id,
-            'type' => 'new_registration',
-            'message' => 'A new guest has registered: ' . $guest->name,
-            'time' => now()->format('Y-m-d H:i:s'),
-        ];
+    //     // Generate a new ID based on the count of existing notifications
+    //     $id = count($notifications) + 1;
 
-        // Store the updated notifications back in the session
-        session(['notifications' => $notifications]);
-        return redirect()->back();
-    }
+    //     $notifications[] = [
+    //         'id' => $id,
+    //         'type' => 'new_registration',
+    //         'message' => 'A new guest has registered: ' . $guest->name,
+    //         'time' => now()->format('Y-m-d H:i:s'),
+    //     ];
 
+    //     // Store the updated notifications back in the session
+    //     session(['notifications' => $notifications]);
+    //     // return redirect()->back();
+    //     return redirect()->route('verification.notice')->with('message', 'Please check your email for a verification link.');
+    // }
+
+    // public function register(Request $request)
+    // {
+    //     $data = "Login";
+    //     $contact = DB::table('contact_details')->get();
+    //     $setting = DB::table('settings')->get();
+        
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|string|email|max:255|unique:guests',
+    //         'mobile' => 'required|string|max:15',
+    //         'address' => 'required|string',
+    //         'password' => 'required|string|min:8|confirmed',
+    //     ]);
+
+    //     $guest = Guest::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'mobile' => $request->mobile,
+    //         'address' => $request->address,
+    //         'password' => Hash::make($request->password),
+    //     ]);
+
+    //     $guest->sendEmailVerificationNotification();
+
+    //     return redirect()->route('verification.notice')->with('message', 'Please check your email for a verification link.');
+       
+    // }
+
+
+//     public function register(Request $request)
+// {
+//     $request->validate([
+//         'name' => 'required|string|max:255',
+//         'email' => 'required|string|email|max:255|unique:guests',
+//         'mobile' => 'required|string|max:15',
+//         'address' => 'required|string',
+//         'password' => 'required|string|min:8|confirmed',
+//     ]);
+
+//     $guest = Guest::create([
+//         'name' => $request->name,
+//         'email' => $request->email,
+//         'mobile' => $request->mobile,
+//         'address' => $request->address,
+//         'password' => Hash::make($request->password),
+//     ]);
+
+//     // Send email verification notification
+//     $guest->sendEmailVerificationNotification();
+
+//     // Redirect to the email verification notice
+//     return redirect()->route('verification.notice')->with('message', 'Please check your email for a verification link.');
+// }
+
+public function register(Request $request)
+{
+    $request->validate([
+        'first_name' => 'required|string|max:15',
+        'last_name' => 'required|string|max:15',
+        'zip' => 'required|string|max:15',
+        'email' => 'required|string|email|max:255|unique:guests',
+        'mobile' => 'required|string|max:15',
+        'address' => 'required|string',
+        'city' => 'required|string|max:255', // Fixed here
+        'country' => 'required|string',
+        'password' => 'required|string|min:8|confirmed',
+    ]);
+    
+
+    $guest = Guest::create([
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'zip' => $request->zip,
+        'country' => $request->country,
+        'city' => $request->city,
+        'email' => $request->email,
+        'mobile' => $request->mobile,
+        'address' => $request->address,
+        'password' => Hash::make($request->password),
+    ]);
+
+    // Log in the guest
+    auth('guest')->login($guest);
+
+    // Send email verification notification
+    $guest->sendEmailVerificationNotification();
+
+    return redirect()->route('verification.notice')->with('message', 'Please check your email for a verification link.');
+}
 
 
     // public function login(Request $request)
@@ -214,26 +308,51 @@ class GuestController extends Controller
     //     ]);
     // }
 
+    // public function login(Request $request)
+    // {
+
+    //     try {
+    //         $credentials = $request->validate([
+    //             'email' => ['required', 'email'],
+    //             'password' => ['required'],
+    //         ]);
+    //     } catch (\Illuminate\Validation\ValidationException $e) {
+    //         return redirect()->back()->withErrors($e->validator, 'loginErrors')->withInput();
+    //     }
+
+    //     if (Auth::guard('guest')->attempt($credentials)) {
+    //         $request->session()->regenerate();
+    //         // return redirect()->intended('booking/create');
+    //         return redirect()->back();
+    //     }
+
+    //     // Login failed, return with an error message to loginErrors
+    //     return redirect()->back()->withErrors(['login' => 'Invalid email or password.'], 'loginErrors')->withInput();
+    // }
+    // public function login{
+        
+    // }
     public function login(Request $request)
     {
+        // Validate the incoming request data
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-        try {
-            $credentials = $request->validate([
-                'email' => ['required', 'email'],
-                'password' => ['required'],
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return redirect()->back()->withErrors($e->validator, 'loginErrors')->withInput();
-        }
+        // Attempt to authenticate the guest
+        $credentials = $request->only('email', 'password');
 
         if (Auth::guard('guest')->attempt($credentials)) {
-            $request->session()->regenerate();
-            // return redirect()->intended('booking/create');
-            return redirect()->back();
+            // Redirect to the intended page or dashboard after successful login
+            return redirect()->intended(route('homepage'))
+                ->with('success', 'Welcome back!');
         }
 
-        // Login failed, return with an error message to loginErrors
-        return redirect()->back()->withErrors(['login' => 'Invalid email or password.'], 'loginErrors')->withInput();
+        // Return back with an error message if authentication fails
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->withInput($request->only('email'));
     }
 
     public function logout()

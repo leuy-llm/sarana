@@ -23,7 +23,7 @@ class AuthController extends Controller
     }
 
 
-    public function login(Request $request)
+    public function logindash(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -278,7 +278,7 @@ class AuthController extends Controller
     //     return round((($current - $previous) / $previous) * 100, 2);
     // }
 
-    public function dashboard(Request $request)
+    public function dashboards(Request $request)
     {
         // Get the selected time range for bookings and queries
         $timeRange = request('time_range', '30'); // Default to "Past 30 Days" for bookings if not set

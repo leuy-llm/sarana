@@ -1,4 +1,4 @@
-<!-- Bootstrap Registration Modal -->
+
 <style>
     .close {
         color: white !important;
@@ -59,7 +59,7 @@
             </div>
             <div class="modal-body">
                 <!-- Registration Form -->
-                <form id="guestRegisterForm" method="POST" action="{{ route('guest.register') }}">
+                <form id="guestRegisterForm" method="POST" action="">
                     @csrf
                     <div class="bottom">
                         <label for="name" class="form-label">Full Name</label>

@@ -30,6 +30,12 @@
         @endforeach
     </div>
 </div> --}}
+<style>
+    .text-lg-start p{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+    }
+</style>
 <div class="container">
     <div class="row flex-lg-row flex-column-reverse">
         @foreach ($about_us as $about)

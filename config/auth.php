@@ -16,6 +16,7 @@ return [
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
+        
     ],
 
     /*
@@ -106,6 +107,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'guests' => [
+            'provider' => 'guests',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ]
     ],
 
     /*

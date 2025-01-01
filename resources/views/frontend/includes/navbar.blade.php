@@ -13,10 +13,11 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav menu-navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" id="home" style="font-size: 13px; font-weight: 500;text-transform: uppercase;"
+                    <a class="nav-link" id="home"
+                        style="font-size: 13px; font-weight: 500;text-transform: uppercase;"
                         href="{{ route('homepage') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
-                
+
                 {{-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton"
                         style="font-size: 13px; font-weight: 500; text-transform: uppercase;" data-mdb-toggle="dropdown"
@@ -58,12 +59,17 @@
                         aria-expanded="false"> facilities
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" style="font-size: 13px; padding-top: 10px; border-bottom: 1px solid #dee2e6; font-weight: 500; text-transform: uppercase; " href="{{url('restaurant')}}">Food & Drink</a></li>
-                        <li><a class="dropdown-item" style="font-size: 13px; padding-top: 10px; font-weight: 500; text-transform: uppercase;" href="{{ route('meeting') }}">Meetings</a></li>
+                        <li><a class="dropdown-item"
+                                style="font-size: 13px; padding-top: 10px; border-bottom: 1px solid #dee2e6; font-weight: 500; text-transform: uppercase; "
+                                href="{{ url('restaurant') }}">Food & Drink</a></li>
+                        <li><a class="dropdown-item"
+                                style="font-size: 13px; padding-top: 10px; font-weight: 500; text-transform: uppercase;"
+                                href="{{ route('meeting') }}">Meetings</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;" href="{{route('tour')}}">Tour</a>
+                    <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;"
+                        href="{{ route('tour') }}">Tour</a>
                 </li>
                 {{-- <li class="nav-item">
                     <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;" href="{{route('gallery')}}">Gallery</a>
@@ -72,28 +78,49 @@
                     <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;"
                         href="{{ route('contact') }}">Contact</a>
                 </li>
-                @if (!auth()->guard('guest')->check())
+
+                @guest('guest')
                     <li class="nav-item mt-2 mt-lg-1">
                         <a class="nav-link"
                             style="font-size: 13px; font-weight: 500; color: #fff; padding: 0.375rem 1rem; border-radius: 1rem; background-color: #661f1f; text-transform: uppercase;"
-                            href="#" data-bs-toggle="modal" id="navbar-login-btn"  data-bs-target="#loginModal" >Login</a>
+                            href="{{ route('guest.login') }}">Login</a>
                     </li>
-                    <li class="nav-item mt-2  mt-lg-1">
+                    <li class="nav-item mt-2 mt-lg-1">
                         <a class="nav-link"
                             style="font-size: 13px; font-weight: 500; color: #fff; padding: 0.375rem 1rem; border-radius: 1rem; background-color: #661f1f; text-transform: uppercase;"
-                            href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Register</a>
+                            href="{{ route('register') }}">Register</a>
                     </li>
-                @else
+                @endguest
+
+                @auth('guest')
+                    @if (auth('guest')->user()->hasVerifiedEmail())
+                        <li class="nav-item mt-2 mt-lg-1">
+                            <a class="nav-link"
+                                style="font-size: 13px; font-weight: 500; color: #fff; padding: 0.375rem 1rem; border-radius: 1rem; background-color: #661f1f; text-transform: uppercase;"
+                                href="#">Welcome, {{ auth('guest')->user()->first_name }} {{ auth('guest')->user()->last_name }}</a>
+                        </li>
+                        {{-- <li class="nav-item">
+                    <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;"
+                        href="#">Welcome, {{ auth('guest')->user()->name }}</a>
+                </li> --}}
+                    @else
+                        <li class="nav-item mt-2 mt-lg-1">
+                            <a class="nav-link"
+                                style="font-size: 13px; font-weight: 500; color: #fff; padding: 0.375rem 1rem; border-radius: 1rem; background-color: #661f1f; text-transform: uppercase;"
+                                href="{{ route('verification.notice') }}">Verify Email</a>
+                        </li>
+                    @endif
+
                     <li class="nav-item mt-2 mt-lg-1">
                         <a class="nav-link"
                             style="font-size: 13px; font-weight: 500; color: #fff; padding: 0.375rem 1rem; border-radius: 1rem; background-color: #661f1f; text-transform: uppercase;"
                             href="{{ route('guest.logout') }}">Logout</a>
                     </li>
-                @endif
-                {{-- <li class="nav-item mt-3 mt-lg-0">
-                    <a class="main-btn" href={{ route('reservation') }}
-                        style="font-size: 13px; font-weight: 500; text-transform: uppercase;">Book now</a>
-                </li> --}}
+                @endauth
+                <li class="nav-item mt-3 mt-lg-0">
+                    <a class="main-btn" href={{ route('room') }}
+                        style="font-size: 13px; font-weight: 500; text-transform: uppercase;">Book Online</a>
+                </li>
             </ul>
         </div>
     </div>

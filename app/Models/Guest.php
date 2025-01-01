@@ -4,6 +4,8 @@ namespace App\Models;
 
 use DataTables;
 use App\Models\Booking;
+use App\Notifications\CustomVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,12 +13,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Guest extends Authenticatable
+class Guest extends Authenticatable implements MustVerifyEmail
 {
     // use HasFactory;
+    use \Illuminate\Auth\MustVerifyEmail;
     use Notifiable;
     // Guest.php model
-    protected $fillable = ['name', 'email', 'mobile', 'address', 'password'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'mobile', 'address', 'password','email_verified_at','zip','country','city'];
 
 
     protected $hidden = [
@@ -34,6 +37,14 @@ class Guest extends Authenticatable
     {
         return $this->hasMany(Booking::class);
     }
+    public function getEmailForVerification()
+    {
+        return $this->email;
+    }
+    public function sendEmailVerificationNotification()
+{
+    $this->notify(new CustomVerifyEmail);
+}
 
 
     // static public function getGuest()

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <title>Log In | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
@@ -64,7 +63,7 @@
                         <img src="https://www.sinakaangkorhotel.com/wp-content/uploads/2022/12/cropped-sinaka-logo-300x243.png"
                             style="width: 100px">
                     </div>
-                    @if ($errors->any())
+                     @if ($errors->any())
                         <div>
                             <ul class="list-none" style="list-style-type: none">
                                 @foreach ($errors->all() as $error)

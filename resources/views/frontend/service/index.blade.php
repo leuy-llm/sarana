@@ -78,7 +78,6 @@
 
     @include('auth.register')
 @endsection
-
 @section('script')
     <script></script>
 @endsection

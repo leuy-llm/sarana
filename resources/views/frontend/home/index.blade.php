@@ -61,8 +61,16 @@
     <section id="rooms" class="rooms_wrapper">
         @include('frontend.includes.our_room')
       </section>
+
+      <section id="gallery" class="gallery_wrapper">
+        @include('frontend.gallery.index')
+      </section>
       {{-- @include('auth.register')  --}}
-     
+      @if (session('message'))
+      <div class="alert alert-success">
+          {{ session('message') }}
+      </div>
+  @endif
       <div class="welcome-container">
         <img src="{{ asset('hotel') }}/image/couple.png" alt="Welcome to Sinaka Angkor Hotel" class="welcome-image"
             style="z-index: 999;">

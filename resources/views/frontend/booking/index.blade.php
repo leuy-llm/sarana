@@ -157,7 +157,7 @@
                             {{ session('success') }}
                         </div>
                     @endif --}}
-                    <form id="reservation-form" method="POST" action="{{ route('reservation.store') }}">
+                    {{-- <form id="reservation-form" method="POST" action="{{ route('reservation.store') }}">
                         @csrf
                         <div class="form-group">
                             <label>Full Name</label>
@@ -235,11 +235,84 @@
 
                         <div class="col-md-12">
                             <input type="hidden" id="bookingId" value="{{ $bookingId }}">
-                            {{-- <a href="#" id="payment-button" class="btn btn-booking btn-block">Proceed to Payment</a> --}}
+                            
                             <button type="submit" class="btn btn-booking btn-block">Booking</button>
                         </div>
-                </div>
-                </form>
+                    </div>
+                </form> --}}
+                <form id="reservation-form" action="{{ route('books.store') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="Full Name"
+                            value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->name : old('name') }}"
+                            {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Phone</label>
+                            <input type="number" min="0" name="mobile" class="form-control" placeholder="Phone"
+                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->mobile : old('name') }}"
+                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email"
+                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->email : old('name') }}"
+                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: -14px">
+                        <label>Address</label>
+                        <input type="text" name="address" class="form-control" placeholder="Address"
+                            value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->address : old('name') }}"
+                            {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="checkIn">Check In</label>
+                            <input type="date" name="check_in_date" value="{{ $checkIn }}"
+                                class="form-control checkin_date" id="checkIn">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="checkOut">Check Out</label>
+                            <input type="date"name="check_out_date" value="{{ $checkOut }}" class="form-control"
+                                id="checkOut" min="{{ date('Y-m-d') }}">
+                        </div>
+                    </div>
+                    <div class="form-row" style="margin-top: -14px">
+
+                        <input type="hidden" name="room_type_id" value="{{ $rooms->roomType->id }}">
+
+                        <div class="form-group col-md-6">
+                            <label for="adults">Adults</label>
+
+                            <input type="number" min="0" name="total_adults" class="form-control" id="adults"
+                                value="{{ $adults ?? old('total_adults') }}">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="children">Children</label>
+
+                            <input type="number" min="0" name="total_children" class="form-control"
+                                id="children" value="{{ $children ?? old('total_children') }}">
+                        </div>
+                    </div>
+                                        <!-- Payment Option -->
+                    <h3>Payment</h3>
+                    <div>
+                        <label>
+                            <input type="radio" name="payment_option" value="pay_now" required> Pay Now
+                        </label>
+                        <label>
+                            <input type="radio" name="payment_option" value="skip_payment" required> Skip Payment
+                        </label>
+                    </div>
+
+
+
+                    <button type="submit" class="btn btn-booking btn-block">Proceed</button>
+                </form>  
             </div>
         </div>
         </div>
@@ -525,7 +598,6 @@
                     }
                 });
             }
-
             // Add event listener to the OK button to show the login modal if button exists
             var okButton = document.getElementById('ok-btn');
             if (okButton) {

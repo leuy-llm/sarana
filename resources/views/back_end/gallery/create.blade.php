@@ -40,7 +40,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
-                            <select name="status" class="form-control select2" data-toggle="select2">
+                            <select name="status" class="form-control select2 @error('status') is-invalid @enderror "" data-toggle="select2">
                                 <option value="" selected disabled>@lang('label.selectStatus')</option>
                                 <option value="1" {{ old('status') === '1' ? 'selected' : '' }}>Active</option>
                                 <option value="0" {{ old('status') === '0' ? 'selected' : '' }}>Inactive</option>
