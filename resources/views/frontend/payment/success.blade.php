@@ -8,7 +8,7 @@
             justify-content: space-between;
             margin-bottom: 20px;
             /* background: rgba(255, 255, 255, 0.9);
-                                                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+                                                                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
             border-radius: 3px;
             padding: 20px;
         }
@@ -166,6 +166,11 @@
             <a href="{{ url('/') }}" class="btn btn-primary">Back to Home</a>
         </div> --}}
         <div class="" style="margin:100px 0;">
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @elseif(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
             <div id="printArea" class="booking-details-card shadow-sm p-5 mx-auto print-font-size"
                 style="max-width: 550px;">
                 <h5 class="text-center mb-5">Booking Details</h5>
@@ -260,18 +265,13 @@
         document.getElementById('printButton').addEventListener('click', function() {
             const printArea = document.getElementById('printArea').innerHTML;
             const printHeader = document.getElementById('printHeader').innerHTML;
-
             const originalContent = document.body.innerHTML;
-
             // Combine the hidden header (logo and hotel name) with the booking details
             document.body.innerHTML = printHeader + printArea;
-
             // Trigger the print dialog
             window.print();
-
             // Restore the original page content
             document.body.innerHTML = originalContent;
-
             // Reload the page to restore event listeners and original content
             window.location.reload();
         });

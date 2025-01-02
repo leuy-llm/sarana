@@ -9,18 +9,17 @@ class Payment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['booking_id','guest_id', 'amount', 'status', 'payment_intent_id', 'currency', 'payment_method'];
+    protected $fillable = ['booking_id', 'guest_id', 'amount', 'status', 'payment_intent_id', 'currency', 'payment_method'];
 
-    // public function room()
-    // {
-    //     return $this->belongsTo(Room::class);
-    // }
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 
     public function booking()
-{
-    return $this->belongsTo(Booking::class);
-}
-
+    {
+        return $this->belongsTo(Booking::class);
+    }
 
     public function guest()
     {

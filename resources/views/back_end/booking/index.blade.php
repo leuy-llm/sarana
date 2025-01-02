@@ -195,27 +195,24 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-centered table-striped dt-responsive nowrap w-100"
-                            id="bookings-datatable">
+                        <table class="table table-centered table-striped dt-responsive nowrap w-100" id="bookings-datatable">
                             <thead class="table-dark">
                                 <tr>
                                     <th style="width: 20px;">
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="customCheck1">
-                                            <label class="form-check-label" for="customCheck1">&nbsp;</label>
+                                            <input type="checkbox" class="form-check-input" id="customCheckAll">
+                                            <label class="form-check-label" for="customCheckAll">&nbsp;</label>
                                         </div>
                                     </th>
                                     <th>@lang('label.guestName')</th>
                                     <th>@lang('label.room')</th>
                                     <th>@lang('label.checkIn')</th>
-
                                     <th>@lang('label.checkOut')</th>
                                     <th>@lang('label.totalAdults')</th>
                                     <th>@lang('label.totalChildren')</th>
-
                                     <th>@lang('label.date')</th>
                                     <th>@lang('label.status')</th>
-                                    <th style="width: 75px;">@lang('label.action')</th><!--style="width: 75px;"-->
+                                    <th>@lang('label.action')</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -223,317 +220,71 @@
                                     <tr>
                                         <td>
                                             <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="customCheck2">
-                                                <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                                <input type="checkbox" class="form-check-input" id="customCheck{{ $booking->id }}">
+                                                <label class="form-check-label" for="customCheck{{ $booking->id }}">&nbsp;</label>
                                             </div>
                                         </td>
-                                        <td>
-                                            {{ Str::limit($booking->guest->name, 5) }}
-                                        </td>
+                                        <td>{{ Str::limit($booking->guest->first_name . ' ' . $booking->guest->last_name, 15) }}</td>
                                         <td>
                                             @if ($booking->room && $booking->room->roomType)
-                                                {{ $booking->room->room_number }} -
-                                                {{ Str::limit($booking->room->roomType->type_name, 5) }}
+                                                {{ $booking->room->room_number }} - {{ Str::limit($booking->room->roomType->type_name, 15) }}
                                             @else
-                                                {{ $booking->room->room_number ?? 'N/A' }} -
-                                                {{ $booking->room->roomType->type_name ?? 'N/A' }}
+                                                N/A
                                             @endif
                                         </td>
-                                        {{-- <td>
-                                            {{ Str::limit(\Carbon\Carbon::parse($booking->check_in_date)->translatedFormat('d F Y'), 10) }}
-                                        </td> --}}
+                                        <td>{{ date('d-m-Y', strtotime($booking->check_in_date)) }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($booking->check_out_date)) }}</td>
+                                        <td>{{ $booking->total_adults }}</td>
+                                        <td>{{ $booking->total_children }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($booking->created_at)) }}</td>
                                         <td>
-                                            {{ date('d-m-Y', strtotime($booking->check_in_date)) }}
+                                            <span class="badge 
+                                                @if ($booking->status == 'Pending') bg-warning 
+                                                @elseif ($booking->status == 'Approved') bg-primary 
+                                                @elseif ($booking->status == 'Checked-In') bg-info 
+                                                @elseif ($booking->status == 'Checked-Out') bg-success 
+                                                @elseif ($booking->status == 'Completed') bg-success 
+                                                @elseif ($booking->status == 'Cancelled') bg-danger 
+                                                @endif">
+                                                {{ $booking->status }}
+                                            </span>
                                         </td>
-                                        <td>
-                                            {{ date('d-m-Y', strtotime($booking->check_out_date)) }}
-                                        </td>
-                                        <td class="">
-                                            {{ $booking->total_adults }}
-                                        <td>
-                                            {{ $booking->total_children }}
-                                        </td>
-                                        <td>
-                                            {{ date('d-m-Y', strtotime($booking->created_at)) }}
-                                        </td>
-                                        {{-- <td>
-                                           
-                                            
-                                            <form method="POST" action="{{ route('booking.toggleActive', $booking->id) }}">
-                                                @csrf
-                                                <div class="three-state-switch">
-                                                    <div class="slider" data-status="{{ $booking->status }}">
-                                                        <span class="label pending">P</span>
-                                                        <span class="label confirmed">Con</span>
-                                                        <span class="label canceled">Can</span>
-                                                        <div class="knob"></div>
-                                                    </div>
-                                                    <input type="hidden" name="status" id="status" value="{{ $booking->status }}">
-                                                </div>
-                                            </form>                                                             
-                                        </td> --}}
-                                        <td>
-                                            {{-- <form method="POST"
-                                                action="{{ route('booking.toggleActive', $booking->id) }}">
-                                                @csrf
-                                                <div class="d-flex gap-2">
-                                                    @if ($booking->status == 'staying')
-                                                    <button type="submit" name="status" value="staying"
-                                                        class="badge badge-success {{ $booking->status == 'staying' ? 'badge-active' : '' }}">
-                                                        @lang('label.staying')
-                                                    </button>
-                                                    @elseif($booking->status == 'confirmed')
-                                                    <button type="submit" name="status" value="confirmed"
-                                                        class="badge badge-primary {{ $booking->status == 'confirmed' ? 'badge-active' : '' }}">
-                                                        @lang('label.confirmed')
-                                                    </button>
-                                                    @elseif($booking->status == 'leave')
-
-                                                    <button type="submit" name="status" value="leave"
-                                                        class="badge badge-danger {{ $booking->status == 'leave' ? 'badge-active' : '' }}">
-                                                       ស្នាក់នៅ
-                                                    </button>
-                                                    @endif
-                                                </div>
-                                            </form> --}}
-                                            {{-- <form method="POST" action="{{ route('booking.toggleActive', $booking->id) }}">
-                                                @csrf
-                                                <div class="d-flex gap-2">
-                                                    @if ($booking->status == 'staying')
-                                                        <button type="submit" name="status" value="staying" 
-                                                            class="badge badge-success">
-                                                            @lang('label.staying') <!-- Currently Staying -->
-                                                        </button>
-                                                    @elseif($booking->status == 'confirmed')
-                                                        <button type="submit" name="status" value="stay" 
-                                                            class="badge badge-primary">
-                                                            @lang('label.confirmed') <!-- Switch to Staying -->
-                                                        </button>
-                                                    @elseif($booking->status == 'leave')
-                                                        <button type="submit" name="status" value="leave" 
-                                                            class="badge badge-danger">
-                                                            ស្នាក់នៅ <!-- Switch to Left -->
-                                                        </button>
-                                                    @endif
-                                                </div>
-                                            </form>       --}}
-
-                                            {{-- <form method="POST" action="{{ route('booking.toggleActive', $booking->id) }}">
-                                                                                    @csrf
-                                                                                    <div class="d-flex gap-2">
-                                                                                        @if ($booking->status == 'confirmed' || $booking->status == 'stay')
-                                                                                            <!-- Show 'Stay' and 'Confirmed' buttons initially -->
-                                                                                            <button type="submit" name="status" value="staying"
-                                                                                                class="badge badge-success">
-                                                                                                @lang('label.stay') <!-- Switch to Staying -->
-                                                                                            </button>
-                                                                                            <button type="submit" name="status" value="leave"
-                                                                                                class="badge badge-danger">
-                                                                                                @lang('label.confirmed') <!-- Switch to Leave -->
-                                                                                            </button>
-                                                                                        @elseif($booking->status == 'staying')
-                                                                                            <!-- Show 'Staying' and 'Leave' buttons -->
-                                                                                            <button type="submit" name="status" value="staying"
-                                                                                                class="badge badge-success">
-                                                                                                @lang('label.staying') <!-- Already Staying -->
-                                                                                            </button>
-                                                                                            <button type="submit" name="status" value="leave"
-                                                                                                class="badge badge-danger">
-                                                                                                @lang('label.leave') <!-- Switch to Leave -->
-                                                                                            </button>
-                                                                                        @endif
-                                                                                    </div>
-                                                                                </form> --}}
-
-
-                                            {{-- <form method="POST"
-                                                action="{{ route('booking.toggleActive', $booking->id) }}">
-                                                @csrf
-                                                <div class="d-flex gap-2">
-                                                    @if ($booking->status === 'confirmed')
-                                                        <!-- Show 'Check-In' button -->
-                                                        <button type="submit" name="status" value="checked-in"
-                                                            class="badge badge-success btn  {{ $booking->status == 'confirmed' ? 'badge-active' : '' }}">
-                                                            @lang('label.check_in') <!-- Switch to Checked-In -->
-                                                        </button>
-                                                        <!-- Disabled 'Confirmed' badge -->
-                                                        <span class="badge badge-secondary btn btn-secondary"
-                                                            style="cursor: not-allowed; padding-top: 5.5px !important;border: 1px solid #ccc;box-shadow: 0px 0px 3px #868c93;">
-                                                            @lang('label.confirmed')
-                                                        </span>
-                                                    @elseif ($booking->status === 'checked-in')
-                                                        <!-- Show 'Checked-In' badge -->
-                                                        <span class="badge badge-success btn btn-success"
-                                                            style="cursor: not-allowed; padding-top: 5px !important;border: 1px solid #47df61;box-shadow: 0px 0px 3px #5c9d5c;">
-                                                            @lang('label.checked_in')
-                                                        </span>
-                                                        <!-- Show 'Check-Out' button -->
-                                                        <button type="submit" name="status" value="checked-out"
-                                                            style="padding-top: 5px !important;border: 1px solid hsl(5, 80%, 50%);box-shadow: 0px 0px 3px #c93514;"
-                                                            class="badge badge-danger btn btn-danger">
-                                                            @lang('label.check_out') <!-- Switch to Checked-Out -->
-                                                        </button>
-                                                        @elseif ($booking->status === 'checked-out')
-                                                        <!-- Disabled 'Checked-Out' badge -->
-                                                        <span class="badge badge-secondary btn btn-secondary"
-                                                            style="cursor: not-allowed; padding-top: 5px !important;border: 1px solid hsl(7, 4%, 46%);box-shadow: 0px 0px 3px #bbb6b5;">
-                                                            @lang('label.checked_out')
-                                                        </span>
-                                                        
-                                                        
-                                                    @else
-                                                        <!-- Default fallback: Show status as badge -->
-                                                        <span class="badge badge-info btn btn-info"
-                                                            style="cursor: default;">
-                                                            {{ ucfirst($booking->status) }}
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                            </form> --}}
-
-                                            {{-- <form method="POST" action="{{ route('booking.toggleActive', $booking->id) }}">
-                                                @csrf
-                                                <div class="d-flex gap-2">
-                                                    @if ($booking->status === 'confirmed')
-                                                        <!-- Show 'Check-In' button -->
-                                                        <button type="submit" name="status" value="checked-in"
-                                                            class="badge badge-success btn {{ $booking->status == 'confirmed' ? 'badge-active' : '' }}">
-                                                            @lang('label.check_in') <!-- Switch to Checked-In -->
-                                                        </button>
-                                                        <!-- Show 'Cancel' button -->
-                                                        <button type="submit" name="status" value="cancelled"
-                                                            class="badge badge-danger btn btn-danger" style="padding-top: 5.5px !important;border: 1px solid #ccc;box-shadow: 0px 0px 3px #868c93;">
-                                                            @lang('label.cancel') <!-- Cancel the booking -->
-                                                        </button>
-                                                        <!-- Disabled 'Confirmed' badge -->
-                                                        <span class="badge badge-secondary btn btn-secondary"
-                                                            style="cursor: not-allowed; padding-top: 5.5px !important;border: 1px solid #ccc;box-shadow: 0px 0px 3px #868c93;">
-                                                            @lang('label.confirmed')
-                                                        </span>
-                                                    @elseif ($booking->status === 'checked-in')
-                                                        <!-- Show 'Checked-In' badge -->
-                                                        <span class="badge badge-success btn btn-success"
-                                                            style="cursor: not-allowed; padding-top: 5px !important;border: 1px solid #47df61;box-shadow: 0px 0px 3px #5c9d5c;">
-                                                            @lang('label.checked_in')
-                                                        </span>
-                                                        <!-- Show 'Check-Out' button -->
-                                                        <button type="submit" name="status" value="checked-out"
-                                                            style="padding-top: 5px !important;border: 1px solid hsl(5, 80%, 50%);box-shadow: 0px 0px 3px #c93514;"
-                                                            class="badge badge-danger btn btn-danger">
-                                                            @lang('label.check_out') <!-- Switch to Checked-Out -->
-                                                        </button>
-                                                    @elseif ($booking->status === 'checked-out')
-                                                        <!-- Disabled 'Checked-Out' badge -->
-                                                        <span class="badge badge-secondary btn btn-secondary"
-                                                            style="cursor: not-allowed; padding-top: 5px !important;border: 1px solid hsl(7, 4%, 46%);box-shadow: 0px 0px 3px #bbb6b5;">
-                                                            @lang('label.checked_out')
-                                                        </span>
-                                                    @elseif ($booking->status === 'cancelled')
-                                                        <!-- Disabled 'Cancelled' badge -->
-                                                        <span class="badge badge-secondary btn btn-secondary"
-                                                            style="cursor: not-allowed; padding-top: 5px !important;border: 1px solid hsl(7, 4%, 46%);box-shadow: 0px 0px 3px #bbb6b5;">
-                                                            @lang('label.cancelled')
-                                                        </span>
-                                                    @else
-                                                        <!-- Default fallback: Show status as badge -->
-                                                        <span class="badge badge-info btn btn-info" style="cursor: default;">
-                                                            {{ ucfirst($booking->status) }}
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                            </form> --}}
-
-                                            <form method="POST"
-                                                action="{{ route('booking.toggleActive', $booking->id) }}">
-                                                @csrf
-                                                <div class="d-flex gap-2">
-                                                    @if ($booking->status === 'confirmed')
-                                                        @php
-                                                            $currentDate = \Carbon\Carbon::now();
-                                                            $checkInDate = \Carbon\Carbon::parse(
-                                                                $booking->check_in_date,
-                                                            );
-                                                        @endphp
-
-                                                        <!-- Check if the current date is past the check-in date -->
-                                                        @if ($currentDate->gt($checkInDate))
-                                                            <!-- Disabled 'Check-In' button if the date has expired -->
-                                                            <button type="button" disabled
-                                                                class="badge badge-secondary btn btn-secondary"
-                                                                style="cursor: not-allowed; padding-top: 5.5px !important; border: 1px solid #ccc; box-shadow: 0px 0px 3px #868c93;">
-                                                                @lang('label.check_in') <!-- Disabled Check-In -->
-                                                            </button>
-                                                        @else
-                                                            <!-- Show 'Check-In' button -->
-                                                            <button type="submit" name="status" value="checked-in"
-                                                                class="badge badge-success btn {{ $booking->status == 'confirmed' ? 'badge-active' : '' }}">
-                                                                @lang('label.check_in') <!-- Switch to Checked-In -->
-                                                            </button>
-                                                        @endif
-
-                                                        <!-- Show 'Cancel' button -->
-                                                        <button type="submit" name="status" value="cancelled"
-                                                            class="badge badge-danger btn btn-danger"
-                                                            style="padding-top: 5.5px !important; border: 1px solid #ccc; box-shadow: 0px 0px 3px #868c93;">
-                                                            @lang('label.cancel') <!-- Cancel the booking -->
-                                                        </button>
-
-                                                        <!-- Disabled 'Confirmed' badge -->
-                                                        <span class="badge badge-secondary btn btn-secondary"
-                                                            style="cursor: not-allowed; padding-top: 5.5px !important; border: 1px solid #ccc; box-shadow: 0px 0px 3px #868c93;">
-                                                            @lang('label.confirmed')
-                                                        </span>
-                                                    @elseif ($booking->status === 'checked-in')
-                                                        <!-- Show 'Checked-In' badge -->
-                                                        <span class="badge badge-success btn btn-success"
-                                                            style="cursor: not-allowed; padding-top: 5px !important; border: 1px solid #47df61; box-shadow: 0px 0px 3px #5c9d5c;">
-                                                            @lang('label.checked_in')
-                                                        </span>
-                                                        <!-- Show 'Check-Out' button -->
-                                                        <button type="submit" name="status" value="checked-out"
-                                                            style="padding-top: 5px !important; border: 1px solid hsl(5, 80%, 50%); box-shadow: 0px 0px 3px #c93514;"
-                                                            class="badge badge-danger btn btn-danger">
-                                                            @lang('label.check_out') <!-- Switch to Checked-Out -->
-                                                        </button>
-                                                    @elseif ($booking->status === 'checked-out')
-                                                        <!-- Disabled 'Checked-Out' badge -->
-                                                        <span class="badge badge-secondary btn btn-secondary"
-                                                            style="cursor: not-allowed; padding-top: 5px !important; border: 1px solid hsl(7, 4%, 46%); box-shadow: 0px 0px 3px #bbb6b5;">
-                                                            @lang('label.checked_out')
-                                                        </span>
-                                                    @elseif ($booking->status === 'cancelled')
-                                                        <!-- Disabled 'Cancelled' badge -->
-                                                        <span class="badge badge-secondary btn btn-secondary"
-                                                            style="cursor: not-allowed; padding-top: 5px !important; border: 1px solid hsl(7, 4%, 46%); box-shadow: 0px 0px 3px #bbb6b5;">
-                                                            @lang('label.cancelled')
-                                                        </span>
-                                                    @else
-                                                        <!-- Default fallback: Show status as badge -->
-                                                        <span class="badge badge-info btn btn-info"
-                                                            style="cursor: default;">
-                                                            {{ ucfirst($booking->status) }}
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                            </form>
-                                        </td>
-
-
-
                                         <td class="table-action">
-                                            <a href="{{ route('rooms.show', $booking->id) }}"
-                                                class="action-icon text-success"> <i class="mdi mdi-eye"></i></a>
-                                            <a href="{{ url('bookings/' . $booking->id . '/edit') }}"
-                                                class="action-icon text-primary">
-                                                <i class="mdi mdi-square-edit-outline"></i></a>
-                                            <a href="{{ url('bookings/' . $booking->id . '/delete') }}"
-                                                onclick="confirmation(event)" class="action-icon text-danger"> <i
-                                                    class="mdi mdi-delete"></i></a>
+                                            <!-- Status-based actions -->
+                                            @if ($booking->status == 'Pending')
+                                            <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Approved']) }}" class="btn btn-sm btn-success">Approve</a>
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}" 
+                                                   class="btn btn-sm btn-danger">Cancel</a>
+                                            @elseif ($booking->status == 'Approved')
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Checked-In']) }}" 
+                                                   class="btn btn-sm btn-info">Check-In</a>
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}" 
+                                                   class="btn btn-sm btn-danger">Cancel</a>
+                                            @elseif ($booking->status == 'Checked-In')
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Checked-Out']) }}" 
+                                                   class="btn btn-sm btn-primary">Check-Out</a>
+                                            @elseif ($booking->status == 'Checked-Out')
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Completed']) }}" 
+                                                   class="btn btn-sm btn-success">Complete</a>
+                                            @endif
+                        
+                                            <!-- Common actions -->
+                                            <a href="{{ route('rooms.show', $booking->id) }}" class="action-icon text-success"> 
+                                                <i class="mdi mdi-eye"></i>
+                                            </a>
+                                            <a href="{{ url('bookings/' . $booking->id . '/edit') }}" class="action-icon text-primary">
+                                                <i class="mdi mdi-square-edit-outline"></i>
+                                            </a>
+                                            <a href="{{ url('bookings/' . $booking->id . '/delete') }}" onclick="confirmation(event)" 
+                                               class="action-icon text-danger"> 
+                                                <i class="mdi mdi-delete"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        
                     </div>
                 </div>
             </div>

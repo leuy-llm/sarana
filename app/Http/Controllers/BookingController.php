@@ -332,4 +332,133 @@ class BookingController extends Controller
         // If invalid transition, redirect with an error
         return redirect()->back()->with('error', __('Invalid status transition!'));
     }
+
+
+    /**
+     * Update the status of a booking.
+     *
+     * @param int $id
+     * @param string $status
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateStatus($id, $status)
+    {
+        // Validate the provided status
+        $validStatuses = ['Pending', 'Approved', 'Checked-In', 'Checked-Out', 'Completed', 'Cancelled'];
+
+        if (!in_array($status, $validStatuses)) {
+            return redirect()->back()->with('error', 'Invalid status provided.');
+        }
+
+        // Find the booking
+        $booking = Booking::find($id);
+
+        if (!$booking) {
+            return redirect()->back()->with('error', 'Booking not found.');
+        }
+
+        // Update the status
+        $booking->status = $status;
+        $booking->save();
+
+        // Log the status change for audit purposes (optional)
+        Log::info("Booking ID {$id} status updated to {$status} by user ID " . auth()->id());
+
+        // Handle additional logic based on the status
+        if ($status === 'Checked-In') {
+            // Perform actions related to check-in
+            $this->handleCheckIn($booking);
+        } elseif ($status === 'Checked-Out') {
+            // Perform actions related to check-out
+            $this->handleCheckOut($booking);
+        } elseif ($status === 'Completed') {
+            // Perform actions related to booking completion
+            $this->handleCompletion($booking);
+        } elseif ($status === 'Cancelled') {
+            // Handle cancellation (e.g., refund payment)
+            $this->handleCancellation($booking);
+        }
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Booking status updated successfully.');
+    }
+
+    /**
+     * Handle actions for Checked-In status.
+     *
+     * @param \App\Models\Booking $booking
+     * @return void
+     */
+    protected function handleCheckIn(Booking $booking)
+    {
+        // Example: Mark the room as occupied
+        if ($booking->room) {
+            $booking->room->update(['is_occupied' => true]);
+        }
+
+        // Add any additional logic for check-in
+    }
+
+    /**
+     * Handle actions for Checked-Out status.
+     *
+     * @param \App\Models\Booking $booking
+     * @return void
+     */
+    protected function handleCheckOut(Booking $booking)
+    {
+        // Example: Mark the room as available
+        if ($booking->room) {
+            $booking->room->update(['is_occupied' => false]);
+        }
+
+        // Add any additional logic for check-out
+    }
+
+    /**
+     * Handle actions for Completed status.
+     *
+     * @param \App\Models\Booking $booking
+     * @return void
+     */
+    protected function handleCompletion(Booking $booking)
+    {
+        // Example: Generate an invoice or summary report
+        // Add any additional logic for booking completion
+    }
+
+    /**
+     * Handle actions for Cancelled status.
+     *
+     * @param \App\Models\Booking $booking
+     * @return void
+     */
+    protected function handleCancellation(Booking $booking)
+    {
+        // Example: Process refund if payment has been made
+        if ($booking->payment) {
+            $this->processRefund($booking->payment);
+        }
+
+        // Add any additional logic for cancellation
+    }
+
+    /**
+     * Process refund for a payment (example method).
+     *
+     * @param \App\Models\Payment $payment
+     * @return void
+     */
+    protected function processRefund($payment)
+    {
+        // Example logic for refunding a payment using Stripe
+        try {
+            \Stripe\Refund::create([
+                'payment_intent' => $payment->payment_intent_id,
+                'amount' => $payment->amount,
+            ]);
+        } catch (\Exception $e) {
+            Log::error("Refund failed for payment ID {$payment->id}: " . $e->getMessage());
+        }
+    }
 }

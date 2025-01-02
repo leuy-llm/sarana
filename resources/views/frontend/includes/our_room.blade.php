@@ -37,10 +37,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <style>
-       
-        .room-card {
+        /* .room-card {
             position: relative;
             overflow: hidden;
             text-align: center;
@@ -72,7 +72,7 @@
             transform: translateX(-50%);
             color: white;
             padding: 15px 10px;
-            /* font-weight: bold; */
+           
             transition: background-color 0.3s ease-in-out;
             width: calc(100% - 30px);
             background: #ffa37b;
@@ -116,7 +116,6 @@
             opacity: 1;
         }
 
-        /* Search Icon with Animation */
         .room-card .search-icon {
             position: absolute;
             top: 40%;
@@ -136,9 +135,126 @@
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
             text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        } */
+
+
+        .room-card {
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            height: 100%;
+        }
+
+        .room-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .room-card:hover img {
+            transform: scale(1.1);
+            filter: brightness(70%);
+
+        }
+
+        .room-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            /* background: rgba(0, 0, 0, 0.7); */
+            color: white;
+            text-align: left;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .room-info h5 {
+            font-weight: bold;
+            font-size: 25px;
+            color: white;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .room-info small {
+            font-family: 'Source Sans Pro', sans-serif;
+
+        }
+
+        .room-card:hover .room-info {
+            padding: 1.5rem;
+        }
+
+        .read-more-btn {
+            display: none;
+            margin-top: 0.5rem;
+            /* background: rgba(255, 255, 255, 0.8); */
+            background: rgba(0, 0, 0, 0.4);
+            /* background-color: transparent !important; */
+
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            font-family: 'Source Sans Pro', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .read-more-btn:hover {
+            background: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
+
+        /* .read-more-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            width: 100%;
+            background-color: rgb(241, 141, 9);
+
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s ease-in-out;
+        } */
+
+        .read-more-btn:hover::after {
+            transform: scaleX(1);
+        }
+
+        .room-card:hover .read-more-btn {
+            display: inline-block;
+        }
+
+        .view-all-btn {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: end;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .equal-height {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .equal-height>.col-md-4 {
+            display: flex;
         }
     </style>
-    <div class="container mt-5" >
+    {{-- <div class="container mt-5" >
         <div class="owl-carousel">
             @foreach ($rooms as $data)
                 <div class="room-card">
@@ -157,11 +273,38 @@
                 </div>
             @endforeach
         </div>
+    </div> --}}
+
+    <div class="container text-center mt-5">
+        <div class="row g-4 equal-height">
+            @foreach ($rooms as $room)
+                <div class="col-md-{{ $loop->index === 0 ? '6' : '3' }}">
+                    <!-- Dynamic column size for the first item -->
+                    <div class="room-card">
+                        <img src="{{ $room->images->isNotEmpty() ? asset('storage/' . $room->images->first()->image) : asset('default-image.jpg') }}"
+                            alt="{{ $room->roomType->type_name }}">
+                        <div class="room-info">
+                            <small>FROM ${{ $room->price }}/NIGHT</small>
+                            <h5>{{ $room->roomType->type_name }}</h5>
+                            <button class="read-more-btn rounded-pill">Read More <i
+                                    class="bi bi-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+            <!-- View All Button -->
+            {{-- <div class="view-all-btn">
+                <button class="btn btn-outline-dark rounded-pill text-right px-4">View all Rooms</button>
+            </div> --}}
+        </div>
+
     </div>
 
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     $(".owl-carousel").owlCarousel({

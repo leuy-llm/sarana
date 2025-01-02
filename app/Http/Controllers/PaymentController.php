@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BookingStatusMail;
 use App\Models\Booking;
 use App\Models\Payment;
 use App\Models\Room;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Stripe\Charge;
 use Stripe\PaymentIntent;
@@ -212,6 +214,7 @@ public function processPayment(Request $request)
             'confirmation_method' => 'manual',
             'confirm' => true,
             'customer' => $guest->stripe_id ?? null,
+            // 'description' => 'Room booking payment for booking #' . $booking->id,
             'description' => 'Room booking payment for booking #' . $booking->id,
             'return_url' => route('payment.success') // Define a return URL for success
         ]);
@@ -219,7 +222,7 @@ public function processPayment(Request $request)
         // Check if the payment was successful
         if ($paymentIntent->status === 'succeeded') {
             // Update the booking status to 'confirmed' once the payment is successful
-            $booking->status = 'confirmed';
+             $booking->status = 'approved';
             $booking->save();
 
             // Create a new payment record
@@ -230,10 +233,15 @@ public function processPayment(Request $request)
             $payment->payment_intent_id = $paymentIntent->id; // Store payment_intent_id in the payment table
             $payment->status = $paymentIntent->status;
             $payment->currency = 'usd';
-            $payment->payment_method = 'card';
+            $payment->payment_method = 'card';  
             $payment->save();
 
             // Load necessary relationships for the payment
+
+            // After creating the payment record and saving the data
+
+            Mail::to($guest->email)->send(new BookingStatusMail($booking, $guest, $payment));
+
             $payment->load('guest', 'room.roomType', 'booking');
 
             // Store payment details in the session

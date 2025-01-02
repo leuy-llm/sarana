@@ -119,10 +119,11 @@ Route::post('/payment/complete', [PaymentController::class, 'complete'])->name('
 //     return view('frontend.payment.success');
 // })->name('payment.success');
 
-Route::get('/payment/success',[PaymentController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
 
 // Define the route for proceeding to payment
 Route::post('/proceed-to-payment', [HomeController::class, 'proceedToPayment'])->name('booking.proceedToPayment');
+Route::get('/bookings/{id}/status/{status}', [BookingController::class, 'updateStatus'])->name('booking.status');
 
 // Protect reservation route with 'guest' authentication
 Route::middleware(['auth:guest'])->group(function () {
