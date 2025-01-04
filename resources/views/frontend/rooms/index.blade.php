@@ -67,7 +67,7 @@
             /* border: 1px solid #413d3d; */
             border-radius: 3px 3px;
             /* padding: 20px; */
-            max-width: 350px;   
+            max-width: 350px;
             margin: auto;
 
         }
@@ -327,7 +327,9 @@
             cursor: pointer;
             border-bottom: 1px solid #ddd;
             min-width: 160px;
+
         }
+
 
         .sort-dropdown select:focus {
             border-color: #007bff;
@@ -367,6 +369,93 @@
             transition: background-color 0.5s, border 0.5s;
         }
 
+        .stepper-wrapper {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            /* background: rgba(255, 255, 255, 0.9);
+                                                                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+            border-radius: 3px;
+            padding: 20px;
+        }
+
+        .stepper-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+
+            @media (max-width: 768px) {
+                font-size: 12px;
+            }
+        }
+
+        .border-red {
+            border: 1px solid red;
+            color: red;
+        }
+
+
+        .stepper-item::before {
+            position: absolute;
+            content: "";
+            border-bottom: 2px solid #ccc;
+            width: 100%;
+            top: 20px;
+            left: -50%;
+            z-index: 2;
+        }
+
+        .stepper-item::after {
+            position: absolute;
+            content: "";
+            border-bottom: 2px solid #ccc;
+            width: 100%;
+            top: 20px;
+            left: 50%;
+            z-index: 2;
+        }
+
+        .stepper-item .step-counter {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ccc;
+            margin-bottom: 6px;
+        }
+
+        .stepper-item.active {
+            font-weight: bold;
+        }
+
+        .stepper-item.completed .step-counter {
+            background-color: #ffc107;
+        }
+
+        .stepper-item.completed::after {
+            position: absolute;
+            content: "";
+            border-bottom: 2px solid #ffc107;
+            width: 100%;
+            top: 20px;
+            left: 50%;
+            z-index: 3;
+        }
+
+        .stepper-item:first-child::before {
+            content: none;
+        }
+
+        .stepper-item:last-child::after {
+            content: none;
+        }
     </style>
 @endsection
 @section('content')
@@ -384,12 +473,31 @@
             <div class="row">
                 <div class="col-sm-12 section-title text-center mb-5">
                     {{-- <h3>OUR ROOMS</h3> --}}
-                    <div class="progress-container">
-                        <div class="d-flex justify-content-between">
-                            <div class="progress-step active">Search<br><small>Choose your favorite room</small></div>
-                            <div class="progress-step">Booking<br><small>Enter your booking details</small></div>
-                            <div class="progress-step">Checkout<br><small>Use your preferred payment method</small></div>
-                            <div class="progress-step">Confirmation<br><small>Receive a confirmation email</small></div>
+                    <div class="stepper-wrapper">
+                        <div class="stepper-item active">
+                            <div class="step-counter">1</div>
+                            <div class="step-name" style="margin-top: 5px;">Search</div>
+                            <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
+
+                        </div>
+                        <div class="stepper-item">
+                            <div class="step-counter">2</div>
+                            <div class="step-name" style="margin-top: 5px;">Booking</div>
+                            <div class="step-name" style="font-size: 12px;">Enter your booking details</div>
+
+                        </div>
+                        <div class="stepper-item ">
+                            <div class="step-counter">3</div>
+                            <div class="step-name" style="margin-top: 5px;">Checkout</div>
+                            <div class="step-name" style="font-size: 12px;">Use your preferred payment method
+                                Confirmation
+                            </div>
+                        </div>
+                        <div class="stepper-item">
+                            <div class="step-counter">4</div>
+                            <div class="step-name" style="margin-top: 5px;">Confirmation
+                            </div>
+                            <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
                         </div>
                     </div>
                     <div class="h-line bg-dark"></div>
@@ -401,41 +509,6 @@
                         <div class="search-header">
                             <i class="fas fa-search"></i> Modify Search
                         </div>
-                        {{-- <form id="filter-form" method="GET" action="{{ route('rooms.filter') }}">
-                            <div class="px-3 pt-3">
-                                <label for="checkin" class="form-label">Check In</label>
-                                <input type="date" name="check_in" id="checkin" class="form-control shadow-none me-1" required>
-                            </div>
-                            <div class="px-3">
-                                <label for="checkout" class="form-label">Check Out</label>
-                                <input type="date" name="check_out" id="checkout" class="form-control shadow-none me-1" required>
-                            </div>
-                            <div class="footer-label p-3">
-                                <div class="d-flex justify-content-center align-items-center gap-4">
-                                    <div>
-                                        <label for="adults" class="form-label">Adults</label>
-                                        <select name="adults" id="adults" class="form-select form-control shadow-none" required>
-                                            <option value="" disabled selected>Select adults</option>
-                                            @for ($i = 1; $i <= 10; $i++)
-                                                <option value="{{ $i }}">{{ $i }} Adult{{ $i > 1 ? 's' : '' }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="ml-3">
-                                        <label for="children" class="form-label">Children</label>
-                                        <select name="children" id="children" class="form-select form-control shadow-none me-1" required>
-                                            <option value="" disabled selected>Select children</option>
-                                            @for ($i = 1; $i <= 10; $i++)
-                                                <option value="{{ $i }}">{{ $i }} Children{{ $i > 1 ? 's' : '' }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="px-3 mb-3">
-                                <button type="submit" class="btn btn-primary shadow-none py-2 w-100" style="border-radius: 0;">Search Rooms</button>
-                            </div>
-                        </form>                         --}}
                         <form id="filter-form">
                             <div class="px-3 pt-3">
                                 <label for="checkin" class="form-label">Check In</label>
@@ -489,24 +562,7 @@
                 </div>
                 <div class="col-lg-9 col-md-12">
                     <div id="rooms-container" class="container py-4">
-                        <div class="results-header">
-                            <div class="d-flex justify-content-between align-items-center py-2 w-100">
-                                <!-- Left Side: Sort Dropdown -->
-                                <span class="total-rooms d-flex align-items-center">
-                                    You found <strong>{{ $rooms->count() }}</strong> rooms
-                                </span>
-                                </span>
-                                <div class="d-flex align-items-center sort-dropdown">
-                                    {{-- <span class="text-primary me-1 small">Sort by</span> --}}
-                                    <select class="form-select form-select-sm shadow-none">
-                                        <option value="default">Sort by: Default</option>
-                                        <option value="price_low_high">Sort by: Lowest Price</option>
-                                        <option value="price_high_low">Sort by: Highest Price</option>
 
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         @foreach ($rooms as $room)
                             <div class="card mb-4 shadow border-0">
                                 <div class="row g-0">
@@ -522,35 +578,23 @@
                                                 <i class="bi bi-geo-alt-fill text-primary"></i> Siem Reap
                                             </p>
                                             @if ($room->special_price)
-                                                <h6 class="mb-2 text-uppercase" style="margin-top: -5px;">Special Price</h6>
+                                                <h6 class="mb-2 text-uppercase" style="margin-top: -5px;">Special Price
+                                                </h6>
                                                 <div class="text-success">
                                                     <strong>$ {{ number_format($room->special_price, 0) }}</strong>
                                                     <span class="original-price ms-2">
                                                         $ {{ number_format($room->price, 0) }}
                                                     </span>
                                                 </div>
-                                                {{-- @else
-                                                <div>
-                                                    <strong>$ {{ number_format($room->price, 0) }}</strong>
-                                                </div> --}}
                                             @endif
-
-
-
                                             <div class="d-flex align-items-center">
                                                 @for ($i = 1; $i <= 5; $i++)
                                                     <i
                                                         class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-1 text-muted' }}"></i>
                                                 @endfor
-                                                {{-- <span class="ms-2">({{ $room->rating }} / 5)</span> --}}
+
                                             </div>
-                                            {{-- <h6 class="mt-3">Facilities</h6>
-                                            @if ($room->facilities->isNotEmpty())
-                                                @foreach ($room->facilities as $facility)
-                                                    <span
-                                                        class="badge bg-light text-dark text-wrap">{{ $facility->name }}</span>
-                                                @endforeach
-                                            @endif --}}
+
                                             <h6 class="mt-3 text-uppercase">Guests</h6>
                                             <div>
                                                 <span class="badge bg-light text-dark">Max: {{ $room->max_person }}
@@ -562,7 +606,9 @@
                                         class="col-md-2 d-flex flex-column justify-content-center align-items-center text-center bg-light">
                                         <div>
                                             @if ($room->special_price)
-                                                <span class="badge bg-danger text-white p-2 rounded-0 mb-2 mt-3 text-uppercase">SPECIAL OFFER</span>
+                                                <span
+                                                    class="badge bg-danger text-white p-2 rounded-0 mb-2 mt-3 text-uppercase">SPECIAL
+                                                    OFFER</span>
                                                 <p class="mb-1 text-muted text-uppercase">From</p>
                                                 <h5 class="text-primary">${{ number_format($room->special_price, 0) }}
                                                 </h5>
@@ -573,17 +619,17 @@
                                                 <p class="text-muted text-uppercase">per night</p>
                                             @endif
                                         </div>
-                                       
+
                                         {{-- <a href="{{ route('books.create', ['room_id' => $room->id, 'check_in' => $checkIn, 'check_out' => $checkOut, 'adults' => $adults, 'children' => $children]) }}"
                                             class=" mb-2 text-left py-1 w-100 text-primary text-decoration-none shadow-none px-2"
                                             style="font-size: 14px;background:#f1f2f3;">
                                             Select Booking Date
                                         </a> --}}
-                                        <a href="#" 
+                                        <a href="#"
                                             class="select-booking-date mb-2 text-left py-1 w-100 text-primary text-decoration-none shadow-none px-2"
                                             style="font-size: 14px; background:#f1f2f3;">
-                                                Select Booking Date
-                                            </a>
+                                            Select Booking Date
+                                        </a>
 
                                     </div>
                                 </div>
@@ -603,31 +649,83 @@
 @endsection
 @section('script')
     <script>
-        //        $(document).ready(function () {
-        //     $('#search-btn').on('click', function (e) {
-        //         e.preventDefault(); // Prevent default form submission
-        //         const form = $('#filter-form');
-        //         const formData = form.serialize(); // Serialize form data
+        // $(document).ready(function() {
+        //     function fetchRooms(url) {
         //         const roomsContainer = $('#rooms-container');
+        //         const formData = $('#filter-form').serialize(); // Include form data for filtering
 
         //         $.ajax({
-        //             url: "{{ route('rooms.filter') }}",
+        //             url: url,
         //             method: "GET",
         //             data: formData,
-        //             beforeSend: function () {
+        //             beforeSend: function() {
         //                 roomsContainer.html('<p>Loading rooms...</p>'); // Loading message
         //             },
-        //             success: function (response) {
+        //             success: function(response) {
         //                 roomsContainer.html(response); // Update the room list dynamically
         //             },
-        //             error: function (xhr, status, error) {
+        //             error: function(xhr, status, error) {
         //                 console.error('Error fetching rooms:', error);
         //                 roomsContainer.html('<p>Failed to load rooms. Please try again.</p>');
         //             }
         //         });
+        //     }
+
+        //     // Handle form submission
+        //     $('#search-btn').on('click', function(e) {
+        //         e.preventDefault();
+        //         fetchRooms("{{ route('rooms.filter') }}");
+        //     });
+
+        //     // Handle pagination link clicks
+        //     $(document).on('click', '.pagination-links a', function(e) {
+        //         e.preventDefault();
+        //         const url = $(this).attr('href');
+        //         fetchRooms(url);
         //     });
         // });
 
+        // // Initialize the noUiSlider
+        // const priceSlider = document.getElementById('price-range-slider');
+
+        // noUiSlider.create(priceSlider, {
+        //     start: [50, 1000], // Default range values
+        //     connect: true, // Connect the handles
+        //     range: {
+        //         min: 0, // Minimum value
+        //         max: 2000 // Maximum value
+        //     },
+        //     step: 50, // Increment step
+        //     tooltips: [true, true] // Display tooltips
+        // });
+
+        // // Update the displayed values dynamically
+        // const priceMin = document.getElementById('price-min');
+        // const priceMax = document.getElementById('price-max');
+
+        // priceSlider.noUiSlider.on('update', function(values, handle) {
+        //     if (handle === 0) {
+        //         priceMin.textContent = Math.round(values[0]);
+        //     } else {
+        //         priceMax.textContent = Math.round(values[1]);
+        //     }
+        // });
+
+        // // Pass the values to the filter form when submitting
+        // $('#search-btn').on('click', function() {
+        //     const priceValues = priceSlider.noUiSlider.get();
+        //     $('<input>').attr({
+        //         type: 'hidden',
+        //         name: 'price_min',
+        //         value: Math.round(priceValues[0])
+        //     }).appendTo('#filter-form');
+
+        //     $('<input>').attr({
+        //         type: 'hidden',
+        //         name: 'price_max',
+        //         value: Math.round(priceValues[1])
+        //     }).appendTo('#filter-form');
+        // });
 
         $(document).ready(function() {
             function fetchRooms(url) {
@@ -651,10 +749,70 @@
                 });
             }
 
+            // Disable "Check-out" field initially
+            $('#checkout').prop('disabled', true);
+
+            // Update "Check-out" min date and enable it based on "Check-in" selection
+            $('#checkin').on('change', function() {
+                const checkinDate = $(this).val();
+
+                if (checkinDate) {
+                    $('#checkout')
+                        .attr('min', checkinDate) // Set min date
+                        .prop('disabled', false); // Enable the field
+                } else {
+                    $('#checkout')
+                        .prop('disabled', true) // Disable the field
+                        .val(''); // Clear the value
+                }
+            });
+
             // Handle form submission
             $('#search-btn').on('click', function(e) {
                 e.preventDefault();
+
+                // Validation
+                let isValid = true;
+                const fieldsToValidate = ['#checkin', '#checkout', '#adults', '#children'];
+
+                fieldsToValidate.forEach((field) => {
+                    const input = $(field);
+                    if (!input.val()) {
+                        input.addClass('border-red');
+                        isValid = false;
+                    } else {
+                        input.removeClass('border-red');
+                    }
+                });
+
+                if (!isValid) {
+                    // Focus on the first invalid field
+                    $(fieldsToValidate.find((field) => !$(field).val())).focus();
+                    return;
+                }
+
+                // Pass the price range to the form
+                const priceValues = priceSlider.noUiSlider.get();
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'price_min',
+                    value: Math.round(priceValues[0])
+                }).appendTo('#filter-form');
+
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'price_max',
+                    value: Math.round(priceValues[1])
+                }).appendTo('#filter-form');
+
                 fetchRooms("{{ route('rooms.filter') }}");
+            });
+
+            // Handle immediate removal of the red border on input change
+            $('#filter-form').on('input change', 'input, select', function() {
+                if ($(this).val()) {
+                    $(this).removeClass('border-red');
+                }
             });
 
             // Handle pagination link clicks
@@ -663,61 +821,47 @@
                 const url = $(this).attr('href');
                 fetchRooms(url);
             });
+
+            // Initialize the noUiSlider
+            const priceSlider = document.getElementById('price-range-slider');
+            noUiSlider.create(priceSlider, {
+                start: [50, 1000],
+                connect: true,
+                range: {
+                    min: 0,
+                    max: 2000
+                },
+                step: 50,
+                tooltips: [true, true]
+            });
+
+            const priceMin = document.getElementById('price-min');
+            const priceMax = document.getElementById('price-max');
+
+            priceSlider.noUiSlider.on('update', function(values, handle) {
+                if (handle === 0) {
+                    priceMin.textContent = Math.round(values[0]);
+                } else {
+                    priceMax.textContent = Math.round(values[1]);
+                }
+            });
         });
 
-        // Initialize the noUiSlider
-        const priceSlider = document.getElementById('price-range-slider');
-
-        noUiSlider.create(priceSlider, {
-            start: [50, 1000], // Default range values
-            connect: true, // Connect the handles
-            range: {
-                min: 0, // Minimum value
-                max: 2000 // Maximum value
-            },
-            step: 50, // Increment step
-            tooltips: [true, true] // Display tooltips
-        });
-
-        // Update the displayed values dynamically
-        const priceMin = document.getElementById('price-min');
-        const priceMax = document.getElementById('price-max');
-
-        priceSlider.noUiSlider.on('update', function(values, handle) {
-            if (handle === 0) {
-                priceMin.textContent = Math.round(values[0]);
-            } else {
-                priceMax.textContent = Math.round(values[1]);
-            }
-        });
-
-        // Pass the values to the filter form when submitting
-        $('#search-btn').on('click', function() {
-            const priceValues = priceSlider.noUiSlider.get();
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'price_min',
-                value: Math.round(priceValues[0])
-            }).appendTo('#filter-form');
-
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'price_max',
-                value: Math.round(priceValues[1])
-            }).appendTo('#filter-form');
-        });
 
 
         //Select Date 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Add click event listener to all "Select Booking Date" links
             document.querySelectorAll('.select-booking-date').forEach(link => {
-                link.addEventListener('click', function (e) {
+                link.addEventListener('click', function(e) {
                     e.preventDefault(); // Prevent default behavior of the link
-                    
+
                     // Scroll to the Check In field
                     const checkInField = document.getElementById('checkin');
-                    checkInField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    checkInField.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
 
                     // Highlight the Check In field (optional)
                     checkInField.classList.add('highlight');
@@ -725,6 +869,5 @@
                 });
             });
         });
-
     </script>
 @endsection

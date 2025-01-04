@@ -132,133 +132,128 @@ class PaymentController extends Controller
     //     }
     // }
 
-//     public function processPayment(Request $request)
-// {
-//     Stripe::setApiKey(env('STRIPE_SECRET'));
+    //     public function processPayment(Request $request)
+    // {
+    //     Stripe::setApiKey(env('STRIPE_SECRET'));
 
-//     // Retrieve the authenticated guest
-//     $guest = auth()->guard('guest')->user();
+    //     // Retrieve the authenticated guest
+    //     $guest = auth()->guard('guest')->user();
 
-//     // Retrieve the room
-    
+    //     // Retrieve the room
 
-//     try {
-//         // Create a PaymentIntent with the specified amount and currency
-//         $paymentIntent = PaymentIntent::create([
-//             'amount' => $request->input('amount') * 100, // Convert to cents
-//             'currency' => 'usd',
-//             'payment_method' => $request->input('stripeToken'),
-//             'confirmation_method' => 'manual',
-//             'confirm' => true,
-//             'customer' => $guest->stripe_id ?? null,
-//             'description' => 'Room booking payment',
-//             'return_url' => route('payment.success') // Define a return URL for success
-//         ]);
 
-//         // Check if the payment was successful
-//         if ($paymentIntent->status === 'succeeded') {
-//             // Create a new payment record
-//             $payment = new Payment();
-//             $payment->guest_id = $guest->id;
-            
-//             $payment->amount = $request->input('amount');
-//             $payment->payment_intent_id = $paymentIntent->id;
-//             $payment->status = $paymentIntent->status;
-//             $payment->currency = 'usd';
-//             $payment->payment_method = 'card';
-//             $payment->save();
+    //     try {
+    //         // Create a PaymentIntent with the specified amount and currency
+    //         $paymentIntent = PaymentIntent::create([
+    //             'amount' => $request->input('amount') * 100, // Convert to cents
+    //             'currency' => 'usd',
+    //             'payment_method' => $request->input('stripeToken'),
+    //             'confirmation_method' => 'manual',
+    //             'confirm' => true,
+    //             'customer' => $guest->stripe_id ?? null,
+    //             'description' => 'Room booking payment',
+    //             'return_url' => route('payment.success') // Define a return URL for success
+    //         ]);
 
-//             // Load necessary relationships for the payment
-//             $payment->load('guest', 'room.roomType', 'booking');
+    //         // Check if the payment was successful
+    //         if ($paymentIntent->status === 'succeeded') {
+    //             // Create a new payment record
+    //             $payment = new Payment();
+    //             $payment->guest_id = $guest->id;
 
-//             // Store payment details in the session
-//             session(['payment' => $payment]);
+    //             $payment->amount = $request->input('amount');
+    //             $payment->payment_intent_id = $paymentIntent->id;
+    //             $payment->status = $paymentIntent->status;
+    //             $payment->currency = 'usd';
+    //             $payment->payment_method = 'card';
+    //             $payment->save();
 
-//             return redirect()->route('payment.success')->with('success', 'Payment successful!');
-//         } else {
-//             return redirect()->back()->with('error', 'Payment failed. Please try again.');
-//         }
-//     } catch (\Exception $e) {
-//         return redirect()->back()->with('error', $e->getMessage());
-//     }
-// }
+    //             // Load necessary relationships for the payment
+    //             $payment->load('guest', 'room.roomType', 'booking');
 
-public function processPayment(Request $request)
-{
-    Stripe::setApiKey(env('STRIPE_SECRET'));
+    //             // Store payment details in the session
+    //             session(['payment' => $payment]);
 
-    // Retrieve the authenticated guest
-    $guest = auth()->guard('guest')->user();
+    //             return redirect()->route('payment.success')->with('success', 'Payment successful!');
+    //         } else {
+    //             return redirect()->back()->with('error', 'Payment failed. Please try again.');
+    //         }
+    //     } catch (\Exception $e) {
+    //         return redirect()->back()->with('error', $e->getMessage());
+    //     }
+    // }
 
-    // Retrieve room and booking details from the request
-    $room = Room::find($request->input('room_id'));
-    $bookingData = [
-        'room_id' => $room->id,
-        'guest_id' => $guest->id,
-        'check_in_date' => $request->input('check_in'),
-        'check_out_date' => $request->input('check_out'),
-        'total_adults' => $request->input('adults'),
-        'total_children' => $request->input('children'),
-        'status' => 'pending',  // Initially set booking status to 'pending'
-    ];
+    public function processPayment(Request $request)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
 
-    // Create the booking record
-    $booking = Booking::create($bookingData);
+        // Retrieve the authenticated guest
+        $guest = auth()->guard('guest')->user();
 
-    try {
-        // Create a PaymentIntent with the specified amount and currency
-        $paymentIntent = PaymentIntent::create([
-            'amount' => $request->input('amount') * 100, // Convert to cents
-            'currency' => 'usd',
-            'payment_method' => $request->input('stripeToken'),
-            'confirmation_method' => 'manual',
-            'confirm' => true,
-            'customer' => $guest->stripe_id ?? null,
-            // 'description' => 'Room booking payment for booking #' . $booking->id,
-            'description' => 'Room booking payment for booking #' . $booking->id,
-            'return_url' => route('payment.success') // Define a return URL for success
-        ]);
+        // Retrieve room and booking details from the request
+        $room = Room::find($request->input('room_id'));
+        $bookingData = [
+            'room_id' => $room->id,
+            'guest_id' => $guest->id,
+            'check_in_date' => $request->input('check_in'),
+            'check_out_date' => $request->input('check_out'),
+            'total_adults' => $request->input('adults'),
+            'total_children' => $request->input('children'),
+            'status' => 'pending',  // Initially set booking status to 'pending'
+        ];
 
-        // Check if the payment was successful
-        if ($paymentIntent->status === 'succeeded') {
-            // Update the booking status to 'confirmed' once the payment is successful
-             $booking->status = 'approved';
-            $booking->save();
+        // Create the booking record
+        $booking = Booking::create($bookingData);
+        try {
+            // Create a PaymentIntent with the specified amount and currency
+            $paymentIntent = PaymentIntent::create([
+                'amount' => $request->input('amount') * 100, // Convert to cents
+                'currency' => 'usd',
+                'payment_method' => $request->input('stripeToken'),
+                'confirmation_method' => 'manual',
+                'confirm' => true,
+                'customer' => $guest->stripe_id ?? null,
+                // 'description' => 'Room booking payment for booking #' . $booking->id,
+                'description' => 'Room booking payment for booking #' . $booking->id,
+                'return_url' => route('payment.success') // Define a return URL for success
+            ]);
 
-            // Create a new payment record
-            $payment = new Payment();
-            $payment->guest_id = $guest->id;
-            $payment->booking_id = $booking->id; // Associate the payment with the booking
-            $payment->amount = $request->input('amount');
-            $payment->payment_intent_id = $paymentIntent->id; // Store payment_intent_id in the payment table
-            $payment->status = $paymentIntent->status;
-            $payment->currency = 'usd';
-            $payment->payment_method = 'card';  
-            $payment->save();
+            // Check if the payment was successful
+            if ($paymentIntent->status === 'succeeded') {
+                // Update the booking status to 'confirmed' once the payment is successful
+                $booking->status = 'approved';
+                $booking->save();
 
-            // Load necessary relationships for the payment
+                // Create a new payment record
+                $payment = new Payment();
+                $payment->guest_id = $guest->id;
+                $payment->booking_id = $booking->id; // Associate the payment with the booking
+                $payment->amount = $request->input('amount');
+                $payment->payment_intent_id = $paymentIntent->id; // Store payment_intent_id in the payment table
+                $payment->status = $paymentIntent->status;
+                $payment->currency = 'usd';
+                $payment->payment_method = 'card';
+                $payment->save();
 
-            // After creating the payment record and saving the data
+                // Load necessary relationships for the payment
 
-            Mail::to($guest->email)->send(new BookingStatusMail($booking, $guest, $payment));
+                // After creating the payment record and saving the data
 
-            $payment->load('guest', 'room.roomType', 'booking');
+                Mail::to($guest->email)->send(new BookingStatusMail($booking, $guest, $payment));
 
-            // Store payment details in the session
-            session(['payment' => $payment]);
+                $payment->load('guest', 'room.roomType', 'booking');
 
-            return redirect()->route('payment.success')->with('success', 'Payment successful and booking confirmed!');
-        } else {
-            return redirect()->back()->with('error', 'Payment failed. Please try again.');
+                // Store payment details in the session
+                session(['payment' => $payment]);
+
+                return redirect()->route('payment.success')->with('success', 'Payment successful and booking confirmed!');
+            } else {
+                return redirect()->back()->with('error', 'Payment failed. Please try again.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', $e->getMessage());
     }
-}
-
-
-
-
     public function paymentSuccess(Request $request)
     {
         // Fetch contact details and settings from the database
@@ -322,36 +317,5 @@ public function processPayment(Request $request)
     {
         return view('frontend.booking.success');
     }
-
-    // public function complete(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'booking_id' => 'required|exists:bookings,id',
-    //         'amount' => 'required|numeric',
-    //     ]);
-
-    //     $booking = Booking::findOrFail($validated['booking_id']);
-
-    //     // Process payment via Stripe
-    //     try {
-    //         $paymentIntent = \Stripe\PaymentIntent::create([
-    //             'amount' => $validated['amount'] * 100, // Convert to cents
-    //             'currency' => 'usd',
-    //             'payment_method' => $request->input('payment_method_id'),
-    //             'confirmation_method' => 'manual',
-    //             'confirm' => true,
-    //         ]);
-
-    //         if ($paymentIntent->status === 'succeeded') {
-    //             // Update booking payment status
-    //             $booking->update(['payment_status' => 'paid']);
-
-    //             return redirect()->route('booking.confirmation', $booking->id);
-    //         }
-    //     } catch (\Exception $e) {
-    //         return back()->withErrors(['Payment failed: ' . $e->getMessage()]);
-    //     }
-    // }
-
 
 }

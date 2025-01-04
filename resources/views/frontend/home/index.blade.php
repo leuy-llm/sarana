@@ -71,10 +71,10 @@
           {{ session('message') }}
       </div>
   @endif
-      <div class="welcome-container">
+      {{-- <div class="welcome-container">
         <img src="{{ asset('hotel') }}/image/couple.png" alt="Welcome to Sinaka Angkor Hotel" class="welcome-image"
             style="z-index: 999;">
-    </div>
+    </div> --}}
     
 @endsection
 

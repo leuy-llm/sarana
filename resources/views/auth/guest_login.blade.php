@@ -114,6 +114,7 @@
             <h2 class="text-center">Sign in as Guest</h2>
             <form method="POST" action="{{ route('guest.login') }}" class="">
                 @csrf
+                <input type="hidden" name="redirect" value="{{ request('redirect', url()->previous()) }}">
                 <!-- Display success or error messages -->
                 @if (session('success'))
                     <div class="alert alert-success">

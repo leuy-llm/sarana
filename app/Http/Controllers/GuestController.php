@@ -204,7 +204,7 @@ class GuestController extends Controller
     //     $data = "Login";
     //     $contact = DB::table('contact_details')->get();
     //     $setting = DB::table('settings')->get();
-        
+
     //     $request->validate([
     //         'name' => 'required|string|max:255',
     //         'email' => 'required|string|email|max:255|unique:guests',
@@ -224,70 +224,70 @@ class GuestController extends Controller
     //     $guest->sendEmailVerificationNotification();
 
     //     return redirect()->route('verification.notice')->with('message', 'Please check your email for a verification link.');
-       
+
     // }
 
 
-//     public function register(Request $request)
-// {
-//     $request->validate([
-//         'name' => 'required|string|max:255',
-//         'email' => 'required|string|email|max:255|unique:guests',
-//         'mobile' => 'required|string|max:15',
-//         'address' => 'required|string',
-//         'password' => 'required|string|min:8|confirmed',
-//     ]);
+    //     public function register(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|string|email|max:255|unique:guests',
+    //         'mobile' => 'required|string|max:15',
+    //         'address' => 'required|string',
+    //         'password' => 'required|string|min:8|confirmed',
+    //     ]);
 
-//     $guest = Guest::create([
-//         'name' => $request->name,
-//         'email' => $request->email,
-//         'mobile' => $request->mobile,
-//         'address' => $request->address,
-//         'password' => Hash::make($request->password),
-//     ]);
+    //     $guest = Guest::create([
+    //         'name' => $request->name,
+    //         'email' => $request->email,
+    //         'mobile' => $request->mobile,
+    //         'address' => $request->address,
+    //         'password' => Hash::make($request->password),
+    //     ]);
 
-//     // Send email verification notification
-//     $guest->sendEmailVerificationNotification();
+    //     // Send email verification notification
+    //     $guest->sendEmailVerificationNotification();
 
-//     // Redirect to the email verification notice
-//     return redirect()->route('verification.notice')->with('message', 'Please check your email for a verification link.');
-// }
+    //     // Redirect to the email verification notice
+    //     return redirect()->route('verification.notice')->with('message', 'Please check your email for a verification link.');
+    // }
 
-public function register(Request $request)
-{
-    $request->validate([
-        'first_name' => 'required|string|max:15',
-        'last_name' => 'required|string|max:15',
-        'zip' => 'required|string|max:15',
-        'email' => 'required|string|email|max:255|unique:guests',
-        'mobile' => 'required|string|max:15',
-        'address' => 'required|string',
-        'city' => 'required|string|max:255', // Fixed here
-        'country' => 'required|string',
-        'password' => 'required|string|min:8|confirmed',
-    ]);
-    
+    public function register(Request $request)
+    {
+        $request->validate([
+            'first_name' => 'required|string|max:15',
+            'last_name' => 'required|string|max:15',
+            'zip' => 'required|string|max:15',
+            'email' => 'required|string|email|max:255|unique:guests',
+            'mobile' => 'required|string|max:15',
+            'address' => 'required|string',
+            'city' => 'required|string|max:255', // Fixed here
+            'country' => 'required|string',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
 
-    $guest = Guest::create([
-        'first_name' => $request->first_name,
-        'last_name' => $request->last_name,
-        'zip' => $request->zip,
-        'country' => $request->country,
-        'city' => $request->city,
-        'email' => $request->email,
-        'mobile' => $request->mobile,
-        'address' => $request->address,
-        'password' => Hash::make($request->password),
-    ]);
 
-    // Log in the guest
-    auth('guest')->login($guest);
+        $guest = Guest::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'zip' => $request->zip,
+            'country' => $request->country,
+            'city' => $request->city,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'address' => $request->address,
+            'password' => Hash::make($request->password),
+        ]);
 
-    // Send email verification notification
-    $guest->sendEmailVerificationNotification();
+        // Log in the guest
+        auth('guest')->login($guest);
 
-    return redirect()->route('verification.notice')->with('message', 'Please check your email for a verification link.');
-}
+        // Send email verification notification
+        $guest->sendEmailVerificationNotification();
+
+        return redirect()->route('verification.notice')->with('message', 'Please check your email for a verification link.');
+    }
 
 
     // public function login(Request $request)
@@ -330,8 +330,32 @@ public function register(Request $request)
     //     return redirect()->back()->withErrors(['login' => 'Invalid email or password.'], 'loginErrors')->withInput();
     // }
     // public function login{
-        
+
     // }
+    // public function login(Request $request)
+    // {
+    //     // Validate the incoming request data
+    //     $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+
+    //     // Attempt to authenticate the guest
+    //     $credentials = $request->only('email', 'password');
+
+    //     if (Auth::guard('guest')->attempt($credentials)) {
+    //         // Redirect to the intended page or dashboard after successful login
+    //         return redirect()->intended(route('homepage'))
+    //             ->with('success', 'Welcome back!');
+
+    //     }
+
+    //     // Return back with an error message if authentication fails
+    //     return back()->withErrors([
+    //         'email' => 'The provided credentials do not match our records.',
+    //     ])->withInput($request->only('email'));
+    // }
+
     public function login(Request $request)
     {
         // Validate the incoming request data
@@ -344,8 +368,10 @@ public function register(Request $request)
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('guest')->attempt($credentials)) {
-            // Redirect to the intended page or dashboard after successful login
-            return redirect()->intended(route('homepage'))
+            // Redirect to the provided redirect URL or default to homepage
+            $redirect = $request->input('redirect', route('homepage'));
+            // dd($redirect);
+            return redirect()->to($redirect)
                 ->with('success', 'Welcome back!');
         }
 
@@ -354,6 +380,9 @@ public function register(Request $request)
             'email' => 'The provided credentials do not match our records.',
         ])->withInput($request->only('email'));
     }
+
+
+
 
     public function logout()
     {

@@ -14,6 +14,7 @@
                     <br class="d-none d-lg-block">
                     {{ $titleParts[3] ?? '' }} {{ $titleParts[4] ?? '' }}
                 </h3>
+                
                 <?php
                 $firstParagraph = Str::words($about->description, 44, '');
                 $secondParagraph = Str::after($about->description, $firstParagraph);
@@ -32,7 +33,8 @@
 </div> --}}
 <style>
     .text-lg-start p{
-        font-family: 'Montserrat', sans-serif;
+        /* font-family: 'Montserrat', sans-serif; */
+        font-family: 'Source Sans Pro', sans-serif;
         font-size: 18px;
     }
 </style>

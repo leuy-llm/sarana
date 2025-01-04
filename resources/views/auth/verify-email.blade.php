@@ -38,16 +38,16 @@
         }
     </style>
 </head>
-
 <body>
     <div class="container d-flex justify-content-center align-items-center vh-100">
+        @guest
         <div class="card shadow-lg p-4 text-center" style="max-width: 500px; border-radius: 12px;">
             <div class="text-center mb-3">
                 <img src="https://i.pinimg.com/736x/03/54/58/035458bcabe26060e9deaab70de70ce8.jpg" alt="Logo"
-                    style="width: 200px;"> <!-- Replace with your logo -->
+                    style="width: 200px;"> 
             </div>
             <h4 class="fw-bold">Verify your email</h4>
-            <p class="text-muted">You're in. An email has been sent to <strong></strong>. Hit
+            <p class="text-muted">You're in. An email has been sent to <strong>{{$guest->email}}</strong>. Hit
                 confirm and you'll be ready to start working.</p>
             <p class="text-muted">Didn’t see an email?</p>
             <form action="{{ route('verification.send') }}" method="POST">
@@ -56,10 +56,19 @@
             </form>
             <a href="{{ route('register') }}" class="text-decoration-none d-block" id="backToSignIn">← Back to sign in</a>
         </div>
+        @else
+        <div class="card shadow-lg p-4 text-center" style="max-width: 500px; border-radius: 12px;">
+            <div class="text-center mb-3">
+                <img src="https://i.pinimg.com/736x/03/54/58/035458bcabe26060e9deaab70de70ce8.jpg" alt="Logo"
+                    style="width: 200px;"> 
+            </div>
+            <h4 class="fw-bold">You're already logged in</h4>
+            <p class="text-muted">You have already logged in, no need for email verification.</p>
+            <a href="{{url('/')}}" class="btn btn-primary w-100 mb-3">Back to Home</a>
+        </div>
+        @endguest
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
 </body>
 
 </html>

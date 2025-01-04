@@ -61,6 +61,24 @@
         .carousel-control-next-icon {
             color: wheat;
         }
+
+        @media (max-width: 768px) {
+            /* For screens smaller than 768px */
+           .section-title {
+                font-size: 2rem;
+            }
+            .section-subtitle {
+                font-size: 1.5rem;
+            }
+            img {
+                width: 100%;
+            }
+            img:hover {
+                transform: scale(1);
+            }
+           
+            /* For screens smaller than 768px */
+        }
     </style>
 @endsection
 @section('content')
@@ -78,7 +96,7 @@
             </div>
         </div>
     </section>
-    <section id="services" class="services_wrapper">
+    <section id="meeting" class="meeting_wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 section-title text-center mb-5">
@@ -88,7 +106,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="service-12">
+            <div class="meeting">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">

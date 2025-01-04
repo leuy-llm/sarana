@@ -10,131 +10,7 @@
                 font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
             }
 
-            .reservation-title {
-                /* font-family: 'Georgia', serif; */
-                color: #a38354;
-                font-size: 2rem;
-                /* margin-bottom: 0.2rem; */
-            }
-
-            .form-control:focus {
-                border-color: #a38354;
-                box-shadow: none;
-            }
-
-            .btn-booking {
-                background-color: #7d2e1e;
-                color: white;
-                font-family: 'Hanuman', sans-serif;
-            }
-
-            .btn-booking:hover {
-                background-color: #a83c2d;
-                color: white
-            }
-
-            .hidden {
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity 0.5s ease, visibility 0.5s ease;
-            }
-
-            .visible {
-                opacity: 1;
-                visibility: visible;
-                transition: opacity 0.5s ease, visibility 0.5s ease;
-            }
-
-            .modal-content {
-                -webkit-border-radius: 0;
-                -webkit-background-clip: padding-box;
-                -moz-border-radius: 0;
-                -moz-background-clip: padding;
-                border-radius: 6px;
-                background-clip: padding-box;
-                -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, .5);
-                -moz-box-shadow: 0 0 40px rgba(0, 0, 0, .5);
-                box-shadow: 0 0 40px rgba(0, 0, 0, .5);
-                color: #000;
-                /* background-color: #fff; */
-                border: rgba(0, 0, 0, 0);
-            }
-
-            .modal-message .modal-dialog {
-                width: 400px;
-            }
-
-            .modal-message .modal-body,
-            .modal-message .modal-footer,
-            .modal-message .modal-header,
-            .modal-message .modal-title {
-                background: 0 0;
-                border: none;
-                margin: 0;
-                padding: 0 20px;
-                text-align: center !important;
-                font-family: 'Coda', system-ui;
-            }
-
-            .modal-message .modal-title {
-                font-size: 17px;
-                color: #737373;
-                margin-bottom: 3px;
-            }
-
-            .modal-message .modal-body {
-                color: #737373;
-            }
-
-            .modal-message .modal-header {
-                color: #fff;
-                margin-bottom: 10px;
-                padding: 15px 0 8px;
-            }
-
-            .modal-message .modal-header .fa,
-            .modal-message .modal-header .glyphicon,
-            .modal-message .modal-header .typcn,
-            .modal-message .modal-header .wi {
-                font-size: 30px;
-            }
-
-            .modal-message .modal-footer {
-                margin: 25px 0 20px;
-                padding-bottom: 10px;
-            }
-
-            .modal-backdrop.in {
-                zoom: 1;
-                filter: alpha(opacity=75);
-                -webkit-opacity: .75;
-                -moz-opacity: .75;
-                opacity: .75;
-            }
-
-            .modal-backdrop {
-                background-color: #fff;
-            }
-
-            .modal-message.modal-success .modal-header {
-                color: #53a93f;
-                border-bottom: 3px solid #a0d468;
-            }
-
-            .modal-message.modal-info .modal-header {
-                color: #57b5e3;
-                border-bottom: 3px solid #57b5e3;
-            }
-
-            .modal-message.modal-danger .modal-header {
-                color: #d73d32;
-                border-bottom: 3px solid #e46f61;
-            }
-
-            .modal-message.modal-warning .modal-header {
-                color: #f4b400;
-                border-bottom: 3px solid #ffce5 5;
-            }
+            
 
             input[type="date"] {
                 cursor: pointer;
@@ -233,10 +109,93 @@
             input[type="email"] {
                 font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             }
+
+            .stepper-wrapper {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            /* background: rgba(255, 255, 255, 0.9);
+                                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+            border-radius: 3px;
+            padding: 20px;
+        }
+
+        .stepper-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+
+            @media (max-width: 768px) {
+                font-size: 12px;
+            }
+        }
+
+        .stepper-item::before {
+            position: absolute;
+            content: "";
+            border-bottom: 2px solid #ccc;
+            width: 100%;
+            top: 20px;
+            left: -50%;
+            z-index: 2;
+        }
+
+        .stepper-item::after {
+            position: absolute;
+            content: "";
+            border-bottom: 2px solid #ccc;
+            width: 100%;
+            top: 20px;
+            left: 50%;
+            z-index: 2;
+        }
+
+        .stepper-item .step-counter {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ccc;
+            margin-bottom: 6px;
+        }
+
+        .stepper-item.active {
+            font-weight: bold;
+        }
+
+        .stepper-item.completed .step-counter {
+            background-color: #ffc107;
+        }
+
+        .stepper-item.completed::after {
+            position: absolute;
+            content: "";
+            border-bottom: 2px solid #ffc107;
+            width: 100%;
+            top: 20px;
+            left: 50%;
+            z-index: 3;
+        }
+
+        .stepper-item:first-child::before {
+            content: none;
+        }
+
+        .stepper-item:last-child::after {
+            content: none;
+        }
+
         </style>
     @endsection
     @section('content')
-        <section id="home" class="banner_wrapper p-0">
+        {{-- <section id="home" class="banner_wrapper p-0">
             <div class="overlay">
                 @if (isset($banner) && $banner)
                     <img src="{{ asset('storage/' . $banner->banner_image) }}"
@@ -246,9 +205,9 @@
                     <h2>{{ $data }}</h2>
                 </div>
             </div>
-        </section>
+        </section> --}}
         <section id="gallery" class="gallery_wrapper" style="margin-top: 60px;">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     {{-- <div class="col-md-6">
                         <img src="{{ asset('storage/' . $rooms->images->first()->image) }}" class="img-fluid"
@@ -417,10 +376,9 @@
                     
                     </form> --}}
 
-
-                    <div class="container">
-                        <!-- Progress Indicator -->
-                        <div class="progress-container">
+                    <div class="container-fluid">
+                        
+                        {{-- <div class="progress-container">
                             <div class="d-flex justify-content-between">
                                 <div class="progress-step active">Search<br><small>Choose your favorite room</small></div>
                                 <div class="progress-step active">Booking<br><small>Enter your booking details</small></div>
@@ -428,10 +386,37 @@
                                 </div>
                                 <div class="progress-step">Confirmation<br><small>Receive a confirmation email</small></div>
                             </div>
+                        </div> --}}
+                        <div class="stepper-wrapper">
+                            <div class="stepper-item completed">
+                                <div class="step-counter">1</div>
+                                <div class="step-name" style="margin-top: 5px;">Search</div>
+                                <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
+            
+                            </div>
+                            <div class="stepper-item active">
+                                <div class="step-counter">2</div>
+                                <div class="step-name" style="margin-top: 5px;">Booking</div>
+                                <div class="step-name" style="font-size: 12px;">Enter your booking details</div>
+            
+                            </div>
+                            <div class="stepper-item ">
+                                <div class="step-counter">3</div>
+                                <div class="step-name" style="margin-top: 5px;">Checkout</div>
+                                <div class="step-name" style="font-size: 12px;">Use your preferred payment method
+                                    Confirmation
+                                </div>
+                            </div>
+                            <div class="stepper-item">
+                                <div class="step-counter">4</div>
+                                <div class="step-name" style="margin-top: 5px;">Confirmation
+                                </div>
+                                <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
+                            </div>
                         </div>
-
+                    </div>
+                    <div class="container mt-5">
                         <div class="row">
-                            <!-- Left Section -->
                             <div class="col-md-8">
                                 {{-- <div class="billing-section">
                                     <h5 class="mb-4">Billing Details</h5>
@@ -559,7 +544,7 @@
                                                 <label for="adults">Last name</label>
                                                 <input type="text" class="form-control shadow-none rounded-0"
                                                     value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->last_name : old('last_name') }}"
-                                                    {{ auth()->guard('guest')->check() ? 'readonly' : '' }} name="last_name"
+                                                   k {{ auth()->guard('guest')->check() ? 'readonly' : '' }} name="last_name"
                                                     placeholder="Last Name" required>
                                             </div>
                                         </div>
@@ -581,7 +566,7 @@
                                                     placeholder="Last Name" required>
                                             </div>
                                         </div>
-
+    
                                         <div class="form-row">
                                             <div class="col-md-6 mb-3">
                                                 <label for="adults">Address</label>
@@ -600,7 +585,7 @@
                                                     placeholder="City" name="city" required>
                                             </div>
                                         </div>
-
+    
                                         <div class="form-row mb-3">
                                             <div class="col-md-6 mb-3">
                                                 <label for="">Country</label>
@@ -629,211 +614,75 @@
                                         alt="{{ $rooms->roomType->type_name }}">
                                     <div class="card-body">
                                         <h5>Booking Details</h5>
-
                                         <p><strong>Check-In: </strong> {{ date('d-m-Y', strtotime($checkIn)) }}</p>
                                         <p><strong>Check-Out: </strong> {{ date('d-m-Y', strtotime($checkOut)) }}</p>
                                         <p><strong>Nights:</strong> {{ $nights }}</p>
                                         <p><strong>Guests:</strong> {{ $adults }} Adults, {{ $children }}
                                             Children
                                         </p>
-
                                         <h6 class="mt-4 section-title">Price Summary</h6>
                                         <p><strong>{{ $rooms->roomType->type_name }}:</strong> $
                                             {{ number_format($room->price, 0) }}</p>
-
                                         <p class="price-summary"><strong>Total Price:</strong>
                                             ${{ number_format($totalPrice, 2) }}</p>
-
-                                        
-                                            <a href="{{ route('checkout.index', [
-                                                'room_id' => $room->id,
-                                                
-                                                'check_in' => $checkIn->format('Y-m-d'),
-                                                'check_out' => $checkOut->format('Y-m-d'),
-                                                'adults' => $adults,
-                                                'children' => $children,
-                                                'first_name' => optional($guest)->first_name,
-                                                'last_name' => optional($guest)->last_name,
-                                                'email' => optional($guest)->email,
-                                                'mobile' => optional($guest)->mobile
-                                            ]) }}" 
+                                        <a href="{{ route('checkout.index', [
+                                            'room_id' => $room->id,
+                                            'check_in' => $checkIn->format('Y-m-d'),
+                                            'check_out' => $checkOut->format('Y-m-d'),
+                                            'adults' => $adults,
+                                            'children' => $children,
+                                            'first_name' => optional($guest)->first_name,
+                                            'last_name' => optional($guest)->last_name,
+                                            'email' => optional($guest)->email,
+                                            'mobile' => optional($guest)->mobile,
+                                        ]) }}"
                                             class="btn btn-warning w-100 rounded-0 text-white">
-                                                Proceed to Checkout
-                                            </a>
-                                            {{-- <form action="{{ route('booking.proceedToPayment') }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="room_id" value="{{ $room->id }}">
-                                                <input type="hidden" name="check_in" value="{{ $checkIn->format('Y-m-d') }}">
-                                                <input type="hidden" name="check_out" value="{{ $checkOut->format('Y-m-d') }}">
-                                                <input type="hidden" name="adults" value="{{ $adults }}">
-                                                <input type="hidden" name="children" value="{{ $children }}">
-                                                <input type="hidden" name="first_name" value="{{ optional($guest)->first_name }}">
-                                                <input type="hidden" name="last_name" value="{{ optional($guest)->last_name }}">
-                                                <input type="hidden" name="email" value="{{ optional($guest)->email }}">
-                                                <input type="hidden" name="mobile" value="{{ optional($guest)->mobile }}">
-                                            
-                                                <button type="submit" class="btn btn-warning w-100 rounded-0 text-white">
-                                                    Proceed to Checkout
-                                                </button>
-                                            </form> --}}
-
-                                        
-                                            
+                                            Proceed to Checkout
+                                        </a>
+                                    
                                     </div>
-
+    
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             </div>
         </section>
-        <div id="modal-success" class="modal modal-message modal-success fade" role="dialog" data-bs-backdrop="static"
-            style="display: none;z-index: 9999" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" style="z-index: 9999" id="loginRegisterModal" tabindex="-1" aria-labelledby="loginAlertModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header bg-success">
-                        {{-- <span class="glyphicon glyphicon-check"></span> --}}
-                        <i class="fa fa-check text-white fa-3x m-auto"></i>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginRegisterModalLabel">Login or Register</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-title text-center">Please</div>
-                    <div class="modal-body">Sign in to Booking</div>
+                    <div class="modal-body">
+                        <p>Please sign in or sign up to proceed with your payment. You must be logged in to complete your booking.</p>
+                    </div>
                     <div class="modal-footer">
-                        <button type="button" id="ok-btn" class="btn btn-success"
-                            style="text-align: center;margin: 0 auto;" data-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                     </div>
-                </div> <!-- / .modal-content -->
-            </div> <!-- / .modal-dialog -->
+                </div>
+            </div>
         </div>
-        <!--End Success Modal Templates-->
-        @include('auth.register')
+        
+        
     @endsection
 
     @section('script')
         <script>
-            @if (session('success'))
-                toastr.success('{{ session('success') }}');
-            @endif
+          document.addEventListener('DOMContentLoaded', function () {
+            var isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
 
-            @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    toastr.error('{{ $error }}');
-                @endforeach
-            @endif
-            var checkInDateInput = document.getElementById('checkIn');
-            var checkOutDateInput = document.getElementById('checkOut');
-            document.addEventListener('DOMContentLoaded', function() {
-
-                checkInDateInput.addEventListener('change', function() {
-                    var checkInDate = this.value; // Get the selected check-in date
-
-                    checkOutDateInput.setAttribute('min', checkInDate);
-
-                    // Clear check-out date if it is before the new check-in date
-                    if (checkOutDateInput.value < checkInDate) {
-                        checkOutDateInput.value = ''; // Clear the value if invalid
-                    }
-                });
-            })
-
-
-            document.addEventListener('DOMContentLoaded', function() {
-                const checkInInput = document.querySelector('#checkIn');
-                const checkOutInput = document.querySelector('#checkOut');
-                const roomPrice = parseFloat(document.getElementById('room-price').value);
-                const numDaysSpan = document.getElementById('num-days');
-                const totalAmountSpan = document.getElementById('total-amount');
-                const hiddenTotalAmountInput = document.getElementById('hidden-total-amount');
-                const paymentButton = document.getElementById('payment-button');
-
-                function calculateTotalAmount() {
-                    const checkInDate = new Date(checkInInput.value);
-                    const checkOutDate = new Date(checkOutInput.value);
-
-                    if (checkInDate && checkOutDate && checkOutDate > checkInDate) {
-                        const timeDifference = checkOutDate - checkInDate;
-                        const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-                        const totalAmount = days * roomPrice;
-
-                        numDaysSpan.textContent = days;
-                        totalAmountSpan.textContent = totalAmount.toFixed(2);
-                        hiddenTotalAmountInput.value = totalAmount;
-                        return totalAmount;
-                    } else {
-                        numDaysSpan.textContent = 0;
-                        totalAmountSpan.textContent = 0;
-                        hiddenTotalAmountInput.value = 0;
-                        return 0;
-                    }
-                }
-
-                checkInInput.addEventListener('change', calculateTotalAmount);
-                checkOutInput.addEventListener('change', calculateTotalAmount);
-
-                paymentButton.addEventListener('click', function() {
-                    const totalAmount = calculateTotalAmount();
-
-                    if (totalAmount > 0) {
-                        const paymentUrl = `{{ url('stripe') }}/${totalAmount}`;
-                        window.location.href = paymentUrl;
-                    } else {
-                        alert("Please ensure valid dates are selected.");
-                    }
-                });
-            });
-            document.addEventListener('DOMContentLoaded', function() {
-                var reservationForm = document.getElementById('reservation-form');
-                var isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
-                // Ensure reservation form exists before proceeding
-                if (reservationForm) {
-                    reservationForm.addEventListener('submit', function(event) {
-                        // Prevent submission and show modal if guest is not logged in
-                        if (!isLoggedIn) {
-                            event.preventDefault();
-                            $('#modal-success').modal('show');
-                        } else {
-                            // If logged in, check for empty check-in and check-out dates
-                            if (!checkInDateInput.value || !checkOutDateInput.value) {
-                                event.preventDefault(); // Prevent form submission
-                                alert('Please select both check-in and check-out dates before booking.');
-                            }
-                        }
-                    });
-                }
-
-                // Add event listener to the OK button to show the login modal if button exists
-                var okButton = document.getElementById('ok-btn');
-                if (okButton) {
-                    okButton.addEventListener('click', function() {
-                        $('#modal-success').modal('hide'); // Hide the success modal
-                        $('#registerModal').modal('show'); // Show the login modal
-                    });
+            // Add an event listener to the "Proceed to Checkout" button
+            document.querySelector('.btn-warning').addEventListener('click', function (event) {
+                if (!isLoggedIn) {
+                    event.preventDefault(); // Prevent the default action (navigation)
+                    $('#loginRegisterModal').modal('show'); // Show the modal
                 }
             });
+        });
 
-
-            // Handle 'Proceed to Payment' click event
-            // document.getElementById('payment-button').addEventListener('click', function(event) {
-            // event.preventDefault(); // Prevents default navigation
-
-            // if (!isLoggedIn) {
-            // // If user is not logged in, show the login modal
-            // $('#registerModal').modal('show');
-            // } else {
-            // // User is logged in, proceed with payment
-            // const totalAmount = document.getElementById('total-amount').textContent;
-            // const bookingId = document.getElementById('bookingId').value;
-            // if (totalAmount > 0) {
-            // // Redirect to the payment page with the total amount
-            // const url = `{{ url('reservation/payment') }}/${bookingId}/${totalAmount}`;
-            // window.location.href = url; // Proceed to payment page
-            // } else {
-            // // Show an alert if no valid dates or amount is selected
-            // alert('Please select a valid check-in and check-out date.');
-            // }
-            // }
-            // });
         </script>
     @endsection

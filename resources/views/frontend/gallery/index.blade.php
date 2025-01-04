@@ -151,7 +151,7 @@
         align-items: center;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         /* Add shadow for a 3D effect */
-        transition: background-color 0.3s ease, transform 0.2s ease;
+        transition: background-color 0.3s ease, transform 0.2s ease;[p'o98tyu]
     }
 
     .swiper-button-next:hover,
@@ -185,9 +185,44 @@
         font-size: 40px;
         margin-bottom: 110px;
     }
+
+    @media (max-width: 768px) {
+        h2 {
+            font-size: 30px;
+            margin-bottom: 60px;
+        }
+        h3 {
+            font-size: 25px;
+        }
+        h6 {
+            font-size: 20px;
+        }
+        h4 {
+            font-size: 18px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        .swiper2 {
+            height: 350px;
+            /* Adjust height for smaller screens */
+            margin-bottom: 30px;
+        }
+        .swiper-button-next,
+    .swiper-button-prev {
+            display: none;
+       }
+        /* Add media queries for smaller screens */
+
+    }
+    
+
+    
 </style>
 <div class="container-fluid mt-5 mb-5">
-    <h2 class="text-left">Our Hotel Gallery</h2>
+    <h2 class="text-center">Our Hotel Gallery</h2>
     <div class="swiper swiper2">
         <div class="swiper-wrapper swiper-wrapper2">
             @foreach ($galleries as $gallery)

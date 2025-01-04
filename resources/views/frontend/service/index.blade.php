@@ -77,6 +77,41 @@
             font-size: 18px;
             
         }
+
+        @media (max-width: 768px) {
+            .service-card {
+                margin-bottom: 20px;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                margin-top: 10px;
+
+            }
+            .banner_wrapper img{
+                width: 100%;
+               
+            }
+            h6{
+                font-size: 16px;
+               
+            }
+            h3{
+                font-size: 30px;
+            }
+            .image-container img{
+                width: 100%;
+                height: 350px;
+                object-fit: cover;
+               
+            }
+            .service-card h5{
+                font-size: 18px;
+            }
+            .service-card p{
+                font-size: 14px;
+            }
+
+        }
             </style>
 @endsection
 @section('content')
@@ -128,7 +163,7 @@
                     </div>
                 </div>
             </div> --}}
-            <div class="container-fluid my-5">
+            <div class="my-5">
                 <div class="text-center" style="margin-bottom: 60px;">
                     <h6 class="fw-bold">OUR AWESOME SERVICES</h6>
                     <h3 class="text-muted" style="margin-top: -10px">Check out our awesome services</h3>

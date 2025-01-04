@@ -46,7 +46,7 @@
                 </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;"
-                        href="{{ route('room') }}">Rooms</a>
+                        href="{{ route('roomindex') }}">Rooms</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;"

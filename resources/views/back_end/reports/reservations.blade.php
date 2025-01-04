@@ -7,7 +7,6 @@
 @endsection
 @section('content')
     <h1 class="text-center mb-4 mt-3">@lang('label.reportReservation')</h1>
-
     <!-- Date Range Filter Form -->
     <form method="GET" action="{{ route('reports.reservations') }}" class="mb-4">
         <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">

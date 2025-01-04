@@ -86,17 +86,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('bookings/available-room-types/{checkin_date}', [BookingController::class, 'available_room_types']);
 Route::get('/reservation/confirmation/{id}', [ReservationController::class, 'confirmation'])->name('booking.confirmation');
 
-// Route::get('/reservation/payment/{totalAmount}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
-// Route::get('stripe/{totalprice}', [PaymentController::class, 'stripe'])->name('payment.form');
-// Route::get('/stripe/{totalprice}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
-
-
-// Route::post('/stripe/process/{totalAmount}', [PaymentController::class, 'processPayment'])->name('payment.process');
 Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.index');
 Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process');
-
-
-
 
 Route::get('/reservation', [ReservationController::class, 'reservation'])->name('reservation');
 Route::get('/reservation/skip-payment/{id}/{totalAmount}', [ReservationController::class, 'skipPayment'])->name('booking.skipPayment');
@@ -115,10 +106,6 @@ Route::get('/rooms/search', [BookingCalender::class, 'searchForm'])->name('rooms
 Route::get('/payment/start/{booking_id}', [PaymentController::class, 'start'])->name('payment.start');
 Route::get('/booking/confirmation/{id}', [BookingCalender::class, 'showConfirmation'])->name('booking.confirmation');
 Route::post('/payment/complete', [PaymentController::class, 'complete'])->name('payment.complete');
-// Route::get('/payment/success', function () {
-//     return view('frontend.payment.success');
-// })->name('payment.success');
-
 Route::get('/payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
 
 // Define the route for proceeding to payment
@@ -131,24 +118,12 @@ Route::middleware(['auth:guest'])->group(function () {
     Route::post('/books/create', [HomeController::class, 'bookstore'])->name('books.store');
 });
 
-// routes/web.php
-// Route::delete('/booking/cancel/{id}', [ReservationController::class, 'cancelBooking'])->name('booking.cancel');
-
 Route::post('/booking/cancel/{id}', [ReservationController::class, 'cancelBooking'])->name('booking.cancel');
-
-// Route::post('guest/register', [GuestController::class, 'register'])->name('guest.register');
-// Route::post('guest/login', [GuestController::class, 'login'])->name('guest.login');
 Route::get('/guest/logout', [GuestController::class, 'logout'])->name('guest.logout');
 
 Route::get('/guest-login', function () {
     return view('auth.guest_login'); // Adjust to your guest login view
 })->name('guest.login');
-
-// Route::post('/logout', function () {
-//     auth('guest')->logout();
-//     return redirect()->route('homepage'); // Redirect to the login page
-// })->name('guest.logout');
-
 
 // Registration Routes
 Route::get('/register', function () {
@@ -161,9 +136,14 @@ Route::post('/guest-login', [GuestController::class, 'login'])->name('guest.logi
 Route::post('/register', [GuestController::class, 'register'])->name('register');
 
 // Email Verification Routes
+Route::get('roomindex',[HomeController::class,'roomindex'])->name('roomindex');
 Route::get('/email.verify', function () {
     return view('auth.verify-email'); // Email verification notice view
 })->middleware('auth:guest')->name('verification.notice');
+
+// Route::get('/email.verify', function () {
+//     return view('auth.verify-email'); 
+// })->middleware('guest')->name('verification.notice');
 
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill(); // Marks the email as verified

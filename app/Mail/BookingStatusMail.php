@@ -42,7 +42,8 @@ class BookingStatusMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your Booking Status with ' . config('app.name'),
+            subject: 'Your Booking Information ',
+            //. config('app.name')
         );
     }
 

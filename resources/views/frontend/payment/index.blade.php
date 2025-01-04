@@ -67,13 +67,13 @@
         }
 
         .stepper-item.completed .step-counter {
-            background-color: #4bb543;
+            background-color: #ffc107;
         }
 
         .stepper-item.completed::after {
             position: absolute;
             content: "";
-            border-bottom: 2px solid #4bb543;
+            border-bottom: 2px solid #ffc107;
             width: 100%;
             top: 20px;
             left: 50%;
@@ -231,7 +231,7 @@
 @endsection
 @section('content')
     <section id="gallery" class="gallery_wrapper" style="margin-top: 60px; margin-bottom: 60px;">
-        <div class="container">
+        <div class="container-fluid">
             <div class="stepper-wrapper">
                 <div class="stepper-item completed">
                     <div class="step-counter">1</div>
@@ -252,15 +252,16 @@
                         Confirmation
                     </div>
                 </div>
-                <div class="stepper-item active">
+                <div class="stepper-item">
                     <div class="step-counter">4</div>
                     <div class="step-name" style="margin-top: 5px;">Confirmation
                     </div>
                     <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
                 </div>
             </div>
+        </div>
+        <div class="container">
             <div class="booking-details">
-
                 <h4>Booking Details</h4>
                 <div class="row mb-3">
                     <div class="col-md-4">
@@ -359,8 +360,6 @@
                                     Checkout Now
                                 </button>
                             </form>
-
-
                         </div>
                         <div class="tab-pane fade" id="payment-on-arrival" role="tabpanel"
                             aria-labelledby="payment-on-arrival-tab">
@@ -378,7 +377,9 @@
                 </div>
             </div>
 
+        
         </div>
+         
     </section>
 @endsection
 

@@ -128,6 +128,25 @@
         .swiper-button-prev:hover {
             background: #000;
         }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .swiper-button-next,
+            .swiper-button-prev {
+                display: none;
+            }
+            /* Hide navigation arrows */
+            .swiper-pagination {
+                display: none;
+            }
+            .main-image {
+                max-width: 100%;
+                height: auto;
+                margin-bottom: 20px;
+            }
+            
+            
+        }
     </style>
 @endsection
 @section('content')
@@ -145,7 +164,7 @@
             </div>
         </div>
     </section>
-    <section id="services" class="services_wrapper">
+    <section id="tour" class="tours_wrapper">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12 section-title text-center mb-5">
@@ -153,7 +172,7 @@
                     <h3 style="margin-top: -10px">Our Tours</h3>
                 </div>
             </div>
-            <div class="service-12">
+            <div class="tour">
                 <div class="container">
                     <div class="row">
                         <!-- Tour Images -->
@@ -162,7 +181,7 @@
                                 @foreach ($tours as $tour)
                                     @if ($tour->images->isNotEmpty())
                                         <img src="{{ asset('storage/' . $tour->images->first()->image) }}"
-                                            alt="{{ $tour->name }}" class="rounded me-3"
+                                            alt="{{ $tour->name }}" class="rounded me-3 main-image"
                                             style="width: 100%; max-width: 700px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                                     @else
                                         <img src="{{ asset('default-image.jpg') }}" alt="Default Image" class="rounded me-3"
@@ -234,8 +253,23 @@
         slidesPerView: 3,
         spaceBetween: 20,
         centeredSlides: true,
+        centeredSlides: true,
         autoplay: { delay: 5000 },
         pagination: { el: ".swiper-pagination", clickable: true },
+
+        breakpoints: {
+            1200: {
+                slidesPerView: 3, // Show 4 images for desktop
+                spaceBetween: 40,
+            },
+            768: {
+                slidesPerView: 2, // Show 2 images for tablets
+                spaceBetween: 20,
+            },
+            480: {
+                slidesPerView: 1, // Show 1 image for smaller screens
+            },
+        }, 
         navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
     });
 
@@ -250,6 +284,8 @@
             swiper.autoplay.start();
         }
     });
+
+
 });
 
 </script>
