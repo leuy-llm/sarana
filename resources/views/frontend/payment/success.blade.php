@@ -167,9 +167,17 @@
         </div> --}}
         <div class="" style="margin:100px 0;">
             @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
+                {{-- <div class="alert alert-success">{{ session('success') }}</div> --}}
+                <div class="alert alert-success alert-dismissible bg-success text-white border-0 fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong><i class="dripicons-checkmark me-2"></i></strong> {{ session('success') }}
+                </div>
             @elseif(session('error'))
-                <div class="alert alert-danger">{{ session('error') }}</div>
+                {{-- <div class="alert alert-danger">{{ session('error') }}</div> --}}
+                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <strong> <i class="dripicons-wrong me-2"></i></strong> {{ session('error') }}
+                </div>
             @endif
             <div id="printArea" class="booking-details-card shadow-sm p-5 mx-auto print-font-size"
                 style="max-width: 550px;">

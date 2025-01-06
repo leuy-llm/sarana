@@ -307,17 +307,16 @@
                         </li>
 
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link rounded-0 border-bottom-0" id="payment-on-arrival-tab"
-                                data-bs-toggle="tab" data-bs-target="#payment-on-arrival" type="button" role="tab"
+                            <button class="nav-link rounded-0 border-bottom-0" id="payment-paypal-tab"
+                                data-bs-toggle="tab" data-bs-target="#payment-paypal" type="button" role="tab"
                                 aria-controls="payment-on-arrival" aria-selected="false">
-                                <i class="bi bi-cash-coin mr-2"></i> Payment On Arrival
+                                <i class="bi bi-paypal mr-2"></i> Pay Pal
                             </button>
                         </li>
                     </ul>
 
                     <!-- Tab Content -->
                     <div class="tab-content">
-
                         <div class="tab-pane fade  show active" id="credit-card" role="tabpanel"
                             aria-labelledby="credit-card-tab">
                             <p class="mt-4">Pay with your credit card Using Stripe . Account for test purpose</p>
@@ -335,7 +334,6 @@
                             <form action="{{ route('payment.process') }}" method="POST" id="payment-form"
                                 class="require-validation">
                                 @csrf
-
                                 <input type="hidden" name="amount" value="{{ $totalPrice }}">
                                 <!-- Pass the total price -->
                                 <input type="hidden" name="room_id" value="{{ $room->id }}"> <!-- Add room ID -->
@@ -347,7 +345,6 @@
                                 <!-- Add number of adults -->
                                 <input type="hidden" name="children" value="{{ $children }}">
                                 <!-- Add number of children -->
-
                                 <div id="card-element" class="" style="border: 1px solid #ccc; padding: 13px;">
                                     <!-- A Stripe Element will be inserted here. -->
                                 </div>
@@ -361,17 +358,25 @@
                                 </button>
                             </form>
                         </div>
-                        <div class="tab-pane fade" id="payment-on-arrival" role="tabpanel"
-                            aria-labelledby="payment-on-arrival-tab">
-                            {{-- <p>You can pay upon arrival at our hotel.</p> --}}
-                            <p class="mt-4">You could pay directly in our hotel with any kind of credit card or cash</p>
+                        <div class="tab-pane fade" id="payment-paypal" role="tabpanel" aria-labelledby="payment-paypal-tab">
+                          
+                            <p class="mt-4">PayPal allows you to mark payments directly from your PayPal account</p>
+                            <p class="mt-4"><strong>PayPal: </strong></p>
+                            <p>Sandbox Account for test purpose</p>
+                            <p>Email: buyer@eagle-themes.com</p>
+                            <p>Password: buyertest</p>
                             <form action="" method="POST">
-                                <button type="submit"
-                                    class="btn btn-warning rounded-0 py-2 font-weight-bold text-white mt-3 px-4">
-                                    Book Now
+                                @csrf
+                                <input type="hidden" name="room_id" value="{{ $room->id }}">
+                                <input type="hidden" name="check_in" value="{{ $checkIn }}">
+                                <input type="hidden" name="check_out" value="{{ $checkOut }}">
+                                <input type="hidden" name="adults" value="{{ $adults }}">
+                                <input type="hidden" name="children" value="{{ $children }}">
+
+                                <button type="submit" class="btn btn-warning rounded-0 py-2 font-weight-bold text-white mt-3 px-4">
+                                    Checkout with PayPal
                                 </button>
                             </form>
-
                         </div>
                     </div>
                 </div>

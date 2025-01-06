@@ -64,6 +64,12 @@ return [
   'checked_out'=>'បានចាកចេញ',
   'checked_in' => 'បានស្នាក់នៅ',
   'cancelled'=>'បានលុបចោលការកក់',
+  'zip' => 'កូដ',
+  'country' => 'ប្រទេស',
+  'city' => 'សាខា',
+  'enterFirstName' => 'បញ្ចូលឈ្មោះដំបូង',
+  'enterLastName' => 'បញ្ចូលឈ្មោះបន្ទាប់',
+  'enterEmail' => 'Enter email',
 
   // 'checked_out'=>'Checked Out',
 

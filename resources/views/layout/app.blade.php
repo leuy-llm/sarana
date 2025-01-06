@@ -24,21 +24,21 @@
         id="light-style">
     <link href="{{ asset('admin_dashboard') }}/assets/css/app-dark.min.css" rel="stylesheet" type="text/css"
         id="dark-style">
-
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     {{-- font --}}
     <link href="https://fonts.googleapis.com/css2?family=Hanuman:wght@100;300;400;700;900&display=swap"
         rel="stylesheet">
 
-    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    {{-- <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" /> --}}
     <!-- Fine Uploader styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fine-uploader/5.16.2/fine-uploader-new.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.3.0/css/lightgallery.min.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.3.0/plugins/thumbnail/lg-thumbnail.min.css">
+    {{-- <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.3.0/plugins/thumbnail/lg-thumbnail.min.css"> --}}
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/viewerjs@1.10.1/dist/viewer.min.css">
     <script src="https://cdn.jsdelivr.net/npm/viewerjs@1.10.1/dist/viewer.min.js"></script>
@@ -46,17 +46,15 @@
     <link href="{{ asset('admin_dashboard') }}/assets/css/vendor/fullcalendar.min.css" rel="stylesheet" type="text/css">
     <!-- third party css end -->
     <!-- CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/air-datepicker@2.2.3/dist/css/datepicker.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/scheduler/main.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/scheduler/main.js"></script>
+    
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> --}}
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
         <!-- JavaScript -->
-        <script src="https://unpkg.com/air-datepicker@2.2.3/dist/js/datepicker.min.js"></script>
+       
             @yield('style')
                 <style >
                    
@@ -90,9 +88,7 @@
                 </style> 
                 </head>
 
-                <body class = "loading" data-layout-config = '{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}' >
-                
-                
+                <body class ="loading" data-layout-config = '{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}' >
                 <div class = "wrapper" >
                 
                 !-- === === === = Left Sidebar Start === === === = -- >
@@ -111,7 +107,7 @@
                     </div>
                 </div>
         
-        <div class="end-bar">
+        {{-- <div class="end-bar">
             <div class="rightbar-title">
                 <a href="javascript:void(0);" class="end-bar-toggle float-end">
                     <i class="dripicons-cross noti-icon"></i>
@@ -203,9 +199,9 @@
                     </div>
                 </div> <!-- end padding-->
             </div>
-        </div>
+        </div> --}}
 
-        <div class="rightbar-overlay"></div>
+        {{-- <div class="rightbar-overlay"></div> --}}
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor.min.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/app.min.js"></script>
 
@@ -246,10 +242,10 @@
         <!-- Typehead -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor/handlebars.min.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor/typeahead.bundle.min.js"></script>
-
+        
         <!-- Demo -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.typehead.js"></script>
-        {{-- <script src='fullcalendar-scheduler/dist/index.global.js'></script> --}}
+        {{-- <script src='fullcalendar-scheduler/dist/index.global.js'></> --}}
 
         <!-- Timepicker -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.timepicker.js"></script>
@@ -260,7 +256,7 @@
         <!-- plugin js -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor/dropzone.min.js"></script>
         <!-- init js -->
-        <script src="{{ asset('admin_dashboard') }}/assets/js/ui/component.fileupload.js"></script>
+        {{-- <script src="{{ asset('admin_dashboard') }}/assets/js/ui/component.fileupload.js"></script> --}}
 
         <!-- Datatables js -->
 
@@ -296,55 +292,12 @@
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor/fullcalendar.min.js"></script>
         <!-- third party js ends -->
 
-        
+    
         <!-- demo app -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.calendar.js"></script>
         
         @yield('script')
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Animations for text and images
-        gsap.from(".animated-title", {
-            scrollTrigger: {
-                trigger: ".animated-title",
-                start: "top 80%", // Trigger animation when top of element reaches 80% of viewport
-                toggleActions: "play none none none",
-            },
-            opacity: 0,
-            y: 50,
-            duration: 1,
-            stagger: 0.3,
-            ease: "power3.out",
-        });
-
-        gsap.from(".animated-paragraph", {
-            scrollTrigger: {
-                trigger: ".animated-paragraph",
-                start: "top 90%",
-                toggleActions: "play none none none",
-            },
-            opacity: 0,
-            x: -50,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power3.out",
-        });
-
-        gsap.from(".hotel-right-side img", {
-            scrollTrigger: {
-                trigger: ".hotel-right-side img",
-                start: "top 80%",
-                toggleActions: "play none none none",
-            },
-            opacity: 0,
-            scale: 0.8,
-            duration: 1,
-            ease: "power3.out",
-        });
-    });
-        </script>
+        
         </body>
 
 </html>

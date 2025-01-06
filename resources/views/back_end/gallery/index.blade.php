@@ -150,7 +150,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-centered w-100 dt-responsive nowrap" id="gallery-datatable">
+                            <table class="table table-striped table-centered w-100 dt-responsive nowrap" id="gallery-datatable">
                                 <thead class="table-dark">
                                     <tr class="even">
                                         <th class="all" style="width: 20px;">

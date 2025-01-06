@@ -81,17 +81,17 @@
             </div>
         </li>
         @php
-    // Retrieve notifications from the session
-    $notifications = session()->get('notifications', []);
-    $notificationCount = count($notifications);
-@endphp
+            // Retrieve notifications from the session
+            $notifications = session()->get('notifications', []);
+            $notificationCount = count($notifications);
+        @endphp
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
                 aria-haspopup="false" aria-expanded="false">
                 <i class="dripicons-bell noti-icon "></i>
                 @if ($notificationCount > 0)
-                <span class="notification">{{ $notificationCount }}</span>
-            @endif
+                    <span class="notification">{{ $notificationCount }}</span>
+                @endif
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
 
@@ -109,19 +109,19 @@
                 <div style="max-height: 230px;" data-simplebar="">
                     <!-- item-->
                     @forelse ($notifications as $notification)
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                    <div class="notify-icon bg-primary">
-                        <i class="mdi mdi-comment-account-outline"></i>
-                    </div>
-                    <p class="notify-details">{{ $notification['message'] }}
-                        <small class="text-muted">
-                            {{ \Carbon\Carbon::parse($notification['time'])->diffForHumans() }}
-                        </small>
-                    </p>
-                </a>
-            @empty
-                <p class="text-center text-muted">No new notifications</p>
-            @endforelse
+                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                            <div class="notify-icon bg-primary">
+                                <i class="mdi mdi-comment-account-outline"></i>
+                            </div>
+                            <p class="notify-details">{{ $notification['message'] }}
+                                <small class="text-muted">
+                                    {{ \Carbon\Carbon::parse($notification['time'])->diffForHumans() }}
+                                </small>
+                            </p>
+                        </a>
+                    @empty
+                        <p class="text-center text-muted">No new notifications</p>
+                    @endforelse
 
                     <!-- item-->
                     {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
@@ -185,17 +185,19 @@
                 View All
             </a>
             @endif --}}
-            @if ($notificationCount > 0)
-            <a href="javascript:void(0);" class="dropdown-item text-center bg-primary text-white notify-item notify-all"
-                data-bs-toggle="modal" data-bs-target="#notificationsModal">
-                View All
-            </a>
-        @else
-            <a href="javascript:void(0);" class="dropdown-item text-center text-muted notify-item notify-all disabled"
-                aria-disabled="true">
-                View All
-            </a>
-        @endif
+                @if ($notificationCount > 0)
+                    <a href="javascript:void(0);"
+                        class="dropdown-item text-center bg-primary text-white notify-item notify-all"
+                        data-bs-toggle="modal" data-bs-target="#notificationsModal">
+                        View All
+                    </a>
+                @else
+                    <a href="javascript:void(0);"
+                        class="dropdown-item text-center text-muted notify-item notify-all disabled"
+                        aria-disabled="true">
+                        View All
+                    </a>
+                @endif
 
             </div>
         </li>
@@ -203,7 +205,7 @@
         <!-- Modal for Viewing All Notifications -->
 
 
-        <li class="dropdown notification-list d-none d-sm-inline-block">
+        {{-- <li class="dropdown notification-list d-none d-sm-inline-block">
             <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
                 aria-haspopup="false" aria-expanded="false">
                 <i class="dripicons-view-apps noti-icon"></i>
@@ -260,13 +262,13 @@
                 </div>
 
             </div>
-        </li>
+        </li> --}}
 
-        <li class="notification-list">
+        {{-- <li class="notification-list">
             <a class="nav-link end-bar-toggle" href="javascript: void(0);">
                 <i class="dripicons-gear noti-icon"></i>
             </a>
-        </li>
+        </li> --}}
 
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
@@ -330,13 +332,14 @@
     <div class="app-search dropdown d-none d-lg-block">
         <form>
             <div class="input-group">
-                <input type="text" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
-                <span class="mdi mdi-magnify search-icon"></span>
-                <button class="input-group-text btn-primary" type="submit">Search</button>
+                {{-- <input type="text" class="form-control dropdown-toggle" placeholder="Search..." id="top-search"> --}}
+
+                {{-- <span class="mdi mdi-magnify search-icon"></span> --}}
+                <a href="{{ route('homepage') }}" class="btn btn-sm mt-1 btn-primary">Website</a>
             </div>
         </form>
 
-        <div class="dropdown-menu dropdown-menu-animated dropdown-lg" id="search-dropdown">
+        {{-- <div class="dropdown-menu dropdown-menu-animated dropdown-lg" id="search-dropdown">
             <!-- item-->
             <div class="dropdown-header noti-title">
                 <h5 class="text-overflow mb-2">Found <span class="text-danger">17</span> results</h5>
@@ -392,7 +395,7 @@
                     </div>
                 </a>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 <div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel"

@@ -95,8 +95,55 @@
             padding-top: 5px !important;
             border: 1px solid #0056b3;
             box-shadow: 0px 0px 3px #0056b3;
-            
+
         }
+
+        .p-button-icon {
+
+            /* Dark blue for active state */
+            color: #ffffff !important;
+
+            padding: 2px 6px;
+            border-radius: 3px;
+            justify-content: center;
+            text-align: center;
+
+            align-items: center;
+            outline: transparent;
+            transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s outline-color 0.2s;
+        }
+
+        .p-button-icon.p-button-approve {
+            background-color: #689f38 !important;
+            border: 1px solid #689f38;
+        }
+
+        .p-button-icon.p-button-cancel {
+            background-color: #d32f2f !important;
+            border: 1px solid #d32f2f;
+        }
+
+        .p-button-icon.p-button-in {
+            background-color: #2196f3 !important;
+            border: 1px solid #2196f3;
+        }
+
+        .p-button-icon.p-button-out {
+            background-color: #ff9800 !important;
+            border: 1px solid #ff9800;
+        }
+
+
+        /* .p-button:hover{
+                        background-color: #10b981 !important;
+                    }
+                    .p-button-icon-only{
+                        justify-content: center;
+                    }
+                    .p-button.p-button-icon-only{
+                       
+                        padding: 0.5rem 0;
+                    } */
     </style>
 @endsection
 @section('content')
@@ -195,7 +242,8 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-centered table-striped dt-responsive nowrap w-100" id="bookings-datatable">
+                        <table class="table table-centered table-striped dt-responsive nowrap w-100"
+                            id="bookings-datatable">
                             <thead class="table-dark">
                                 <tr>
                                     <th style="width: 20px;">
@@ -220,14 +268,18 @@
                                     <tr>
                                         <td>
                                             <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="customCheck{{ $booking->id }}">
-                                                <label class="form-check-label" for="customCheck{{ $booking->id }}">&nbsp;</label>
+                                                <input type="checkbox" class="form-check-input"
+                                                    id="customCheck{{ $booking->id }}">
+                                                <label class="form-check-label"
+                                                    for="customCheck{{ $booking->id }}">&nbsp;</label>
                                             </div>
                                         </td>
-                                        <td>{{ Str::limit($booking->guest->first_name . ' ' . $booking->guest->last_name, 15) }}</td>
+                                        <td>{{ Str::limit($booking->guest->first_name . ' ' . $booking->guest->last_name, 15) }}
+                                        </td>
                                         <td>
                                             @if ($booking->room && $booking->room->roomType)
-                                                {{ $booking->room->room_number }} - {{ Str::limit($booking->room->roomType->type_name, 15) }}
+                                                {{ $booking->room->room_number }} -
+                                                {{ Str::limit($booking->room->roomType->type_name, 15) }}
                                             @else
                                                 N/A
                                             @endif
@@ -238,45 +290,48 @@
                                         <td>{{ $booking->total_children }}</td>
                                         <td>{{ date('d-m-Y', strtotime($booking->created_at)) }}</td>
                                         <td>
-                                            <span class="badge 
+                                            <span style="padding-top: 5px;padding-left: 6px; padding-right: 6px;"
+                                                class="badge
                                                 @if ($booking->status == 'Pending') bg-warning 
                                                 @elseif ($booking->status == 'Approved') bg-primary 
                                                 @elseif ($booking->status == 'Checked-In') bg-info 
                                                 @elseif ($booking->status == 'Checked-Out') bg-success 
                                                 @elseif ($booking->status == 'Completed') bg-success 
-                                                @elseif ($booking->status == 'Cancelled') bg-danger 
-                                                @endif">
+                                                @elseif ($booking->status == 'Cancelled') bg-danger @endif">
                                                 {{ $booking->status }}
                                             </span>
                                         </td>
                                         <td class="table-action">
                                             <!-- Status-based actions -->
                                             @if ($booking->status == 'Pending')
-                                            <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Approved']) }}" class="btn btn-sm btn-success">Approve</a>
-                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}" 
-                                                   class="btn btn-sm btn-danger">Cancel</a>
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Approved']) }}"
+                                                    class="p-button-icon p-button-approve"><i class="mdi mdi-check"></i></a>
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}"
+                                                    class="p-button-icon p-button-cancel"><i class="mdi mdi-cancel"></i></a>
                                             @elseif ($booking->status == 'Approved')
-                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Checked-In']) }}" 
-                                                   class="btn btn-sm btn-info">Check-In</a>
-                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}" 
-                                                   class="btn btn-sm btn-danger">Cancel</a>
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Checked-In']) }}"
+                                                    class="p-button-icon p-button-in"><i class="mdi mdi-login"></i></a>
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}"
+                                                    class="p-button-icon p-button-cancel"><i class="mdi mdi-cancel"></i></a>
                                             @elseif ($booking->status == 'Checked-In')
-                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Checked-Out']) }}" 
-                                                   class="btn btn-sm btn-primary">Check-Out</a>
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Checked-Out']) }}"
+                                                    class="p-button-icon p-button-out"><i class="mdi mdi-logout"></i></a>
                                             @elseif ($booking->status == 'Checked-Out')
-                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Completed']) }}" 
-                                                   class="btn btn-sm btn-success">Complete</a>
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Completed']) }}"
+                                                    class="p-button-icon p-button-complete"><i
+                                                        class="mdi mdi-checkbox-marked-circle"></i></a>
                                             @endif
-                        
-                                            <!-- Common actions -->
-                                            <a href="{{ route('rooms.show', $booking->id) }}" class="action-icon text-success"> 
+
+                                            <a href="{{ route('rooms.show', $booking->id) }}"
+                                                class="action-icon text-success">
                                                 <i class="mdi mdi-eye"></i>
                                             </a>
-                                            <a href="{{ url('bookings/' . $booking->id . '/edit') }}" class="action-icon text-primary">
+                                            <a href="{{ url('bookings/' . $booking->id . '/edit') }}"
+                                                class="action-icon text-primary">
                                                 <i class="mdi mdi-square-edit-outline"></i>
                                             </a>
-                                            <a href="{{ url('bookings/' . $booking->id . '/delete') }}" onclick="confirmation(event)" 
-                                               class="action-icon text-danger"> 
+                                            <a href="{{ url('bookings/' . $booking->id . '/delete') }}"
+                                                onclick="confirmation(event)" class="action-icon text-danger">
                                                 <i class="mdi mdi-delete"></i>
                                             </a>
                                         </td>
@@ -284,7 +339,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        
                     </div>
                 </div>
             </div>

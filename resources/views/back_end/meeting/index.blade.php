@@ -157,7 +157,7 @@
                         </div> --}}
 
                         <div class="table-responsive">
-                            <table class="table table-centered w-100 dt-responsive nowrap" id="meeting-datatable">
+                            <table class="table table-centered table-striped dt-responsive nowrap w-100" id="meeting-datatable">
                                 <thead class="table-dark">
                                     <tr class="even">
                                         <th class="all" style="width: 20px;">

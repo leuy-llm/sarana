@@ -23,6 +23,8 @@
         .popover-header {
             font-family: 'Hanuman', 'serif' !important;
         }
+
+        
     </style>
 @endsection
 @section('content')
@@ -102,21 +104,6 @@
                                 title="@lang('label.createNewGuest')" class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addGuest')</a>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="text-sm-start text-sm ">
-                                <form action="{{ url('guest/export') }}" method="GET"
-                                    class="d-flex justify-content-end  gap-2">
-                                    <select name="type" class="form-control select2" data-toggle="select2">
-                                        <option selected disabled>Select Type</option>
-                                        <option value="xlsx">XLSX</option>
-                                        <option value="csv">CVS</option>
-                                        <option value="xls">XLS</option>
-                                    </select>
-                                    <button type="submit" style="width: 90px"
-                                        class="btn btn-dark  mb-2">@lang('label.export')</button>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-centered table-striped dt-responsive nowrap w-100"
@@ -130,6 +117,9 @@
                                         </div>
                                     </th>
                                     <th>@lang('label.guest')</th>
+                                    {{-- <th>@lang('label.zip')</th>
+                                    <th>@lang('label.country')</th>
+                                    <th>@lang('label.city')</th> --}}
                                     <th>@lang('label.phone')</th>
                                     <th>@lang('label.email')</th>
                                     <th>@lang('label.address')</th>
@@ -148,11 +138,19 @@
                                             </div>
                                         </td>
                                         <td class="table-user">
-                                            {{-- <img src="{{ asset('admin_dashboard') }}/assets/images/users/avatar-4.jpg"
-                                                alt="table-user" class="me-2 rounded-circle"> --}}
                                             <a href="javascript:void(0);"
-                                                class="text-body fw-semibold">{{ $guest->name }}</a>
+                                                class="text-body fw-semibold">{{ $guest->first_name }}
+                                                {{ $guest->last_name }}</a>
                                         </td>
+                                        {{-- <td>
+                                            {{ $guest->zip }}
+                                        </td>
+                                        <td>
+                                            {{ $guest->country }}
+                                        </td>
+                                        <td>
+                                            {{ $guest->city }}
+                                        </td> --}}
                                         <td>
                                             {{ $guest->mobile }}
                                         </td>
@@ -166,19 +164,33 @@
                                             {{ date('d-m-Y H:i A', strtotime($guest->created_at)) }}
                                         </td>
                                         <td>
-                                            <span class="badge badge-success-lighten">Active</span>
+                                            @if($guest->email_verified_at)
+                                                <span class="badge badge-success-lighten">Active</span>
+                                            @else
+                                                <span class="badge badge-danger-lighten">Blocked</span>
+                                            @endif
                                         </td>
                                         <td class="table-action">
-                                            {{-- <a href="" class="action-icon"> <i class="mdi mdi-eye"></i></a> --}}
+                                            <a href="{{ route('guests.show', $guest->id) }}"
+                                                class="action-icon text-success"> <i
+                                                    class="mdi mdi-eye"></i>
+                                                   </a>
+                                                </a>
                                             <a href="{{ url('guests/' . $guest->id . '/edit') }}"
                                                 class="action-icon text-primary"> <i
-                                                    class="mdi mdi-square-edit-outline"></i></a>
+                                                    class="mdi mdi-square-edit-outline"></i>
+                                               </a>
                                             <a href="{{ url('guests/' . $guest->id . '/delete') }}"
-                                                onclick="confirmation(event)" class="action-icon text-danger"> <i
-                                                    class="mdi mdi-delete"></i></a>
+                                                onclick="confirmation(event)"
+                                                class="action-icon  text-danger"> <i
+                                                    class="mdi mdi-delete"></i>
+                                                    </a>
                                         </td>
+
+
                                     </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -287,10 +299,13 @@
                 });
         }
 
-        /*============= Tranlsate ==============*/
-        var displayText = @json(__('label.display'));
-        var displayGuest = @json(__('label.guest'));
-        var showingGuestsText =
-            "{{ __('label.showing_guests', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
+        // /*============= Tranlsate ==============*/
+        // var displayText = @json(__('label.display'));
+        // var displayGuest = @json(__('label.guest'));
+        // var showingGuestsText =
+        //     "{{ __('label.showing_guests', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
+
+
+        
     </script>
 @endsection

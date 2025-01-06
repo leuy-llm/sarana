@@ -77,24 +77,24 @@
                             <i class='bx bx-user'></i>
                         </span>
                         <input type="text" name="name" value="{{ old('name') }}" required
-                            class="form-control form-control-lg fs-6" placeholder="Username">
+                            class="form-control shadow-none form-control-lg fs-6" placeholder="Username">
                     </div>
 
                     <div class="input-group mb-4">
                         <span class="input-group-text">
                             <i class='bx bx-lock-alt'></i>
                         </span>
-                        <input type="password" required name="password" class="form-control form-control-lg fs-6"
+                        <input type="password" required name="password" class="form-control  shadow-none form-control-lg fs-6"
                             placeholder="Password">
                     </div>
                     <div class="input-group mb-4">
                         <div class="form-check">
-                            <input type="checkbox" id="form-check-input" class="form-check-input">
+                            <input type="checkbox" id="form-check-input  shadow-none" class="form-check-input">
                             <label for="form-check-input" class="form-check-label text-secondary"><small>Remember
                                     Me</small></label>
                         </div>
                     </div>
-                    <button type="submit" class="btn w-100 text-white mt-5" style="background: #e0962d">Log
+                    <button type="submit" class="btn w-100 shadow-none text-white mt-5" style="background: #e0962d">Log
                         In</button>
                 </form>
             </div>

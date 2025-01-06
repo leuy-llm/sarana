@@ -230,21 +230,6 @@
                                 title="@lang('label.createNewRoom')" class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addRoom')</a>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="text-sm-start text-sm ">
-                                <form action="{{ url('guest/export') }}" method="GET"
-                                    class="d-flex justify-content-end  gap-2">
-                                    <select name="type" class="form-control select2" data-toggle="select2">
-                                        <option selected disabled>Select Type</option>
-                                        <option value="xlsx">XLSX</option>
-                                        <option value="csv">CVS</option>
-                                        <option value="xls">XLS</option>
-                                    </select>
-                                    <button type="submit" style="width: 90px"
-                                        class="btn btn-dark  mb-2">@lang('label.export')</button>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-centered table-striped dt-responsive nowrap w-100" id="rooms-datatable">

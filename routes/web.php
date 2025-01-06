@@ -131,6 +131,8 @@ Route::get('/register', function () {
 })->name('register');
 
 Route::post('/guest-login', [GuestController::class, 'login'])->name('guest.login');
+Route::post('/booking/pay-on-arrival', [BookingController::class, 'payOnArrival'])->name('booking.payOnArrival');
+
 
 
 Route::post('/register', [GuestController::class, 'register'])->name('register');
@@ -176,6 +178,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     /*=================== Guest Route ========================== */
     Route::resource("/guests", GuestController::class);
     Route::get('guests/{guestId}/delete', [GuestController::class, 'destroy']);
+    Route::get('guests/{id}/detail', [GuestController::class, 'show'])->name('show.guest');
 
     /*=================== Room Route ========================== */
     Route::resource("/rooms", RoomController::class);

@@ -140,31 +140,60 @@
                                 <form class="ps-lg-4" method="POST">
                                     <!-- Product title -->
                                     <h3 class="mt-0">{{ $room->roomType->type_name }}<a
-                                            href="{{ url('rooms/' . $room->id) }}" class="text-muted"><i
-                                                class="mdi mdi-square-edit-outline ms-2"></i></a> </h3>
+                                            href="{{ url('rooms/' . $room->id) }}" class="text-muted"></a> </h3>
                                     <p class="mb-1">@lang('label.addDate'):
                                         {{ \Carbon\Carbon::parse($room->created_at)->translatedFormat('d F Y') }}</p>
-
 
                                     <!-- Product stock -->
                                     <div class="mt-3">
                                         <p> @lang('label.status'):
-                                            @if ($room->status == 'active')
-                                                <span class="badge badge-success-lighten">{{ $room->status }}</span>
-                                            @elseif ($room->status == 'inactive')
-                                                <span class="badge badge-danger-lighten">{{ $room->status }}</span>
+                                            @if ($room->status == '1')
+                                                <span class="badge badge-success-lighten">Active</span>
+                                            @elseif ($room->status == '0')
+                                                <span class="badge badge-danger-lighten">Inactive</span>
                                             
                                             @endif
                                         </p>
                                     </div>
 
-                                    <!-- Product description -->
-                                    <div class="mt-3">
+                                    {{-- <div class="mt-3">
                                         <h6 class="font-14">@lang('label.roomPrice'):</h6>
                                         <h3> ${{ $room->price }}</h3>
                                     </div>
-
-                                    <!-- Quantity -->
+                                    <div class="mt-3 d-flex">
+                                        <h6 class="font-14">@lang('label.maxPerson'):</h6>
+                                        <p>{{ $room->max_person }}</p>
+                                    </div> --}}
+                                    <div class="">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <h6 class="font-14">@lang('label.bedType'):</h6>
+                                                <p class="text-sm lh-150">{{ $room->bed_type }}</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h6 class="font-14">@lang('label.viewType'):</h6>
+                                                <p class="text-sm lh-150">{{ $room->view_type }}</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h6 class="font-14">@lang('label.roomSize'):</h6>
+                                                <p class="text-sm lh-150 ml-3">{{ $room->room_size }} m<sup>2</sup></p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h6 class="font-14">@lang('label.specialPrice'):</h6>
+                                                <p class="text-sm lh-150 ml-3">$ {{ $room->special_price }}</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h6 class="font-14">@lang('label.rating'):</h6>
+                                                <div class="d-flex align-items-center">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        <i
+                                                            class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-2 text-muted' }}"></i>
+                                                    @endfor
+                                                    {{-- <span class="ms-2">({{ $room->rating }} / 5)</span> --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="mt-3">
                                         <h6 class="font-14">@lang('label.roomFloor'):</h6>
                                         <div class="d-flex">
@@ -172,7 +201,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- Product description -->
+                                   
                                     <div class="mt-3">
                                         <h6 class="font-14">@lang('label.description'):</h6>
                                         <p>{{ $room->description }}</p>
@@ -194,22 +223,7 @@
                                     </div>
 
                                     <!-- Product information -->
-                                    {{-- <div class="mt-4">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <h6 class="font-14">Available Stock:</h6>
-                                            <p class="text-sm lh-150">1784</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6 class="font-14">Number of Orders:</h6>
-                                            <p class="text-sm lh-150">5,458</p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <h6 class="font-14">Revenue:</h6>
-                                            <p class="text-sm lh-150">$8,57,014</p>
-                                        </div>
-                                    </div>
-                                </div> --}}
+                                    
 
                                 </form>
                             </div> <!-- end col -->

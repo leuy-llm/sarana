@@ -68,18 +68,11 @@
                                     title="Create RoomType !" class="btn btn-danger mb-2">
                                     <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addRoomType')</a>
                             </div>
-                            <div class="col-sm-8">
-                                <div class="text-sm-end">
-                                    {{-- <button type="button" class="btn btn-success mb-2 me-1"><i
-                                            class="mdi mdi-cog-outline"></i></button> --}}
-                                    <button type="button" class="btn btn-dark mb-2 me-1">PDF</button>
-                                    <button type="button" class="btn btn-dark mb-2">Export</button>
-                                </div>
-                            </div><!-- end col-->
+                            
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-centered w-100 dt-responsive nowrap" id="product-datatable">
+                            <table class="table table-centered table-striped dt-responsive nowrap w-100" id="product-datatable">
                                 <thead class="table-dark">
                                     <tr class="even">
                                         <th class="all" style="width: 20px;">
@@ -134,7 +127,7 @@
                                             <td class="table-action">
                                                 {{-- <a href="" class="action-icon"> <i class="mdi mdi-eye"></i></a> --}}
                                                 <a href="{{ url('roomtypes/' . $data->id . '/edit') }}" id="roomTypeEdit"
-                                                    class="action-icon text-primary"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                    class="action-icon text-primary" > <i class="mdi mdi-square-edit-outline"></i></a>
                                                 <a href="{{ url('roomtypes/' . $data->id . '/delete') }}"
                                                     onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                         class="mdi mdi-delete"></i></a>

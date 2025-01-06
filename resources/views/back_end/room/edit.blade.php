@@ -102,6 +102,73 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.viewType')</label>
+                                    <input type="text" value="{{ old('view_type', $room->view_type) }}" name="view_type"
+                                           class="form-control @error('view_type') is-invalid @enderror"
+                                           placeholder="@lang('label.enterViewType') . . .">
+                                    @error('view_type')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.bedType')</label>
+                                    <input type="text" value="{{ old('bed_type', $room->bed_type) }}" name="bed_type"
+                                           class="form-control @error('bed_type') is-invalid @enderror"
+                                           placeholder="@lang('label.enterBedType') . . .">
+                                    @error('bed_type')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.roomSize')</label>
+                                    <input type="number" value="{{ old('room_size', $room->room_size) }}" name="room_size"
+                                           class="form-control @error('room_size') is-invalid @enderror"
+                                           placeholder="@lang('label.enterRoomSize') (e.g., in sq. ft)">
+                                    @error('room_size')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.rating')</label>
+                                    <input type="number" step="0.1" min="0" max="5" value="{{ old('rating', $room->rating) }}" name="rating"
+                                           class="form-control @error('rating') is-invalid @enderror"
+                                           placeholder="@lang('label.enterRating') (0-5)">
+                                    @error('rating')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.specialPrice')</label>
+                                    <input type="number" value="{{ old('special_price', $room->special_price) }}" name="special_price"
+                                           class="form-control @error('special_price') is-invalid @enderror"
+                                           placeholder="@lang('label.enterSpecialPrice')">
+                                    @error('special_price')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.extraBedCapacity')</label>
+                                    <input type="number" value="{{ old('extra_bed_capacity', $room->extra_bed_capacity) }}" name="extra_bed_capacity"
+                                           class="form-control @error('extra_bed_capacity') is-invalid @enderror"
+                                           placeholder="@lang('label.enterExtraBedCapacity')">
+                                    @error('extra_bed_capacity')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
                                 <div class="mb-2">
                                     <label class="form-label">@lang('label.description') <span class="text-danger"></span></label>
                                     <textarea name="description" class="form-control">{{ old('description', $room->description) }}</textarea>

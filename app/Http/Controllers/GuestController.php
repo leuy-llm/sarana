@@ -33,32 +33,39 @@ class GuestController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:50|unique:guests,name',
-            'email' => 'required|email|max:20|unique:guests,email',
-            'mobile' => 'required|numeric|min:11|unique:guests,mobile',
-            'address' => 'required|string|max:255',
+{
+    $request->validate([
+        'first_name' => 'required|string|max:50',
+        'last_name' => 'required|string|max:50',
+        'email' => 'required|email|max:255|unique:guests,email',
+        'mobile' => 'required|numeric|min:11|unique:guests,mobile',
+        'address' => 'required|string|max:255',
+        'zip' => 'nullable|string|max:10',
+        'country' => 'nullable|string|max:50',
+        'city' => 'nullable|string|max:50',
+        'password' => 'required|string|min:6',
+    ]);
 
-        ]);
-        try {
-            // Create a new Guest record
-            $guest = new Guest();
-            $guest->name = $request->name;
-            $guest->email = $request->email;
-            $guest->mobile = $request->mobile;
-            $guest->address = $request->address;
-            $guest->password = '';
-            $guest->save();
+    try {
+        // Create a new Guest record
+        $guest = new Guest();
+        $guest->first_name = $request->first_name;
+        $guest->last_name = $request->last_name;
+        $guest->email = $request->email;
+        $guest->mobile = $request->mobile;
+        $guest->address = $request->address;
+        $guest->zip = $request->zip;
+        $guest->country = $request->country;
+        $guest->city = $request->city;
+        $guest->password = bcrypt($request->password); // Hash the password
+        $guest->email_verified_at = null; // Set default for email verification
+        $guest->save();
 
-            // Set a success message in the session
-            return redirect('/guests')->with('success', __('label.guestCreatedSuccess'));
-        } catch (\Exception $e) {
-            // Set an error message in the session
-            return redirect('/guests')->with('error', __('label.guestCreatedError'));
-        }
+        return redirect('/guests')->with('success', __('label.guestCreatedSuccess'));
+    } catch (\Exception $e) {
+        return redirect('/guests')->with('error', __('label.guestCreatedError'));
     }
-
+}
     public function edit($id)
     {
         $guest = Guest::findOrFail($id);
@@ -67,25 +74,39 @@ class GuestController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:guests,email,' . $id,
-            'mobile' => 'required|numeric',
-            'address' => 'required|string|max:255',
-        ]);
+{
+    $request->validate([
+        'first_name' => 'required|string|max:50',
+        'last_name' => 'required|string|max:50',
+        'email' => 'required|email|max:255|unique:guests,email,' . $id,
+        'mobile' => 'required|numeric|min:11|unique:guests,mobile,' . $id,
+        'address' => 'required|string|max:255',
+        'zip' => 'nullable|string|max:10',
+        'country' => 'nullable|string|max:50',
+        'city' => 'nullable|string|max:50',
+    ]);
 
+    try {
         $guest = Guest::findOrFail($id);
-
-        $guest->name = $request->name;
+        $guest->first_name = $request->first_name;
+        $guest->last_name = $request->last_name;
         $guest->email = $request->email;
         $guest->mobile = $request->mobile;
         $guest->address = $request->address;
-        $guest->password = '';
+        $guest->zip = $request->zip;
+        $guest->country = $request->country;
+        $guest->city = $request->city;
+        if ($request->filled('password')) {
+            $guest->password = bcrypt($request->password); // Hash the new password if provided
+        }
         $guest->save();
 
         return redirect('/guests')->with('success', __('label.guestUpdatedSuccess'));
+    } catch (\Exception $e) {
+        return redirect('/guests')->with('error', __('label.guestUpdatedError'));
     }
+}
+
 
     public function destroy($guestId)
     {
@@ -94,7 +115,6 @@ class GuestController extends Controller
         if (!empty($guest)) {
             $guest->is_deleted = 1;
             $guest->save();
-
             // return redirect('/guests')->with('success', 'The guest was marked as deleted successfully');
             return redirect('/guests')->with('success', __('label.guestDeleteSuccess'));
         }
@@ -102,6 +122,10 @@ class GuestController extends Controller
         return redirect('/guests')->with('error', __('label.guestDeleteError'));
     }
 
+    public function show($guestId){
+        $guest = Guest::findOrFail($guestId);
+        return view('back_end.guest.detail', compact('guest'));
+    }
 
     /*========== Export Guest function ============== */
     public function export(Request $request)

@@ -42,8 +42,8 @@
             /* Your desired error background color */
         }
 
-         /* General styling for the switch */
-         .switch {
+        /* General styling for the switch */
+        .switch {
             position: relative;
             display: inline-block;
             width: 34px;
@@ -157,7 +157,8 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-centered w-100 dt-responsive nowrap" id="service-datatable">
+                            <table class="table table-striped table-centered w-100 dt-responsive nowrap"
+                                id="service-datatable">
                                 <thead class="table-dark">
                                     <tr class="even">
                                         <th class="all" style="width: 20px;">
@@ -438,12 +439,5 @@
                     }
                 });
         }
-
-
-        /*============= Tranlsate ==============*/
-        var displayText = @json(__('label.display'));
-        var displayService = @json(__('label.service'));
-        var showingServiceText =
-            "{{ __('label.showing_services', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
     </script>
 @endsection

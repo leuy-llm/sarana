@@ -68,6 +68,13 @@ return [
   'resetGuest' => 'Reset Guest',
   'youcan' => 'You can create new guest 👦🏻',
 
+  'zip' => 'Zip',
+  'country' => 'Country',
+  'city' => 'City',
+  'enterCity' => 'Enter city',
+  'enterZip' => 'Enter zip code',
+  'enterCountry' => 'Enter country',
+
 
 
   'areYourSure' => ' Are you Sure to delete this record?',

@@ -254,6 +254,41 @@ class PaymentController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
+    public function payOnArrival(Request $request)
+{
+    // Retrieve the authenticated guest
+    $guest = auth()->guard('guest')->user();
+
+    // Retrieve room details
+    $room = Room::find($request->input('room_id'));
+
+    if (!$room) {
+        return redirect()->back()->with('error', 'Invalid room selected.');
+    }
+
+    // Prepare booking data
+    $bookingData = [
+        'room_id' => $room->id,
+        'guest_id' => $guest->id,
+        'check_in_date' => $request->input('check_in'),
+        'check_out_date' => $request->input('check_out'),
+        'total_adults' => $request->input('adults'),
+        'total_children' => $request->input('children'),
+        'status' => 'pending', // Set status to pending for pay on arrival
+        'payment_status' => 'pay_on_arrival', // Indicate payment type
+    ];
+
+    // Save the booking
+    $booking = Booking::create($bookingData);
+
+    // Optionally, send a booking confirmation email
+    Mail::to($guest->email)->send(new BookingStatusMail($booking, $guest));
+
+    // Redirect to a confirmation page
+    return redirect()->route('booking.confirmation')->with('success', 'Booking successful! Please pay on arrival.');
+}
+
     public function paymentSuccess(Request $request)
     {
         // Fetch contact details and settings from the database
@@ -270,6 +305,8 @@ class PaymentController extends Controller
             return redirect()->route('homepage')->with('error', 'No payment details found.');
         }
     }
+
+    
 
 
 
