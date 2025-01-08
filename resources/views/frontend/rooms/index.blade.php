@@ -370,92 +370,105 @@
         }
 
         .stepper-wrapper {
-            margin-top: 50px;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            /* background: rgba(255, 255, 255, 0.9);
-                                                                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-            border-radius: 3px;
-            padding: 20px;
-        }
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    padding: 20px;
+}
 
-        .stepper-item {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
+.stepper-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
 
-            @media (max-width: 768px) {
-                font-size: 12px;
-            }
-        }
+.stepper-item::before {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid #ccc;
+    width: 100%;
+    top: 20px;
+    left: -50%;
+    z-index: 2;
+}
 
-        .border-red {
-            border: 1px solid red;
-            color: red;
-        }
+.stepper-item::after {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid #ccc;
+    width: 100%;
+    top: 20px;
+    left: 50%;
+    z-index: 2;
+}
 
+.stepper-item .step-counter {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ccc;
+    margin-bottom: 6px;
+}
 
-        .stepper-item::before {
-            position: absolute;
-            content: "";
-            border-bottom: 2px solid #ccc;
-            width: 100%;
-            top: 20px;
-            left: -50%;
-            z-index: 2;
-        }
+.stepper-item.active {
+    font-weight: bold;
+}
 
-        .stepper-item::after {
-            position: absolute;
-            content: "";
-            border-bottom: 2px solid #ccc;
-            width: 100%;
-            top: 20px;
-            left: 50%;
-            z-index: 2;
-        }
+.stepper-item.completed .step-counter {
+    background-color: #ffc107;
+}
 
-        .stepper-item .step-counter {
-            position: relative;
-            z-index: 5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #ccc;
-            margin-bottom: 6px;
-        }
+.stepper-item.completed::after {
+    border-bottom: 2px solid #ffc107;
+}
 
-        .stepper-item.active {
-            font-weight: bold;
-        }
+.stepper-item:first-child::before {
+    content: none;
+}
 
-        .stepper-item.completed .step-counter {
-            background-color: #ffc107;
-        }
+.stepper-item:last-child::after {
+    content: none;
+}
 
-        .stepper-item.completed::after {
-            position: absolute;
-            content: "";
-            border-bottom: 2px solid #ffc107;
-            width: 100%;
-            top: 20px;
-            left: 50%;
-            z-index: 3;
-        }
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .stepper-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
 
-        .stepper-item:first-child::before {
-            content: none;
-        }
+    .stepper-item {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
 
-        .stepper-item:last-child::after {
-            content: none;
-        }
+    .stepper-item::before,
+    .stepper-item::after {
+        content: none;
+    }
+
+    .stepper-item .step-counter {
+        flex-shrink: 0;
+    }
+
+    .stepper-item .step-name,
+    .stepper-item .step-description {
+        text-align: left;
+    }
+}
+
     </style>
 @endsection
 @section('content')
@@ -476,28 +489,23 @@
                     <div class="stepper-wrapper">
                         <div class="stepper-item active">
                             <div class="step-counter">1</div>
-                            <div class="step-name" style="margin-top: 5px;">Search</div>
-                            <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
-
+                            <div class="step-name mt-2">Search</div>
+                            <div class="step-description">Choose your favorite room</div>
                         </div>
                         <div class="stepper-item">
                             <div class="step-counter">2</div>
-                            <div class="step-name" style="margin-top: 5px;">Booking</div>
-                            <div class="step-name" style="font-size: 12px;">Enter your booking details</div>
-
+                            <div class="step-name mt-2">Book</div>
+                            <div class="step-description">Confirm your selection</div>
                         </div>
-                        <div class="stepper-item ">
+                        <div class="stepper-item">
                             <div class="step-counter">3</div>
-                            <div class="step-name" style="margin-top: 5px;">Checkout</div>
-                            <div class="step-name" style="font-size: 12px;">Use your preferred payment method
-                                Confirmation
-                            </div>
+                            <div class="step-name mt-2">Checkout</div>
+                            <div class="step-description">Use your preferred payment method</div>
                         </div>
                         <div class="stepper-item">
                             <div class="step-counter">4</div>
-                            <div class="step-name" style="margin-top: 5px;">Confirmation
-                            </div>
-                            <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
+                            <div class="step-name mt-2">Confirmation</div>
+                            <div class="step-description">Booking completed</div>
                         </div>
                     </div>
                     <div class="h-line bg-dark"></div>

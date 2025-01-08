@@ -5,88 +5,139 @@
         @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i');
         @import url('https://fonts.googleapis.com/css?family=Bree+Serif');
 
-
         .stepper-wrapper {
-            margin-top: 50px;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            /* background: rgba(255, 255, 255, 0.9);
-                                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-            border-radius: 3px;
-            padding: 20px;
-        }
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    padding: 20px;
+}
 
-        .stepper-item {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
+.stepper-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
 
-            @media (max-width: 768px) {
-                font-size: 12px;
+.stepper-item::before {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid #ccc;
+    width: 100%;
+    top: 20px;
+    left: -50%;
+    z-index: 2;
+}
+
+.stepper-item::after {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid #ccc;
+    width: 100%;
+    top: 20px;
+    left: 50%;
+    z-index: 2;
+}
+
+.stepper-item .step-counter {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ccc;
+    margin-bottom: 6px;
+}
+
+.stepper-item.active {
+    font-weight: bold;
+}
+
+.stepper-item.completed .step-counter {
+    background-color: #ffc107;
+}
+
+.stepper-item.completed::after {
+    border-bottom: 2px solid #ffc107;
+}
+
+.stepper-item:first-child::before {
+    content: none;
+}
+
+.stepper-item:last-child::after {
+    content: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .stepper-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .stepper-item {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .stepper-item::before,
+    .stepper-item::after {
+        content: none;
+    }
+
+    .stepper-item .step-counter {
+        flex-shrink: 0;
+    }
+
+    .stepper-item .step-name,
+    .stepper-item .step-description {
+        text-align: left;
+    }
+}
+
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .stepper-wrapper {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .stepper-item {
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+            }
+
+            .stepper-item::before,
+            .stepper-item::after {
+                content: none;
+            }
+
+            .stepper-item .step-counter {
+                flex-shrink: 0;
+            }
+
+            .stepper-item .step-name,
+            .stepper-item .step-description {
+                text-align: left;
+
             }
         }
 
-        .stepper-item::before {
-            position: absolute;
-            content: "";
-            border-bottom: 2px solid #ccc;
-            width: 100%;
-            top: 20px;
-            left: -50%;
-            z-index: 2;
-        }
-
-        .stepper-item::after {
-            position: absolute;
-            content: "";
-            border-bottom: 2px solid #ccc;
-            width: 100%;
-            top: 20px;
-            left: 50%;
-            z-index: 2;
-        }
-
-        .stepper-item .step-counter {
-            position: relative;
-            z-index: 5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #ccc;
-            margin-bottom: 6px;
-        }
-
-        .stepper-item.active {
-            font-weight: bold;
-        }
-
-        .stepper-item.completed .step-counter {
-            background-color: #ffc107;
-        }
-
-        .stepper-item.completed::after {
-            position: absolute;
-            content: "";
-            border-bottom: 2px solid #ffc107;
-            width: 100%;
-            top: 20px;
-            left: 50%;
-            z-index: 3;
-        }
-
-        .stepper-item:first-child::before {
-            content: none;
-        }
-
-        .stepper-item:last-child::after {
-            content: none;
-        }
 
         .booking-details {
             margin-top: 50px;
@@ -111,6 +162,35 @@
             margin: 0;
             font-family: 'Bree Serif', serif;
             /* font-size: 36px; */
+        }
+
+        @media (max-width: 768px) {
+            .booking-details h1 {
+                font-size: 24px;
+            }
+
+            /* .booking-details{
+                    margin-top: 20px;
+                } */
+            /* h2 {
+                    font-size: 18px;
+                }
+                h3 {
+                    font-size: 16px;
+                }
+                h4 {
+                    font-size: 14px;
+                }
+                h5 {
+                    font-size: 12px;
+                }
+                h6 {
+                    font-size: 10px;
+                } */
+            .booking-details p {
+                font-size: 14px;
+            }
+
         }
 
         .payment-options {
@@ -230,33 +310,28 @@
     </style>
 @endsection
 @section('content')
-    <section id="gallery" class="gallery_wrapper" style="margin-top: 60px; margin-bottom: 60px;">
+    <section id="gallery" class="payment_wrapper" style="margin-top: 60px; margin-bottom: 60px;">
         <div class="container-fluid">
             <div class="stepper-wrapper">
                 <div class="stepper-item completed">
                     <div class="step-counter">1</div>
-                    <div class="step-name" style="margin-top: 5px;">Search</div>
-                    <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
-
+                    <div class="step-name mt-2">Search</div>
+                    <div class="step-description">Choose your favorite room</div>
                 </div>
                 <div class="stepper-item completed">
                     <div class="step-counter">2</div>
-                    <div class="step-name" style="margin-top: 5px;">Search</div>
-                    <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
-
+                    <div class="step-name mt-2">Book</div>
+                    <div class="step-description">Confirm your selection</div>
                 </div>
                 <div class="stepper-item active">
                     <div class="step-counter">3</div>
-                    <div class="step-name" style="margin-top: 5px;">Checkout</div>
-                    <div class="step-name" style="font-size: 12px;">Use your preferred payment method
-                        Confirmation
-                    </div>
+                    <div class="step-name mt-2">Checkout</div>
+                    <div class="step-description">Use your preferred payment method</div>
                 </div>
                 <div class="stepper-item">
                     <div class="step-counter">4</div>
-                    <div class="step-name" style="margin-top: 5px;">Confirmation
-                    </div>
-                    <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
+                    <div class="step-name mt-2">Confirmation</div>
+                    <div class="step-description">Booking completed</div>
                 </div>
             </div>
         </div>
@@ -264,18 +339,16 @@
             <div class="booking-details">
                 <h4>Booking Details</h4>
                 <div class="row mb-3">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-6">
                         <p><strong>Full Name: </strong>{{ $guestData['first_name'] }} {{ $guestData['last_name'] }}</p>
                         <p><strong>Room:</strong> {{ $rooms->roomType->type_name }}</p>
-
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4  col-6">
                         <p><strong>Email:</strong> {{ $guestData['email'] }}</p>
                         {{-- <p><strong>Guests:</strong> 1 Adult, 0 Children</p> --}}
-
                         <p><strong>Guests:</strong> {{ $adults }} Adult, {{ $children }} Children</p>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-12">
                         <p><strong>Phone:</strong> {{ $guestData['mobile'] }}</p>
                         {{-- <p><strong>Guests:</strong> 1 Adult, 0 Children</p> --}}
                         <p><strong>Check In/Out:</strong>{{ date('d-m-Y H:i A', strtotime($checkIn)) }} →
@@ -317,36 +390,34 @@
 
                     <!-- Tab Content -->
                     <div class="tab-content">
-                        <div class="tab-pane fade  show active" id="credit-card" role="tabpanel"
+                        <div class="tab-pane fade show active" id="credit-card" role="tabpanel"
                             aria-labelledby="credit-card-tab">
-                            {{-- <div class="row">
-                                <div class="col-sm-9">
-                                 
-                                    <p class="mt-4">Safe money transfer using your bank account. We support Mastercard, Visa, Discover, and Stripe.</p>
-                                </div>
-                                <div class="col-sm-3 text-sm-end mt-3 mt-sm-0">
-                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/master.png" height="24" alt="master-card-img">
-                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/discover.png" height="24" alt="discover-card-img">
-                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/visa.png" height="24" alt="visa-card-img">
-                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/stripe.png" height="24" alt="stripe-card-img">
-                                </div>
-                            </div> --}}
-                            <div class="d-flex align-items-center justify-content-between mt-2">
-                                <p class="mt-4">Safe money transfer using your bank account. We support Mastercard, Visa, Discover, and Stripe.</p>
-                                <div class="text-sm-end mt-3 mt-sm-0">
-                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/master.png" height="24" alt="master-card-img">
-                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/discover.png" height="24" alt="discover-card-img">
-                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/visa.png" height="24" alt="visa-card-img">
-                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/stripe.png" height="24" alt="stripe-card-img">
+                            <div
+                                class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between mt-2 gap-2">
+                                <p class="mt-3 mt-md-0">
+                                    Safe money transfer using your bank account. We support Mastercard, Visa, Discover, and
+                                    Stripe.
+                                </p>
+                                <div class="mt-3 mt-md-0 text-end">
+                                    <img src="{{ asset('admin_dashboard') }}/assets/images/payments/master.png"
+                                        class="img-fluid me-2" height="24" alt="master-card-img">
+                                    <img src="{{ asset('admin_dashboard') }}/assets/images/payments/discover.png"
+                                        class="img-fluid me-2" height="24" alt="discover-card-img">
+                                    <img src="{{ asset('admin_dashboard') }}/assets/images/payments/visa.png"
+                                        class="img-fluid me-2" height="24" alt="visa-card-img">
+                                    <img src="{{ asset('admin_dashboard') }}/assets/images/payments/stripe.png"
+                                        class="img-fluid" height="24" alt="stripe-card-img">
                                 </div>
                             </div>
-                            
-                           
-                            <p>Card Number: 4242 4242 4242 4242</p>
-                            <p>Expiry Month : 05</p>
-                            <p>Expriy Year : 2025</p>
-                            <p>CVC : 555</p>
-                            <p>Zip : 55555</p>
+
+                            <div class="mt-4">
+                                <p><strong>Card Number:</strong> 4242 4242 4242 4242</p>
+                                <p><strong>Expiry Month:</strong> 05</p>
+                                <p><strong>Expiry Year:</strong> 2025</p>
+                                <p><strong>CVC:</strong> 555</p>
+                                <p><strong>Zip:</strong> 55555</p>
+                            </div>
+
                             @if (session('success'))
                                 <div class="alert alert-success">{{ session('success') }}</div>
                             @elseif(session('error'))
@@ -357,26 +428,22 @@
                                 class="require-validation">
                                 @csrf
                                 <input type="hidden" name="amount" value="{{ $totalPrice }}">
-                                <!-- Pass the total price -->
-                                <input type="hidden" name="room_id" value="{{ $room->id }}"> <!-- Add room ID -->
+                                <input type="hidden" name="room_id" value="{{ $room->id }}">
                                 <input type="hidden" name="check_in" value="{{ $checkIn }}">
-                                <!-- Add check-in date -->
                                 <input type="hidden" name="check_out" value="{{ $checkOut }}">
-                                <!-- Add check-out date -->
                                 <input type="hidden" name="adults" value="{{ $adults }}">
-                                <!-- Add number of adults -->
                                 <input type="hidden" name="children" value="{{ $children }}">
-                                <!-- Add number of children -->
-                                <div id="card-element" class="" style="border: 1px solid #ccc; padding: 13px;">
+
+                                <div id="card-element" class="mt-3 p-3 border rounded">
                                     <!-- A Stripe Element will be inserted here. -->
                                 </div>
-                                <!-- Used to display form errors. -->
-                                <div id="card-errors" role="alert"></div>
-
-                                <button type="submit"
-                                    class="btn btn-warning rounded-0 py-2 font-weight-bold text-white mt-3 px-4">
-                                    Checkout Now
-                                </button>
+                                <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                                <div class="text-left">
+                                    <button type="submit"
+                                        class="btn btn-warning rounded-0 py-2 font-weight-bold text-white mt-3 px-4">
+                                        <i class="bi bi-cash-stack mr-2"></i>Checkout Now
+                                    </button>
+                                </div>
                             </form>
                         </div>
                         {{-- <div class="tab-pane fade" id="payment-paypal" role="tabpanel" aria-labelledby="payment-paypal-tab">
@@ -465,11 +532,11 @@
                     </button>
                 </form>
             </div> --}}
-            
 
-        
+
+
         </div>
-         
+
     </section>
 @endsection
 

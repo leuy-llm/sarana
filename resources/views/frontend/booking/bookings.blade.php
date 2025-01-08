@@ -111,86 +111,105 @@
         }
 
         .stepper-wrapper {
-        margin-top: 50px;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        /* background: rgba(255, 255, 255, 0.9);
-                                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
-        border-radius: 3px;
-        padding: 20px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    padding: 20px;
+}
+
+.stepper-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.stepper-item::before {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid #ccc;
+    width: 100%;
+    top: 20px;
+    left: -50%;
+    z-index: 2;
+}
+
+.stepper-item::after {
+    position: absolute;
+    content: "";
+    border-bottom: 2px solid #ccc;
+    width: 100%;
+    top: 20px;
+    left: 50%;
+    z-index: 2;
+}
+
+.stepper-item .step-counter {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ccc;
+    margin-bottom: 6px;
+}
+
+.stepper-item.active {
+    font-weight: bold;
+}
+
+.stepper-item.completed .step-counter {
+    background-color: #ffc107;
+}
+
+.stepper-item.completed::after {
+    border-bottom: 2px solid #ffc107;
+}
+
+.stepper-item:first-child::before {
+    content: none;
+}
+
+.stepper-item:last-child::after {
+    content: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .stepper-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
     }
 
     .stepper-item {
-        position: relative;
-        display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        flex: 1;
-
-        @media (max-width: 768px) {
-            font-size: 12px;
-        }
-    }
-
-    .stepper-item::before {
-        position: absolute;
-        content: "";
-        border-bottom: 2px solid #ccc;
+        gap: 10px;
         width: 100%;
-        top: 20px;
-        left: -50%;
-        z-index: 2;
     }
 
+    .stepper-item::before,
     .stepper-item::after {
-        position: absolute;
-        content: "";
-        border-bottom: 2px solid #ccc;
-        width: 100%;
-        top: 20px;
-        left: 50%;
-        z-index: 2;
+        content: none;
     }
 
     .stepper-item .step-counter {
-        position: relative;
-        z-index: 5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: #ccc;
-        margin-bottom: 6px;
+        flex-shrink: 0;
     }
 
-    .stepper-item.active {
-        font-weight: bold;
+    .stepper-item .step-name,
+    .stepper-item .step-description {
+        text-align: left;
     }
+}
 
-    .stepper-item.completed .step-counter {
-        background-color: #ffc107;
-    }
-
-    .stepper-item.completed::after {
-        position: absolute;
-        content: "";
-        border-bottom: 2px solid #ffc107;
-        width: 100%;
-        top: 20px;
-        left: 50%;
-        z-index: 3;
-    }
-
-    .stepper-item:first-child::before {
-        content: none;
-    }
-
-    .stepper-item:last-child::after {
-        content: none;
-    }
 
     </style>
 @endsection
@@ -206,7 +225,7 @@
             </div>
         </div>
     </section> --}}
-    <section id="gallery" class="gallery_wrapper" style="margin-top: 60px;">
+    <section id="gallery" class="booking_wrapper" style="margin-top: 60px;">
         <div class="container-fluid">
             <div class="row">
                 {{-- <div class="col-md-6">
@@ -376,8 +395,7 @@
                 
                 </form> --}}
 
-                <div class="container-fluid">
-                    
+                <div class="container-fluid"> 
                     {{-- <div class="progress-container">
                         <div class="d-flex justify-content-between">
                             <div class="progress-step active">Search<br><small>Choose your favorite room</small></div>
@@ -390,28 +408,23 @@
                     <div class="stepper-wrapper">
                         <div class="stepper-item completed">
                             <div class="step-counter">1</div>
-                            <div class="step-name" style="margin-top: 5px;">Search</div>
-                            <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
-        
+                            <div class="step-name mt-2">Search</div>
+                            <div class="step-description">Choose your favorite room</div>
                         </div>
                         <div class="stepper-item active">
                             <div class="step-counter">2</div>
-                            <div class="step-name" style="margin-top: 5px;">Booking</div>
-                            <div class="step-name" style="font-size: 12px;">Enter your booking details</div>
-        
+                            <div class="step-name mt-2">Book</div>
+                            <div class="step-description">Confirm your selection</div>
                         </div>
-                        <div class="stepper-item ">
+                        <div class="stepper-item">
                             <div class="step-counter">3</div>
-                            <div class="step-name" style="margin-top: 5px;">Checkout</div>
-                            <div class="step-name" style="font-size: 12px;">Use your preferred payment method
-                                Confirmation
-                            </div>
+                            <div class="step-name mt-2">Checkout</div>
+                            <div class="step-description">Use your preferred payment method</div>
                         </div>
                         <div class="stepper-item">
                             <div class="step-counter">4</div>
-                            <div class="step-name" style="margin-top: 5px;">Confirmation
-                            </div>
-                            <div class="step-name" style="font-size: 12px;">Choose your favorite room</div>
+                            <div class="step-name mt-2">Confirmation</div>
+                            <div class="step-description">Booking completed</div>
                         </div>
                     </div>
                 </div>
