@@ -136,7 +136,7 @@
                                         @foreach ($guests as $guest)
                                             <option value="{{ $guest->id }}"
                                                 {{ $guest->id == $booking->guest_id ? 'selected' : '' }}>
-                                                {{ $guest->name }}
+                                                {{ $guest->first_name }} {{ $guest->last_name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -210,16 +210,18 @@
                                     <select name="status"
                                         class="form-control @error('status') is-invalid @enderror select2"
                                         data-toggle="select2">
-                                        {{-- <option value="confirmed" {{ $booking->status == 'confirmed' ? 'selected' : '' }}>
-                                            Confirmed</option> --}}
-                                        <option value="canceled" {{ $booking->status == 'canceled' ? 'selected' : '' }}>
+
+                                        <option value="Canceled" {{ $booking->status == 'Canceled' ? 'selected' : '' }}>
                                             Canceled</option>
-                                        <option value="pending" {{ $booking->status == 'pending' ? 'selected' : '' }}>
+                                        <option value="Pending" {{ $booking->status == 'Pending' ? 'selected' : '' }}>
                                             Pending</option>
-                                        <option value="checked-in"
-                                            {{ $booking->status == 'checked-in' ? 'selected' : '' }}>Checked_In</option>
-                                        <option value="checked-out"
-                                            {{ $booking->status == 'checked-out' ? 'selected' : '' }}>Checked_Out</option>
+                                        <option value="Checked-In"
+                                            {{ $booking->status == 'Checked-In' ? 'selected' : '' }}>Checked_In</option>
+                                        <option value="Checked-Out"
+                                            {{ $booking->status == 'Checked-Out' ? 'selected' : '' }}>Checked_Out</option>
+                                        <option value="Approved" {{ $booking->status == 'Approve' ? 'selected' : '' }}>
+                                            Approved</option>
+
                                     </select>
                                     @error('status')
                                         <span class="invalid-feedback">{{ $message }}</span>

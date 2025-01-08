@@ -19,51 +19,6 @@ use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
-    //
-    // public function showPaymentForm($bookingId,$totalAmount)
-    // {
-    //     $settings = DB::table('settings')->get();
-    //     $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
-    //     return view('frontend.booking.payment', compact('totalAmount', 'settings', 'roomTypes', 'bookingId'));
-    // }
-
-
-
-    // public function processPayment(Request $request,$totalAmount)
-
-    // {
-    //     Stripe::setApiKey(env('STRIPE_SECRET'));
-
-    //     Charge::create ([
-    //             "amount" => $totalAmount * 100,
-
-    //             "currency" => "usd",
-
-    //             "source" => $request->stripeToken,
-
-    //             "description" => "Reservation Payment ." ,
-    //     ]);
-    //     // $totalAmount = $request->input('total_amount');
-    //     Session::flash('success', 'Payment successful!');
-    //     return back();
-
-    // }
-
-
-
-    //     public function showPaymentForm($totalAmount)
-    // {
-    //     $booking = Booking::find($bookingId);
-
-    //     // if (!$booking) {
-    //     //     return redirect()->route('homepage')->with('error', 'Booking not found.');
-    //     // }
-
-    //     $settings = DB::table('settings')->get();
-    //     $roomTypes = RoomType::all(); // Retrieve all room types
-    //     return view('frontend.booking.payment', compact('totalAmount', 'settings', 'roomTypes', 'bookingId'));
-    // }
-
     public function showPaymentForm($totalprice, Request $request)
     {
         $data = "Payment";
@@ -255,40 +210,6 @@ class PaymentController extends Controller
         }
     }
 
-    public function payOnArrival(Request $request)
-{
-    // Retrieve the authenticated guest
-    $guest = auth()->guard('guest')->user();
-
-    // Retrieve room details
-    $room = Room::find($request->input('room_id'));
-
-    if (!$room) {
-        return redirect()->back()->with('error', 'Invalid room selected.');
-    }
-
-    // Prepare booking data
-    $bookingData = [
-        'room_id' => $room->id,
-        'guest_id' => $guest->id,
-        'check_in_date' => $request->input('check_in'),
-        'check_out_date' => $request->input('check_out'),
-        'total_adults' => $request->input('adults'),
-        'total_children' => $request->input('children'),
-        'status' => 'pending', // Set status to pending for pay on arrival
-        'payment_status' => 'pay_on_arrival', // Indicate payment type
-    ];
-
-    // Save the booking
-    $booking = Booking::create($bookingData);
-
-    // Optionally, send a booking confirmation email
-    Mail::to($guest->email)->send(new BookingStatusMail($booking, $guest));
-
-    // Redirect to a confirmation page
-    return redirect()->route('booking.confirmation')->with('success', 'Booking successful! Please pay on arrival.');
-}
-
     public function paymentSuccess(Request $request)
     {
         // Fetch contact details and settings from the database
@@ -306,7 +227,7 @@ class PaymentController extends Controller
         }
     }
 
-    
+
 
 
 
@@ -350,9 +271,21 @@ class PaymentController extends Controller
 
 
 
-    public function success()
-    {
-        return view('frontend.booking.success');
-    }
+    // public function success()
+    // {
+    //     $data = "Payment";
+    //     return view('back_end.payment======', compact('data'));
+    // }
 
+    /* ============== Payment ============== */
+    public function payment()
+    {
+        $data = "Payment";
+        $payments = Payment::with(['booking.guest', 'booking.room.roomType'])->get();
+
+        return view('back_end.payment.index',compact('data','payments'));
+    }
+    public function create(){
+
+    }
 }

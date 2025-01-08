@@ -11,7 +11,7 @@
     </a>
 
     <!-- LOGO -->
-    
+
 
     <div class="h-100" id="leftside-menu-container" data-simplebar="">
 
@@ -69,9 +69,18 @@
                     <span> @lang('label.booking') </span>
                 </a>
             </li>
+
+            <li class="side-nav-title side-nav-item font">Payment Section</li>
+            <li class="side-nav-item font @if (Request::segment(1) == 'payments') active @endif"">
+                <a href="{{ url('payments') }}" class="side-nav-link">
+                    <i class="uil-money-bill"></i>
+
+                    <span> @lang('label.payment') </span>
+                </a>
+            </li>
             <li class="side-nav-title side-nav-item font">Report Section</li>
             <li class="side-nav-item font @if (Request::segment(1) == 'reports') active @endif">
-                <a href="{{route('reports.reservations')}}" class="side-nav-link">
+                <a href="{{ route('reports.reservations') }}" class="side-nav-link">
                     <i class="uil-file"></i>
                     <span> @lang('label.report') </span>
                 </a>

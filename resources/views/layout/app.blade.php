@@ -224,6 +224,7 @@
 
         <!-- demo app -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.customers.js"></script>
+        <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.payment.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.products.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.rooms.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.permission.js"></script>

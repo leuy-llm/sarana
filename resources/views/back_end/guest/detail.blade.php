@@ -5,18 +5,22 @@
     </style>
 @endsection
 @section('content')
-    @php
-        $breadcrumbs = [
-            ['title' => __('label.room'), 'url' => route('rooms.index')],
-            ['title' => __('label.detailRoom'), 'url' => route('rooms.create')],
-        ];
-        $currentPageTitle = __('label.detailRoom');
+@php
+$breadcrumbs = [
+    ['title' => __('label.guest'), 'url' => route('guests.index')],
+    ['title' => __('label.detailGuest'), 'url' => route('guests.create')],
+];
+$currentPageTitle = __('label.detailGuest');
 
-    @endphp
-    @include('layout.breadcrumbs', [
-        'breadcrumbs' => $breadcrumbs,
-        'currentPageTitle' => $currentPageTitle,
-    ])
+//translate Date
+\Carbon\Carbon::setLocale('km');
+@endphp
+@include('layout.breadcrumbs', [
+'breadcrumbs' => $breadcrumbs,
+'currentPageTitle' => $currentPageTitle,
+])
+
+    
 
     <div class="row">
         <div class="col-12">

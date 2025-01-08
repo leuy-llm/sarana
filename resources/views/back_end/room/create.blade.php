@@ -258,12 +258,12 @@
                                 </div>
                             </div>
                         
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Extra Bed Capacity</label>
                                     <input type="number" name="extra_bed_capacity" value="{{ old('extra_bed_capacity') }}" class="form-control" placeholder="Enter extra bed capacity">
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <button class="btn btn-primary" type="submit">@lang('label.submit')</button>
                         

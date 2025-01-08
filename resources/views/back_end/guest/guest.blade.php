@@ -23,8 +23,6 @@
         .popover-header {
             font-family: 'Hanuman', 'serif' !important;
         }
-
-        
     </style>
 @endsection
 @section('content')
@@ -164,7 +162,7 @@
                                             {{ date('d-m-Y H:i A', strtotime($guest->created_at)) }}
                                         </td>
                                         <td>
-                                            @if($guest->email_verified_at)
+                                            @if ($guest->email_verified_at)
                                                 <span class="badge badge-success-lighten">Active</span>
                                             @else
                                                 <span class="badge badge-danger-lighten">Blocked</span>
@@ -172,19 +170,17 @@
                                         </td>
                                         <td class="table-action">
                                             <a href="{{ route('guests.show', $guest->id) }}"
-                                                class="action-icon text-success"> <i
-                                                    class="mdi mdi-eye"></i>
-                                                   </a>
-                                                </a>
+                                                class="action-icon text-success"> <i class="mdi mdi-eye"></i>
+                                            </a>
+                                            </a>
                                             <a href="{{ url('guests/' . $guest->id . '/edit') }}"
                                                 class="action-icon text-primary"> <i
                                                     class="mdi mdi-square-edit-outline"></i>
-                                               </a>
+                                            </a>
                                             <a href="{{ url('guests/' . $guest->id . '/delete') }}"
-                                                onclick="confirmation(event)"
-                                                class="action-icon  text-danger"> <i
+                                                onclick="confirmation(event)" class="action-icon  text-danger"> <i
                                                     class="mdi mdi-delete"></i>
-                                                    </a>
+                                            </a>
                                         </td>
 
 
@@ -304,8 +300,5 @@
         // var displayGuest = @json(__('label.guest'));
         // var showingGuestsText =
         //     "{{ __('label.showing_guests', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
-
-
-        
     </script>
 @endsection

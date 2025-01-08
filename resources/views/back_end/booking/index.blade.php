@@ -99,18 +99,56 @@
         }
 
         .p-button-icon {
-
-            /* Dark blue for active state */
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
             color: #ffffff !important;
-
             padding: 2px 6px;
             border-radius: 3px;
             justify-content: center;
             text-align: center;
-
             align-items: center;
             outline: transparent;
             transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s outline-color 0.2s;
+        }
+
+        /* Tooltip styling */
+        .tooltip {
+            visibility: hidden;
+            width: 120px;
+            background-color: #313a46;
+            color: #fff;
+            text-align: center;
+            border-radius: 3px;
+            padding: 4px;
+            font-family: "Nunito", serif;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            /* Position above the button */
+            left: 50%;
+            margin-left: -60px;
+            /* Center the tooltip */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Tooltip arrow */
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #313a46 transparent transparent transparent;
+        }
+
+        /* Show tooltip on hover */
+        .p-button-icon:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
         }
 
         .p-button-icon.p-button-approve {
@@ -132,18 +170,22 @@
             background-color: #ff9800 !important;
             border: 1px solid #ff9800;
         }
+        .p-button-icon.p-button-complete{
+            background-color: #4caf50 !important;
+            border: 1px solid #4caf50;
+        }
 
 
         /* .p-button:hover{
-                        background-color: #10b981 !important;
-                    }
-                    .p-button-icon-only{
-                        justify-content: center;
-                    }
-                    .p-button.p-button-icon-only{
-                       
-                        padding: 0.5rem 0;
-                    } */
+                                background-color: #10b981 !important;
+                            }
+                            .p-button-icon-only{
+                                justify-content: center;
+                            }
+                            .p-button.p-button-icon-only{
+                               
+                                padding: 0.5rem 0;
+                            } */
     </style>
 @endsection
 @section('content')
@@ -236,7 +278,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-9">
                             <a href="{{ url('bookings/create') }}" tabindex="0" data-bs-toggle="popover"
-                                data-bs-trigger="hover" data-bs-placement="right" data-bs-content="@lang('label.CanBooking')"
+                                data-bs-trigger="hover" data-bs-placement="top" 
                                 title="@lang('label.createNewBooking')" class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addBooking')</a>
                         </div>
@@ -290,9 +332,10 @@
                                         <td>{{ $booking->total_children }}</td>
                                         <td>{{ date('d-m-Y', strtotime($booking->created_at)) }}</td>
                                         <td>
-                                            <span style="padding-top: 5px;padding-left: 6px; padding-right: 6px;"
+                                            <span
+                                                style="padding-top: 5px;padding-bottom: 4px;padding-left: 10px; border-radius: 20px; padding-right: 10px;"
                                                 class="badge
-                                                @if ($booking->status == 'Pending') bg-warning 
+                                                @if ($booking->status == 'Pending') bg-warning
                                                 @elseif ($booking->status == 'Approved') bg-primary 
                                                 @elseif ($booking->status == 'Checked-In') bg-info 
                                                 @elseif ($booking->status == 'Checked-Out') bg-success 
@@ -303,26 +346,44 @@
                                         </td>
                                         <td class="table-action">
                                             <!-- Status-based actions -->
-                                            @if ($booking->status == 'Pending')
+                                            {{-- @if ($booking->status == 'Pending')
                                                 <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Approved']) }}"
                                                     class="p-button-icon p-button-approve"><i class="mdi mdi-check"></i></a>
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}" --}}
+                                            @if ($booking->status == 'Pending')
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Approved']) }}"
+                                                    class="p-button-icon p-button-approve">
+                                                    <i class="mdi mdi-check"></i>
+                                                    <span class="tooltip">Approve</span>
+                                                </a>
                                                 <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}"
-                                                    class="p-button-icon p-button-cancel"><i class="mdi mdi-cancel"></i></a>
+                                                    class="p-button-icon p-button-cancel">
+                                                    <i class="mdi mdi-cancel"></i>
+                                                    <span class="tooltip">Cancel</span>
+                                                </a>
                                             @elseif ($booking->status == 'Approved')
                                                 <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Checked-In']) }}"
-                                                    class="p-button-icon p-button-in"><i class="mdi mdi-login"></i></a>
+                                                    class="p-button-icon p-button-in"><i class="mdi mdi-login"></i>
+                                                    <span class="tooltip">Check In</span>
+                                                </a>
                                                 <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}"
-                                                    class="p-button-icon p-button-cancel"><i class="mdi mdi-cancel"></i></a>
+                                                    class="p-button-icon p-button-cancel"><i class="mdi mdi-cancel"></i>
+                                                
+                                                    <span class="tooltip">Cancel</span></a>
                                             @elseif ($booking->status == 'Checked-In')
                                                 <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Checked-Out']) }}"
-                                                    class="p-button-icon p-button-out"><i class="mdi mdi-logout"></i></a>
+                                                    class="p-button-icon p-button-out"><i class="mdi mdi-logout"></i>
+                                                
+                                                    <span class="tooltip">Check Out</span></a>
                                             @elseif ($booking->status == 'Checked-Out')
                                                 <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Completed']) }}"
                                                     class="p-button-icon p-button-complete"><i
-                                                        class="mdi mdi-checkbox-marked-circle"></i></a>
+                                                        class="mdi mdi-check-all"></i>
+                                                        <span class="tooltip">Complete</span>
+                                                    </a>
                                             @endif
 
-                                            <a href="{{ route('rooms.show', $booking->id) }}"
+                                            <a href="{{ route('bookings.show', $booking->id) }}"
                                                 class="action-icon text-success">
                                                 <i class="mdi mdi-eye"></i>
                                             </a>
@@ -349,7 +410,6 @@
     <script>
         ! function(i) {
             "use strict";
-
             function showSuccessNotification(message) {
                 toastr.options = {
                     "closeButton": true,
@@ -405,7 +465,6 @@
             @endif
         }(window.jQuery);
 
-
         function confirmation(ev) {
             ev.preventDefault();
             var urlToRedirect = ev.currentTarget.getAttribute('href');
@@ -414,7 +473,6 @@
             var confirm = @json(__('label.ok'));
             var cancel = @json(__('label.cancel'));
             console.log(urlToRedirect);
-
             swal({
                     title: question,
                     text: maksure,
@@ -437,146 +495,14 @@
                     },
                     dangerMode: true,
                 })
-
                 .then((willCancel) => {
                     if (willCancel) {
                         window.location.href = urlToRedirect;
                     }
                 });
-
-
         }
-
-
         /*============= Tranlsate ==============*/
         /*============= Tranlsate ==============*/
-        var displayText = @json(__('label.display'));
-        var displayBooking = @json(__('label.booking'));
-        var showingBookingText =
-            "{{ __('label.showing_bookings', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
-
-
-        // document.querySelectorAll('.three-state-switch').forEach(function(switchElement) {
-        //     const slider = switchElement.querySelector('.slider');
-        //     const knob = slider.querySelector('.knob');
-        //     const input = switchElement.querySelector('#status');
-        //     const statuses = ['pending', 'confirmed', 'canceled'];
-
-        //     function updateKnobPosition(status) {
-        //         const index = statuses.indexOf(status);
-        //         knob.style.left = `${index * 40}px`; // Adjust for your layout
-        //         slider.setAttribute('data-status', status); // Set status for CSS updates
-        //     }
-
-        //     // Initialize with the current status
-        //     updateKnobPosition(input.value);
-
-        //     slider.addEventListener('click', function() {
-        //         const currentStatus = slider.getAttribute('data-status');
-        //         const currentIndex = statuses.indexOf(currentStatus);
-        //         const nextIndex = (currentIndex + 1) % statuses.length;
-        //         const nextStatus = statuses[nextIndex];
-
-        //         // Update UI
-        //         updateKnobPosition(nextStatus);
-
-        //         // Update hidden input value
-        //         input.value = nextStatus;
-
-        //         // Submit the form (if needed)
-        //         switchElement.closest('form').submit();
-        //     });
-        // });
-        // document.querySelectorAll('.three-state-switch').forEach(function(switchElement) {
-        //     const slider = switchElement.querySelector('.slider');
-        //     const knob = slider.querySelector('.knob');
-        //     const input = switchElement.querySelector('#status');
-        //     const labels = slider.querySelectorAll('.label');
-        //     const statuses = ['pending', 'confirmed', 'canceled'];
-
-        //     function updateKnobPosition(status) {
-        //         const index = statuses.indexOf(status);
-        //         if (index === -1) return;
-
-        //         // Calculate knob position based on label width
-        //         const labelWidth = slider.offsetWidth / statuses.length;
-        //         knob.style.left = `${index * labelWidth}px`;
-
-        //         // Set the status for styling
-        //         slider.setAttribute('data-status', status);
-
-        //         // Update input value
-        //         input.value = status;
-
-        //         // Update label colors
-        //         labels.forEach((label, i) => {
-        //             label.style.color = i === index ? 'white' : 'black';
-        //         });
-        //     }
-
-        //     // Initialize with the current status
-        //     updateKnobPosition(input.value);
-
-        //     // Add click event for switching status
-        //     slider.addEventListener('click', function(event) {
-        //         const rect = slider.getBoundingClientRect();
-        //         const clickX = event.clientX - rect.left;
-
-        //         const labelWidth = slider.offsetWidth / statuses.length;
-        //         const clickedIndex = Math.floor(clickX / labelWidth);
-
-        //         if (clickedIndex >= 0 && clickedIndex < statuses.length) {
-        //             const nextStatus = statuses[clickedIndex];
-        //             updateKnobPosition(nextStatus);
-
-        //             // Optionally submit the form
-        //             switchElement.closest('form').submit();
-        //         }
-        //     });
-        // });
-
-        document.querySelectorAll('.three-state-switch').forEach(function(switchElement) {
-            const slider = switchElement.querySelector('.slider');
-            const knob = slider.querySelector('.knob');
-            const input = switchElement.querySelector('#status');
-            const labels = slider.querySelectorAll('.label');
-            const statuses = ['pending', 'confirmed', 'canceled'];
-
-            function updateKnobPosition(status) {
-                const index = statuses.indexOf(status);
-                if (index === -1) return;
-
-                const labelWidth = slider.offsetWidth / statuses.length;
-                knob.style.left = `${index * labelWidth}px`;
-                slider.setAttribute('data-status', status);
-
-                // Update label colors
-                labels.forEach((label, i) => {
-                    label.style.color = i === index ? 'white' : 'black';
-                });
-            }
-
-            // Initialize with the current status from the backend
-            updateKnobPosition(input.value);
-
-            slider.addEventListener('click', function(event) {
-                const rect = slider.getBoundingClientRect();
-                const clickX = event.clientX - rect.left;
-
-                const labelWidth = slider.offsetWidth / statuses.length;
-                const clickedIndex = Math.floor(clickX / labelWidth);
-
-                if (clickedIndex >= 0 && clickedIndex < statuses.length) {
-                    const nextStatus = statuses[clickedIndex];
-                    updateKnobPosition(nextStatus);
-
-                    // Update the hidden input value
-                    input.value = nextStatus;
-
-                    // Submit the form
-                    switchElement.closest('form').submit();
-                }
-            });
-        });
+        
     </script>
 @endsection

@@ -306,20 +306,42 @@
                             </button>
                         </li>
 
-                        <li class="nav-item" role="presentation">
+                        {{-- <li class="nav-item" role="presentation">
                             <button class="nav-link rounded-0 border-bottom-0" id="payment-paypal-tab"
                                 data-bs-toggle="tab" data-bs-target="#payment-paypal" type="button" role="tab"
                                 aria-controls="payment-on-arrival" aria-selected="false">
                                 <i class="bi bi-paypal mr-2"></i> Pay Pal
                             </button>
-                        </li>
+                        </li> --}}
                     </ul>
 
                     <!-- Tab Content -->
                     <div class="tab-content">
                         <div class="tab-pane fade  show active" id="credit-card" role="tabpanel"
                             aria-labelledby="credit-card-tab">
-                            <p class="mt-4">Pay with your credit card Using Stripe . Account for test purpose</p>
+                            {{-- <div class="row">
+                                <div class="col-sm-9">
+                                 
+                                    <p class="mt-4">Safe money transfer using your bank account. We support Mastercard, Visa, Discover, and Stripe.</p>
+                                </div>
+                                <div class="col-sm-3 text-sm-end mt-3 mt-sm-0">
+                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/master.png" height="24" alt="master-card-img">
+                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/discover.png" height="24" alt="discover-card-img">
+                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/visa.png" height="24" alt="visa-card-img">
+                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/stripe.png" height="24" alt="stripe-card-img">
+                                </div>
+                            </div> --}}
+                            <div class="d-flex align-items-center justify-content-between mt-2">
+                                <p class="mt-4">Safe money transfer using your bank account. We support Mastercard, Visa, Discover, and Stripe.</p>
+                                <div class="text-sm-end mt-3 mt-sm-0">
+                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/master.png" height="24" alt="master-card-img">
+                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/discover.png" height="24" alt="discover-card-img">
+                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/visa.png" height="24" alt="visa-card-img">
+                                    <img src="{{asset('admin_dashboard')}}/assets/images/payments/stripe.png" height="24" alt="stripe-card-img">
+                                </div>
+                            </div>
+                            
+                           
                             <p>Card Number: 4242 4242 4242 4242</p>
                             <p>Expiry Month : 05</p>
                             <p>Expriy Year : 2025</p>
@@ -348,7 +370,6 @@
                                 <div id="card-element" class="" style="border: 1px solid #ccc; padding: 13px;">
                                     <!-- A Stripe Element will be inserted here. -->
                                 </div>
-
                                 <!-- Used to display form errors. -->
                                 <div id="card-errors" role="alert"></div>
 
@@ -358,8 +379,7 @@
                                 </button>
                             </form>
                         </div>
-                        <div class="tab-pane fade" id="payment-paypal" role="tabpanel" aria-labelledby="payment-paypal-tab">
-                          
+                        {{-- <div class="tab-pane fade" id="payment-paypal" role="tabpanel" aria-labelledby="payment-paypal-tab">
                             <p class="mt-4">PayPal allows you to mark payments directly from your PayPal account</p>
                             <p class="mt-4"><strong>PayPal: </strong></p>
                             <p>Sandbox Account for test purpose</p>
@@ -377,10 +397,75 @@
                                     Checkout with PayPal
                                 </button>
                             </form>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
+
+            {{-- <div class="border p-3 mb-3 rounded">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-check">
+                            <input type="radio" id="BillingOptRadio1" name="billingOptions" class="form-check-input" checked="">
+                            <label class="form-check-label font-16 fw-bold" for="BillingOptRadio1">Credit / Debit Card</label>
+                        </div>
+                        <p class="mb-0 ps-3 pt-1">Safe money transfer using your bank account. We support Mastercard, Visa, Discover, and Stripe.</p>
+                    </div>
+                    <div class="col-sm-4 text-sm-end mt-3 mt-sm-0">
+                        <img src="{{asset('admin_dashboard')}}/assets/images/payments/master.png" height="24" alt="master-card-img">
+                        <img src="{{asset('admin_dashboard')}}/assets/images/payments/discover.png" height="24" alt="discover-card-img">
+                        <img src="{{asset('admin_dashboard')}}/assets/images/payments/visa.png" height="24" alt="visa-card-img">
+                        <img src="{{asset('admin_dashboard')}}/assets/images/payments/stripe.png" height="24" alt="stripe-card-img">
+                    </div>
+                </div> <!-- end row -->
+            
+                <form action="{{ route('payment.process') }}" method="POST" id="payment-form" class="require-validation">
+                    @csrf
+                    <input type="hidden" name="amount" value="{{ $totalPrice }}">
+                    <input type="hidden" name="room_id" value="{{ $room->id }}">
+                    <input type="hidden" name="check_in" value="{{ $checkIn }}">
+                    <input type="hidden" name="check_out" value="{{ $checkOut }}">
+                    <input type="hidden" name="adults" value="{{ $adults }}">
+                    <input type="hidden" name="children" value="{{ $children }}">
+            
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="card-number" class="form-label">Card Number</label>
+                                <div id="card-number" class="form-control" style="padding: 13px;"></div>
+                            </div>
+                        </div>
+                    </div> <!-- end row -->
+            
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="card-name" class="form-label">Name on card</label>
+                                <input type="text" id="card-name" class="form-control" placeholder="John Doe" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="card-expiry" class="form-label">Expiry date</label>
+                                <div id="card-expiry" class="form-control" style="padding: 13px;"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="card-cvv" class="form-label">CVV code</label>
+                                <div id="card-cvc" class="form-control" style="padding: 13px;"></div>
+                            </div>
+                        </div>
+                    </div> <!-- end row -->
+            
+                    <div id="card-errors" role="alert" class="text-danger"></div>
+            
+                    <button type="submit" class="btn btn-warning rounded-0 py-2 font-weight-bold text-white mt-3 px-4">
+                        Checkout Now
+                    </button>
+                </form>
+            </div> --}}
+            
 
         
         </div>
@@ -424,4 +509,52 @@
             }
         });
     </script>
+
+
+    {{-- <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+    <script>
+    const stripe = Stripe("{{ env('STRIPE_KEY') }}");
+    const elements = stripe.elements();
+
+    const style = {
+        base: {
+            fontSize: '16px',
+            color: '#32325d',
+        },
+    };
+
+    const cardNumber = elements.create('cardNumber', { style });
+    cardNumber.mount('#card-number');
+
+    const cardExpiry = elements.create('cardExpiry', { style });
+    cardExpiry.mount('#card-expiry');
+
+    const cardCvc = elements.create('cardCvc', { style });
+    cardCvc.mount('#card-cvc');
+
+    const form = document.getElementById('payment-form');
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const cardHolderName = document.getElementById('card-name').value;
+
+        const { paymentMethod, error } = await stripe.createPaymentMethod({
+            type: 'card',
+            card: cardNumber,
+            billing_details: { name: cardHolderName },
+        });
+
+        if (error) {
+            document.getElementById('card-errors').textContent = error.message;
+        } else {
+            const hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', 'stripeToken');
+            hiddenInput.setAttribute('value', paymentMethod.id);
+            form.appendChild(hiddenInput);
+
+            form.submit();
+        }
+    });
+</script> --}}
 @endsection

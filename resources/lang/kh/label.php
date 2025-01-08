@@ -70,6 +70,9 @@ return [
   'enterFirstName' => 'បញ្ចូលឈ្មោះដំបូង',
   'enterLastName' => 'បញ្ចូលឈ្មោះបន្ទាប់',
   'enterEmail' => 'Enter email',
+  'adults'=> 'មនុស្សពេញវ័យ',
+  'children'=> 'កូនក្មេង',
+  'rating'=>'វាយតម្លៃ',
 
   // 'checked_out'=>'Checked Out',
 
@@ -80,6 +83,8 @@ return [
   'createGuest' => 'បង្កើតភ្ញៀវ',
   'createNewGuest' => 'បង្កើតភ្ញៀវថ្មី​ !',
   'bookingDetail'=>'ព័ត៌មានលម្អិតនៃការកក់',
+  'paymentDetails'=> 'ព័ត៌មានលម្អិតនៃការបង់លុយ',
+  'detailGuest'=>'ព័ត៌មានលម្អិតភ្ញៀវ',
 
   /*​============= Create Guest ========== */
   'createDate' => 'កាលបរិច្ឆេទបង្កើត',
@@ -118,6 +123,8 @@ return [
   'newUser' => 'អ្នកប្រើប្រាស់ថ្មី',
   'editUser' => 'កែប្រែអ្នកប្រើប្រាស់',
   'editUsers' => 'កែប្រែ​ ព័ត៌មានអ្នកប្រើប្រាស់',
+  'entertotalAdult' => 'បញ្ចូលចំនួនមនុស្សពេញវ័យ',
+  'entertotalChildren' => 'បញ្ចូលចំនួនក្មេង',
 
   /*======= pleacehoder ======= */
   'enterGuestName' => 'បញ្ចូលឈ្មោះភ្ញៀវ',
@@ -292,6 +299,9 @@ return [
   'avaiableRoom' => 'បន្ទប់ទំនេ',
   'createBooking' => 'បង្កើតការកក់',
   'newBooking' => 'ការកក់ថ្មី',
+  'payment' => 'បង់ប្រាក់',
+  'payment_intent_id'=>'Transaction',
+  'paymentList' => 'បញ្ជីបង់ប្រាក់',
 
 
   /*============= Message alert ============= */
@@ -305,6 +315,7 @@ return [
   /*============= Room ============= */
   'roomList' => 'បញ្ជីបន្ទប់',
   'roomid' => 'លេខសម្គាល់បន្ទប់',
+  'id'=>'លេខសម្គាល់',
 
   /*============= Booking ============= */
   'facilities' => 'គ្រឿងបរិក្ខា',

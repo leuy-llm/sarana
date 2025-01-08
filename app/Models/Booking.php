@@ -25,10 +25,15 @@ class Booking extends Model
     {
         return $this->belongsTo(Room::class);
     }
+    
 
+    // public function payment()
+    // {
+    //     return $this->belongsTo(Payment::class);
+    // }
     public function payment()
     {
-        return $this->belongsTo(Payment::class);
+        return $this->hasOne(Payment::class);
     }
 
 

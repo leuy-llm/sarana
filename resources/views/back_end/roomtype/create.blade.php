@@ -43,12 +43,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mb-2">
-                        <div class="col-sm-4">
-                            <a href="{{ url('guests') }}" class="btn btn-danger btn-rounded mb-2"><span
-                                    class=" uil-corner-up-left"></span> @lang('label.back')</a>
-                        </div>
-                    </div>
+                    
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ url('roomtypes') }}"
                         method="POST" novalidate="">
                         @csrf
@@ -103,9 +98,8 @@
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div> --}}
-
-                        <button class="btn btn-primary btn-rounded" type="submit">@lang('label.submit')</button>
-                        <button type="button" class="btn btn-light btn-rounded ">@lang('label.cancel')</button>
+                        <button class="btn btn-primary" type="submit">@lang('label.submit')</button>
+                        <a href="{{url('roomtypes')}}" class="btn btn-dark ">@lang('label.cancel')</a>
                     </form>
                 </div>
             </div>

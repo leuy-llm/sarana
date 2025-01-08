@@ -238,7 +238,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::resource('settings', SettingController::class);
     Route::get('settings/{settingId}/delete', [App\Http\Controllers\SettingController::class, 'destroy']);
 
-
+    Route::get('payments',[PaymentController::class, 'payment'])->name('payments.index');
 
     /* ================== End Front ================ */
     /*================= AboutUs =================== */

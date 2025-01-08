@@ -7,7 +7,7 @@ $breadcrumbs = [
     ['title' => __('label.roomType'), 'url' => route('rooms.index')],
     ['title' => __('label.editRoomType'), 'url' => route('rooms.create')],
 ];
-$currentPageTitle = __('label.editRoomTypes');
+$currentPageTitle = __('label.editRoomType');
 @endphp
 @include('layout.breadcrumbs', [
 'breadcrumbs' => $breadcrumbs,

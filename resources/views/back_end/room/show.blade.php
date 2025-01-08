@@ -39,7 +39,7 @@
             /* Ensures the image covers the area without stretching */
         }
 
-        #mainImage{
+        #mainImage {
             cursor: pointer;
         }
     </style>
@@ -125,7 +125,7 @@
                             <div class="col-lg-5">
                                 <div class="single-pro-image">
                                     <img src="{{ asset('storage/' . $room->images->first()->image) }}" width="100%"
-                                        id="mainImage" alt="{{$room->roomType->type_name}}">
+                                        id="mainImage" alt="{{ $room->roomType->type_name }}">
                                     <div class="small-img-group">
                                         @foreach ($room->images as $image)
                                             <div class="small-img-col">
@@ -151,7 +151,6 @@
                                                 <span class="badge badge-success-lighten">Active</span>
                                             @elseif ($room->status == '0')
                                                 <span class="badge badge-danger-lighten">Inactive</span>
-                                            
                                             @endif
                                         </p>
                                     </div>
@@ -167,15 +166,15 @@
                                     <div class="">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <h6 class="font-14">@lang('label.bedType'):</h6>
+                                                <h6 class="font-14">@lang('label.bed'):</h6>
                                                 <p class="text-sm lh-150">{{ $room->bed_type }}</p>
                                             </div>
                                             <div class="col-md-4">
-                                                <h6 class="font-14">@lang('label.viewType'):</h6>
+                                                <h6 class="font-14">@lang('label.view'):</h6>
                                                 <p class="text-sm lh-150">{{ $room->view_type }}</p>
                                             </div>
                                             <div class="col-md-4">
-                                                <h6 class="font-14">@lang('label.roomSize'):</h6>
+                                                <h6 class="font-14">@lang('label.size'):</h6>
                                                 <p class="text-sm lh-150 ml-3">{{ $room->room_size }} m<sup>2</sup></p>
                                             </div>
                                             <div class="col-md-4">
@@ -184,7 +183,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <h6 class="font-14">@lang('label.rating'):</h6>
-                                                <div class="d-flex align-items-center">
+                                                <div class="d-flex align-items-center gap-1">
                                                     @for ($i = 1; $i <= 5; $i++)
                                                         <i
                                                             class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-2 text-muted' }}"></i>
@@ -201,7 +200,7 @@
                                         </div>
                                     </div>
 
-                                   
+
                                     <div class="mt-3">
                                         <h6 class="font-14">@lang('label.description'):</h6>
                                         <p>{{ $room->description }}</p>
@@ -216,14 +215,14 @@
                                                         <p>{{ $facility->name }}</p>
                                                     </div>
                                                 @endforeach
-                                            </div>                                          
+                                            </div>
                                         @else
                                             <p>@lang('label.noFacilities')</p>
                                         @endif
                                     </div>
 
                                     <!-- Product information -->
-                                    
+
 
                                 </form>
                             </div> <!-- end col -->

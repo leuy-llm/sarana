@@ -108,14 +108,8 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    {{-- <div class="row mb-2">
-                        <div class="col-sm-4">
-                            <a href="{{ route('bookings.index') }}" class="btn btn-secondary btn-rounded mb-2"><span
-                                    class=" uil-corner-up-left"></span> @lang('label.back')</a>
-                        </div>
-                    </div> --}}
-                        <form class="needs-validation" enctype="multipart/form-data" action="{{ url('/bookings') }}"
-                        method="POST" novalidate="">
+                    <form class="needs-validation" enctype="multipart/form-data" action="{{ url('/bookings') }}" method="POST"
+                        novalidate="">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
@@ -124,13 +118,12 @@
                                     <select name="guest_id" required class="form-control select2" data-toggle="select2">
                                         <option value="" selected disabled>Select Guest</option>
                                         @foreach ($guests as $guest)
-                                            <option value="{{ $guest->id }}">{{ $guest->name }}</option>
+                                            <option value="{{ $guest->id }}">{{ $guest->first_name }}
+                                                {{ $guest->last_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-
-
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.checkIn') <span class="text-danger">*</span></label>
@@ -167,7 +160,7 @@
                                     <label class="form-label">@lang('label.totalAdults') <span class="text-danger">*</span></label>
                                     <input type="number" value="{{ old('total_adults') }}" name="total_adults"
                                         class="form-control  @error('total_adults') is-invalid @enderror "
-                                        placeholder="@lang('label.entertoalAdult') . . ." required="">
+                                        placeholder="@lang('label.entertotalAdult') . . ." required="">
                                     @error('total_adults')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -189,11 +182,11 @@
                                     <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control select2" data-toggle="select2">
                                         <option value="" selected disabled>Choose Status</option>
-                                        <option value="confirmed">Confirmed</option>
-                                        <option value="cancelled">Canceled</option>
-                                        <option value="pending">Pending</option>
-                                        <option value="checked-in">Checked_In</option>
-                                        <option value="checked-out">Checked_Out</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Cancelled">Canceled</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Checked-In">Checked_In</option>
+                                        <option value="Checked-Out">Checked_Out</option>
                                     </select>
                                     @error('status')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -208,13 +201,8 @@
                     </form>
                 </div>
             </div>
-
         </div>
-
     </div>
-
-
-
     </div>
 @endsection
 @section('script')
@@ -262,13 +250,10 @@
 
             checkInDateInput.addEventListener('change', function() {
                 var checkInDate = this.value; // Get the selected check-in date
-
                 // Enable the check-out date input
                 checkOutDateInput.disabled = false;
-
                 // Set the minimum date for check-out date to be the selected check-in date
                 checkOutDateInput.setAttribute('min', checkInDate);
-
                 // Clear check-out date if it is before the new check-in date
                 if (checkOutDateInput.value < checkInDate) {
                     checkOutDateInput.value = ''; // Clear the value if invalid

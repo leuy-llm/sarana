@@ -212,7 +212,20 @@ class BookingController extends Controller
     }
 
 
-    public function show($id) {}
+    public function show($id)
+{
+    $booking = Booking::with(['guest', 'room.roomType', 'payment'])
+        ->where('id', $id)
+        ->first();
+
+    if (!$booking) {
+        return redirect()->route('bookings.index')->with('error', 'Booking not found.');
+    }
+
+    return view('back_end.booking.show', compact('booking'));
+}
+
+
 
     // public function toggleActive(Request $request, $id)
     // {

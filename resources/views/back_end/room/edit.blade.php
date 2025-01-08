@@ -103,7 +103,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">@lang('label.viewType')</label>
+                                    <label class="form-label">@lang('label.view')</label>
                                     <input type="text" value="{{ old('view_type', $room->view_type) }}" name="view_type"
                                            class="form-control @error('view_type') is-invalid @enderror"
                                            placeholder="@lang('label.enterViewType') . . .">
@@ -114,7 +114,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">@lang('label.bedType')</label>
+                                    <label class="form-label">@lang('label.bed')</label>
                                     <input type="text" value="{{ old('bed_type', $room->bed_type) }}" name="bed_type"
                                            class="form-control @error('bed_type') is-invalid @enderror"
                                            placeholder="@lang('label.enterBedType') . . .">
@@ -125,7 +125,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">@lang('label.roomSize')</label>
+                                    <label class="form-label">@lang('label.size')</label>
                                     <input type="number" value="{{ old('room_size', $room->room_size) }}" name="room_size"
                                            class="form-control @error('room_size') is-invalid @enderror"
                                            placeholder="@lang('label.enterRoomSize') (e.g., in sq. ft)">
@@ -156,7 +156,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.extraBedCapacity')</label>
                                     <input type="number" value="{{ old('extra_bed_capacity', $room->extra_bed_capacity) }}" name="extra_bed_capacity"
@@ -166,7 +166,7 @@
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> --}}
                         
                             <div class="col-md-6">
                                 <div class="mb-2">
