@@ -21,7 +21,6 @@
     align-items: center;
     flex: 1;
 }
-
 .stepper-item::before {
     position: absolute;
     content: "";

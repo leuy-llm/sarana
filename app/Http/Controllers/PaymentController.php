@@ -230,9 +230,6 @@ class PaymentController extends Controller
 
 
 
-
-
-
     // public function processPayment(Request $request)
     // {
     //     $token = $request->input('stripeToken');
@@ -269,8 +266,6 @@ class PaymentController extends Controller
 
 
 
-
-
     // public function success()
     // {
     //     $data = "Payment";
@@ -283,9 +278,110 @@ class PaymentController extends Controller
         $data = "Payment";
         $payments = Payment::with(['booking.guest', 'booking.room.roomType'])->get();
 
-        return view('back_end.payment.index',compact('data','payments'));
+        return view('back_end.payment.index', compact('data', 'payments'));
     }
-    public function create(){
+    // public function create($booking_id)
+    // {
+    //     // Retrieve the booking details
+    //     $booking = Booking::findOrFail($booking_id);
 
+    //     // Calculate the total days booked
+    //     $checkInDate = Carbon::parse($booking->check_in_date);
+    //     $checkOutDate = Carbon::parse($booking->check_out_date);
+    //     $daysBooked = $checkInDate->diffInDays($checkOutDate);
+
+    //     // Calculate the total price
+    //     $totalPrice = $daysBooked * $booking->room->price;
+
+    //     return view('payments.create', compact('booking', 'totalPrice'));
+    // }
+    public function create($booking_id)
+    {
+        // Fetch booking details by booking_id
+        $booking = Booking::findOrFail($booking_id);
+
+        // Pass the booking details to the payment view
+        return view('back_end.payment.create', [
+            'booking' => $booking,
+            'total_price' => request()->get('total_price') // Total price passed from booking controller
+        ]);
+    }
+
+
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'booking_id' => 'required|exists:bookings,id',
+    //         'guest_id' => 'required|exists:guests,id',
+    //         'amount' => 'required|numeric',
+    //         'currency' => 'required|string',
+    //         'payment_method' => 'required|string',
+    //     ]);
+
+    //     \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+    //     try {
+    //         $paymentIntent = \Stripe\PaymentIntent::create([
+    //             'amount' => $request->amount * 100, // Convert to cents
+    //             'currency' => $request->currency,
+    //             'payment_method' => $request->payment_method,
+    //             'confirmation_method' => 'manual',
+    //             'confirm' => true,
+    //         ]);
+
+    //         $payment = new Payment();
+    //         $payment->booking_id = $request->booking_id;
+    //         $payment->guest_id = $request->guest_id;
+    //         $payment->amount = $request->amount;
+    //         $payment->currency = $request->currency;
+    //         $payment->status = $paymentIntent->status;
+    //         $payment->payment_intent_id = $paymentIntent->id;
+    //         $payment->payment_method = $paymentIntent->payment_method;
+    //         $payment->save();
+
+    //         return redirect()->route('bookings.index')->with('success', 'Payment successful!');
+    //     } catch (\Stripe\Exception\CardException $e) {
+    //         return back()->withErrors(['error' => $e->getMessage()]);
+    //     }
+    // }
+    public function store(Request $request)
+    {
+        // Get the payment method token sent from Stripe
+        $paymentMethod = $request->input('payment_method');
+
+        // Retrieve the booking details from the request or database
+        $booking = Booking::findOrFail($request->input('booking_id'));
+        $totalPrice = $request->input('total_price');
+
+        // Set Stripe API keys
+        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        // Create PaymentIntent with the total price for the booking
+        try {
+            $paymentIntent = PaymentIntent::create([
+                'amount' => $totalPrice * 100, // Stripe requires the amount in cents
+                'currency' => 'usd',
+                'payment_method' => $paymentMethod,
+                'confirmation_method' => 'manual',
+                'confirm' => true,
+            ]);
+
+            // Store payment details in the database
+            $payment = new Payment();
+            $payment->booking_id = $booking->id;
+            $payment->guest_id = $booking->guest_id;
+            $payment->amount = $totalPrice;
+            $payment->currency = 'USD';
+            $payment->payment_intent_id = $paymentIntent->id;
+            $payment->payment_method = $paymentMethod;
+            $payment->status = 'Approved';
+            $payment->save();
+
+            // Redirect to a success page after successful payment
+            return redirect()->route('payments.success', ['payment_id' => $payment->id]);
+        } catch (\Exception $e) {
+            // Handle any errors that occur during the payment process
+            return redirect()->route('payments.error', ['error' => $e->getMessage()]);
+        }
     }
 }
