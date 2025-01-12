@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
+ 
+    protected $table = 'payments'; // Specify the table name if needed
+    protected $primaryKey = 'payment_id'; // Set the custom primary key
+    public $incrementing = true; // If payment_id is auto-incrementing
+    protected $keyType = 'int'; // Specify the type (int or string)
 
     protected $fillable = ['booking_id', 'guest_id', 'amount', 'status', 'payment_intent_id', 'currency', 'payment_method'];
 

@@ -280,32 +280,18 @@ class PaymentController extends Controller
 
         return view('back_end.payment.index', compact('data', 'payments'));
     }
-    // public function create($booking_id)
-    // {
-    //     // Retrieve the booking details
-    //     $booking = Booking::findOrFail($booking_id);
 
-    //     // Calculate the total days booked
-    //     $checkInDate = Carbon::parse($booking->check_in_date);
-    //     $checkOutDate = Carbon::parse($booking->check_out_date);
-    //     $daysBooked = $checkInDate->diffInDays($checkOutDate);
-
-    //     // Calculate the total price
-    //     $totalPrice = $daysBooked * $booking->room->price;
-
-    //     return view('payments.create', compact('booking', 'totalPrice'));
-    // }
     public function create($booking_id)
     {
-        // Fetch booking details by booking_id
         $booking = Booking::findOrFail($booking_id);
 
-        // Pass the booking details to the payment view
         return view('back_end.payment.create', [
             'booking' => $booking,
-            'total_price' => request()->get('total_price') // Total price passed from booking controller
+            'total_price' => request()->get('total_price'), // Total price passed from the booking controller
+
         ]);
     }
+
 
 
     // public function store(Request $request)
@@ -344,44 +330,190 @@ class PaymentController extends Controller
     //         return back()->withErrors(['error' => $e->getMessage()]);
     //     }
     // }
-    public function store(Request $request)
-    {
-        // Get the payment method token sent from Stripe
-        $paymentMethod = $request->input('payment_method');
+    // public function store(Request $request)
+    // {
+    //     // Retrieve the booking details from the request or database
+    //     $booking = Booking::findOrFail($request->input('booking_id'));
+    //     $totalPrice = $request->input('amount'); // Ensure 'amount' field matches the frontend
 
-        // Retrieve the booking details from the request or database
-        $booking = Booking::findOrFail($request->input('booking_id'));
-        $totalPrice = $request->input('total_price');
+    //     // Set Stripe API keys
+    //     Stripe::setApiKey("sk_test_51QEuUNCtdzaqHN41Cm2ru7eI8A4bDUa8wOLByP9EvKJ5yOF9J3yg63RZBd0KNRd9c8Hp1ALwNyZRtc0tGQXGdIPm00Id438Bkl");
 
-        // Set Stripe API keys
-        Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+    //     try {
+    //         // Create PaymentIntent with the total price for the booking
+    //         $paymentIntent = PaymentIntent::create([
+    //             'amount' => $totalPrice * 100,
+    //             'currency' => 'usd',
+    //             'payment_method' => $request->input('stripeToken'),
+    //             'confirm' => true, // Automatically confirm
+    //         ]);
+    //         // Store payment details in the database
+    //         $payment = new Payment();
+    //         $payment->booking_id = $booking->id;
+    //         $payment->guest_id = $booking->guest_id;
+    //         $payment->amount = $totalPrice;
+    //         $payment->currency = 'USD';
+    //         $payment->payment_intent_id = $paymentIntent->id;
+    //         $payment->payment_method = 'card';
+    //         $payment->status = 'Approved';
+    //         $payment->save();
+            
+    //         Log::info('Stripe Token: ' . $request->input('stripeToken'));
 
-        // Create PaymentIntent with the total price for the booking
-        try {
-            $paymentIntent = PaymentIntent::create([
-                'amount' => $totalPrice * 100, // Stripe requires the amount in cents
-                'currency' => 'usd',
-                'payment_method' => $paymentMethod,
-                'confirmation_method' => 'manual',
-                'confirm' => true,
-            ]);
+    //         // Redirect to a success page after successful payment
+    //         return redirect()->route('payments.success', ['payment_id' => $payment->id]);
+    //     } catch (\Exception $e) {
+    //         // Handle errors during the payment process
+    //         return redirect()->route('payments.error', ['error' => $e->getMessage()]);
+    //     }
+    // }
 
-            // Store payment details in the database
-            $payment = new Payment();
-            $payment->booking_id = $booking->id;
-            $payment->guest_id = $booking->guest_id;
-            $payment->amount = $totalPrice;
-            $payment->currency = 'USD';
-            $payment->payment_intent_id = $paymentIntent->id;
-            $payment->payment_method = $paymentMethod;
-            $payment->status = 'Approved';
-            $payment->save();
+//     public function store(Request $request)
+// {
+//     // Retrieve the booking details from the request or database
+//     $booking = Booking::findOrFail($request->input('booking_id'));
+//     $totalPrice = $request->input('amount'); // Ensure 'amount' matches the frontend
 
-            // Redirect to a success page after successful payment
-            return redirect()->route('payments.success', ['payment_id' => $payment->id]);
-        } catch (\Exception $e) {
-            // Handle any errors that occur during the payment process
-            return redirect()->route('payments.error', ['error' => $e->getMessage()]);
+//     // Set Stripe API key
+//     \Stripe\Stripe::setApiKey("sk_test_51QEuUNCtdzaqHN41Cm2ru7eI8A4bDUa8wOLByP9EvKJ5yOF9J3yg63RZBd0KNRd9c8Hp1ALwNyZRtc0tGQXGdIPm00Id438Bkl");
+
+//     try {
+//         // Create a PaymentIntent
+//         $paymentIntent = \Stripe\PaymentIntent::create([
+//             'amount' => $totalPrice * 100, // Convert to cents
+//             'currency' => 'usd',
+//             'payment_method_data' => [
+//                 'type' => 'card',
+//                 'card' => [
+//                     'token' => $request->input('stripeToken'), // Pass the token here
+//                 ],
+//             ],
+//             'confirmation_method' => 'manual',
+//             'confirm' => true,
+//             'description' => 'Room booking payment for booking #' . $booking->id,
+//             'return_url' => route('payments.success') // Define a return URL for success
+//         ]);
+
+//         // Store payment details in the database
+//         $payment = new Payment();
+//         $payment->booking_id = $booking->id;
+//         $payment->guest_id = $booking->guest_id;
+//         $payment->amount = $totalPrice;
+//         $payment->currency = 'USD';
+//         $payment->payment_intent_id = $paymentIntent->id;
+//         $payment->payment_method = 'card';
+//         $payment->status = $paymentIntent->status === 'succeeded' ? 'Approved' : 'Pending';
+//         $payment->save();
+
+//         // Redirect to a success page after successful payment
+//         return redirect()->route('payments.success', ['payment_id' => $payment->id]);
+//     } catch (\Stripe\Exception\CardException $e) {
+//         // Handle card-related errors
+//         return redirect()->route('payments.error', ['error' => $e->getMessage()]);
+//     } catch (\Exception $e) {
+//         // Handle other errors
+//         return redirect()->route('payments.error', ['error' => $e->getMessage()]);
+//     }
+// }
+
+public function store(Request $request)
+{
+    // Retrieve the booking details from the request or database
+    $booking = Booking::findOrFail($request->input('booking_id'));
+    $totalPrice = $request->input('amount'); // Ensure 'amount' matches the frontend
+
+    // Set Stripe API key
+    \Stripe\Stripe::setApiKey("sk_test_51QEuUNCtdzaqHN41Cm2ru7eI8A4bDUa8wOLByP9EvKJ5yOF9J3yg63RZBd0KNRd9c8Hp1ALwNyZRtc0tGQXGdIPm00Id438Bkl");
+
+    try {
+        // Create a PaymentIntent with a return_url
+        $paymentIntent = \Stripe\PaymentIntent::create([
+            'amount' => $totalPrice * 100, // Convert to cents
+            'currency' => 'usd',
+            'payment_method_data' => [
+                'type' => 'card',
+                'card' => [
+                    'token' => $request->input('stripeToken'), // Pass the token here
+                ],
+            ],
+            'confirmation_method' => 'manual',
+            'confirm' => true,
+            'return_url' => route('payments.confirm'), // Set the return URL here
+            'description' => 'Room booking payment for booking #' . $booking->id,
+        ]);
+
+        // Handle off-session confirmation
+        if ($paymentIntent->status === 'requires_action') {
+            // Redirect the user to the `return_url` for further action
+            return redirect($paymentIntent->next_action->redirect_to_url->url);
         }
+
+        // Store payment details in the database
+        $payment = new Payment();
+        $payment->booking_id = $booking->id;
+        $payment->guest_id = $booking->guest_id;
+        $payment->amount = $totalPrice;
+        $payment->currency = 'USD';
+        $payment->payment_intent_id = $paymentIntent->id;
+        $payment->payment_method = 'card';
+        $payment->status = $paymentIntent->status === 'succeeded' ? 'Approved' : 'Pending';
+        $payment->save();
+
+        // Redirect to the success page after successful payment
+        return redirect()->route('payments.success', ['payment_id' => $payment->id]);
+    } catch (\Stripe\Exception\CardException $e) {
+        // Handle card-related errors
+        return redirect()->route('payments.error', ['error' => $e->getMessage()]);
+    } catch (\Exception $e) {
+        // Handle other errors
+        return redirect()->route('payments.error', ['error' => $e->getMessage()]);
     }
+}
+
+public function confirm(Request $request)
+{
+    $paymentIntentId = $request->input('payment_intent');
+
+    \Stripe\Stripe::setApiKey("sk_test_51QEuUNCtdzaqHN41Cm2ru7eI8A4bDUa8wOLByP9EvKJ5yOF9J3yg63RZBd0KNRd9c8Hp1ALwNyZRtc0tGQXGdIPm00Id438Bkl");
+
+    try {
+        // Retrieve the PaymentIntent
+        $paymentIntent = \Stripe\PaymentIntent::retrieve($paymentIntentId);
+
+        // Check the status of the PaymentIntent
+        if ($paymentIntent->status === 'succeeded') {
+            // Update the payment record in your database
+            $payment = Payment::where('payment_intent_id', $paymentIntent->id)->first();
+            if ($payment) {
+                $payment->status = 'Approved';
+                $payment->save();
+            }
+
+            // Redirect to the success page
+            return redirect()->route('payments.success', ['payment_id' => $payment->id]);
+        } else {
+            // Payment not successful
+            return redirect()->route('payments.error', ['error' => 'Payment confirmation failed.']);
+        }
+    } catch (\Exception $e) {
+        return redirect()->route('payments.error', ['error' => $e->getMessage()]);
+    }
+}
+
+
+
+
+
+public function success($payment_id)
+{
+    $payment = Payment::findOrFail($payment_id); // Works because of the updated primaryKey in the model
+    return view('back_end.payment.success', compact('payment'));
+}
+
+    public function error(Request $request)
+{
+    $errorMessage = $request->query('error', 'An error occurred.');
+    return view('back_end.payment.error', compact('errorMessage'));
+}
+
 }

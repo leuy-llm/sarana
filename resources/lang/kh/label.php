@@ -233,7 +233,7 @@ return [
   /* ========================= Room ======================= */
   'roomNumber' => 'លេខបន្ទប់',
   'newRoom' => 'បន្ទប់ថ្មី',
-  'floor' => 'ចំនួនជាន់',
+  'floor' => 'ជាន់ទី',
   'price' => 'តម្លៃ',
   'rooms' => 'បន្ទប់',
   'roomList' => 'បញ្ជីបន្ទប់',
@@ -288,12 +288,14 @@ return [
   'roleName' => 'ឈ្មោះតួនាទី',
   'createRole' => 'បង្កើតតួនាទី',
   'enterRoleName' => 'បញ្ចូលឈ្មោះតួនាទី',
-
-
+  'totalNights' => 'ចំនួនថ្ងៃសរុប',
+  'firstName'=>'ត្រកូល',
+  'lastName'=>'នាម',
+  'paymentNote' => 'កត់ចំណាំ',
 
   /*============= Booking ============= */
-  'checkIn' => 'ការចូល',
-  'checkOut' => 'ការចេញ',
+  'checkIn' => 'ថ្ងៃចូល',
+  'checkOut' => 'ថ្ងៃចេញ',
   'totalAdults' => 'ពេញវ័យ',
   'totalChildren' => 'ក្មេង',
   'avaiableRoom' => 'បន្ទប់ទំនេ',

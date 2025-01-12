@@ -284,6 +284,8 @@ return [
   'editUsers' => 'Edit User',
   'calenderList' => 'Calendar List',
   'report' => 'Report',
+  'totalNights' => 'Total Nights',
+  
 
   /*============= Booking ============= */
   'checkIn' => 'Check_In',
@@ -323,8 +325,9 @@ return [
   'amount'=>'Amount',
   'method'=>'Method',
   'paymentList' => 'Payment List',
-
-
+  'firstName'=>' First Name',
+  'lastName'=>' Last Name',
+  
   /*============= Booking ============= */
   'facilities' => 'Facilities',
   'image' => 'Image',

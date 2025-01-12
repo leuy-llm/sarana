@@ -120,6 +120,7 @@ public function store(Request $request)
     return redirect()->route('payments.create', [
         'booking_id' => $booking->id,
         'total_price' => $totalPrice,
+        '$days' => $days,
     ]);
 }
 

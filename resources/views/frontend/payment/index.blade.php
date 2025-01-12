@@ -468,72 +468,7 @@
                 </div>
             </div>
 
-            {{-- <div class="border p-3 mb-3 rounded">
-                <div class="row">
-                    <div class="col-sm-8">
-                        <div class="form-check">
-                            <input type="radio" id="BillingOptRadio1" name="billingOptions" class="form-check-input" checked="">
-                            <label class="form-check-label font-16 fw-bold" for="BillingOptRadio1">Credit / Debit Card</label>
-                        </div>
-                        <p class="mb-0 ps-3 pt-1">Safe money transfer using your bank account. We support Mastercard, Visa, Discover, and Stripe.</p>
-                    </div>
-                    <div class="col-sm-4 text-sm-end mt-3 mt-sm-0">
-                        <img src="{{asset('admin_dashboard')}}/assets/images/payments/master.png" height="24" alt="master-card-img">
-                        <img src="{{asset('admin_dashboard')}}/assets/images/payments/discover.png" height="24" alt="discover-card-img">
-                        <img src="{{asset('admin_dashboard')}}/assets/images/payments/visa.png" height="24" alt="visa-card-img">
-                        <img src="{{asset('admin_dashboard')}}/assets/images/payments/stripe.png" height="24" alt="stripe-card-img">
-                    </div>
-                </div> <!-- end row -->
             
-                <form action="{{ route('payment.process') }}" method="POST" id="payment-form" class="require-validation">
-                    @csrf
-                    <input type="hidden" name="amount" value="{{ $totalPrice }}">
-                    <input type="hidden" name="room_id" value="{{ $room->id }}">
-                    <input type="hidden" name="check_in" value="{{ $checkIn }}">
-                    <input type="hidden" name="check_out" value="{{ $checkOut }}">
-                    <input type="hidden" name="adults" value="{{ $adults }}">
-                    <input type="hidden" name="children" value="{{ $children }}">
-            
-                    <div class="row mt-4">
-                        <div class="col-md-12">
-                            <div class="mb-3">
-                                <label for="card-number" class="form-label">Card Number</label>
-                                <div id="card-number" class="form-control" style="padding: 13px;"></div>
-                            </div>
-                        </div>
-                    </div> <!-- end row -->
-            
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="card-name" class="form-label">Name on card</label>
-                                <input type="text" id="card-name" class="form-control" placeholder="John Doe" required>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="card-expiry" class="form-label">Expiry date</label>
-                                <div id="card-expiry" class="form-control" style="padding: 13px;"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="card-cvv" class="form-label">CVV code</label>
-                                <div id="card-cvc" class="form-control" style="padding: 13px;"></div>
-                            </div>
-                        </div>
-                    </div> <!-- end row -->
-            
-                    <div id="card-errors" role="alert" class="text-danger"></div>
-            
-                    <button type="submit" class="btn btn-warning rounded-0 py-2 font-weight-bold text-white mt-3 px-4">
-                        Checkout Now
-                    </button>
-                </form>
-            </div> --}}
-
-
-
         </div>
 
     </section>

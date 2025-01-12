@@ -241,6 +241,9 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::get('payments',[PaymentController::class, 'payment'])->name('payments.index');
     Route::get('/payments/create/{booking_id}', [PaymentController::class, 'create'])->name('payments.create');
     Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store');
+    Route::get('/payment/success/{payment_id}', [PaymentController::class, 'success'])->name('payments.success');
+    Route::get('/payment/error', [PaymentController::class, 'error'])->name('payments.error');
+    Route::get('payment/confirm', [PaymentController::class, 'confirm'])->name('payments.confirm');
 
     /* ================== End Front ================ */
     /*================= AboutUs =================== */
