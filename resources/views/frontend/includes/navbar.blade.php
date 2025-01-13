@@ -99,10 +99,7 @@
                                 style="font-size: 13px; font-weight: 500; color: #fff; padding: 0.375rem 1rem; border-radius: 1rem; background-color: #661f1f; text-transform: uppercase;"
                                 href="#">Welcome, {{ auth('guest')->user()->first_name }} {{ auth('guest')->user()->last_name }}</a>
                         </li>
-                        {{-- <li class="nav-item">
-                    <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;"
-                        href="#">Welcome, {{ auth('guest')->user()->name }}</a>
-                </li> --}}
+                      
                     @else
                         <li class="nav-item mt-2 mt-lg-1">
                             <a class="nav-link"

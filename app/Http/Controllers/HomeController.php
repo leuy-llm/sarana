@@ -117,7 +117,7 @@ class HomeController extends Controller
 
     public function roomindex(Request $request)
     {
-        $data = "Room";
+        $data = "Room Page";
         $settings = DB::table('settings')->get();
         $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
         $banner = Banner::where('page_name', 'rooms')->first();
@@ -301,7 +301,8 @@ class HomeController extends Controller
         $room = Room::with(['roomType'])->findOrFail($roomId);
         $rooms = Room::findOrFail($roomId);
         $roomPrice = $rooms->price; // Access the price of the room
-        $totalPrice = $roomPrice * $nights; // Calculate the total price
+        // $totalPrice = $roomPrice * $nights; // Calculate the total price
+        $totalPrice = ($room->special_price ?? $room->price) * $nights;
 
         $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
 

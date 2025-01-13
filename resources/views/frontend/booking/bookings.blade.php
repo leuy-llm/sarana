@@ -10,7 +10,7 @@
             font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
 
-        
+
 
         input[type="date"] {
             cursor: pointer;
@@ -111,106 +111,109 @@
         }
 
         .stepper-wrapper {
-    margin-top: 50px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    border-radius: 3px;
-    padding: 20px;
-}
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-radius: 3px;
+            padding: 20px;
+        }
 
-.stepper-item {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
-}
+        .stepper-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
 
-.stepper-item::before {
-    position: absolute;
-    content: "";
-    border-bottom: 2px solid #ccc;
-    width: 100%;
-    top: 20px;
-    left: -50%;
-    z-index: 2;
-}
+        .stepper-item::before {
+            position: absolute;
+            content: "";
+            border-bottom: 2px solid #ccc;
+            width: 100%;
+            top: 20px;
+            left: -50%;
+            z-index: 2;
+        }
 
-.stepper-item::after {
-    position: absolute;
-    content: "";
-    border-bottom: 2px solid #ccc;
-    width: 100%;
-    top: 20px;
-    left: 50%;
-    z-index: 2;
-}
+        .stepper-item::after {
+            position: absolute;
+            content: "";
+            border-bottom: 2px solid #ccc;
+            width: 100%;
+            top: 20px;
+            left: 50%;
+            z-index: 2;
+        }
 
-.stepper-item .step-counter {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #ccc;
-    margin-bottom: 6px;
-}
+        .stepper-item .step-counter {
+            position: relative;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ccc;
+            margin-bottom: 6px;
+        }
 
-.stepper-item.active {
-    font-weight: bold;
-}
+        .stepper-item.active {
+            font-weight: bold;
+        }
 
-.stepper-item.completed .step-counter {
-    background-color: #ffc107;
-}
+        .stepper-item.completed .step-counter {
+            background-color: #ffc107;
+        }
 
-.stepper-item.completed::after {
-    border-bottom: 2px solid #ffc107;
-}
+        .stepper-item.completed::after {
+            border-bottom: 2px solid #ffc107;
+        }
 
-.stepper-item:first-child::before {
-    content: none;
-}
+        .stepper-item:first-child::before {
+            content: none;
+        }
 
-.stepper-item:last-child::after {
-    content: none;
-}
+        .stepper-item:last-child::after {
+            content: none;
+        }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-    .stepper-wrapper {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-    }
+        .close {
+            outline: none !important;
+            border: none;
+        }
 
-    .stepper-item {
-        flex-direction: row;
-        align-items: center;
-        gap: 10px;
-        width: 100%;
-    }
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .stepper-wrapper {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
 
-    .stepper-item::before,
-    .stepper-item::after {
-        content: none;
-    }
+            .stepper-item {
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+            }
 
-    .stepper-item .step-counter {
-        flex-shrink: 0;
-    }
+            .stepper-item::before,
+            .stepper-item::after {
+                content: none;
+            }
 
-    .stepper-item .step-name,
-    .stepper-item .step-description {
-        text-align: left;
-    }
-}
+            .stepper-item .step-counter {
+                flex-shrink: 0;
+            }
 
-
+            .stepper-item .step-name,
+            .stepper-item .step-description {
+                text-align: left;
+            }
+        }
     </style>
 @endsection
 @section('content')
@@ -395,7 +398,7 @@
                 
                 </form> --}}
 
-                <div class="container-fluid"> 
+                <div class="container-fluid">
                     {{-- <div class="progress-container">
                         <div class="d-flex justify-content-between">
                             <div class="progress-step active">Search<br><small>Choose your favorite room</small></div>
@@ -431,195 +434,80 @@
                 <div class="container mt-5">
                     <div class="row">
                         <div class="col-md-8">
-                            {{-- <div class="billing-section">
-                                <h5 class="mb-4">Billing Details</h5>
-                                <ul class="nav nav-tabs nav-pills bg-nav-pills text-center" style="border-radius: 0;" id="billingTabs" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active rounded-0 px-5" id="guest-tab" style="border-radius: 0;border: none;outline: none;" data-bs-toggle="tab" data-bs-target="#guest" type="button" role="tab" aria-controls="guest" aria-selected="true">
-                                            Guest Checkout
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link rounded-0 px-5" style="border-radius: 0;border: none;outline: none;" id="create-tab" data-bs-toggle="tab" data-bs-target="#create" type="button" role="tab" aria-controls="create" aria-selected="false">
-                                            Create Account
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link  rounded-0 px-4" style="border-radius: 0;border: none;outline: none;background: rgba(90, 148, 190, 0.507);" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="false">
-                                            Existing Customer Login
-                                        </button>
-                                    </li>
-                                </ul>
-                                <div class="tab-content mt-4" id="billingTabsContent">
-                                
-                                    <div class="tab-pane fade show active" id="guest" role="tabpanel" aria-labelledby="guest-tab">
-                                        <form>
-                                            <div class="row mb-3" >
-                                                <div class="col-md-6 mb-2">
-                                                    <input type="text" class="form-control shadow-none" style="border-radius: 0;"  placeholder="First Name" required>
-                                                </div>
-                                                <div class="col-md-6 mb-2">
-                                                    <input type="text" class="form-control shadow-none" style="border-radius: 0;"  placeholder="Last Name" required>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6 mb-2">
-                                                    <input type="email" class="form-control shadow-none" style="border-radius: 0;"  placeholder="Email" required>
-                                                </div>
-                                                <div class=" col-md-6 mb-2">
-                                                    <input type="text" class="form-control shadow-none" style="border-radius: 0;"  placeholder="Phone number" required>
-                                                </div>
-                                            
-                                            </div>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6 mb-2">
-                                                    <input type="text" class="form-control shadow-none" style="border-radius: 0;"  placeholder="Address" required>
-                                                </div>
-                                                <div class=" col-md-6 mb-2">
-                                                    <input type="text" class="form-control shadow-none" style="border-radius: 0;"  placeholder="City" required>
-                                                </div>
-                                            
-                                            </div>
-                                        
-                                            <div class="row mb-3">
-                                                <div class="col-md-6 mb-2">
-                                                    <input type="text" class="form-control shadow-none" style="border-radius: 0;"  placeholder="Country">
-                                                </div>
-                                                <div class="col-md-6 mb-2">
-                                                    <input type="text" class="form-control shadow-none" style="border-radius: 0;"  placeholder="Zip">
-                                                </div>
-                                            </div>
-                                        
-                                        </form>
-                                    </div>
-            
-                                
-                                    <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="create-tab">
-                                        <form>
-                                            <div class="row mb-3">
-                                                <div class="col-md-6 mb-2">
-                                                    <input type="text" class="form-control shadow-none" style="border-radius: 0;"  placeholder="First Name" required>
-                                                </div>
-                                                <div class="col-md-6 mb-2 ">
-                                                    <input type="text" class="form-control  shadow-none" style="border-radius: 0;"  placeholder="Last Name" required>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <input type="email" class="form-control shadow-none" style="border-radius: 0;"  placeholder="Email" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <input type="password" class="form-control shadow-none" style="border-radius: 0;"  placeholder="Password" required>
-                                            </div>
-                                            <div class="mb-3">
-                                                <input type="password" class="form-control shadow-none" style="border-radius: 0;"  placeholder="Confirm Password" required>
-                                            </div>
-                                        </form>
-                                    </div>
-            
-                                
-                                    <div class="tab-pane fade" id="login" role="tabpanel" aria-labelledby="login-tab">
-                                        <form>
-                                            <div class="row mb-3">
-                                                <div class="col-md-5">
-                                                    <input type="email" class="form-control shadow-none" style="border-radius: 0;"  placeholder="Email" required>
-                                                </div>
-                                                <div class="col-md-5">
-                                                
-                                                        <input type="password" class="form-control shadow-none" style="border-radius: 0;"  placeholder="Password" required>
-                                                
-                                                </div>
-                                                <div class="col-md-2">
-                                                
-                                                        <button class="btn btn-primary w-100 shadow-none rounded-0">Login</button>
-                                                </div>
-                                            
-                                            </div>
-                                        
-                                        
-                                        </form>
-                                    </div>
-                                </div>
-                            </div> --}}
                             <div class="billing-section">
                                 <h5 class="mb-4">Billing Details</h5>
-                                <form id="reservation-form" action="{{ route('books.store') }}" method="POST">
-                                    @csrf
-                                    <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="adults">First name</label>
-                                            <input type="text" class="form-control shadow-none"
-                                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->first_name : old('first_name') }}"
-                                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}
-                                                style="border-radius: 0;" name="first_name" placeholder="First Name"
-                                                required>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="adults">Last name</label>
-                                            <input type="text" class="form-control shadow-none rounded-0"
-                                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->last_name : old('last_name') }}"
-                                               k {{ auth()->guard('guest')->check() ? 'readonly' : '' }} name="last_name"
-                                                placeholder="Last Name" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="adults">Phone</label>
-                                            <input type="text" class="form-control shadow-none rounded-0"
-                                                name="mobile"
-                                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->mobile : old('mobile') }}"
-                                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}
-                                                placeholder="Phone number" required>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="adults">Email</label>
-                                            <input type="email" class="form-control shadow-none"
-                                                style="border-radius: 0;"
-                                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->email : old('email') }}"
-                                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }} name="email"
-                                                placeholder="Last Name" required>
-                                        </div>
-                                    </div>
 
-                                    <div class="form-row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="adults">Address</label>
-                                            <input type="text" class="form-control shadow-none"
-                                                style="border-radius: 0;"
-                                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->address : old('address') }}"
-                                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }} name="address"
-                                                placeholder="Address" required>
-                                        </div>
-                                        <div class=" col-md-6 mb-3">
-                                            <label for="city">City</label>
-                                            <input type="text" class="form-control shadow-none"
-                                                style="border-radius: 0;"
-                                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->city : old('city') }}"
-                                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}
-                                                placeholder="City" name="city" required>
-                                        </div>
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="adults">First name</label>
+                                        <input type="text" class="form-control shadow-none"
+                                            value="{{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? auth()->guard('guest')->user()->first_name : old('first_name') }}"
+                                            {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'readonly' : '' }}
+                                            style="border-radius: 0;" name="first_name" placeholder="First Name" required>
                                     </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="adults">Last name</label>
+                                        <input type="text" class="form-control shadow-none rounded-0"
+                                            value="{{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? auth()->guard('guest')->user()->last_name : old('last_name') }}"
+                                            {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'readonly' : '' }}
+                                            name="last_name" placeholder="Last Name" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="adults">Phone</label>
+                                        <input type="text" class="form-control shadow-none rounded-0" name="mobile"
+                                            value="{{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? auth()->guard('guest')->user()->mobile : old('mobile') }}"
+                                            {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'readonly' : '' }}
+                                            placeholder="Phone number" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="adults">Email</label>
+                                        <input type="email" class="form-control shadow-none" style="border-radius: 0;"
+                                            value="{{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? auth()->guard('guest')->user()->email : old('email') }}"
+                                            {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'readonly' : '' }}
+                                            name="email" placeholder="Email" required>
+                                    </div>
+                                </div>
 
-                                    <div class="form-row mb-3">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="">Country</label>
-                                            <input type="text" class="form-control shadow-none" name="country"
-                                                style="border-radius: 0;"
-                                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->country : old('country') }}"
-                                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}
-                                                placeholder="Country">
-                                        </div>
-                                        <div class="col-md-6 mb-2">
-                                            <label for="">Zip</label>
-                                            <input type="text" class="form-control shadow-none" name="zip"
-                                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->zip : old('zip') }}"
-                                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}
-                                                style="border-radius: 0;" placeholder="Zip">
-                                        </div>
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="adults">Address</label>
+                                        <input type="text" class="form-control shadow-none" style="border-radius: 0;"
+                                            value="{{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? auth()->guard('guest')->user()->address : old('address') }}"
+                                            {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'readonly' : '' }}
+                                            name="address" placeholder="Address" required>
                                     </div>
-                                    <input type="hidden" name="room_type_id" value="{{ $rooms->roomType->id }}">
+                                    <div class=" col-md-6 mb-3">
+                                        <label for="city">City</label>
+                                        <input type="text" class="form-control shadow-none" style="border-radius: 0;"
+                                            value="{{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? auth()->guard('guest')->user()->city : old('city') }}"
+                                            {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'readonly' : '' }}
+                                            placeholder="City" name="city" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-row mb-3">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="">Country</label>
+                                        <input type="text" class="form-control shadow-none" name="country"
+                                            style="border-radius: 0;"
+                                            value="{{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? auth()->guard('guest')->user()->country : old('country') }}"
+                                            {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'readonly' : '' }}
+                                            placeholder="Country">
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <label for="">Zip</label>
+                                        <input type="text" class="form-control shadow-none" name="zip"
+                                            value="{{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? auth()->guard('guest')->user()->zip : old('zip') }}"
+                                            {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'readonly' : '' }}
+                                            style="border-radius: 0;" placeholder="Zip">
+                                    </div>
+                                </div>
+                                <input type="hidden" name="room_type_id" value="{{ $rooms->roomType->id }}">
+
                             </div>
                         </div>
-                        <!-- Right Section -->
                         <div class="col-md-4 mt-3">
                             <div class="booking-summary ">
                                 <img src="{{ asset('storage/' . $rooms->images->first()->image) }}" class="img-fluid"
@@ -634,8 +522,13 @@
                                         Children
                                     </p>
                                     <h6 class="mt-4 section-title">Price Summary</h6>
-                                    <p><strong>{{ $rooms->roomType->type_name }}:</strong> $
-                                        {{ number_format($room->price, 0) }}</p>
+                                    <p><strong>{{ $rooms->roomType->type_name }}:</strong>
+                                        @if ($room->special_price)
+                                            ${{ number_format($room->special_price, 0) }}
+                                        @else
+                                            ${{ number_format($room->price, 0) }}
+                                    </p>
+                                    @endif
                                     <p class="price-summary"><strong>Total Price:</strong>
                                         ${{ number_format($totalPrice, 2) }}</p>
                                     <a href="{{ route('checkout.index', [
@@ -652,7 +545,6 @@
                                         class="btn btn-warning w-100 rounded-0 text-white">
                                         Proceed to Checkout
                                     </a>
-                                
                                 </div>
 
                             </div>
@@ -663,39 +555,71 @@
         </div>
         </div>
     </section>
-    <div class="modal fade" style="z-index: 9999" id="loginRegisterModal" tabindex="-1" aria-labelledby="loginAlertModalLabel" aria-hidden="true">
+    <div class="modal fade" style="z-index: 9999" data-bs-backdrop="static" id="loginRegisterModal" tabindex="-1"
+        aria-labelledby="loginRegisterModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginRegisterModalLabel">Login or Register</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header" style="background: #d7b661;color: white;">
+                    <h5 class="modal-title text-white" id="loginRegisterModalLabel">Login or Register</h5>
+                    <button type="button" class=" border-0 outline-none close text-white" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    <p>Please sign in or sign up to proceed with your payment. You must be logged in to complete your booking.</p>
+                    <p></p> <!-- Content dynamically updated by the script -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background: #d7b661">Close</button> --}}
+                    <button type="button" class="btn text-white px-4 " data-bs-dismiss="modal"
+                        style="background: #d7b661">Close</button>
                 </div>
             </div>
         </div>
     </div>
-    
-    
 @endsection
 
 @section('script')
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        var isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
-
-        // Add an event listener to the "Proceed to Checkout" button
-        document.querySelector('.btn-warning').addEventListener('click', function (event) {
-            if (!isLoggedIn) {
-                event.preventDefault(); // Prevent the default action (navigation)
-                $('#loginRegisterModal').modal('show'); // Show the modal
-            }
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
+            // Add an event listener to the "Proceed to Checkout" button
+            document.querySelector('.btn-warning').addEventListener('click', function(event) {
+                if (!isLoggedIn) {
+                    event.preventDefault(); // Prevent the default action (navigation)
+                    $('#loginRegisterModal').modal('show'); // Show the modal
+                }
+            });
         });
-    });
+    </script> --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
+            var hasVerifiedEmail =
+                {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'true' : 'false' }};
 
+            // Add an event listener to the "Proceed to Checkout" button
+            document.querySelector('.btn-warning').addEventListener('click', function(event) {
+                if (!isLoggedIn || !hasVerifiedEmail) {
+                    event.preventDefault(); // Prevent the default action (navigation)
+
+                    // Update modal title and message
+                    var modalTitle = document.querySelector('#loginRegisterModalLabel');
+                    var modalBody = document.querySelector('#loginRegisterModal .modal-body p');
+
+                    if (!isLoggedIn) {
+                        modalTitle.textContent = "Login or Register";
+                        modalBody.textContent =
+                            "Please sign in or sign up to proceed with your payment. You must be logged in to complete your booking.";
+                    } else if (!hasVerifiedEmail) {
+                        modalTitle.textContent = "Verify Your Email";
+                        modalBody.textContent =
+                            "Please verify your email address to proceed with the payment.";
+                    }
+
+                    $('#loginRegisterModal').modal('show'); // Show the modal
+                }
+            });
+        });
     </script>
 @endsection

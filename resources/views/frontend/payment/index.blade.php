@@ -377,14 +377,6 @@
                                 <i class="bi bi-credit-card mr-2"></i> Credit Card
                             </button>
                         </li>
-
-                        {{-- <li class="nav-item" role="presentation">
-                            <button class="nav-link rounded-0 border-bottom-0" id="payment-paypal-tab"
-                                data-bs-toggle="tab" data-bs-target="#payment-paypal" type="button" role="tab"
-                                aria-controls="payment-on-arrival" aria-selected="false">
-                                <i class="bi bi-paypal mr-2"></i> Pay Pal
-                            </button>
-                        </li> --}}
                     </ul>
 
                     <!-- Tab Content -->
@@ -408,7 +400,6 @@
                                         class="img-fluid" height="24" alt="stripe-card-img">
                                 </div>
                             </div>
-
                             <div class="mt-4">
                                 <p><strong>Card Number:</strong> 4242 4242 4242 4242</p>
                                 <p><strong>Expiry Month:</strong> 05</p>
@@ -477,7 +468,7 @@
 @section('script')
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
     <script>
-        const stripe = Stripe("{{ env('STRIPE_KEY') }}");
+        const stripe = Stripe("pk_test_51QEuUNCtdzaqHN41dP5wt4wNnFJ1MIAqxIo7EyT9yuYOQGpgYZcBT10iluUEEoJatWXtkszJKzVzi7XQ5SpEtTdt00qomJhOFU");
         const elements = stripe.elements();
         const card = elements.create('card');
         card.mount('#card-element');
@@ -509,6 +500,8 @@
                 form.submit();
             }
         });
+
+        
     </script>
 
 

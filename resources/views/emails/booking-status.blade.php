@@ -139,7 +139,15 @@
                         </tr>
                         <tr>
                             <th>Room:</th>
-                            <td>{{ $booking->room->room_number }} - {{ $booking->room->roomType->type_name }}</td>
+                            <td>{{ $booking->room->roomType->type_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Room Numer:</th>
+                            <td>{{ $booking->room->room_number }}</td>
+                        </tr>
+                        <tr>
+                            <th>Room Floor:</th>
+                            <td>{{ $booking->room->floor }}</td>
                         </tr>
                         <tr>
                             <th>Guests:</th>

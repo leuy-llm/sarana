@@ -99,22 +99,13 @@
                         @endif
                     </div>
                     
-                    {{-- <div class="d-flex flex-column">--}}
+                    
                         <a href="{{ route('books.create', ['room_id' => $room->id, 'check_in' => $checkIn, 'check_out' => $checkOut, 'adults' => $adults, 'children' => $children]) }}"
                             class="btn book-now-btn mb-2 shadow-none rounded-0 py-2 font-weight-bold text-uppercase text-white px-4"
                             style="background: #deb666; font-size: 14px">
                             Book now
                          </a>
-                         
-                        {{--<a href="{{ route('roomDetail', ['id' => $room->id, 'type_name' => Str::slug($room->roomType->type_name), 'check_in_date' => $checkIn, 'check_out_date' => $checkOut, 'adults' => $adults, 'children' => $children]) }}"
-                            class="btn btn-outline-primary shadow-none">
-                            More details
-                        </a>
-                    </div> --}}
-                    {{-- <a href="{{ route('books.create', ['room_id' => $room->id, 'check_in' => $checkIn, 'check_out' => $checkOut, 'adults' => $adults, 'children' => $children]) }}"
-                        class=" mb-2 text-left py-1 w-100 text-primary text-decoration-none shadow-none px-2" style="font-size: 14px;background:#f1f2f3;">
-                        Select Booking Date
-                    </a> --}}
+                       
                 </div>
             </div>
         </div>

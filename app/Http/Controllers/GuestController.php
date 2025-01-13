@@ -395,8 +395,8 @@ class GuestController extends Controller
             // Redirect to the provided redirect URL or default to homepage
             $redirect = $request->input('redirect', route('homepage'));
             // dd($redirect);
-            return redirect()->to($redirect)
-                ->with('success', 'Welcome back!');
+            return redirect()->to($redirect);
+                // ->with('success', 'Welcome back!');
         }
 
         // Return back with an error message if authentication fails
@@ -408,9 +408,15 @@ class GuestController extends Controller
 
 
 
+    // public function logout()
+    // {
+    //     auth()->guard('guest')->logout();
+    //     return redirect()->back(); // Redirect to homepage after logout
+    // }
     public function logout()
     {
-        auth()->guard('guest')->logout();
-        return redirect()->back(); // Redirect to homepage after logout
+        auth('guest')->logout();
+        return redirect()->route('homepage')->with('message', 'You have been logged out.');
     }
+
 }

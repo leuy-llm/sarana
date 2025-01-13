@@ -145,7 +145,7 @@
 <div class="container-fluid mt-5">
     
     <div class="col-sm-12 section-title text-center mb-md-3 mb-sm-2">
-        <h6 data-aos="zoom-in" style="font-weight: bold;font-size: 20px">What I can do for you</h6>
+        <h6 data-aos="zoom-in" style="font-weight: bold;font-size: 20px">Discover Your Perfect Stay</h6>
         <h2 data-aos="zoom-in">Our Favorite Rooms</h2>
     </div>
     
