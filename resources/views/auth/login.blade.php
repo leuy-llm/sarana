@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Log In | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
+    <title>Admin Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -27,7 +27,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* font-family: 'Roboto', sans-serif; */
             font-family: "Hanuman", sans-serif;
         }
 
@@ -52,7 +51,6 @@
         }
     </style>
 </head>
-
 <body>
     <section class="wrapper ">
         <div class="container">
@@ -79,7 +77,6 @@
                         <input type="text" name="name" value="{{ old('name') }}" required
                             class="form-control shadow-none form-control-lg fs-6" placeholder="Username">
                     </div>
-
                     <div class="input-group mb-4">
                         <span class="input-group-text">
                             <i class='bx bx-lock-alt'></i>
@@ -107,5 +104,4 @@
     </script>
     </script>
 </body>
-
 </html>

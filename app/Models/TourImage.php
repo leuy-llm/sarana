@@ -11,7 +11,7 @@ class TourImage extends Model
     protected $fillable = [
         'tour_id',
         'image',
-        'is_primary',
+        
     ];
 
      // Relationship: A TourImage belongs to a Tour

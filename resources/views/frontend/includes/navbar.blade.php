@@ -61,7 +61,7 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item"
                                 style="font-size: 13px; padding-top: 10px; border-bottom: 1px solid #dee2e6; font-weight: 500; text-transform: uppercase; "
-                                href="{{ url('restaurant') }}">Food & Drink</a></li>
+                                href="{{ url('food') }}">Food & Drink</a></li>
                         <li><a class="dropdown-item"
                                 style="font-size: 13px; padding-top: 10px; font-weight: 500; text-transform: uppercase;"
                                 href="{{ route('meeting') }}">Meetings</a></li>

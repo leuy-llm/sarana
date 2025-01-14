@@ -21,8 +21,6 @@ class AuthController extends Controller
 
         return view('auth.login');
     }
-
-
     public function logindash(Request $request)
     {
         $request->validate([

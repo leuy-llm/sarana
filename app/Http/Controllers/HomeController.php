@@ -8,6 +8,7 @@ use App\Models\Room;
 use App\Models\Facility;
 use App\Models\Guest;
 use App\Models\Meeting;
+use App\Models\Restaurant;
 use App\Models\RoomType;
 use App\Models\Tour;
 use Carbon\Carbon;
@@ -122,7 +123,6 @@ class HomeController extends Controller
         $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
         $banner = Banner::where('page_name', 'rooms')->first();
         $contact = DB::table('contact_details')->get();
-
         $checkIn = $request->input('check_in');
         $checkOut = $request->input('check_out');
 
@@ -150,6 +150,16 @@ class HomeController extends Controller
         $rooms = $query->paginate(10); // Adjust per page as needed for testing
         $rooms->appends($request->all()); // Append query parameters to pagination links
         return view('frontend.rooms.room', compact('rooms', 'data', 'banner', 'contact', 'settings', 'roomTypes', 'checkIn', 'checkOut', 'adults', 'children'));
+    }
+
+
+    public function food(){
+        $data = "Food & Drinks";
+        $settings = DB::table('settings')->get();
+        $contact = DB::table('contact_details')->get();
+        $banner = Banner::where('page_name', 'food')->first();
+        $foodItems = Restaurant::all();
+        return view('frontend.food.index', compact('data', 'banner', 'contact', 'settings', 'foodItems'));
     }
 
 

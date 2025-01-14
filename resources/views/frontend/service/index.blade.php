@@ -1,19 +1,6 @@
 @extends('layout.master')
 @section('style')
     <style>
-        /* Hover effect */
-        /* .hover-effect {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .hover-effect:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            filter: brightness(1.2);
-          
-            cursor: pointer;
-        } */
-
         .section-title {
             font-size: 2.5rem;
             font-weight: bold;
@@ -45,7 +32,7 @@
 
         .image-container {
             overflow: hidden;
-            /* border-radius: 5px;  */
+            
         }
 
         .image-container img {
@@ -131,53 +118,18 @@
     </section>
     <section id="services" class="services_wrapper" style="margin-bottom: 60px;">
         <div class="container-fluid">
-            {{-- <div class="row">
-                <div class="col-sm-12 section-title text-center mb-5">
-                    <h6 data-aos="zoom-in"  data-aos="fade-right">We Are Here For You</h6>
-                    <h3 style="margin-top: -10px"  data-aos="fade-right" data-aos-duration="1500">Our Awesome Services</h3>
-                </div>
-            </div> --}}
-            {{-- <div class="py-3 service-12">
-                <div class="container" >
-                    <div class="row" >
-                        <div class="col-lg-6" >
-                            <div class="row">
-                                @foreach ($services as $service)
-                                    <div class="col-md-6">
-                                        <h6 class="font-weight-medium" data-aos="fade-right">{{ $service->title }}</h6>
-                                        <p style="line-height: 1.6;" data-aos="fade-right" data-aos-duration="1500">{{ $service->description }}</p>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="col-lg-6"  data-aos="fade-down-right" data-aos-duration="2000">
-                            <div class="row">
-                                @foreach ($services as $service)
-                                    <div class="col-md-6 mt-2 img-hover">
-                                        <img src="{{ asset('storage/' . $service->image) }}" style="height: 100%; max-height: 600px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"
-                                            class="rounded img-shadow img-fluid hover-effect" alt="{{ $service->title }}" />
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
             <div class="my-5">
                 <div class="text-center" style="margin-bottom: 60px;">
                     <h6 class="fw-bold">OUR AWESOME SERVICES</h6>
                     <h3 class="text-muted" style="margin-top: -10px">Check out our awesome services</h3>
                 </div>
                 <div class="row align-items-stretch">
-                    <!-- Left Image Section -->
                     <div class="col-md-6 d-flex image-container">
                         <img id="mainImage" 
                             src="{{ asset('storage/' . $services[0]->image) }}" 
                             alt="Awesome Services" class="img-fluid w-100">
 
                     </div>
-        
-                    <!-- Right Content Section -->
                     <div class="col-md-6 d-flex flex-column">
                         @foreach($services as $index => $service)
                         <div class="service-card p-3 mb-3 {{ $index === $services->count() - 1 ? 'bg-dark text-white' : '' }}"
@@ -223,7 +175,6 @@
             child.classList.remove('text-muted'); // Remove muted text class
             child.classList.add('text-white'); // Add white text class
         });
-
         // Change the main image
         mainImage.src = imageUrl;
     }

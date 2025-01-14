@@ -60,8 +60,6 @@ Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('room_detail/{id}/{type_name}', [HomeController::class, 'roomDetail'])->name('roomDetail');
 
 Route::get('property', [HomeController::class, 'property'])->name('property');
-
-
 Route::get('service', [HomeController::class, 'service'])->name('service');
 Route::get('gallery', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('meeting', [HomeController::class, 'meeting'])->name('meeting');
@@ -139,6 +137,7 @@ Route::post('/register', [GuestController::class, 'register'])->name('register')
 
 // Email Verification Routes
 Route::get('roomindex',[HomeController::class,'roomindex'])->name('roomindex');
+Route::get('food',[HomeController::class,'food'])->name('food');
 Route::get('/email.verify', function () {
     return view('auth.verify-email'); // Email verification notice view
 })->middleware('auth:guest')->name('verification.notice');
