@@ -152,6 +152,7 @@
                                     <label class="form-label">@lang('label.avaiableRoom') <span class="text-danger">*</span></label>
                                     <select name="room_id" required="" class="form-control room-list select2"
                                         data-toggle="select2">
+                                        <option value="">--- Select Room ---</option>
                                     </select>
                                 </div>
                             </div>
@@ -162,6 +163,17 @@
                                         class="form-control  @error('total_adults') is-invalid @enderror "
                                         placeholder="@lang('label.entertotalAdult') . . ." required="">
                                     @error('total_adults')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.quantity') <span class="text-danger">*</span></label>
+                                    <input type="number" value="{{ old('quantity') }}" max="1" max="{{}}" name="quantity"
+                                        class="form-control  @error('quantity') is-invalid @enderror "
+                                        placeholder="@lang('label.quantity') . . ." required="">
+                                    @error('quantity')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -182,13 +194,28 @@
                                     <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control select2" data-toggle="select2">
                                         <option value="" selected disabled>Choose Status</option>
-                                        <option value="Approved">Approved</option>
+                                        <option value="Approved">Reserved</option>
                                         <option value="Cancelled">Canceled</option>
                                         <option value="Pending">Pending</option>
-                                        <option value="Checked-In">Checked_In</option>
-                                        <option value="Checked-Out">Checked_Out</option>
+                                        <option value="Checked-In">Checked-In</option>
+                                        <option value="Checked-Out">Checked-Out</option>
                                     </select>
                                     @error('status')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.paymentStatus') <span class="text-danger">*</span></label>
+                                    <select name="payment_status"
+                                        class="form-control @error('payment_status') is-invalid @enderror select2"
+                                        data-toggle="select2" required>
+                                        <option value="" selected disabled>Choose Status</option>
+                                        <option value="Unpaid">@lang('label.unpaid')</option>
+                                        <option value="Paid">@lang('label.paid')</option>
+                                    </select>
+                                    @error('payment_status')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -205,84 +232,102 @@
 @endsection
 @section('script')
     <script>
-        // document.getElementById('check_in_date').addEventListener('change', function() {
-        //     var checkInDate = this.value; // Get the selected check-in date
-        //     document.getElementById('check_out_date').setAttribute('min',
-        //     checkInDate); // Set the min attribute of check-out date
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     var checkInDateInput = document.getElementById('check_in_date');
+        //     var checkOutDateInput = document.getElementById('check_out_date');
+
+        //     checkOutDateInput.disabled = true;
+
+        //     checkInDateInput.addEventListener('change', function() {
+        //         var checkInDate = this.value; // Get the selected check-in date
+        //         // Enable the check-out date input
+        //         checkOutDateInput.disabled = false;
+        //         // Set the minimum date for check-out date to be the selected check-in date
+        //         checkOutDateInput.setAttribute('min', checkInDate);
+        //         // Clear check-out date if it is before the new check-in date
+        //         if (checkOutDateInput.value < checkInDate) {
+        //             checkOutDateInput.value = ''; // Clear the value if invalid
+        //         }
+        //     });
+
+        //     // Fetch available rooms based on check-in date
+        //     $(document).ready(function() {
+        //         $(".checkin_date").on('blur', function() {
+        //             var _checkindate = $(this).val();
+        //             console.log(_checkindate);
+
+        //             // Ajax to get available rooms based on check-in date
+        //             $.ajax({
+        //                 url: "{{ url('bookings') }}/available-rooms/" + _checkindate,
+        //                 dataType: 'json',
+        //                 beforeSend: function() {
+        //                     $(".room-list").html('<option>--- Loading ---</option>');
+        //                 },
+        //                 success: function(res) {
+        //                     var _html = '';
+        //                     $.each(res.data, function(index, row) {
+        //                         _html += '<option value="' + row.id + '">' + row
+        //                             .room_number + ' - ' + row.type_name +
+        //                             '</option>';
+        //                     });
+        //                     $(".room-list").html(_html);
+        //                 }
+        //             });
+        //         });
+        //     });
         // });
 
-        // $(document).ready(function() {
-        //     $(".checkin_date").on('blur', function() {
-
-        //         var _checkindate = $(this).val();
-        //         console.log(_checkindate);
-
-        //         //Ajax
-        //         $.ajax({
-        //             url: "{{ url('bookings') }}/available-rooms/" + _checkindate,
-        //             dataType: 'json',
-        //             beforSend: function() {
-        //                 $(".room-list").html('<option>--- Loading ---</option>');
-        //             },
-        //             success: function(res) {
-
-        //                 var _html = '';
-        //                 $.each(res.data, function(index, row) {
-
-        //                     _html += '<option value="' + row.id + '">' + row.room_number + ' - ' + row.type_name +
-        //                         '</option>';
-        //                 });
-
-        //                 $(".room-list").html(_html);
-
-        //             }
-        //         })
-
-        //     })
-        // })
         document.addEventListener('DOMContentLoaded', function() {
-            var checkInDateInput = document.getElementById('check_in_date');
-            var checkOutDateInput = document.getElementById('check_out_date');
+    var checkInDateInput = document.getElementById('check_in_date');
+    var checkOutDateInput = document.getElementById('check_out_date');
 
-            checkOutDateInput.disabled = true;
+    // Disable check-out date initially
+    checkOutDateInput.disabled = true;
 
-            checkInDateInput.addEventListener('change', function() {
-                var checkInDate = this.value; // Get the selected check-in date
-                // Enable the check-out date input
-                checkOutDateInput.disabled = false;
-                // Set the minimum date for check-out date to be the selected check-in date
-                checkOutDateInput.setAttribute('min', checkInDate);
-                // Clear check-out date if it is before the new check-in date
-                if (checkOutDateInput.value < checkInDate) {
-                    checkOutDateInput.value = ''; // Clear the value if invalid
+    // Handle check-in date change
+    checkInDateInput.addEventListener('change', function() {
+        var checkInDate = this.value; // Get the selected check-in date
+        // Enable the check-out date input
+        checkOutDateInput.disabled = false;
+        // Set the minimum date for check-out date to be the selected check-in date
+        checkOutDateInput.setAttribute('min', checkInDate);
+        // Clear check-out date if it is before the new check-in date
+        if (checkOutDateInput.value < checkInDate) {
+            checkOutDateInput.value = ''; // Clear the value if invalid
+        }
+    });
+
+    // Fetch available rooms based on check-in date
+    $(".checkin_date").on('blur', function() {
+        var _checkindate = $(this).val(); // Get the entered check-in date
+        console.log(_checkindate);
+
+        if (_checkindate) {
+            // Ajax to get available rooms based on check-in date
+            $.ajax({
+                url: "{{ url('bookings') }}/available-rooms/" + _checkindate,
+                dataType: 'json',
+                beforeSend: function() {
+                    $(".room-list").html('<option>--- Loading ---</option>'); // Show loading message
+                },
+                success: function(res) {
+                    var _html = '';
+                    $.each(res.data, function(index, row) {
+                        // Append room number and type to the dropdown
+                        _html += '<option value="' + row.id + '">' + row.room_number + ' - ' + row.type_name + ' (' + row.available_quantity + ' available)</option>';
+                    });
+                    // Populate the room dropdown with available rooms
+                    $(".room-list").html(_html);
+                },
+                error: function() {
+                    $(".room-list").html('<option>--- Error loading rooms ---</option>'); // Error message
                 }
             });
+        } else {
+            $(".room-list").html('<option>--- Select Check-in Date First ---</option>'); // Inform user to select check-in date first
+        }
+    });
+});
 
-            // Fetch available rooms based on check-in date
-            $(document).ready(function() {
-                $(".checkin_date").on('blur', function() {
-                    var _checkindate = $(this).val();
-                    console.log(_checkindate);
-
-                    // Ajax to get available rooms based on check-in date
-                    $.ajax({
-                        url: "{{ url('bookings') }}/available-rooms/" + _checkindate,
-                        dataType: 'json',
-                        beforeSend: function() {
-                            $(".room-list").html('<option>--- Loading ---</option>');
-                        },
-                        success: function(res) {
-                            var _html = '';
-                            $.each(res.data, function(index, row) {
-                                _html += '<option value="' + row.id + '">' + row
-                                    .room_number + ' - ' + row.type_name +
-                                    '</option>';
-                            });
-                            $(".room-list").html(_html);
-                        }
-                    });
-                });
-            });
-        });
     </script>
 @endsection

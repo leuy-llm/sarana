@@ -111,10 +111,6 @@
                                 onchange="document.getElementById('bookingForm').submit()">
                                 <option value="30" {{ request('time_range') == '30' ? 'selected' : '' }}>Past 30
                                     Days</option>
-                                <option value="90" {{ request('time_range') == '90' ? 'selected' : '' }}>Past 90
-                                    Days</option>
-                                <option value="365" {{ request('time_range') == '365' ? 'selected' : '' }}>Past 1
-                                    Year</option>
                                 <option value="all" {{ request('time_range') == 'all' ? 'selected' : '' }}>All Time
                                 </option>
                             </select>
@@ -125,23 +121,6 @@
             <h4 class="page-title">Booking Analytics</h4>
         </div>
     </div>
-    {{-- <div class="col-lg-6 col-xl-3">
-    <div class="card">
-        <div class="card-body">
-            <div class="row align-items-center">
-                <div class="col-7">
-                    <h5 class="fw-normal text-primary mt-0" title="Total RoomType">Total Booking</h5>
-                    <h3 class="my-2 py-1 text-primary">{{ $currentBookings }}</h3>
-                </div>
-                <div class="col-5">
-                    <div class="text-end">
-                        <i class="mdi mdi-clipboard-list text-primary" style="font-size: 65px"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
     <div class="col-lg-6 col-xl-3">
         <div class="card" style="border-left: 4px solid #FF8911;">
             <div class="card-body">
@@ -285,10 +264,6 @@
                                 onchange="document.getElementById('queriesForm').submit()">
                                 <option value="30" {{ request('time_ranges') == '30' ? 'selected' : '' }}>Past 30
                                     Days</option>
-                                <option value="90" {{ request('time_ranges') == '90' ? 'selected' : '' }}>Past 90
-                                    Days</option>
-                                <option value="365" {{ request('time_ranges') == '365' ? 'selected' : '' }}>Past 1
-                                    Year</option>
                                 <option value="all" {{ request('time_ranges') == 'all' ? 'selected' : '' }}>All
                                     Time</option>
                             </select>

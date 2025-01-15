@@ -214,9 +214,6 @@ class HomeController extends Controller
         $priceMax = $request->input('price_max', 100000); // Default maximum
         $totalPersons = $adults + $children;
 
-
-
-
         $contact = DB::table('contact_details')->get();
         $settings = DB::table('settings')->get();
         $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
@@ -227,7 +224,7 @@ class HomeController extends Controller
             ->whereNotIn('id', function ($subQuery) use ($checkIn) {
                 $subQuery->select('room_id')
                     ->from('bookings')
-                    ->whereNotIn('status', ['cancelled', 'checked-out'])
+                    ->whereNotIn('status', ['Cancelled', 'Checked-Out'])
                     ->whereRaw("'$checkIn' BETWEEN check_in_date AND check_out_date");
             })
             ->with(['images', 'roomType', 'facilities']); // Eager load relationships
@@ -246,10 +243,7 @@ class HomeController extends Controller
             $query->orderBy('price', 'desc'); // Sort by highest price
         }
 
-        // Count the number of rooms that match the
-        // Count the number of rooms that match the filter
         $filteredRoomCount = $query->count();
-
         // Paginate results
         $rooms = $query->paginate(10);
         $rooms->appends($request->all());

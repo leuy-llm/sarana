@@ -234,44 +234,17 @@
                 <button type="submit" class="btn btn-primary w-100" id="previewButton"><i
                         class="bi bi-person-plus"></i> Sign up</button>
                 <div class="d-flex justify-content-between mt-1">
-                    <a href="{{ route('guest.login') }}" class="d-block text-center mt-2">Already have an account?
-                        <span class="text-primary">Sign in</span></a>
+                    <a href="{{ route('guest.login') }}?redirect={{ request()->input('redirect', url()->current()) }}" class="d-block text-center mt-2">
+                        Already have an account? <span class="text-primary">Sign in</span>
+                    </a>
                     <a href="{{ route('homepage') }}" class="btn border-0 px-4 btn-outline-secondary "
                         style="font-size: 12px;">
                         <i class="bi bi-arrow-90deg-left me-2 font-weight-bold"></i> Back
                     </a>
                 </div>
             </form>
-
         </div>
     </div>
-
-    <!-- Confirmation Modal -->
-    {{-- <div class="modal fade" id="confirmationModal" data-bs-backdrop="static"  tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmationModalLabel">Confirm Your Information</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Please confirm that all the information entered is correct before submitting the form. Make sure that your contact details, address, and password are accurate.</p>
-                    <p>If any of the information is incorrect, please go back and edit the relevant fields.</p>
-                    <p><strong>Important Notes:</strong></p>
-                    <ul>
-                        <li>Ensure your email address is valid as it will be used for communication.</li>
-                        <li>Double-check the phone number for accuracy, as it will be used to contact you regarding your registration.</li>
-                        <li>The password should be secure, and it must match the confirmation password.</li>
-                    </ul>
-                    <p>Once you confirm, your information will be submitted for registration.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="submitForm">Confirm</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="modal fade" id="confirmationModal" data-bs-backdrop="static" tabindex="-1"
         aria-labelledby="confirmationModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -288,9 +261,6 @@
                     <p><strong>Important:</strong></p>
                     <ul>
                         <li>Ensure your email address is valid as it will be used for communication.</li>
-                        <li>Double-check the phone number for accuracy, as it will be used to contact you regarding your
-                            registration.</li>
-                        <li>The password should be secure and must match the confirmation password.</li>
                     </ul>
                     <p>Once you confirm, your information will be permanently submitted, and no further changes can be
                         made to the registration details.</p>

@@ -49,8 +49,6 @@ Route::get('/', function () {
 });
 /*==================== Export Route =========== */
 Route::get('guest/export/', [GuestController::class, 'export']);
-
-
 /*================= HomePage ================= */
 Route::get('/', [HomeController::class, 'index'])->name('homepage');
 /*================= Contact ================  */
@@ -58,7 +56,6 @@ Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 /* ================ Our Room ================ */
 // Route::get('rooms',[HomeController::class,'ourroom'])->name('')
 Route::get('room_detail/{id}/{type_name}', [HomeController::class, 'roomDetail'])->name('roomDetail');
-
 Route::get('property', [HomeController::class, 'property'])->name('property');
 Route::get('service', [HomeController::class, 'service'])->name('service');
 Route::get('gallery', [HomeController::class, 'gallery'])->name('gallery');
@@ -69,27 +66,20 @@ Route::get('/room/filter', [HomeController::class, 'filterRooms'])->name('rooms.
 // Route::post('/rooms/sort', [HomeController::class, 'room'])->name('rooms.sort');
 Route::post('/rooms/sort', [HomeController::class, 'sortRooms'])->name('rooms.sort');
 
-
-
-
 // Route::get('room', [HomeController::class, 'room'])->name('room');
 Route::get('room', [HomeController::class, 'rooms'])->name('room');
-
 
 /*================= Login =================== */
 Route::get('logindash', [AuthController::class, 'Auth'])->name('logindash');
 Route::post('/submit', [AuthController::class, 'logindash'])->name('submit_login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
 Route::get('bookings/available-room-types/{checkin_date}', [BookingController::class, 'available_room_types']);
 Route::get('/reservation/confirmation/{id}', [ReservationController::class, 'confirmation'])->name('booking.confirmation');
-
 Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.index');
 Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process');
 
 Route::get('/reservation', [ReservationController::class, 'reservation'])->name('reservation');
 Route::get('/reservation/skip-payment/{id}/{totalAmount}', [ReservationController::class, 'skipPayment'])->name('booking.skipPayment');
-
 // Route::get('books/{id}',[HomeController::class, 'booking'])->name('books');
 Route::get('/books/create', [HomeController::class, 'createBooking'])->name('books.create');
 Route::get('booking/{room}', [BookingController::class, 'show'])->name('booking.show');
@@ -118,24 +108,17 @@ Route::middleware(['auth:guest'])->group(function () {
 
 Route::post('/booking/cancel/{id}', [ReservationController::class, 'cancelBooking'])->name('booking.cancel');
 Route::get('/guest/logout', [GuestController::class, 'logout'])->name('guest.logout');
-
 Route::get('/guest-login', function () {
     return view('auth.guest_login'); // Adjust to your guest login view
 })->name('guest.login');
 
-// Registration Routes
-Route::get('/register', function () {
-    return view('auth.guest_register'); // Registration view
-})->name('register');
-
+// Route::get('/register', function () {
+//     return view('auth.guest_register');
+// })->name('register');
+Route::get('/register', [GuestController::class,'showRegistrationForm'])->name('register');
 Route::post('/guest-login', [GuestController::class, 'login'])->name('guest.login');
 Route::post('/booking/pay-on-arrival', [BookingController::class, 'payOnArrival'])->name('booking.payOnArrival');
-
-
-
 Route::post('/register', [GuestController::class, 'register'])->name('register');
-
-// Email Verification Routes
 Route::get('roomindex',[HomeController::class,'roomindex'])->name('roomindex');
 Route::get('food',[HomeController::class,'food'])->name('food');
 Route::get('/email.verify', function () {
@@ -187,7 +170,6 @@ Route::group(['middleware' => ['isAdmin']], function () {
     /*================= Traslate Route =========================== */
     Route::get('locale/{lang}', [TranslateController::class, 'setLang'])->name('locale.switch');
 
-
     /*================= Permisson Route =================== */
     Route::resource('permissions', PermissionController::class);
     Route::get('permissions/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
@@ -217,7 +199,6 @@ Route::group(['middleware' => ['isAdmin']], function () {
 
     Route::get('/bookings/booked-dates', [BookingController::class, 'getBookedDates'])->name('bookings.booked-dates');
 
-
     /*================= Booking Calender =============== */
     Route::resource('calenders', BookingCalenderController::class);
     Route::get('/api/bookings', [BookingController::class, 'getBookings'])->name('bookings.get');
@@ -226,7 +207,6 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::resource('facilitys', FacilitiesController::class);
     Route::get('facilitys/{facilityId}/delete', [App\Http\Controllers\FacilitiesController::class, 'destroy']);
     // Route::get('/api/bookings', [FacilitiesController::class, 'getBookings'])->name('bookings.get');
-
 
     /*================= Front End =================== */
     /*================= Carousel =================== */
@@ -253,7 +233,6 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::get('abouts/edit/{id}', [SettingController::class, 'aboutedit'])->name('abouts.edit');
     Route::post('abouts/update/{id}', [SettingController::class, 'aboutupdate'])->name('abouts.update');
 
-
     /*================= Contacts  =================== */
     Route::get('contacts', [SettingController::class, 'contact'])->name('contacts.index');
     // Route::get('contacts/create',[SettingController::class,'contact'])->name('contacts.create');
@@ -261,14 +240,12 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::get('contacts/edit/{id}', [SettingController::class, 'contactedit'])->name('contacts.edit');
     Route::post('contacts/update/{id}', [SettingController::class, 'contactupdate'])->name('contacts.update');
 
-
     /*================= User Query =================== */
     Route::get('queries', [UserQueryController::class, 'query'])->name('queries.index');
     // Route::get('queries/create',[UserQueryController::class,'create'])->name('queries.create');
 
     Route::get('queries/delete/{id}', [UserQueryController::class, 'delete'])->name('queries.delete');
     Route::put('queries/{id}/mark-as-read', [UserQueryController::class, 'markAsRead'])->name('queries.markAsRead');
-
 
     Route::get('banners', [BannerController::class, 'banner'])->name('banner.index');
     Route::post('banners/store', [BannerController::class, 'store'])->name('banner.store');

@@ -193,10 +193,8 @@
                 </table>
                 <p>We look forward to welcoming you. If you have any questions, feel free to contact us.</p>
                 <p>Best Regards,</p>
-                {{-- <p>{{ config('app.name') }} Team</p> --}}
             </div>
         </div>
-
         <!-- Footer -->
         <div class="footer">
             <p>&copy; 2024 Sinaka Angkor Hotel. All Rights Reserved.</p>

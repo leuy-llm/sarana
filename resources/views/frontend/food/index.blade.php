@@ -13,15 +13,7 @@
             font-family: 'Source Sans Pro', sans-serif;
         }
 
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-card.bg-dark {
-            background-color: #212529;
-            color: white;
-        }
+        
 
         .image-container {
             overflow: hidden;
@@ -63,14 +55,6 @@
                 height: 350px;
                 object-fit: cover;
 
-            }
-
-            .service-card h5 {
-                font-size: 18px;
-            }
-
-            .service-card p {
-                font-size: 14px;
             }
 
         }

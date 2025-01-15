@@ -217,197 +217,10 @@
     </style>
 @endsection
 @section('content')
-    {{-- <section id="home" class="banner_wrapper p-0">
-        <div class="overlay">
-            @if (isset($banner) && $banner)
-                <img src="{{ asset('storage/' . $banner->banner_image) }}"
-                    style="width: 100%; height: 90vh; object-fit: cover;" alt="Banner Image">
-            @endif
-            <div class="img-overlay">
-                <h2>{{ $data }}</h2>
-            </div>
-        </div>
-    </section> --}}
     <section id="gallery" class="booking_wrapper" style="margin-top: 60px;">
         <div class="container-fluid">
             <div class="row">
-                {{-- <div class="col-md-6">
-                    <img src="{{ asset('storage/' . $rooms->images->first()->image) }}" class="img-fluid"
-                        style="height: 500px; object-fit: cover; border-radius: 3px;"
-                        alt="{{ $rooms->roomType->type_name }}">
-                    <h4
-                        style="font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-weight:600;font-size: 25px;">
-                        {{ $rooms->roomType->type_name }}</h4>
-                    <h4
-                        style="font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;font-weight:400; margin-top: -10px;">
-                        $ {{ number_format($rooms->price, 0) }}</h4>
-                </div> --}}
-                {{-- <div class="col-md-6">
-                    <h3 class="reservation-title text-center">Make Your Reservation</h3> --}}
-
-                {{-- <form id="reservation-form" action="{{ route('books.store') }}" method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <label>Full Name</label>
-                            <input type="text" name="name" class="form-control" placeholder="Full Name"
-                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->name : old('name') }}"
-                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Phone</label>
-                                <input type="number" min="0" name="mobile" class="form-control" placeholder="Phone"
-                                    value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->mobile : old('name') }}"
-                                    {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="Email"
-                                    value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->email : old('name') }}"
-                                    {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
-                            </div>
-                        </div>
-                        <div class="form-group" style="margin-top: -14px">
-                            <label>Address</label>
-                            <input type="text" name="address" class="form-control" placeholder="Address"
-                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->address : old('name') }}"
-                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="checkIn">Check In</label>
-                                <input type="date" name="check_in_date" class="form-control checkin_date" id="checkIn"
-                                    value="{{ $checkIn ?? old('check_in_date') }}" {{ $checkIn ? 'readonly' : '' }}>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="checkOut">Check Out</label>
-                                <input type="date" name="check_out_date" class="form-control" id="checkOut"
-                                    value="{{ $checkOut ?? old('check_out_date') }}" {{ $checkOut ? 'readonly' : '' }}
-                                    min="{{ date('Y-m-d') }}">
-                            </div>
-                        </div>
-                        <input type="hidden" name="room_type_id" value="{{ $rooms->roomType->id }}">
-
-                        <div class="form-row" style="margin-top: -14px">
-                            <div class="form-group col-md-6">
-                                <label for="adults">Children</label>
-                                <input type="number" min="0" name="total_children" class="form-control"
-                                    id="checkOut" value="{{ $children ?? old('total_children') }}"
-                                    {{ $children ? 'readonly' : '' }}>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="adults">Adults</label>
-                                <input type="number" min="1" name="total_adults" class="form-control" id="checkOut"
-                                    value="{{ $adults ?? old('total_adults') }}" {{ $adults ? 'readonly' : '' }}>
-                            </div>
-                        </div>
-                        <input type="hidden" id="room-price" value="{{ $rooms->price }}">
-                        <div id="details-section" style="display: none;">
-                            <div class="form-group" style="margin-top: -10px">
-                                <label>No. of Days: <span id="num-days">0</span></label>
-                            </div>
-                            <div class="form-group" style="margin-top: -10px">
-                                <input type="hidden" name="total_amount" id="hidden-total-amount" value="0">
-                                <label>Total Amount to Pay: <span id="total-amount">0</span>$</label>
-                            </div>
-                        </div>
-                        <div class="col-md-12 d-flex">
-                        
-                            <button id="payment-button" type="button" class="btn btn-booking btn-block">Proceed to Payment</button>
-                        
-                        </div>
-                </form> --}}
-                {{-- <form id="reservation-form" action="{{ route('books.store') }}" method="POST">
-                    @csrf
-                
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Full Name"
-                            value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->name : old('name') }}"
-                            {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label>Phone</label>
-                            <input type="number" min="0" name="mobile" class="form-control" placeholder="Phone"
-                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->mobile : old('mobile') }}"
-                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email"
-                                value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->email : old('email') }}"
-                                {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Address</label>
-                        <input type="text" name="address" class="form-control" placeholder="Address"
-                            value="{{ auth()->guard('guest')->check() ? auth()->guard('guest')->user()->address : old('address') }}"
-                            {{ auth()->guard('guest')->check() ? 'readonly' : '' }}>
-                    </div>
-                
-                
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="checkIn">Check In</label>
-                            <input type="date" name="check_in_date" value="{{ $checkIn }}" class="form-control checkin_date"
-                                id="checkIn">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="checkOut">Check Out</label>
-                            <input type="date" name="check_out_date" value="{{ $checkOut }}" class="form-control" id="checkOut"
-                                min="{{ date('Y-m-d') }}">
-                        </div>
-                    </div>
-                
-                
-                    <input type="hidden" name="room_type_id" value="{{ $rooms->roomType->id }}">
-                
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="adults">Adults</label>
-                            <input type="number" min="0" name="total_adults" class="form-control" id="adults"
-                                value="{{ $adults ?? old('total_adults') }}">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="children">Children</label>
-                            <input type="number" min="0" name="total_children" class="form-control" id="children"
-                                value="{{ $children ?? old('total_children') }}">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="extra_beds">Extra Bed Capacity</label>
-                            <input type="number" min="0" name="extra_bed_capacity" class="form-control" id="extra_beds"
-                                value="{{ old('extra_bed_capacity') }}" placeholder="Enter extra bed capacity">
-                        </div>
-                    </div>
-                
-                
-                    <button type="submit" class="btn btn-booking btn-block">PROCEED TO CHECKOUT</button>
-                
-                    <h3>Payment</h3>
-                    <div>
-                        <label>
-                            <input type="radio" name="payment_option" value="pay_now" required> Pay Now
-                        </label>
-                        <label>
-                            <input type="radio" name="payment_option" value="skip_payment" required> Skip Payment
-                        </label>
-                    </div> 
-                
-                
-                </form> --}}
-
                 <div class="container-fluid">
-                    {{-- <div class="progress-container">
-                        <div class="d-flex justify-content-between">
-                            <div class="progress-step active">Search<br><small>Choose your favorite room</small></div>
-                            <div class="progress-step active">Booking<br><small>Enter your booking details</small></div>
-                            <div class="progress-step">Checkout<br><small>Use your preferred payment method</small>
-                            </div>
-                            <div class="progress-step">Confirmation<br><small>Receive a confirmation email</small></div>
-                        </div>
-                    </div> --}}
                     <div class="stepper-wrapper">
                         <div class="stepper-item completed">
                             <div class="step-counter">1</div>
@@ -555,44 +368,10 @@
         </div>
         </div>
     </section>
-    <div class="modal fade" style="z-index: 9999" data-bs-backdrop="static" id="loginRegisterModal" tabindex="-1"
-        aria-labelledby="loginRegisterModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background: #d7b661;color: white;">
-                    <h5 class="modal-title text-white" id="loginRegisterModalLabel">Login or Register</h5>
-                    <button type="button" class=" border-0 outline-none close text-white" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p></p> <!-- Content dynamically updated by the script -->
-                </div>
-                <div class="modal-footer">
-                    {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background: #d7b661">Close</button> --}}
-                    <button type="button" class="btn text-white px-4 " data-bs-dismiss="modal"
-                        style="background: #d7b661">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('script')
     {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
-            // Add an event listener to the "Proceed to Checkout" button
-            document.querySelector('.btn-warning').addEventListener('click', function(event) {
-                if (!isLoggedIn) {
-                    event.preventDefault(); // Prevent the default action (navigation)
-                    $('#loginRegisterModal').modal('show'); // Show the modal
-                }
-            });
-        });
-    </script> --}}
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
             var isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
             var hasVerifiedEmail =
@@ -621,5 +400,5 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 @endsection

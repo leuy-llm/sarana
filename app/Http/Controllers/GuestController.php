@@ -276,6 +276,14 @@ class GuestController extends Controller
     //     // Redirect to the email verification notice
     //     return redirect()->route('verification.notice')->with('message', 'Please check your email for a verification link.');
     // }
+    public function showRegistrationForm(Request $request)
+{
+    if ($request->has('redirect')) {
+        session(['url.intended' => $request->input('redirect')]);
+    }
+
+    return view('auth.guest_register');
+}
 
     public function register(Request $request)
     {
@@ -380,30 +388,53 @@ class GuestController extends Controller
     //     ])->withInput($request->only('email'));
     // }
 
+    // public function login(Request $request)
+    // {
+    //     // Validate the incoming request data
+    //     $request->validate([
+    //         'email' => 'required|email',
+    //         'password' => 'required',
+    //     ]);
+
+    //     // Attempt to authenticate the guest
+    //     $credentials = $request->only('email', 'password');
+
+    //     if (Auth::guard('guest')->attempt($credentials)) {
+    //         // Redirect to the provided redirect URL or default to homepage
+    //         $redirect = $request->input('redirect', route('homepage'));
+    //         // dd($redirect);
+    //         return redirect()->to($redirect);
+    //             // ->with('success', 'Welcome back!');
+    //     }
+
+    //     // Return back with an error message if authentication fails
+    //     return back()->withErrors([
+    //         'email' => 'The provided credentials do not match our records.',
+    //     ])->withInput($request->only('email'));
+    // }
+
     public function login(Request $request)
-    {
-        // Validate the incoming request data
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    // Validate the incoming request data
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        // Attempt to authenticate the guest
-        $credentials = $request->only('email', 'password');
+    // Attempt to authenticate the guest
+    $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('guest')->attempt($credentials)) {
-            // Redirect to the provided redirect URL or default to homepage
-            $redirect = $request->input('redirect', route('homepage'));
-            // dd($redirect);
-            return redirect()->to($redirect);
-                // ->with('success', 'Welcome back!');
-        }
-
-        // Return back with an error message if authentication fails
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->withInput($request->only('email'));
+    if (Auth::guard('guest')->attempt($credentials)) {
+        // Redirect to the provided redirect URL or default to homepage
+        $redirect = $request->input('redirect', route('homepage'));
+        return redirect()->to($redirect);
     }
+
+    // Return back with an error message if authentication fails
+    return back()->withErrors([
+        'email' => 'The provided credentials do not match our records.',
+    ])->withInput($request->only('email'));
+}
 
 
 

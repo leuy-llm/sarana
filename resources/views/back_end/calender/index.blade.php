@@ -83,7 +83,8 @@
         hr {
             border: 1px solid;
         }
-        .btn-close{
+
+        .btn-close {
             color: white !important;
         }
     </style>

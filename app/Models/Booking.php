@@ -25,8 +25,6 @@ class Booking extends Model
     {
         return $this->belongsTo(Room::class);
     }
-    
-
     // public function payment()
     // {
     //     return $this->belongsTo(Payment::class);
@@ -35,8 +33,6 @@ class Booking extends Model
     {
         return $this->hasOne(Payment::class);
     }
-
-
     public static function getBooking()
     {
         $return  = self::with(['guest', 'room']);
@@ -45,7 +41,5 @@ class Booking extends Model
         $return = $return->orderBy('id', 'desc')
             ->get();
         return $return;
-           
     }
-    
 }

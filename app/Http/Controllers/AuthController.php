@@ -265,8 +265,6 @@ class AuthController extends Controller
         }
     }
 
-
-
     // // Helper method to calculate percentage change
     // private function calculatePercentageChange($previous, $current)
     // {
@@ -322,16 +320,16 @@ class AuthController extends Controller
         $currentNewRegistrations = $this->getNewRegistrationsCount($queryStartDate);
         $currentGuests = $this->getGuestCount($queryStartDate); // Booking time range
 
-        $confirmedBookings = $this->getBookingCount($bookingStartDate, 'confirmed');
-        $cancelledBookings = $this->getBookingCount($bookingStartDate, 'cancelled');
-        $pendingBookings = $this->getBookingCount($bookingStartDate, 'pending');
+        $confirmedBookings = $this->getBookingCount($bookingStartDate, 'Approved');
+        $cancelledBookings = $this->getBookingCount($bookingStartDate, 'Cancelled');
+        $pendingBookings = $this->getBookingCount($bookingStartDate, 'Pending');
         $currentRooms = Room::count();
         $currentRoomTypes = RoomType::count();
         $currentUsers = User::count();
         $header_title =   __('label.dashboard');
 
         
-        $guestsStayingToday = Booking::where('status', 'checked-in')
+        $guestsStayingToday = Booking::where('status', 'Checked-In')
         ->whereDate('check_in_date', '<=', Carbon::today())
         ->whereDate('check_out_date', '>=', Carbon::today())
         ->count();
@@ -341,14 +339,14 @@ class AuthController extends Controller
         // // Count checked-out today
         // $checkOutsToday = Booking::where('status', 'checked-out')->whereDate('check_out_date', Carbon::today())->count();
         // Count checked-in today
-$checkInsToday = Booking::where('status', 'checked-in')
-->whereDate('check_in_date', Carbon::today())
-->count();
+        $checkInsToday = Booking::where('status', 'Checked-In')
+        ->whereDate('check_in_date', Carbon::today())
+        ->count();
 
-// Count checked-out today
-$checkOutsToday = Booking::where('status', 'checked-out')
-->whereDate('check_out_date', Carbon::today())
-->count();
+        // Count checked-out today
+        $checkOutsToday = Booking::where('status', 'Checked-Out')
+        ->whereDate('check_out_date', Carbon::today())
+        ->count();
 
         $roomTypeBookings = Booking::join('rooms', 'bookings.room_id', '=', 'rooms.id')
             ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
@@ -358,10 +356,8 @@ $checkOutsToday = Booking::where('status', 'checked-out')
             })
             ->groupBy('room_types.type_name')
             ->get();
-
-
         $monthlyBookings = Booking::selectRaw('YEAR(check_in_date) as year, MONTH(check_in_date) as month, COUNT(*) as total_bookings')
-            ->where('status', 'confirmed') // You can adjust this condition based on your needs
+            ->where('status', 'Approved') // You can adjust this condition based on your needs
             ->groupBy('year', 'month')
             ->orderBy('year')
             ->orderBy('month')
@@ -402,10 +398,6 @@ $checkOutsToday = Booking::where('status', 'checked-out')
         switch ($range) {
             case '30':
                 return now()->subDays(30);
-            case '90':
-                return now()->subDays(90);
-            case '365':
-                return now()->subDays(365);
             case 'all':
             default:
                 return null; // No date filter for "All Time"
