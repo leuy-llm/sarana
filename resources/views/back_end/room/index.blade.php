@@ -137,10 +137,6 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="mb-3">
-                                        {{-- <label class="form-label">@lang('label.roomTypeName')</label>
-                                        <input type="text" name="roomTypeName" value="{{ Request::get('name') }}"
-                                            placeholder="@lang('label.enterRoomTypeName') . . ." class="form-control filter"> --}}
-
                                         <label class="form-label">@lang('label.roomTypeName')</label>
                                         <select name="room_type_id" id="room_type_id" class="form-control select2"
                                             data-toggle="select2">

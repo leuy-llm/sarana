@@ -205,7 +205,8 @@
             transition: transform 0.3s ease;
             /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); */
         }
-        .btn-more:hover{
+
+        .btn-more:hover {
             background: red;
         }
 
@@ -434,7 +435,7 @@
     </section>
     <section id="rooms" class="rooms_wrapper">
         <div class="container-fluid p-5">
-            <h1 class="text-center" style=" font-family: 'Sail', system-ui;font-size: 50px;" >Our Room </h1>
+            <h1 class="text-center" style=" font-family: 'Sail', system-ui;font-size: 50px;">Our Room </h1>
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div id="rooms-container" class="container py-4">
@@ -463,24 +464,22 @@
                                                             $ {{ number_format($room->price, 0) }}
                                                         </span>
                                                     </div>
-                                                    
                                                 @endif
                                                 <div class="mt-3"
-                                                        style="display:flex;align-items:center; gap: 4px;flex-wrap: wrap">
-                                                        <span
-                                                            style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>Bed</strong>:
-                                                            {{ $room->bed_type }}</span>,
-                                                        <span
-                                                            style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>View</strong>:
-                                                            {{ $room->view_type }}</span>,
-                                                        <span
-                                                            style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>Size</strong>
-                                                            : {{ $room->room_size }} m²</span>,
-                                                        <span
-                                                            style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>Capacity</strong>:
-                                                            {{ $room->max_person }} persons</span>
-
-                                                    </div>
+                                                    style="display:flex;align-items:center; gap: 4px;flex-wrap: wrap">
+                                                    <span
+                                                        style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>Bed</strong>:
+                                                        {{ $room->bed_type }}</span>,
+                                                    <span
+                                                        style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>View</strong>:
+                                                        {{ $room->view_type }}</span>,
+                                                    <span
+                                                        style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>Size</strong>
+                                                        : {{ $room->room_size }} m²</span>,
+                                                    <span
+                                                        style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>Capacity</strong>:
+                                                        {{ $room->max_person }} persons</span>
+                                                </div>
                                             </div>
                                             <div class="room-price">
                                                 <div>
@@ -523,105 +522,5 @@
     </section>
 @endsection
 @section('script')
-    <script>
-        $(document).ready(function() {
-            function fetchRooms(url) {
-                const roomsContainer = $('#rooms-container');
-                const formData = $('#filter-form').serialize(); // Include form data for filtering
-
-                $.ajax({
-                    url: url,
-                    method: "GET",
-                    data: formData,
-                    beforeSend: function() {
-                        roomsContainer.html('<p>Loading rooms...</p>'); // Loading message
-                    },
-                    success: function(response) {
-                        roomsContainer.html(response); // Update the room list dynamically
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching rooms:', error);
-                        roomsContainer.html('<p>Failed to load rooms. Please try again.</p>');
-                    }
-                });
-            }
-
-            // Handle form submission
-            $('#search-btn').on('click', function(e) {
-                e.preventDefault();
-                fetchRooms("{{ route('rooms.filter') }}");
-            });
-
-            // Handle pagination link clicks
-            $(document).on('click', '.pagination-links a', function(e) {
-                e.preventDefault();
-                const url = $(this).attr('href');
-                fetchRooms(url);
-            });
-        });
-
-        // Initialize the noUiSlider
-        const priceSlider = document.getElementById('price-range-slider');
-
-        noUiSlider.create(priceSlider, {
-            start: [50, 1000], // Default range values
-            connect: true, // Connect the handles
-            range: {
-                min: 0, // Minimum value
-                max: 2000 // Maximum value
-            },
-            step: 50, // Increment step
-            tooltips: [true, true] // Display tooltips
-        });
-
-        // Update the displayed values dynamically
-        const priceMin = document.getElementById('price-min');
-        const priceMax = document.getElementById('price-max');
-
-        priceSlider.noUiSlider.on('update', function(values, handle) {
-            if (handle === 0) {
-                priceMin.textContent = Math.round(values[0]);
-            } else {
-                priceMax.textContent = Math.round(values[1]);
-            }
-        });
-
-        // Pass the values to the filter form when submitting
-        $('#search-btn').on('click', function() {
-            const priceValues = priceSlider.noUiSlider.get();
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'price_min',
-                value: Math.round(priceValues[0])
-            }).appendTo('#filter-form');
-
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'price_max',
-                value: Math.round(priceValues[1])
-            }).appendTo('#filter-form');
-        });
-
-
-        //Select Date 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add click event listener to all "Select Booking Date" links
-            document.querySelectorAll('.select-booking-date').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault(); // Prevent default behavior of the link
-
-                    // Scroll to the Check In field
-                    const checkInField = document.getElementById('checkin');
-                    checkInField.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center'
-                    });
-
-                    // Highlight the Check In field (optional)
-                    checkInField.classList.add('highlight');
-                    setTimeout(() => checkInField.classList.remove('highlight'), 2000);
-                });
-            });
-        });
-    </script>
+    <script></script>
 @endsection

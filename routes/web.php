@@ -28,10 +28,14 @@ use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\UserQueryController;
+use App\Models\Booking;
 use App\Models\BookingCalender;
 use App\Models\Restaurant;
+use App\Models\Room;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,11 +67,11 @@ Route::get('meeting', [HomeController::class, 'meeting'])->name('meeting');
 Route::get('restaurant', [HomeController::class, 'restaurant'])->name('restaurant');
 Route::get('tour', [HomeController::class, 'tour'])->name('tour');
 Route::get('/room/filter', [HomeController::class, 'filterRooms'])->name('rooms.filter');
-// Route::post('/rooms/sort', [HomeController::class, 'room'])->name('rooms.sort');
 Route::post('/rooms/sort', [HomeController::class, 'sortRooms'])->name('rooms.sort');
+// Route::post('/rooms/sort', [HomeController::class, 'room'])->name('rooms.sort');
 
-// Route::get('room', [HomeController::class, 'room'])->name('room');
 Route::get('room', [HomeController::class, 'rooms'])->name('room');
+// Route::get('room', [HomeController::class, 'room'])->name('room');
 
 /*================= Login =================== */
 Route::get('logindash', [AuthController::class, 'Auth'])->name('logindash');
@@ -187,9 +191,146 @@ Route::group(['middleware' => ['isAdmin']], function () {
 
     /*================= Booking Route =================== */
     Route::resource('bookings', BookingController::class);
-    Route::get('bookings/available-rooms/{checkin_date}', [BookingController::class, 'available_rooms']);
+    // Route::get('bookings/available-rooms/{checkin_date}', [BookingController::class, 'available_rooms']);
+    Route::get('/bookings/available-rooms/{checkin_date}', [BookingController::class, 'available_rooms']);
+    Route::get('/bookings/available-room/{checkin_date}', [BookingController::class, 'availableRooms']);
+    // Route::get('/bookings/available-rooms', [BookingController::class, 'getAvailableRooms'])->name('bookings.available-rooms');
+    // Route::get('/bookings/available/{checkin_date}', [BookingController::class, 'getAvailableRooms'])->name('rooms.available');
+    // Route::get('/api/rooms/availability', [BookingController::class, 'getAvailableRooms']);
+    // web.php
+Route::get('/rooms/{booking_id}/edit', [BookingController::class, 'editBookingRooms']);
+Route::post('/rooms/{booking_id}/edit', [BookingController::class, 'updateBookingRooms']);
+Route::get('/rooms/{booking_id}/edit-view', [BookingController::class, 'editBookingRoomsView']);
+Route::get('/get-available-rooms', [BookingController::class, 'getAvailableRooms']);
+// Route::post('/check-room-availability', [BookingController::class, 'checkAvailability'])->name('rooms.checkAvailability');
+// Route::post('/rooms/check-availability', [BookingController::class, 'checkAvailability'])->name('rooms.check-availability');
 
 
+// routes/api.php
+
+// Route::get('/check-room-availability', function (Request $request) {
+//     $roomId = $request->room_id;
+//     $checkIn = $request->check_in;
+//     $checkOut = $request->check_out;
+
+//     $isAvailable = !DB::table('booking_rooms')
+//         ->join('bookings', 'booking_rooms.booking_id', '=', 'bookings.id')
+//         ->where('booking_rooms.room_id', $roomId)
+//         ->where(function ($query) use ($checkIn, $checkOut) {
+//             $query->whereBetween('bookings.check_in_date', [$checkIn, $checkOut])
+//                   ->orWhereBetween('bookings.check_out_date', [$checkIn, $checkOut])
+//                   ->orWhereRaw('? BETWEEN bookings.check_in_date AND bookings.check_out_date', [$checkIn])
+//                   ->orWhereRaw('? BETWEEN bookings.check_in_date AND bookings.check_out_date', [$checkOut]);
+//         })
+//         ->exists();
+
+//     return response()->json(['available' => $isAvailable]);
+// });
+
+
+Route::get('/check-room-availability', [BookingController::class, 'checkRoomAvailability']);
+Route::get('/available-rooms', [HomeController::class, 'getAvailableRooms'])->name('availableRooms');
+
+Route::get('/modalfilter', [HomeController::class, 'modalfilter'])->name('modalfilter');
+Route::get('/booking', [HomeController::class, 'bookingPage'])->name('booking.page');
+
+// In your web.php or api.php (Laravel routes)
+// Route::get('/api/available-rooms', function (Request $request) {
+//     $checkIn = $request->query('check_in');
+//     $checkOut = $request->query('check_out');
+//     $adults = $request->query('adults');
+//     $children = $request->query('children');
+
+//     // Fetch available rooms based on the filters
+//     $rooms = Room::whereDoesntHave('bookings', function ($query) use ($checkIn, $checkOut) {
+//         $query->where('check_out_date', '>', $checkIn)
+//               ->where('check_in_date', '<', $checkOut);
+//     })->where('max_person', '>=', $adults + $children)
+//       ->with(['images', 'roomType'])
+//       ->get();
+
+//     // Return the response
+//     return response()->json(['rooms' => $rooms]);
+// });
+
+// Route::get('/api/available-rooms', function (Request $request) {
+//     $checkIn = $request->query('check_in');
+//     $checkOut = $request->query('check_out');
+//     $adults = $request->query('adults');
+//     $children = $request->query('children');
+
+//     // Fetch available rooms based on the filters
+//     $rooms = Room::whereDoesntHave('bookings', function ($query) use ($checkIn, $checkOut) {
+//         $query->where('check_out_date', '>', $checkIn)
+//               ->where('check_in_date', '<', $checkOut);
+//     })->where('max_person', '>=', $adults + $children)
+//       ->with(['images', 'roomType'])
+//       ->get();
+
+//     // Log the rooms data for debugging
+//     Log::info('Available rooms:', $rooms->toArray());
+
+//     // Return the response
+//     return response()->json(['rooms' => $rooms]);
+// });
+
+Route::get('/bookings/available-room/{checkin_date}', [HomeController::class, 'availableRooms']);
+
+Route::get('/api/available-rooms', function (Request $request) {
+    $checkIn = $request->query('check_in');
+    $checkOut = $request->query('check_out');
+    $adults = $request->query('adults');
+    $children = $request->query('children');
+    
+    // Fetch available rooms based on check-in/check-out dates and capacity
+    $rooms = Room::whereDoesntHave('bookings', function ($query) use ($checkIn, $checkOut) {
+        $query->where('check_out_date', '>', $checkIn)
+              ->where('check_in_date', '<', $checkOut);
+    })->where('max_person', '>=', $adults + $children)
+      ->with(['images', 'roomType'])
+      ->get();
+
+    // Log available rooms for debugging
+    Log::info('Available rooms:', $rooms->toArray());
+
+    return response()->json(['rooms' => $rooms]);
+});
+
+
+Route::post('/api/add-room', function (Request $request) {
+    $roomId = $request->input('room_id');
+    $checkIn = $request->input('check_in');
+    $checkOut = $request->input('check_out');
+
+    $room = Room::with('bookings')->find($roomId);
+
+    if (!$room) {
+        return response()->json(['error' => 'Room not found'], 404);
+    }
+
+    // Check if the room is available for the selected dates
+    $isAvailable = !$room->bookings()->where('check_out_date', '>', $checkIn)
+        ->where('check_in_date', '<', $checkOut)
+        ->exists();
+
+    if (!$isAvailable) {
+        return response()->json(['error' => 'Room is not available for the selected dates'], 400);
+    }
+
+    // Additional condition: Prevent adding the same room multiple times
+    session()->push('selected_rooms', $roomId);
+    $selectedRooms = session('selected_rooms', []);
+
+    if (count(array_keys($selectedRooms, $roomId)) > 1) {
+        session()->forget('selected_rooms');
+        return response()->json(['error' => 'Room has already been added'], 400);
+    }
+
+    return response()->json(['message' => 'Room added successfully', 'room' => $room]);
+});
+   // Route to check room availability (AJAX)
+    // Route::get('/check-room-availability', [BookingController::class, 'checkRoomAvailability'])->name('checkRoomAvailability');
+    // Route::get('/bookings/check-room-availability', [BookingController::class, 'checkRoomAvailability']);
     Route::get('bookings/{bookingId}/delete', [App\Http\Controllers\BookingController::class, 'destroy']);
     Route::get('bookings/{id}/detail', [BookingController::class, 'show'])->name('bookings.show');
 

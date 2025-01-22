@@ -108,12 +108,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row mb-2">
-                        <div class="col-sm-4">
-                            <a href="{{ route('rooms.store') }}" class="btn btn-danger  mb-2"><span
-                                    class=" uil-corner-up-left"></span> @lang('label.back')</a>
-                        </div>
-                    </div>
+                    
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ route('rooms.store') }}"
                         method="POST" novalidate="">
                         @csrf
@@ -225,47 +220,57 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">View Type</label>
-                                    <input type="text" name="view_type" value="{{ old('view_type') }}" class="form-control" placeholder="Enter view type">
+                                    <label class="form-label">@lang('label.viewType') <span class="text-danger">*</span></label>
+                                    <input type="text" name="view_type" value="{{ old('view_type') }}" class="form-control @error('view_type') is-invalid @enderror" placeholder="@lang('label.pviewType')">
+                                    @error('view_type')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Bed Type</label>
-                                    <input type="text" name="bed_type" value="{{ old('bed_type') }}" class="form-control" placeholder="Enter bed type">
+                                    <label class="form-label">@lang('label.bedType') <span class="text-danger">*</span></label>
+                                    <input type="text" name="bed_type" value="{{ old('bed_type') }}" class="form-control @error('bed_type') is-invalid @enderror" placeholder="@lang('label.pbedType')">
+                                    @error('bed_type')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Room Size (sq ft)</label>
-                                    <input type="number" name="room_size" value="{{ old('room_size') }}" class="form-control" placeholder="Enter room size">
+                                    {{-- Room Size (sq ft) placeholder="Enter room rating (1-5)" --}}
+                                    <label class="form-label">@lang('label.size') <span class="text-danger">*</span></label>
+                                    <input type="number" name="room_size" value="{{ old('room_size') }}" class="form-control @error('room_size') is-invalid @enderror" placeholder="@lang('label.proomSize')">
+                                    @error('room_size')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Rating</label>
-                                    <input type="number" step="0.1" name="rating" value="{{ old('rating') }}" class="form-control" placeholder="Enter room rating (1-5)">
+                                    <input type="number" step="0.1" name="rating" value="{{ old('rating') }}" class="form-control"  placeholder="@lang('label.rating')">
                                 </div>
                             </div>
                         
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">Special Price</label>
-                                    <input type="number" name="special_price" value="{{ old('special_price') }}" class="form-control" placeholder="Enter special price">
+                                    <input type="number" name="special_price" value="{{ old('special_price') }}" class="form-control" placeholder="@lang('label.specialPrice')">
                                 </div>
                             </div>
                         
-                            {{-- <div class="col-md-6">
+                            <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Extra Bed Capacity</label>
-                                    <input type="number" name="extra_bed_capacity" value="{{ old('extra_bed_capacity') }}" class="form-control" placeholder="Enter extra bed capacity">
+                                    <label class="form-label">@lang('label.quantity')</label>
+                                    <input type="number" name="quantity" value="{{ old('quantity') }}" class="form-control" placeholder="@lang('label.quantity')">
                                 </div>
-                            </div> --}}
+                            </div>
                         </div>
-                        <button class="btn btn-primary" type="submit">@lang('label.submit')</button>
+                        <button class="btn btn-primary" type="submit"> <i class="mdi mdi-save"></i>@lang('label.submit')</button>
                         
                         <a href="{{ url('rooms') }}" class="btn btn-light">@lang('label.cancel')</a>
                     </form>

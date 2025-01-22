@@ -11,22 +11,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Room extends Model
 {
-    protected $fillable = ['room_type_id','quantity', 'room_number', 'floor', 'status', 'description', 'price','is_deleted','max_person','view_type','bed_type','room_size','rating','special_price','extra_bed_capacity'];
+    protected $fillable = ['room_type_id', 'room_number', 'floor', 'status', 'description', 'price','is_deleted','max_person','view_type','bed_type','room_size','rating','special_price','extra_bed_capacity'];
     use HasFactory;
-    public function images()
+        public function images()
     {
-        return $this->hasMany(RoomImage::class);
+        return $this->hasMany(RoomImage::class, 'room_id');
     }
-    public function roomType()
-{
-    return $this->belongsTo(RoomType::class);
-}
 
+
+    public function roomType()
+    {
+        return $this->belongsTo(RoomType::class);
+    }
 
     public function bookings()
-{
-    return $this->hasMany(Booking::class);
-}
+    {
+        return $this->belongsToMany(Booking::class, 'booking_rooms')
+        ->withPivot('total_adults', 'total_children');
+    }
 
 
     public function facilities()
@@ -38,7 +40,8 @@ class Room extends Model
     static public function getRoom()
     {
         $return  = self::select('rooms.*')
-        ->where('is_deleted', '=', 0);
+        ->where('is_deleted', '=', 0)
+        ->where('status', '=',1);
         if (!empty(Request::get('room_id'))) {
             $return = $return->where('id', '=', Request::get('room_id'));
         }

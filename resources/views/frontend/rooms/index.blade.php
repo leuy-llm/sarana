@@ -1,5 +1,4 @@
 @extends('layout.master')
-
 @section('style')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- headers: {
@@ -10,7 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.js"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet" />
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
@@ -21,7 +22,6 @@
             background-color: #eff3f8;
             font-family: 'Jost', serif
         }
-
 
         .room-card img {
             border-radius: 0.5rem;
@@ -435,6 +435,54 @@
             content: none;
         }
 
+        .select2-container--default .select2-selection--single:focus {
+            border-color: #007bff;
+            /* Border color on focus */
+            outline: none;
+            /* Remove the outline */
+            box-shadow: none;
+            /* Remove the shadow */
+        }
+
+        /* Optionally, style the normal state of the Select2 dropdown */
+        .select2-container--default .select2-selection--single {
+            border: 2px solid #007bff;
+            /* Blue border */
+            border-radius: 5px;
+            /* Rounded corners */
+            padding: 5px;
+            /* Padding */
+            outline: none;
+            /* No outline */
+        }
+
+        /* Remove the box shadow when focused or clicked */
+        .select2-container--default .select2-selection--single:focus,
+        .select2-container--default .select2-selection--single:active {
+            box-shadow: none;
+            /* Remove the focus shadow */
+        }
+
+        /* Optional: Style the dropdown arrow */
+        .select2-container--default .select2-selection__arrow {
+            height: 100%;
+            border-left: 1px solid #007bff;
+            /* Arrow border */
+        }
+
+        .select2-hidden-accessible {
+            box-shadow: none;
+        }
+
+        .booking-form {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            padding: 50px;
+            /* max-width: 800px; */
+            margin: auto;
+            margin-top: -120px;
+        }
+
         /* Responsive Styles */
         @media (max-width: 768px) {
             .stepper-wrapper {
@@ -464,6 +512,89 @@
                 text-align: left;
             }
         }
+
+
+        .custom-modal {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            z-index: 1050;
+
+            border-radius: 8px;
+            padding: 1rem;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .custom-modal .card {
+            background-color: #f1f2f3;
+        }
+
+        .custom-modal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .room {
+            padding: 1rem 0;
+        }
+
+        .d-none {
+            display: none !important;
+        }
+
+        .btn-done {
+            background-color: #958e86;
+            border-color: #f7961d;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+        }
+
+        .btn-done:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(138, 133, 126, 0.5);
+        }
+
+        .btn-add {
+            background-color: #f7961d;
+            border-color: #f7961d;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+        }
+
+        .btn-add:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 153, 0, 0.5);
+        }
+
+
+        .remove-room {
+            color: #dc3545;
+
+            font-size: 1.5rem;
+
+            cursor: pointer;
+
+            transition: transform 0.2s ease, color 0.2s ease;
+
+            vertical-align: middle;
+        }
+
+        .remove-room:hover {
+            color: #a71d2a;
+
+            transform: scale(1.2);
+
+        }
+
+        .remove-room:active {
+            transform: scale(1.1);
+
+        }
     </style>
 @endsection
 @section('content')
@@ -477,6 +608,133 @@
         </div>
     </section>
     <section id="rooms" class="rooms_wrapper">
+        {{-- <div class="container">
+            <div class="booking-form shadow">
+                <div class="row g-3 d-flex align-items-center">
+                    <div class="col-3">
+                        <label for="children" class="form-label">Check in </label>
+                        <input type="date" class="form-control rounded-0 shadow-none">
+                    </div>
+                    <div class="col-3">
+                        <label for="children" class="form-label">Check Out </label>
+                        <input type="date" class="form-control rounded-0 shadow-none" placeholder="Check in / Check out">
+                    </div>
+
+                    <div class="col-2">
+                        <label for="adults" class="form-label">Adults</label>
+                        <select name="adults" id="adults" class="form-control shadow-none select2" style="box-shadow: none;"
+                            style="" required>
+                            <option value="" disabled selected>Select adults</option>
+                            @for ($i = 1; $i <= 10; $i++)
+                                <option value="{{ $i }}">{{ $i }} Adult{{ $i > 1 ? 's' : '' }}
+                                </option>
+                            @endfor
+                        </select>
+
+                    </div>
+                    <div class="col-md-2">
+                        <label for="children" class="form-label">Children</label>
+                        <input type="number" class="form-control rounded-0 shadow-none">
+                    </div>
+                    <div class="col-2" style="margin-top: 30px;">
+                        <button class="btn btn-dark rounded-0 w-100" id="search-btn">Find room</button>
+                    </div>
+
+                </div>
+            </div>
+            {{-- <div class="booking-form shadow">
+                <div class="row g-3 d-flex align-items-center">
+                    <div class="col-3">
+                        <label for="check-in" class="form-label">Check in</label>
+                        <input type="date" class="form-control rounded-0 shadow-none" id="check-in">
+                    </div>
+                    <div class="col-3">
+                        <label for="check-out" class="form-label">Check Out</label>
+                        <input type="date" class="form-control rounded-0 shadow-none" id="check-out">
+                    </div>
+                    <div class="col-4 position-relative">
+                        <label for="guestInput" class="form-label">Guests</label>
+
+                        <!-- Guest Input Trigger -->
+                        <div class="form-control d-flex align-items-center justify-content-between rounded-0 shadow-none"
+                            id="guestInput" role="button">
+                            <span id="guests-summary">1 adult, 0 children</span>
+                            <i class="fa fa-user"></i>
+                        </div>
+
+                        <!-- Guest Modal -->
+                        <div id="guestModal" class="custom-modal d-none">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="mb-4">Guests</h5>
+
+                                    <!-- Rooms Container -->
+                                    <div id="roomsContainer">
+                                      
+                                        <div class="room" data-room="1">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <strong>Room 1</strong>
+                                                <div class="mt-1">
+                                                    <i class="bi bi-x-square remove-room" role="button" data-room="1"></i>
+                                                </div>
+                                            </div>
+
+                                            <!-- Adults Input -->
+                                            <div class="row">
+                                                <div class="col-12 col-md-12 mb-3">
+                                                    <label for="adults" class="form-label"
+                                                        style="margin-bottom: -15px;">Adults</label>
+                                                    <div class="input-group">
+                                                        <button
+                                                            class="btn btn-outline-secondary shadow-none decrease-adults rounded-0"
+                                                            type="button">-</button>
+                                                        <input type="number"
+                                                            class="form-control shadow-none rounded-0 text-center adults-input"
+                                                            style="margin-top:10px;" value="1" min="1">
+                                                        <button
+                                                            class="btn btn-outline-secondary shadow-none increase-adults rounded-0"
+                                                            type="button">+</button>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Children Input -->
+                                                <div class="col-12 col-md-12">
+                                                    <label for="children" class="form-label"
+                                                        style="margin-bottom: -15px;">Children under 12 years
+                                                        old</label>
+                                                    <div class="input-group">
+                                                        <button
+                                                            class="btn btn-outline-secondary shadow-none decrease-children rounded-0"
+                                                            type="button">-</button>
+                                                        <input type="number"
+                                                            class="form-control shadow-none rounded-0 text-center children-input"
+                                                            style="margin-top:10px;" value="0" min="0">
+                                                        <button
+                                                            class="btn btn-outline-secondary shadow-none increase-children rounded-0"
+                                                            type="button">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="border-2 border-danger">
+                                        </div>
+                                    </div>
+
+                                    <!-- Add Room and Done Buttons -->
+                                    <div class="mt-3 d-flex justify-content-between">
+                                        <button type="button" class="btn-add" id="addRoomBtn">+ Add a room</button>
+                                        <button type="button" class="btn-done" id="doneBtn">Done</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-2" style="margin-top: 30px;">
+                        <button class="btn btn-dark rounded-0 w-100" id="search-btn">Find room</button>
+                    </div>
+                </div>
+            </div> 
+        </div> --}}
         <div class="container-fluid p-5">
             <div class="row">
                 <div class="col-sm-12 section-title text-center mb-5">
@@ -509,8 +767,72 @@
                 <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 rounded">
                     <div class="search-box shadow">
                         <div class="search-header">
-                            <i class="fas fa-search"></i> Modify Filter
+                            <i class="fas fa-search"></i>Modify Filter
                         </div>
+                        {{-- <form id="filter-form">
+                            <div class="px-3 pt-3">
+                                <label for="checkin" class="form-label">Check In</label>
+                                <input type="date" name="check_in" id="checkin" class="form-control shadow-none me-1"
+                                    required>
+                            </div>
+                            <div class="px-3 pt-3">
+                                <label for="checkout" class="form-label">Check Out</label>
+                                <input type="date" name="check_out" id="checkout" class="form-control shadow-none me-1"
+                                    required>
+                            </div>
+                            <div class="footer-label p-3">
+                                <div id="room-container">
+                                    <div class="room" id="room-1">
+                                        <h6>ROOM 1</h6>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div>
+                                                <label for="adults-room-1" class="form-label">Adults</label>
+                                                <div class="d-flex align-items-center">
+                                                    <button type="button"
+                                                        class="btn btn-outline-secondary btn-sm decrement-adults">-</button>
+                                                    <input type="number" name="adults[]" id="adults-room-1"
+                                                        class="form-control text-center" value="1" min="1"
+                                                        max="10" readonly>
+                                                    <button type="button"
+                                                        class="btn btn-outline-secondary btn-sm increment-adults">+</button>
+                                                </div>
+                                            </div>
+                                            <!-- Children Section -->
+                                            <div>
+                                                <label for="children-room-1" class="form-label">Children under 12 years
+                                                    old</label>
+                                                <div class="d-flex align-items-center">
+                                                    <button type="button"
+                                                        class="btn btn-outline-secondary btn-sm decrement-children">-</button>
+                                                    <input type="number" name="children[]" id="children-room-1"
+                                                        class="form-control text-center" value="0" min="0"
+                                                        max="5" readonly>
+                                                    <button type="button"
+                                                        class="btn btn-outline-secondary btn-sm increment-children">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Dynamic Children's Ages -->
+                                        <div class="children-ages mt-3"></div>
+                                    </div>
+                                </div>
+                                <button type="button" id="add-room" class="btn btn-success btn-sm mt-3">Add
+                                    Room</button>
+                            </div>
+                            <div class="px-3 pt-3">
+                                <label for="price-range" class="form-label">Price Range</label>
+                                <div id="price-range-slider" style="margin: 20px 0;"></div>
+                                <p class="text-center mt-2">
+                                    <span id="price-min">50</span> - <span id="price-max">5000</span>
+                                </p>
+                            </div>
+                            <div class="px-3 mb-3">
+                                <button type="button" id="search-btn"
+                                    class="btn btn-primary mb-3 shadow-none py-2 w-100" style="border-radius: 0;">Apply
+                                    Filter</button>
+                            </div>
+                        </form> --}}
+
                         <form id="filter-form">
                             <div class="px-3 pt-3">
                                 <label for="checkin" class="form-label">Check In</label>
@@ -526,8 +848,8 @@
                                 <div class="d-flex justify-content-center align-items-center gap-4">
                                     <div>
                                         <label for="adults" class="form-label">Adults</label>
-                                        <select name="adults" id="adults" class="form-select form-control shadow-none"
-                                            required>
+                                        <select name="adults" id="adults"
+                                            class="form-select select2 form-control shadow-none" required>
                                             <option value="" disabled selected>Select adults</option>
                                             @for ($i = 1; $i <= 10; $i++)
                                                 <option value="{{ $i }}">{{ $i }}
@@ -593,7 +915,6 @@
                                                     <i
                                                         class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-1 text-muted' }}"></i>
                                                 @endfor
-
                                             </div>
 
                                             <h6 class="mt-3 text-uppercase">Guests</h6>
@@ -631,7 +952,6 @@
                                             style="font-size: 14px; background:#f1f2f3;">
                                             Select Booking Date
                                         </a>
-
                                     </div>
                                 </div>
                             </div>
@@ -667,7 +987,20 @@
     </div>
 @endsection
 @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        $('.select2').select2({
+            theme: 'bootstrap-5',
+            placeholder: "Select adults",
+            allowClear: true
+        });
+        $('form').on('submit', function(e) {
+            if ($('#adults').val() === "") {
+                alert('Please select the number of adults.');
+                e.preventDefault();
+            }
+        });
+
         // $(document).ready(function() {
         //     function fetchRooms(url) {
         //         const roomsContainer = $('#rooms-container');
@@ -1045,6 +1378,185 @@
                     checkInField.classList.add('highlight');
                     setTimeout(() => checkInField.classList.remove('highlight'), 2000);
                 });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const guestInput = document.getElementById("guestInput");
+            const guestsSummary = document.getElementById("guests-summary");
+            const guestModal = document.getElementById("guestModal");
+            const addRoomBtn = document.getElementById("addRoomBtn");
+            const doneBtn = document.getElementById("doneBtn");
+            const roomsContainer = document.getElementById("roomsContainer");
+
+            // Update the guest summary
+            // const updateGuestSummary = () => {
+            //     let totalAdults = 0;
+            //     let totalChildren = 0;
+
+            //     // Sum up all adults and children across all rooms
+            //     document.querySelectorAll(".adults-input").forEach(input => {
+            //         totalAdults += parseInt(input.value);
+            //     });
+            //     document.querySelectorAll(".children-input").forEach(input => {
+            //         totalChildren += parseInt(input.value);
+            //     });
+
+            //     // Update the summary text
+            //     guestsSummary.textContent =
+            //         `${totalAdults} adult${totalAdults > 1 ? 's' : ''}, ${totalChildren} child${totalChildren > 1 ? 'ren' : ''}`;
+            // };
+            // Update the guest summary and manage the visibility of remove-room buttons
+            const updateGuestSummary = () => {
+                let totalAdults = 0;
+                let totalChildren = 0;
+
+                // Sum up all adults and children across all rooms
+                document.querySelectorAll(".adults-input").forEach(input => {
+                    totalAdults += parseInt(input.value);
+                });
+                document.querySelectorAll(".children-input").forEach(input => {
+                    totalChildren += parseInt(input.value);
+                });
+
+                // Update the summary text
+                guestsSummary.textContent =
+                    `${totalAdults} adult${totalAdults > 1 ? 's' : ''}, ${totalChildren} child${totalChildren > 1 ? 'ren' : ''}`;
+
+                // Hide the remove button if only one room exists
+                const currentRooms = roomsContainer.querySelectorAll(".room");
+                const removeRoomButtons = document.querySelectorAll(".remove-room");
+                if (currentRooms.length === 1) {
+                    removeRoomButtons.forEach(button => {
+                        button.style.display = "none";
+                    });
+                } else {
+                    removeRoomButtons.forEach(button => {
+                        button.style.display =
+                            "inline"; // Show the button when more than one room exists
+                    });
+                }
+            };
+
+
+            // Toggle the guest modal
+            guestInput.addEventListener("click", () => {
+                if (guestModal.classList.contains("d-none")) {
+                    guestModal.classList.remove("d-none");
+                    setTimeout(() => guestModal.classList.add("show"), 10); // Add animation
+                } else {
+                    guestModal.classList.remove("show");
+                    setTimeout(() => guestModal.classList.add("d-none"), 300);
+                }
+            });
+
+            // Add a new room dynamically
+            // Add a new room dynamically
+            const addRoom = () => {
+                const currentRooms = roomsContainer.querySelectorAll(".room");
+                const nextRoomNumber = currentRooms.length + 1; // Correctly calculate the next room number
+
+                const roomDiv = document.createElement("div");
+                roomDiv.classList.add("room");
+                roomDiv.setAttribute("data-room", nextRoomNumber);
+
+                roomDiv.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <strong>Room ${nextRoomNumber}</strong>
+            <div class="mt-1">
+                <i class="bi bi-x-square remove-room" role="button" data-room="${nextRoomNumber}"></i>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12 mb-3">
+                <label class="form-label" style="margin-bottom: -15px;">Adults</label>
+                <div class="input-group">
+                    <button class="btn btn-outline-secondary shadow-none decrease-adults rounded-0" type="button">-</button>
+                    <input type="number" class="form-control shadow-none rounded-0 text-center adults-input" style="margin-top: 10px;" value="1" min="1">
+                    <button class="btn btn-outline-secondary shadow-none increase-adults rounded-0" type="button">+</button>
+                </div>
+            </div>
+            <div class="col-12 col-md-12">
+                <label class="form-label" style="margin-bottom: -15px;">Children under 12 years old</label>
+                <div class="input-group">
+                    <button class="btn btn-outline-secondary shadow-none decrease-children rounded-0" type="button">-</button>
+                    <input type="number" class="form-control shadow-none rounded-0 text-center children-input" style="margin-top: 10px;" value="0" min="0">
+                    <button class="btn btn-outline-secondary shadow-none increase-children rounded-0" type="button">+</button>
+                </div>
+            </div>
+        </div>
+        <hr class="border-2 border-danger">
+    `;
+
+                roomsContainer.appendChild(roomDiv);
+                updateGuestSummary(); // Update summary after adding a new room
+            };
+
+
+            addRoomBtn.addEventListener("click", addRoom);
+
+            // Increment and decrement functionality for adults and children
+            document.addEventListener("click", (e) => {
+                if (e.target.classList.contains("increase-adults")) {
+                    const input = e.target.previousElementSibling;
+                    input.value = parseInt(input.value) + 1;
+                }
+                if (e.target.classList.contains("decrease-adults")) {
+                    const input = e.target.nextElementSibling;
+                    if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
+                }
+                if (e.target.classList.contains("increase-children")) {
+                    const input = e.target.previousElementSibling;
+                    input.value = parseInt(input.value) + 1;
+                }
+                if (e.target.classList.contains("decrease-children")) {
+                    const input = e.target.nextElementSibling;
+                    if (parseInt(input.value) > 0) input.value = parseInt(input.value) - 1;
+                }
+
+                updateGuestSummary(); // Update summary after changing values
+            });
+
+
+            // Remove a room and renumber remaining rooms
+            document.addEventListener("click", (e) => {
+                if (e.target.classList.contains("remove-room")) {
+                    const currentRooms = roomsContainer.querySelectorAll(".room");
+
+                    // Prevent removing the last room
+                    if (currentRooms.length === 1) {
+                        alert("You cannot remove the last room.");
+                        return; // Stop further execution
+                    }
+
+                    e.stopPropagation(); // Prevent modal close or click propagation
+                    const roomToRemove = e.target.closest(".room");
+                    roomToRemove.remove();
+
+                    // Re-number rooms dynamically
+                    const rooms = roomsContainer.querySelectorAll(".room");
+                    rooms.forEach((room, index) => {
+                        const roomNumber = index + 1; // Room numbers start at 1
+                        room.querySelector("strong").textContent = `Room ${roomNumber}`;
+                        room.setAttribute("data-room", roomNumber);
+                        room.querySelector(".remove-room").setAttribute("data-room", roomNumber);
+                    });
+
+                    updateGuestSummary(); // Update summary after removing a room
+                }
+            });
+            // Handle the Done button
+            doneBtn.addEventListener("click", () => {
+                guestModal.classList.remove("show");
+                setTimeout(() => guestModal.classList.add("d-none"), 300);
+            });
+            // Close modal when clicking outside (but not on the modal content or remove button)
+            document.addEventListener("click", (e) => {
+                if (!guestModal.contains(e.target) && !guestInput.contains(e.target) && !e.target.classList
+                    .contains("remove-room")) {
+                    guestModal.classList.remove("show");
+                    setTimeout(() => guestModal.classList.add("d-none"), 300);
+                }
             });
         });
     </script>

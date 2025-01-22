@@ -274,6 +274,122 @@ class AuthController extends Controller
     //     return round((($current - $previous) / $previous) * 100, 2);
     // }
 
+    // public function dashboards(Request $request)
+    // {
+    //     // Get the selected time range for bookings and queries
+    //     $timeRange = request('time_range', '30'); // Default to "Past 30 Days" for bookings if not set
+    //     $timeRanges = request('time_ranges', '30'); // Default to "Past 30 Days" for queries if not set
+
+    //     // Determine the date range based on filter
+    //     $filter = $request->query('filter', 'today');
+    //     $filter = $request->query('filter', 'all_time');
+    //     $startDate = null;
+    //     $endDate = Carbon::now();
+
+    //     switch ($filter) {
+    //         case 'today':
+    //             $startDate = Carbon::now()->startOfDay();
+    //             break;
+    //         case 'yesterday':
+    //             $startDate = Carbon::yesterday();
+    //             $endDate = Carbon::yesterday()->endOfDay();
+    //             break;
+    //         case 'last_week':
+    //             $startDate = Carbon::now()->subWeek()->startOfWeek();
+    //             $endDate = Carbon::now()->subWeek()->endOfWeek();
+    //             break;
+    //         case 'last_month':
+    //             $startDate = Carbon::now()->subMonth()->startOfMonth();
+    //             $endDate = Carbon::now()->subMonth()->endOfMonth();
+    //             break;
+    //         case 'all_time':
+    //         default:
+    //             // No date filter, show all records
+    //             $startDate = null;
+    //             $endDate = null;
+    //             break;
+    //     }
+
+    //     // Determine the start date based on the selected booking time range
+    //     $bookingStartDate = $this->getStartDate($timeRange);
+    //     $queryStartDate = $this->getStartDate($timeRanges);
+
+    //     // Fetch analytics based on the selected time range
+    //     $currentBookings = $this->getBookingCount($bookingStartDate);
+    //     $currentQueries = $this->getQueriesCount($queryStartDate);
+    //     $currentNewRegistrations = $this->getNewRegistrationsCount($queryStartDate);
+    //     $currentGuests = $this->getGuestCount($queryStartDate); // Booking time range
+
+    //     $confirmedBookings = $this->getBookingCount($bookingStartDate, 'Approved');
+    //     $cancelledBookings = $this->getBookingCount($bookingStartDate, 'Cancelled');
+    //     $pendingBookings = $this->getBookingCount($bookingStartDate, 'Pending');
+    //     $currentRooms = Room::count();
+    //     $currentRoomTypes = RoomType::count();
+    //     $currentUsers = User::count();
+    //     $header_title =   __('label.dashboard');
+
+        
+    //     $guestsStayingToday = Booking::where('status', 'Checked-In')
+    //     ->whereDate('check_in_date', '<=', Carbon::today())
+    //     ->whereDate('check_out_date', '>=', Carbon::today())
+    //     ->count();
+        
+    //     // $checkInsToday = Booking::whereDate('status', 'checked-in')->whereDate('check_in_date', Carbon::today())->count();
+
+    //     // // Count checked-out today
+    //     // $checkOutsToday = Booking::where('status', 'checked-out')->whereDate('check_out_date', Carbon::today())->count();
+    //     // Count checked-in today
+    //     $checkInsToday = Booking::where('status', 'Checked-In')
+    //     ->whereDate('check_in_date', Carbon::today())
+    //     ->count();
+
+    //     // Count checked-out today
+    //     $checkOutsToday = Booking::where('status', 'Checked-Out')
+    //     ->whereDate('check_out_date', Carbon::today())
+    //     ->count();
+
+    //     $roomTypeBookings = Booking::join('booking_rooms', 'bookings.id', '=', 'booking_rooms.booking_id') // Join with booking_rooms pivot table
+    //         ->join('rooms', 'booking_rooms.room_id', '=', 'rooms.id') // Use room_id from booking_rooms
+    //         ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id') // Join with room_types
+    //         ->select('room_types.type_name as room_type', DB::raw('COUNT(bookings.id) as bookings_count'))
+    //         ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
+    //             return $query->whereBetween('bookings.created_at', [$startDate, $endDate]);
+    //         })
+    //         ->groupBy('room_types.type_name')
+    //         ->get();
+
+    //     $monthlyBookings = Booking::selectRaw('YEAR(check_in_date) as year, MONTH(check_in_date) as month, COUNT(*) as total_bookings')
+    //         ->where('status', 'Approved') // You can adjust this condition based on your needs
+    //         ->groupBy('year', 'month')
+    //         ->orderBy('year')
+    //         ->orderBy('month')
+    //         ->get()
+    //         ->mapWithKeys(function ($item) {
+    //             $monthName = Carbon::createFromDate($item->year, $item->month)->format('M');
+    //             return [$monthName => $item->total_bookings];
+    //         });
+    //     return view('dashboard', compact(
+    //         'currentBookings',
+    //         'currentQueries',
+    //         'currentNewRegistrations',
+    //         'timeRange',
+    //         'timeRanges',
+    //         'currentGuests',
+    //         'currentRooms',
+    //         'currentRoomTypes',
+    //         'currentUsers',
+    //         'confirmedBookings',
+    //         'pendingBookings',
+    //         'cancelledBookings',
+    //         'checkInsToday',
+    //         'guestsStayingToday',
+    //         'checkOutsToday',
+    //         'roomTypeBookings',
+    //         'filter',
+    //         'monthlyBookings',
+    //         'header_title'
+    //     ));
+    // }
     public function dashboards(Request $request)
     {
         // Get the selected time range for bookings and queries
@@ -348,14 +464,16 @@ class AuthController extends Controller
         ->whereDate('check_out_date', Carbon::today())
         ->count();
 
-        $roomTypeBookings = Booking::join('rooms', 'bookings.room_id', '=', 'rooms.id')
-            ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
+        $roomTypeBookings = Booking::join('booking_rooms', 'bookings.id', '=', 'booking_rooms.booking_id') // Join with booking_rooms pivot table
+            ->join('rooms', 'booking_rooms.room_id', '=', 'rooms.id') // Use room_id from booking_rooms
+            ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id') // Join with room_types
             ->select('room_types.type_name as room_type', DB::raw('COUNT(bookings.id) as bookings_count'))
             ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {
                 return $query->whereBetween('bookings.created_at', [$startDate, $endDate]);
             })
             ->groupBy('room_types.type_name')
             ->get();
+
         $monthlyBookings = Booking::selectRaw('YEAR(check_in_date) as year, MONTH(check_in_date) as month, COUNT(*) as total_bookings')
             ->where('status', 'Approved') // You can adjust this condition based on your needs
             ->groupBy('year', 'month')
@@ -366,9 +484,6 @@ class AuthController extends Controller
                 $monthName = Carbon::createFromDate($item->year, $item->month)->format('M');
                 return [$monthName => $item->total_bookings];
             });
-
-
-
         return view('dashboard', compact(
             'currentBookings',
             'currentQueries',

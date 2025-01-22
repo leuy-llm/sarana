@@ -94,12 +94,6 @@
                             <p class="text-muted text-uppercase">per night</p>
                         @endif
                     </div>
-                   
-                    {{-- <a href="{{ route('books.create', ['room_id' => $room->id, 'check_in' => $checkIn, 'check_out' => $checkOut, 'adults' => $adults, 'children' => $children]) }}"
-                        class="btn book-now-btn mb-2 shadow-none rounded-0 py-2 font-weight-bold text-uppercase text-white px-4"
-                        style="background: #deb666; font-size: 14px">
-                        Book now
-                    </a> --}}
                     <a href="{{ route('books.create', ['room_id' => $room->id, 'check_in' => $checkIn, 'check_out' => $checkOut, 'adults' => $adults, 'children' => $children]) }}"
                         class="btn book-now-btn mb-2 shadow-none rounded-0 py-2 font-weight-bold text-uppercase text-white px-4"
                         style="background: #deb666; font-size: 14px">

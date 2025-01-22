@@ -319,9 +319,14 @@
                                         <td>{{ Str::limit($booking->guest->first_name . ' ' . $booking->guest->last_name, 15) }}
                                         </td>
                                         <td>
-                                            @if ($booking->room && $booking->room->roomType)
-                                                {{ $booking->room->room_number }} -
-                                                {{ Str::limit($booking->room->roomType->type_name, 15) }}
+                                            @if ($booking->rooms->count())
+                                                @foreach ($booking->rooms as $room)
+                                              
+                                                <div>
+                                                    {{ $room->room_number }} - {{ Str::limit($room->roomType->type_name, 15) }}
+                                                </div>
+                                            @endforeach
+                                        
                                             @else
                                                 N/A
                                             @endif

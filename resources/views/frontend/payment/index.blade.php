@@ -435,6 +435,33 @@
                                     </button>
                                 </div>
                             </form>
+                            {{-- <form action="{{ route('payment.process') }}" method="POST" id="payment-form" class="require-validation">
+                                @csrf
+                            
+                                <!-- Booking Details -->
+                                <input type="hidden" name="amount" value="{{ $totalPrice }}">
+                                <input type="hidden" name="check_in" value="{{ $checkIn }}">
+                                <input type="hidden" name="check_out" value="{{ $checkOut }}">
+                            
+                                <!-- Room Details -->
+                                <input type="hidden" name="room_id" value="{{ $room->id }}">
+                                <input type="hidden" name="adults" value="{{ $adults }}">
+                                <input type="hidden" name="children" value="{{ $children }}">
+                            
+                                <!-- Stripe Card Element -->
+                                <div id="card-element" class="mt-3 p-3 border rounded">
+                                    <!-- A Stripe Element will be inserted here. -->
+                                </div>
+                                <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                            
+                                <!-- Submit Button -->
+                                <div class="text-left">
+                                    <button type="submit" class="btn btn-warning rounded-0 py-2 font-weight-bold text-white mt-3 px-4">
+                                        <i class="bi bi-cash-stack mr-2"></i>Checkout Now
+                                    </button>
+                                </div>
+                            </form> --}}
+                            
                         </div>
                         {{-- <div class="tab-pane fade" id="payment-paypal" role="tabpanel" aria-labelledby="payment-paypal-tab">
                             <p class="mt-4">PayPal allows you to mark payments directly from your PayPal account</p>

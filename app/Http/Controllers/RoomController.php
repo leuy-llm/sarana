@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
+use App\Models\Booking;
 use App\Models\Room;
 use App\Models\Facility;
 use App\Models\RoomType;
@@ -38,6 +40,7 @@ class RoomController extends Controller
             $request->validate([
                 'room_type_id' => 'required|exists:room_types,id',
                 'room_number' => 'required|string|unique:rooms,room_number',
+                'quantity'=>'required|integer',
                 'floor' => 'nullable|integer',
                 'status' => 'required|boolean',
                 'description' => 'nullable|string',
@@ -47,7 +50,7 @@ class RoomController extends Controller
                 'view_type' => 'nullable|string',
                 'bed_type' => 'nullable|string',
                 'room_size' => 'nullable|numeric',
-                'extra_bed_capacity' => 'nullable|integer',
+                // 'extra_bed_capacity' => 'nullable|integer',
                 'images.*' => 'required|image|mimes:jpeg,png,jpg,gif',
                 'facilities' => 'nullable|array',
                 'facilities.*' => 'exists:facilities,id',
@@ -59,6 +62,7 @@ class RoomController extends Controller
                 // Step 1: Create the room
                 $room = Room::create([
                     'room_type_id' => $request->input('room_type_id'),
+                    'quantity'=>$request->input('quantity'),
                     'room_number' => $request->input('room_number'),
                     'floor' => $request->input('floor'),
                     'status' => $request->input('status'),
@@ -69,12 +73,9 @@ class RoomController extends Controller
                     'view_type' => $request->input('view_type'),
                     'bed_type' => $request->input('bed_type'),
                     'room_size' => $request->input('room_size'),
-                    'extra_bed_capacity' => $request->input('extra_bed_capacity'),
+                    // 'extra_bed_capacity' => $request->input('extra_bed_capacity'),
                     'max_person' => $request->input('max_person'),
                 ]);
-
-
-                // Step 2: Handle file uploads and associate images with the room
                 $uploadedImages = $request->file('images'); // Assuming this is an array of uploaded files
                 $imagePaths = [];
 
@@ -111,6 +112,7 @@ class RoomController extends Controller
         try {
             $request->validate([
                 'room_type_id' => 'required|exists:room_types,id',
+                'quantity' => 'required|integer',
                 'room_number' => 'required|string|unique:rooms,room_number,' . $id,
                 'floor' => 'nullable|integer',
                 'status' => 'required|boolean',
@@ -121,7 +123,7 @@ class RoomController extends Controller
                 'view_type' => 'nullable|string',
                 'bed_type' => 'nullable|string',
                 'room_size' => 'nullable|numeric',
-                'extra_bed_capacity' => 'nullable|integer',
+                // 'extra_bed_capacity' => 'nullable|integer',
                 'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
                 'remove_images.*' => 'nullable|exists:room_images,id',
                 'facilities' => 'nullable|array',
@@ -136,6 +138,7 @@ class RoomController extends Controller
                 // Step 2: Update room details
                 $room->update([
                     'room_type_id' => $request->input('room_type_id'),
+                    'quantity' => $request->input('quantity'),
                     'room_number' => $request->input('room_number'),
                     'floor' => $request->input('floor'),
                     'status' => $request->input('status'),
@@ -146,7 +149,7 @@ class RoomController extends Controller
                     'view_type' => $request->input('view_type'),
                     'bed_type' => $request->input('bed_type'),
                     'room_size' => $request->input('room_size'),
-                    'extra_bed_capacity' => $request->input('extra_bed_capacity'),
+                    // 'extra_bed_capacity' => $request->input('extra_bed_capacity'),
                     'max_person' => $request->input('max_person'),
                 ]);
 
@@ -213,5 +216,63 @@ class RoomController extends Controller
         $room->save();
 
         return redirect()->back()->with('success', 'Room status updated!');
+    }
+
+   
+
+    public function roomfil(Request $request){
+    $roomTypes = RoomType::getRoomType();
+    $data = "Reservation";
+    // Start a query to fetch rooms
+    $roomsQuery = Room::with('roomType'); // Assuming rooms have a relationship with RoomType
+    $settings = DB::table('settings')->get();
+
+    $banner = Banner::where('page_name', 'rooms')->first();
+    $contact = DB::table('contact_details')->get();
+
+    $checkIn = $request->input('check_in');
+    $checkOut = $request->input('check_out');
+    // Apply filters based on user input
+    if ($request->has('check_in') && $request->has('check_out')) {
+        $check_in = $request->input('check_in');
+        $check_out = $request->input('check_out');
+        
+        $roomsQuery->whereDoesntHave('bookings', function ($query) use ($check_in, $check_out) {
+            $query->where(function ($q) use ($check_in, $check_out) {
+                $q->whereBetween('check_in_date', [$check_in, $check_out])
+                  ->orWhereBetween('check_out_date', [$check_in, $check_out]);
+            });
+        });
+    }
+
+    // Apply filters for room capacity
+    if ($request->has('adults')) {
+        $adults = $request->input('adults');
+        $roomsQuery->where('max_person', '>=', $adults);
+    }
+
+    if ($request->has('children')) {
+        $children = $request->input('children');
+        $roomsQuery->where('max_person', '>=', $children);
+    }
+
+    // Apply price filter
+    if ($request->has('price_min') && $request->has('price_max')) {
+        $price_min = $request->input('price_min');
+        $price_max = $request->input('price_max');
+        $roomsQuery->whereBetween('price', [$price_min, $price_max]);
+    }
+
+    // Apply room type filter
+    if ($request->has('room_type')) {
+        $room_type_id = $request->input('room_type');
+        $roomsQuery->where('room_type_id', $room_type_id);
+    }
+
+    // Get the filtered rooms
+    $rooms = $roomsQuery->paginate(9); // Adjust pagination as needed
+
+    // Return the view with the rooms and room types
+    return view('frontend.rooms.index', compact('rooms', 'roomTypes','data',));
     }
 }

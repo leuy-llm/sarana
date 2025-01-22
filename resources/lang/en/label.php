@@ -78,8 +78,6 @@ return [
   'enterZip' => 'Enter zip code',
   'enterCountry' => 'Enter country',
 
-
-
   'areYourSure' => ' Are you Sure to delete this record?',
   'youWontBe' => "You won't be able to revert this delete'",
   'ok' => 'OK',
@@ -205,14 +203,8 @@ return [
   'settingUpdateSuccess' => 'Setting updated successfully',
   'settingCreatedSuccess' => 'Setting created successfully',
 
-
-
-
-
-
-
-
   /* ========================= Room ======================= */
+  
   'rooms' => 'Rooms',
   'room' => 'Room',
   'roomNumber' => 'Room Number',
@@ -239,6 +231,8 @@ return [
   'detailRoom' => 'Room Detail',
   'bookingDetail'=> 'Booking Details',
   'paymentDetails'=> 'Payment Details',
+ 
+  
   'management' => 'Management',
   'guardName' => 'Guard Name',
   'name' => 'Name',
@@ -327,138 +321,16 @@ return [
   'paymentList' => 'Payment List',
   'firstName'=>' First Name',
   'lastName'=>' Last Name',
-  
-  /*============= Booking ============= */
-  'facilities' => 'Facilities',
-  'image' => 'Image',
 
-
-  /*========== Setting ============= */
-  'Settings' => 'Settings',
-  'Setting' => 'Setting',
-  'generalSetting' => 'General Setting',
-  'siteTitle' => 'Site Title',
-  'siteLogo' => 'Site Logo',
-
-
-  /* ============= About us =========== */
-  'aboutUs' => 'About Us',
-  'title' => 'Title',
-
-
-  /*============== Contact ============= */
-  'contactSetting' => 'Contacts Setting',
-  'googleMap' => 'Google Map',
-  'phones' => 'Phone Number',
-  'socialLink' => 'Social Link',
-  'iFrame' => 'IFrame',
-  'fb' => 'Fb',
-  'insta' => 'Insta',
-  'tripa' => 'Tripa',
-  'tele' => 'Tele',
-
-
-  /*============= Message alert ============= */
-  'guestUpdatedSuccess' => 'Guest updated successfully!',
-  'guestUpdatedError' => 'There was an error updating the guest.',
-  'enterId' => 'Enter room id',
-  'guestDeleteSuccess' => 'Guest deleted successfully',
-  'guestDeleteError' => 'There was an error delete the guest',
-
-
-  /*============= Room ============= */
-  'roomList' => 'Room List',
-  'roomid' => 'Room ID',
-
-
-  /*============== Carousels ============ */
-  'Carousels' => 'Carousel',
-  'addCarousel' => 'Add Carousel',
-  'createNewCarousel' => 'Create new carousel',
-  'newCarousels' => 'New Carousels',
-  'createCarousels' => 'Create carousels',
-  'enterCarouselName' => 'Enter carousel name',
-  'title' => 'Title',
-
-  /*============== User Query ============ */
-  'userQuery' => 'User Query',
-  'message' => 'Message',
-  'userQueryList' => 'User Query List',
-  'showing_userquerys' => 'Showing querys :start to :end of :total',
-  'icon' => 'Image',
-
-  /*============== Facility ============ */
-  'facilityList' => 'Facility List',
-  'facility' => 'Facility',
-  'showing_facilitys' => 'Showing facilitys :start to :end of :total',
-  'addFacility' => 'Add Facility',
-  'createNewFacility' => 'Create new facility',
-  'enterFacilityName' => 'Enter facility name',
-  'newFacility' => 'New facility',
-  'createFacility' => 'Create facility',
-  'editFacility' => 'Edit Facility',
-  'editFacilitys' => 'Edit Facility',
-
-
-  /*============== Setting ============= */
-  'aboutUs' => 'About Us',
-  'contactSetting' => 'Contact Setting',
-  'editSetting' => 'Edit Setting',
-  'editSettings' => 'Edit Setting',
-
-  'showing_banners' => 'Showing banners :start to :end of :total',
-  'addBanner' => 'Add Banner',
-  'createNewBanner' => 'Create new banner',
-  'banner' => 'Banner',
-  'pageName' => 'Page Name',
-  'bannerImage' => 'Banner Image',
-  'bannerList' => 'Banner List',
-  'createBanner' => 'Create banner',
-  'newBanner' => 'New banner',
-  'selectRoomTypeBanner' => 'Select banner of room',
-  'selectPageName' => 'Select page name',
-  'service' => 'Service',
-  'serviceList' => 'Service list',
-  'createNewService' => 'Create new service',
-  'showing_services' => 'Showing services :start to :end of :total',
-  'addService' => 'Add service',
-  'enterServiceName' => 'Enter service name',
-  'newService' => 'New service',
-  'createService' => 'Create service',
-  'for_hotel' => 'for Hotel',
-  'editServices' => 'Edit Service',
-  'editService' => 'Edit Service',
-  'meetingList' => 'Metting List',
-  'meeting' => 'Meeting',
-
-  /*=============== Food & Drink for Hotel ========== */
-  'restaurant' => 'Food & Drink',
-  'showing_res' => 'Showing food & drink :start to :end of :total ',
-  'addRes' => 'Add Food / Drink',
-  'restaurantList' => 'Food & Drink list​',
-  'createNewRes' => 'Create New Food / Drink ',
-  'createRes' => 'Create Food/Drink',
-  'newRes' => 'New Food / Drink ',
-  'enterResName' => 'Enter food or drink name',
-  'editRes' => 'Edit Food / Drink',
-  /*=============== Gallery for Hotel ============= */
-  'gallery' => 'Gallery',
-  'showing_gallerys' => 'Showing gallerys :start to :end of :total',
-  'addGallery' => 'Add Gallery',
-  'galleryList' => 'Gallery list',
-  'createNewGallery' => 'Create New Gallery',
-  'createGallery' => 'Create Gallery',
-  'newGallery' => 'New Gallery ',
-  'enterGalleryName' => 'Enter gallery name',
-  'editGallery' => 'Edit Gallery',
-
-  /* =============== Tours for Hotel ============== */
-  'tour' => 'Tour',
-  'duration' => 'Duration',
-  'featured' => 'Featured',
-  'addTour' => 'Add Tour',
-  'tourList' => 'Tours list',
-  'createNewTour' => 'Create new tour',
-  'page' => 'Pages'
+  // ============= New Transaction =================
+  'paymentStatus' => 'Payment Status',
+  'pending' => 'Pending',
+  'paid' => 'Paid',
+  'unpaid' => 'Unpaid',
+  'cancelled' => 'Cancelled',
+  'transactionList' => 'Transaction List',
+  'newTransaction' => 'New Transaction',
+  'enterTotalAdults' => 'Enter adults',
+  'enterTotalChildren' => 'Enter children',
   
 ];
