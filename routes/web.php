@@ -67,6 +67,7 @@ Route::get('meeting', [HomeController::class, 'meeting'])->name('meeting');
 Route::get('restaurant', [HomeController::class, 'restaurant'])->name('restaurant');
 Route::get('tour', [HomeController::class, 'tour'])->name('tour');
 Route::get('/room/filter', [HomeController::class, 'filterRooms'])->name('rooms.filter');
+Route::get('/filterRooms', [HomeController::class, 'Roomfilter'])->name('filterRooms');
 Route::post('/rooms/sort', [HomeController::class, 'sortRooms'])->name('rooms.sort');
 // Route::post('/rooms/sort', [HomeController::class, 'room'])->name('rooms.sort');
 
@@ -78,14 +79,15 @@ Route::get('logindash', [AuthController::class, 'Auth'])->name('logindash');
 Route::post('/submit', [AuthController::class, 'logindash'])->name('submit_login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('bookings/available-room-types/{checkin_date}', [BookingController::class, 'available_room_types']);
-Route::get('/reservation/confirmation/{id}', [ReservationController::class, 'confirmation'])->name('booking.confirmation');
+// Route::get('/reservation/confirmation/{id}', [ReservationController::class, 'confirmation'])->name('booking.confirmation');
 Route::get('/payment', [PaymentController::class, 'showPaymentPage'])->name('payment.index');
 Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process');
 
 Route::get('/reservation', [ReservationController::class, 'reservation'])->name('reservation');
 Route::get('/reservation/skip-payment/{id}/{totalAmount}', [ReservationController::class, 'skipPayment'])->name('booking.skipPayment');
 // Route::get('books/{id}',[HomeController::class, 'booking'])->name('books');
-Route::get('/books/create', [HomeController::class, 'createBooking'])->name('books.create');
+Route::get('books/create', [HomeController::class, 'createBooking'])->name('books.create');
+
 Route::get('booking/{room}', [BookingController::class, 'show'])->name('booking.show');
 Route::get('checkout', [HomeController::class, 'checkout'])->name('checkout.index');
 
@@ -105,22 +107,22 @@ Route::post('/proceed-to-payment', [HomeController::class, 'proceedToPayment'])-
 Route::get('/bookings/{id}/status/{status}', [BookingController::class, 'updateStatus'])->name('booking.status');
 
 // Protect reservation route with 'guest' authentication
-Route::middleware(['auth:guest'])->group(function () {
-    Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
-    Route::post('/books/create', [HomeController::class, 'bookstore'])->name('books.store');
-});
+// Route::middleware(['auth:guest'])->group(function () {
+//     Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+//     Route::post('/books/create', [HomeController::class, 'bookstore'])->name('books.store');
+// });
 
 Route::post('/booking/cancel/{id}', [ReservationController::class, 'cancelBooking'])->name('booking.cancel');
 Route::get('/guest/logout', [GuestController::class, 'logout'])->name('guest.logout');
 Route::get('/guest-login', function () {
     return view('auth.guest_login'); // Adjust to your guest login view
-})->name('guest.login');
+})->name('guest.logins');
 
 // Route::get('/register', function () {
 //     return view('auth.guest_register');
 // })->name('register');
-Route::get('/register', [GuestController::class,'showRegistrationForm'])->name('register');
-Route::post('/guest-login', [GuestController::class, 'login'])->name('guest.login');
+Route::get('/register/guest', [GuestController::class,'showRegistrationForm'])->name('register.guest');
+Route::post('/guest/login', [GuestController::class, 'login'])->name('guest.login');
 Route::post('/booking/pay-on-arrival', [BookingController::class, 'payOnArrival'])->name('booking.payOnArrival');
 Route::post('/register', [GuestController::class, 'register'])->name('register');
 Route::get('roomindex',[HomeController::class,'roomindex'])->name('roomindex');
@@ -169,7 +171,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     /*=================== Room Route ========================== */
     Route::resource("/rooms", RoomController::class);
     Route::get('rooms/{roomId}/delete', [RoomController::class, 'destroy']);
-    Route::get('rooms/{id}/detail', [RoomController::class, 'show'])->name('rooms.show');
+    // Route::get('rooms/{id}/detail', [RoomController::class, 'show'])->name('rooms.show');
 
     /*================= Traslate Route =========================== */
     Route::get('locale/{lang}', [TranslateController::class, 'setLang'])->name('locale.switch');
@@ -229,7 +231,7 @@ Route::get('/get-available-rooms', [BookingController::class, 'getAvailableRooms
 
 
 Route::get('/check-room-availability', [BookingController::class, 'checkRoomAvailability']);
-Route::get('/available-rooms', [HomeController::class, 'getAvailableRooms'])->name('availableRooms');
+// Route::get('/available-rooms', [HomeController::class, 'getAvailableRooms'])->name('availableRooms');
 
 Route::get('/modalfilter', [HomeController::class, 'modalfilter'])->name('modalfilter');
 Route::get('/booking', [HomeController::class, 'bookingPage'])->name('booking.page');
@@ -274,65 +276,70 @@ Route::get('/booking', [HomeController::class, 'bookingPage'])->name('booking.pa
 //     return response()->json(['rooms' => $rooms]);
 // });
 
-Route::get('/bookings/available-room/{checkin_date}', [HomeController::class, 'availableRooms']);
+// Route::middleware('auth:guest')->group(function () {
+//     Route::get('/booking/available-room/{checkin_date}', [BookingController::class, 'availableRooms']);
+// });
 
-Route::get('/api/available-rooms', function (Request $request) {
-    $checkIn = $request->query('check_in');
-    $checkOut = $request->query('check_out');
-    $adults = $request->query('adults');
-    $children = $request->query('children');
+
+
+
+// Route::get('/api/available-rooms', function (Request $request) {
+//     $checkIn = $request->query('check_in');
+//     $checkOut = $request->query('check_out');
+//     $adults = $request->query('adults');
+//     $children = $request->query('children');
     
-    // Fetch available rooms based on check-in/check-out dates and capacity
-    $rooms = Room::whereDoesntHave('bookings', function ($query) use ($checkIn, $checkOut) {
-        $query->where('check_out_date', '>', $checkIn)
-              ->where('check_in_date', '<', $checkOut);
-    })->where('max_person', '>=', $adults + $children)
-      ->with(['images', 'roomType'])
-      ->get();
+//     // Fetch available rooms based on check-in/check-out dates and capacity
+//     $rooms = Room::whereDoesntHave('bookings', function ($query) use ($checkIn, $checkOut) {
+//         $query->where('check_out_date', '>', $checkIn)
+//               ->where('check_in_date', '<', $checkOut);
+//     })->where('max_person', '>=', $adults + $children)
+//       ->with(['images', 'roomType'])
+//       ->get();
 
-    // Log available rooms for debugging
-    Log::info('Available rooms:', $rooms->toArray());
+//     // Log available rooms for debugging
+//     Log::info('Available rooms:', $rooms->toArray());
 
-    return response()->json(['rooms' => $rooms]);
-});
+//     return response()->json(['rooms' => $rooms]);
+// });
 
 
-Route::post('/api/add-room', function (Request $request) {
-    $roomId = $request->input('room_id');
-    $checkIn = $request->input('check_in');
-    $checkOut = $request->input('check_out');
+// Route::post('/api/add-room', function (Request $request) {
+//     $roomId = $request->input('room_id');
+//     $checkIn = $request->input('check_in');
+//     $checkOut = $request->input('check_out');
 
-    $room = Room::with('bookings')->find($roomId);
+//     $room = Room::with('bookings')->find($roomId);
 
-    if (!$room) {
-        return response()->json(['error' => 'Room not found'], 404);
-    }
+//     if (!$room) {
+//         return response()->json(['error' => 'Room not found'], 404);
+//     }
 
-    // Check if the room is available for the selected dates
-    $isAvailable = !$room->bookings()->where('check_out_date', '>', $checkIn)
-        ->where('check_in_date', '<', $checkOut)
-        ->exists();
+//     // Check if the room is available for the selected dates
+//     $isAvailable = !$room->bookings()->where('check_out_date', '>', $checkIn)
+//         ->where('check_in_date', '<', $checkOut)
+//         ->exists();
 
-    if (!$isAvailable) {
-        return response()->json(['error' => 'Room is not available for the selected dates'], 400);
-    }
+//     if (!$isAvailable) {
+//         return response()->json(['error' => 'Room is not available for the selected dates'], 400);
+//     }
 
-    // Additional condition: Prevent adding the same room multiple times
-    session()->push('selected_rooms', $roomId);
-    $selectedRooms = session('selected_rooms', []);
+//     // Additional condition: Prevent adding the same room multiple times
+//     session()->push('selected_rooms', $roomId);
+//     $selectedRooms = session('selected_rooms', []);
 
-    if (count(array_keys($selectedRooms, $roomId)) > 1) {
-        session()->forget('selected_rooms');
-        return response()->json(['error' => 'Room has already been added'], 400);
-    }
+//     if (count(array_keys($selectedRooms, $roomId)) > 1) {
+//         session()->forget('selected_rooms');
+//         return response()->json(['error' => 'Room has already been added'], 400);
+//     }
 
-    return response()->json(['message' => 'Room added successfully', 'room' => $room]);
-});
+//     return response()->json(['message' => 'Room added successfully', 'room' => $room]);
+// });
    // Route to check room availability (AJAX)
     // Route::get('/check-room-availability', [BookingController::class, 'checkRoomAvailability'])->name('checkRoomAvailability');
     // Route::get('/bookings/check-room-availability', [BookingController::class, 'checkRoomAvailability']);
     Route::get('bookings/{bookingId}/delete', [App\Http\Controllers\BookingController::class, 'destroy']);
-    Route::get('bookings/{id}/detail', [BookingController::class, 'show'])->name('bookings.show');
+    // Route::get('bookings/{id}/detail', [BookingController::class, 'show'])->name('bookings.show');
 
     /*================= Check Date Availability ============== */
 

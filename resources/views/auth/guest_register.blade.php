@@ -234,7 +234,7 @@
                 <button type="submit" class="btn btn-primary w-100" id="previewButton"><i
                         class="bi bi-person-plus"></i> Sign up</button>
                 <div class="d-flex justify-content-between mt-1">
-                    <a href="{{ route('guest.login') }}?redirect={{ request()->input('redirect', url()->current()) }}" class="d-block text-center mt-2">
+                    <a href="{{ route('guest.logins') }}?redirect={{ request()->input('redirect', url()->current()) }}" class="d-block text-center mt-2">
                         Already have an account? <span class="text-primary">Sign in</span>
                     </a>
                     <a href="{{ route('homepage') }}" class="btn border-0 px-4 btn-outline-secondary "

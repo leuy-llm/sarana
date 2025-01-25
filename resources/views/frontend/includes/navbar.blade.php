@@ -78,17 +78,16 @@
                     <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;"
                         href="{{ route('contact') }}">Contact</a>
                 </li>
-
                 @guest('guest')
                     <li class="nav-item mt-2 mt-lg-1">
                         <a class="nav-link"
                             style="font-size: 13px; font-weight: 500; color: #fff; padding: 0.375rem 1rem; border-radius: 1rem; background-color: #661f1f; text-transform: uppercase;"
-                            href="{{ route('guest.login') }}">Login</a>
+                            href="{{ route('guest.logins') }}">Login</a>
                     </li>
                     <li class="nav-item mt-2 mt-lg-1">
                         <a class="nav-link"
                             style="font-size: 13px; font-weight: 500; color: #fff; padding: 0.375rem 1rem; border-radius: 1rem; background-color: #661f1f; text-transform: uppercase;"
-                            href="{{ route('register') }}">Register</a>
+                            href="{{ route('register.guest') }}">Register</a>
                     </li>
                 @endguest
 
@@ -97,9 +96,9 @@
                         <li class="nav-item mt-2 mt-lg-1">
                             <a class="nav-link"
                                 style="font-size: 13px; font-weight: 500; color: #fff; padding: 0.375rem 1rem; border-radius: 1rem; background-color: #661f1f; text-transform: uppercase;"
-                                href="#">Welcome, {{ auth('guest')->user()->first_name }} {{ auth('guest')->user()->last_name }}</a>
+                                href="#">Welcome, {{ auth('guest')->user()->first_name }}
+                                {{ auth('guest')->user()->last_name }}</a>
                         </li>
-                      
                     @else
                         <li class="nav-item mt-2 mt-lg-1">
                             <a class="nav-link"

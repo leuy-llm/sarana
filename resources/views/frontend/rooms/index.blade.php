@@ -513,87 +513,181 @@
             }
         }
 
-
-        .custom-modal {
-            position: absolute;
-            top: 100%;
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            position: fixed;
             left: 0;
+            top: 0;
             width: 100%;
-            z-index: 1050;
-
-            border-radius: 8px;
-            padding: 1rem;
-            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
             opacity: 0;
-            transform: translateY(-10px);
+            transition: opacity 0.5s ease-in-out;
+            /* Longer fade-in/out time */
         }
 
-        .custom-modal .card {
-            background-color: #f1f2f3;
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            width: 80%;
+            max-width: 700px;
+            border-radius: 10px;
+            animation: fadeInScale 0.3s ease-in-out;
+            position: relative;
+            opacity: 0;
+            /* Start invisible */
+            transform: scale(0.9);
+            /* Start slightly smaller */
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            /* Smooth transition for both */
         }
 
-        .custom-modal.show {
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+
+        /* When the modal is open */
+        .modal.open {
+            display: flex;
             opacity: 1;
-            transform: translateY(0);
         }
 
-        .room {
-            padding: 1rem 0;
+        .modal.open .modal-content {
+            opacity: 1;
+            transform: scale(1);
+            /* Scale to normal size when modal opens */
         }
 
-        .d-none {
-            display: none !important;
+        /* Fade-out effect (when closing) */
+        .modal.closing {
+            opacity: 0;
         }
 
-        .btn-done {
-            background-color: #958e86;
-            border-color: #f7961d;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
+        .modal.closing .modal-content {
+            opacity: 0;
+            transform: scale(0.9);
+            /* Scale down during fade-out */
         }
 
-        .btn-done:focus {
-            outline: none;
-            box-shadow: 0 0 5px rgba(138, 133, 126, 0.5);
+        /* Modal Header */
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .btn-add {
-            background-color: #f7961d;
-            border-color: #f7961d;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-        }
-
-        .btn-add:focus {
-            outline: none;
-            box-shadow: 0 0 5px rgba(255, 153, 0, 0.5);
-        }
-
-
-        .remove-room {
-            color: #dc3545;
-
+        .modal-header h2 {
+            margin: 0;
             font-size: 1.5rem;
+        }
 
+        /* The Close Button */
+        .close {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
             cursor: pointer;
-
-            transition: transform 0.2s ease, color 0.2s ease;
-
-            vertical-align: middle;
         }
 
-        .remove-room:hover {
-            color: #a71d2a;
+        .close:hover,
+        .close:focus {
+            color: #ff0000;
+            text-decoration: none;
+        }
 
-            transform: scale(1.2);
+        /* Modal Body */
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .room-section {
+            margin-bottom: 20px;
+        }
+
+        .room-section h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #007bff;
+        }
+
+        .btn-confirm {
+            padding: 15px;
+            backgrou border: 0;
+            outline: none;
 
         }
 
-        .remove-room:active {
+        @keyframes pulsate {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .book-now-btn {
+            background: #deb666;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            animation: pulsate 2s infinite;
+        }
+
+        .book-now-btn:hover {
+            background: #c89c55;
+            color: #ffffff;
             transform: scale(1.1);
-
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            /* Enhance shadow on hover */
         }
     </style>
 @endsection
@@ -769,71 +863,7 @@
                         <div class="search-header">
                             <i class="fas fa-search"></i>Modify Filter
                         </div>
-                        {{-- <form id="filter-form">
-                            <div class="px-3 pt-3">
-                                <label for="checkin" class="form-label">Check In</label>
-                                <input type="date" name="check_in" id="checkin" class="form-control shadow-none me-1"
-                                    required>
-                            </div>
-                            <div class="px-3 pt-3">
-                                <label for="checkout" class="form-label">Check Out</label>
-                                <input type="date" name="check_out" id="checkout" class="form-control shadow-none me-1"
-                                    required>
-                            </div>
-                            <div class="footer-label p-3">
-                                <div id="room-container">
-                                    <div class="room" id="room-1">
-                                        <h6>ROOM 1</h6>
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div>
-                                                <label for="adults-room-1" class="form-label">Adults</label>
-                                                <div class="d-flex align-items-center">
-                                                    <button type="button"
-                                                        class="btn btn-outline-secondary btn-sm decrement-adults">-</button>
-                                                    <input type="number" name="adults[]" id="adults-room-1"
-                                                        class="form-control text-center" value="1" min="1"
-                                                        max="10" readonly>
-                                                    <button type="button"
-                                                        class="btn btn-outline-secondary btn-sm increment-adults">+</button>
-                                                </div>
-                                            </div>
-                                            <!-- Children Section -->
-                                            <div>
-                                                <label for="children-room-1" class="form-label">Children under 12 years
-                                                    old</label>
-                                                <div class="d-flex align-items-center">
-                                                    <button type="button"
-                                                        class="btn btn-outline-secondary btn-sm decrement-children">-</button>
-                                                    <input type="number" name="children[]" id="children-room-1"
-                                                        class="form-control text-center" value="0" min="0"
-                                                        max="5" readonly>
-                                                    <button type="button"
-                                                        class="btn btn-outline-secondary btn-sm increment-children">+</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Dynamic Children's Ages -->
-                                        <div class="children-ages mt-3"></div>
-                                    </div>
-                                </div>
-                                <button type="button" id="add-room" class="btn btn-success btn-sm mt-3">Add
-                                    Room</button>
-                            </div>
-                            <div class="px-3 pt-3">
-                                <label for="price-range" class="form-label">Price Range</label>
-                                <div id="price-range-slider" style="margin: 20px 0;"></div>
-                                <p class="text-center mt-2">
-                                    <span id="price-min">50</span> - <span id="price-max">5000</span>
-                                </p>
-                            </div>
-                            <div class="px-3 mb-3">
-                                <button type="button" id="search-btn"
-                                    class="btn btn-primary mb-3 shadow-none py-2 w-100" style="border-radius: 0;">Apply
-                                    Filter</button>
-                            </div>
-                        </form> --}}
-
-                        <form id="filter-form">
+                        {{-- <form id="filter-form" action="{{ route('filterRooms')}}" method="GET">
                             <div class="px-3 pt-3">
                                 <label for="checkin" class="form-label">Check In</label>
                                 <input type="date" name="check_in" id="checkin" class="form-control shadow-none me-1"
@@ -881,84 +911,419 @@
                                 <button type="button" id="search-btn" class="btn btn-primary mb-3 shadow-none py-2 w-100"
                                     style="border-radius: 0;">Apply Filter</button>
                             </div>
+                        </form> --}}
+                        {{-- <form id="filter-form" action="{{ route('filterRooms') }}" method="GET">
+                            <div class="px-3 pt-3">
+                                <label for="checkin" class="form-label">Check In</label>
+                                <input type="date" name="check_in" id="checkin" class="form-control shadow-none me-1"
+                                    required>
+                            </div>
+                            <div class="px-3 pt-3">
+                                <label for="checkout" class="form-label">Check Out</label>
+                                <input type="date" name="check_out" id="checkout" class="form-control shadow-none me-1"
+                                    required>
+                            </div>
+                            <div class="footer-label p-3">
+                                <div class="d-flex justify-content-center align-items-center gap-4">
+                                    <div>
+                                        <label for="adults" class="form-label">Adults</label>
+                                        <select name="adults" id="adults" class="form-select shadow-none" required>
+                                            <option value="" disabled selected>Select adults</option>
+                                            @for ($i = 1; $i <= 10; $i++)
+                                                <option value="{{ $i }}">{{ $i }}
+                                                    Adult{{ $i > 1 ? 's' : '' }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="ml-3">
+                                        <label for="children" class="form-label">Children</label>
+                                        <select name="children" id="children" class="form-select shadow-none me-1"
+                                            required>
+                                            <option value="" disabled selected>Select children</option>
+                                            @for ($i = 0; $i <= 10; $i++)
+                                                <option value="{{ $i }}">{{ $i }}
+                                                    Child{{ $i > 1 ? 'ren' : '' }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-3 pt-3">
+                                <label for="price-range" class="form-label">Price Range</label>
+                                <div id="price-range-slider" style="margin: 20px 0;"></div>
+                                <input type="hidden" name="price_min" id="price_min_input" value="50">
+                                <input type="hidden" name="price_max" id="price_max_input" value="5000">
+                                <p class="text-center mt-2">
+                                    <span id="price-min">50</span> - <span id="price-max">5000</span>
+                                </p>
+                            </div>
+                            <div class="px-3 mb-3">
+                                <button type="submit" class="btn btn-primary mb-3 shadow-none py-2 w-100"
+                                    style="border-radius: 0;">
+                                    Apply Filter
+                                </button>
+                            </div>
+                        </form> --}}
+
+                        <form id="filter-form" action="{{ route('filterRooms') }}" method="GET">
+                            <div class="px-3 pt-3">
+                                <label for="checkin" class="form-label">Check In</label>
+                                <input type="date" name="check_in" id="checkin" class="form-control shadow-none me-1"
+                                    required>
+                            </div>
+                            <div class="px-3 pt-3">
+                                <label for="checkout" class="form-label">Check Out</label>
+                                <input type="date" name="check_out" id="checkout" class="form-control shadow-none me-1"
+                                    required>
+                            </div>
+                            <div class="footer-label p-3">
+                                <div class="d-flex justify-content-center align-items-center gap-4">
+                                    <div>
+                                        <label for="adults" class="form-label">Adults</label>
+                                        <select name="adults" id="adults" class="form-select shadow-none" required>
+                                            <option value="" disabled selected>Select adults</option>
+                                            @for ($i = 1; $i <= 10; $i++)
+                                                <option value="{{ $i }}">{{ $i }}
+                                                    Adult{{ $i > 1 ? 's' : '' }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="ml-3">
+                                        <label for="children" class="form-label">Children</label>
+                                        <select name="children" id="children" class="form-select shadow-none me-1"
+                                            required>
+                                            <option value="" disabled selected>Select children</option>
+                                            @for ($i = 0; $i <= 10; $i++)
+                                                <option value="{{ $i }}">{{ $i }}
+                                                    Child{{ $i > 1 ? 'ren' : '' }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-3 pt-3">
+                                <label for="price-range" class="form-label">Price Range</label>
+                                <div id="price-range-slider" style="margin: 20px 0;"></div>
+                                <input type="hidden" name="price_min" id="price_min_input" value="50">
+                                <input type="hidden" name="price_max" id="price_max_input" value="5000">
+                                <p class="text-center mt-2">
+                                    <span id="price-min">50</span> - <span id="price-max">5000</span>
+                                </p>
+                            </div>
+                            <div class="px-3">
+                                <button type="submit" class="btn btn-primary mb-3 px-3 w-100 shadow-none py-3 "
+                                    style="border-radius: 0;">
+                                    Apply Filter
+                                </button>
+                            </div>
+                            <div class="px-3 ">
+                                <button type="button" id="reset-btn"
+                                    class="btn btn-secondary mb-3 shadow-none  w-100 py-3 px-4 "
+                                    style="border-radius: 0;">
+                                    Reset Filter
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-9 col-md-12">
+                {{-- <div class="col-lg-9 col-md-12">
                     <div id="rooms-container" class="container py-4">
+                        @if ($rooms->isEmpty())
+                            <div class="col-12 text-center">
+                                <p>No rooms available for the selected criteria.</p>
+                            </div>
+                        @else
+                            @foreach ($rooms as $room)
+                                <div class="card mb-4 shadow border-0">
+                                    <div class="row g-0">
+                                        <div class="col-md-5">
+                                            <img src="{{ asset('storage/' . $room->images->first()->image) }}"
+                                                alt="{{ $room->roomType->type_name }} image"
+                                                class="img-fluid rounded-start"
+                                                style="height: 370px; width: 700px; object-fit: cover;" loading="lazy">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $room->roomType->type_name }}</h5>
+                                                <p class="text-muted small">
+                                                    <i class="bi bi-geo-alt-fill text-primary"></i> Siem Reap
+                                                </p>
+                                                @if ($room->special_price)
+                                                    <h6 class="mb-2 text-uppercase" style="margin-top: -5px;">Special
+                                                        Price
+                                                    </h6>
+                                                    <div class="text-success">
+                                                        <strong>$ {{ number_format($room->special_price, 0) }}</strong>
+                                                        <span class="original-price ms-2">
+                                                            $ {{ number_format($room->price, 0) }}
+                                                        </span>
+                                                    </div>
+                                                @endif
+                                                <div class="d-flex align-items-center">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        <i
+                                                            class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-1 text-muted' }}"></i>
+                                                    @endfor
+                                                </div>
+
+                                                <h6 class="mt-3 text-uppercase">Guests</h6>
+                                                <div>
+                                                    <span class="badge bg-light text-dark">Max: {{ $room->max_person }}
+                                                        Persons</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="col-md-2 d-flex flex-column justify-content-center align-items-center text-center bg-light">
+                                            <div>
+                                                @if ($room->special_price)
+                                                    <span
+                                                        class="badge bg-danger text-white p-2 rounded-0 mb-2 mt-3 text-uppercase">SPECIAL
+                                                        OFFER</span>
+                                                    <p class="mb-1 text-muted text-uppercase">From</p>
+                                                    <h5 class="text-primary">${{ number_format($room->special_price, 0) }}
+                                                    </h5>
+                                                    <p class="text-muted text-uppercase">per night</p>
+                                                @else
+                                                    <p class="mb-1 text-muted text-uppercase">From</p>
+                                                    <h5 class="text-primary">${{ number_format($room->price, 0) }}</h5>
+                                                    <p class="text-muted text-uppercase">per night</p>
+                                                @endif
+                                            </div>
+                                            <a href="#"
+                                                class="select-booking-date mb-2 text-left py-1 w-100 text-primary text-decoration-none shadow-none px-2 booking-date-btn"
+                                                style="font-size: 14px; background:#f1f2f3;">
+                                                Select Booking Date
+                                            </a>
+
+                                            <div class="form-check mb-2">
+                                                <input type="checkbox" class="form-check-input"
+                                                    id="room_{{ $room->id }}" name="rooms[]"
+                                                    value="{{ $room->id }}">
+                                                <label class="form-check-label" for="room_{{ $room->id }}">Select
+                                                    Room </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            <div class="d-flex justify-content-center">
+                                {{ $rooms->appends(request()->query())->links() }}
+                            </div>
+                            <div class="col-12 text-center mt-3">
+                                <button type="submit"
+                                    class="btn btn-primary p-3 shadow-none rounded-0 cursor-pointer">Proceed to
+                                    Booking</button>
+                            </div>
+                        @endif
+                    </div>
+                </div> --}}
+                {{-- <div class="col-lg-9 col-md-12">
+                    <div id="rooms-container" class="container py-4">
+                        @if ($rooms->isEmpty())
+                            <div class="col-12 text-center">
+                                <p>No rooms available for the selected criteria.</p>
+                            </div>
+                        @else
+                            @foreach ($rooms as $room)
+                                <div class="card mb-4 shadow border-0">
+                                    <div class="row g-0">
+                                        <div class="col-md-5">
+                                            <img src="{{ asset('storage/' . $room->images->first()->image) }}"
+                                                alt="{{ $room->roomType->type_name }} image"
+                                                class="img-fluid rounded-start"
+                                                style="height: 370px; width: 700px; object-fit: cover;" loading="lazy">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $room->roomType->type_name }}</h5>
+                                                <p class="text-muted small">
+                                                    <i class="bi bi-geo-alt-fill text-primary"></i> Siem Reap
+                                                </p>
+                                                @if ($room->special_price)
+                                                    <h6 class="mb-2 text-uppercase" style="margin-top: -5px;">Special Price</h6>
+                                                    <div class="text-success">
+                                                        <strong>$ {{ number_format($room->special_price, 0) }}</strong>
+                                                        <span class="original-price ms-2">
+                                                            $ {{ number_format($room->price, 0) }}
+                                                        </span>
+                                                    </div>
+                                                @endif
+                                                <div class="d-flex align-items-center">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        <i class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-1 text-muted' }}"></i>
+                                                    @endfor
+                                                </div>
+                                                <h6 class="mt-3 text-uppercase">Guests</h6>
+                                                <div>
+                                                    <span class="badge bg-light text-dark">Max: {{ $room->max_person }} Persons</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 d-flex flex-column justify-content-center align-items-center text-center bg-light">
+                                            <div>
+                                                @if ($room->special_price)
+                                                    <span class="badge bg-danger text-white p-2 rounded-0 mb-2 mt-3 text-uppercase">SPECIAL OFFER</span>
+                                                    <p class="mb-1 text-muted text-uppercase">From</p>
+                                                    <h5 class="text-primary">${{ number_format($room->special_price, 0) }}</h5>
+                                                    <p class="text-muted text-uppercase">per night</p>
+                                                @else
+                                                    <p class="mb-1 text-muted text-uppercase">From</p>
+                                                    <h5 class="text-primary">${{ number_format($room->price, 0) }}</h5>
+                                                    <p class="text-muted text-uppercase">per night</p>
+                                                @endif
+                                            </div>
+                                            <a href="#" class="select-booking-date mb-2 text-left py-1 w-100 text-primary text-decoration-none shadow-none px-2 booking-date-btn" style="font-size: 14px; background:#f1f2f3;">
+                                                Select Booking Date
+                                            </a>
+                                            <div class="form-check mb-2">
+                                                <input type="checkbox" class="form-check-input" id="room_{{ $room->id }}" name="rooms[]" value="{{ $room->id }}">
+                                                <label class="form-check-label" for="room_{{ $room->id }}">Select Room</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            <div class="d-flex justify-content-center">
+                                {{ $rooms->appends(request()->query())->links() }}
+                            </div>
+                            <div class="col-12 text-center mt-3">
+                                <a id="proceedToBooking"
+                                    class="btn book-now-btn mb-2 shadow-none rounded-0 py-2 font-weight-bold text-uppercase text-white px-4"
+                                    style="background: #deb666; font-size: 14px">
+                                    Proceed to Booking
+                                </a>
+                            </div>
+                            
+                        @endif
+                    </div>
+                </div>                 --}}
+
+                {{-- <div id="rooms-container">
+                    @if ($rooms->isEmpty())
+                        <p>No rooms available for the selected criteria.</p>
+                    @else
+                        <p>Rooms will be assigned automatically based on the guest count. You can select additional rooms if needed.</p>
                         @foreach ($rooms as $room)
                             <div class="card mb-4 shadow border-0">
                                 <div class="row g-0">
                                     <div class="col-md-5">
-                                        <img src="{{ asset('storage/' . $room->images->first()->image) }}"
-                                            alt="{{ $room->roomType->type_name }} image" class="img-fluid rounded-start"
-                                            style="height: 300px; width: 700px; object-fit: cover;" loading="lazy">
+                                        <img src="{{ asset('storage/' . $room->images->first()->image) }}" alt="{{ $room->roomType->type_name }}" class="img-fluid rounded-start">
                                     </div>
                                     <div class="col-md-5">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $room->roomType->type_name }}</h5>
-                                            <p class="text-muted small">
-                                                <i class="bi bi-geo-alt-fill text-primary"></i> Siem Reap
-                                            </p>
-                                            @if ($room->special_price)
-                                                <h6 class="mb-2 text-uppercase" style="margin-top: -5px;">Special Price
-                                                </h6>
-                                                <div class="text-success">
-                                                    <strong>$ {{ number_format($room->special_price, 0) }}</strong>
-                                                    <span class="original-price ms-2">
-                                                        $ {{ number_format($room->price, 0) }}
-                                                    </span>
-                                                </div>
-                                            @endif
-                                            <div class="d-flex align-items-center">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <i
-                                                        class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-1 text-muted' }}"></i>
-                                                @endfor
-                                            </div>
-
-                                            <h6 class="mt-3 text-uppercase">Guests</h6>
-                                            <div>
-                                                <span class="badge bg-light text-dark">Max: {{ $room->max_person }}
-                                                    Persons</span>
-                                            </div>
+                                            <p class="text-muted">Max guests: {{ $room->max_person }}</p>
+                                            <p class="text-muted">Price: ${{ number_format($room->price, 0) }} per night</p>
                                         </div>
                                     </div>
-                                    <div
-                                        class="col-md-2 d-flex flex-column justify-content-center align-items-center text-center bg-light">
-                                        <div>
-                                            @if ($room->special_price)
-                                                <span
-                                                    class="badge bg-danger text-white p-2 rounded-0 mb-2 mt-3 text-uppercase">SPECIAL
-                                                    OFFER</span>
-                                                <p class="mb-1 text-muted text-uppercase">From</p>
-                                                <h5 class="text-primary">${{ number_format($room->special_price, 0) }}
-                                                </h5>
-                                                <p class="text-muted text-uppercase">per night</p>
-                                            @else
-                                                <p class="mb-1 text-muted text-uppercase">From</p>
-                                                <h5 class="text-primary">${{ number_format($room->price, 0) }}</h5>
-                                                <p class="text-muted text-uppercase">per night</p>
-                                            @endif
-                                        </div>
-
-                                        {{-- <a href="{{ route('books.create', ['room_id' => $room->id, 'check_in' => $checkIn, 'check_out' => $checkOut, 'adults' => $adults, 'children' => $children]) }}"
-                                            class=" mb-2 text-left py-1 w-100 text-primary text-decoration-none shadow-none px-2"
-                                            style="font-size: 14px;background:#f1f2f3;">
-                                            Select Booking Date
-                                        </a> --}}
-                                        <a href="#"
-                                            class="select-booking-date mb-2 text-left py-1 w-100 text-primary text-decoration-none shadow-none px-2"
-                                            style="font-size: 14px; background:#f1f2f3;">
-                                            Select Booking Date
-                                        </a>
+                                    <div class="col-md-2 text-center bg-light">
+                                        @if ($room->max_person >= $totalGuests)
+                                            <p>Auto Assigned</p>
+                                        @else
+                                            <div class="form-check mb-2">
+                                                <input type="checkbox" class="form-check-input" id="room_{{ $room->id }}" name="rooms[]" value="{{ $room->id }}">
+                                                <label class="form-check-label" for="room_{{ $room->id }}">Select Room</label>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
                         @endforeach
-                        <div class="d-flex justify-content-center">
-                            {{ $rooms->appends(request()->query())->links() }}
-                        </div>
+                        <button type="submit" class="btn btn-primary">Proceed to Booking</button>
+                    @endif
+                </div>                 --}}
+                <div class="col-lg-9 col-md-12">
+                    <div id="rooms-container" class="container py-4">
+                        @if ($rooms->isEmpty())
+                            <div class="col-12 text-center">
+                                <p>No rooms available for the selected criteria.</p>
+                            </div>
+                        @else
+                            @foreach ($rooms as $room)
+                                <div class="card mb-4 shadow border-0">
+                                    <div class="row g-0">
+                                        <div class="col-md-5">
+                                            <img src="{{ asset('storage/' . $room->images->first()->image) }}"
+                                                alt="{{ $room->roomType->type_name }} image"
+                                                class="img-fluid rounded-start"
+                                                style="height: 370px; width: 700px; object-fit: cover;" loading="lazy">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $room->roomType->type_name }}</h5>
+                                                <p class="text-muted small">
+                                                    <i class="bi bi-geo-alt-fill text-primary"></i> Siem Reap
+                                                </p>
+                                                @if ($room->special_price)
+                                                    <h6 class="mb-2 text-uppercase" style="margin-top: -5px;">Special
+                                                        Price</h6>
+                                                    <div class="text-success">
+                                                        <strong>$ {{ number_format($room->special_price, 0) }}</strong>
+                                                        <span class="original-price ms-2">
+                                                            $ {{ number_format($room->price, 0) }}
+                                                        </span>
+                                                    </div>
+                                                @endif
+                                                <div class="d-flex align-items-center">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        <i
+                                                            class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-1 text-muted' }}"></i>
+                                                    @endfor
+                                                </div>
+                                                <h6 class="mt-3 text-uppercase">Guests</h6>
+                                                <div>
+                                                    <span class="badge bg-light text-dark">Max: {{ $room->max_person }}
+                                                        Persons</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="col-md-2 d-flex flex-column justify-content-center align-items-center text-center bg-light">
+                                            <div>
+                                                @if ($room->special_price)
+                                                    <span
+                                                        class="badge bg-danger text-white p-2 rounded-0 mb-2 mt-3 text-uppercase">SPECIAL
+                                                        OFFER</span>
+                                                    <p class="mb-1 text-muted text-uppercase">From</p>
+                                                    <h5 class="text-primary">${{ number_format($room->special_price, 0) }}
+                                                    </h5>
+                                                    <p class="text-muted text-uppercase">per night</p>
+                                                @else
+                                                    <p class="mb-1 text-muted text-uppercase">From</p>
+                                                    <h5 class="text-primary">${{ number_format($room->price, 0) }}</h5>
+                                                    <p class="text-muted text-uppercase">per night</p>
+                                                @endif
+                                            </div>
+                                            <a href="#"
+                                                class="select-booking-date mb-2 text-left py-1 w-100 text-primary text-decoration-none shadow-none px-2 booking-date-btn"
+                                                style="font-size: 14px; background:#f1f2f3;">
+                                                Select Booking Date
+                                            </a>
+
+                                            <div class="form-check mb-2">
+                                                <input type="checkbox" class="form-check-input"
+                                                    id="room_{{ $room->id }}" name="rooms[]"
+                                                    value="{{ $room->id }}">
+                                                <label class="form-check-label" for="room_{{ $room->id }}">Select
+                                                    Room</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            <div class="d-flex justify-content-center">
+                                {{ $rooms->appends(request()->query())->links() }}
+                            </div>
+                            <div class="col-12 text-center mt-3">
+                                <a id="proceedToBooking"
+                                    class="btn book-now-btn mb-2 shadow-none rounded-0 py-3 font-weight-bold text-uppercase text-white px-4"
+                                    style="background: #deb666; font-size: 14px; border-radius: 3px;">
+                                    Proceed to Booking
+                                </a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -982,6 +1347,48 @@
                     <button type="button" class="btn text-white px-4 " data-bs-dismiss="modal"
                         style="background: #d7b661">Close</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div id="customModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2>Select Guests for the Room</h2>
+            <div class="mb-2">
+                <label for="adults_modal" class="form-label">Adults</label>
+                <input type="number" class="form-control" id="adults_modal" min="1" value="1">
+            </div>
+            <div class="mb-2">
+                <label for="children_modal" class="form-label">Children</label>
+                <input type="number" class="form-control" id="children_modal" min="0" value="0">
+            </div>
+            <button id="confirmSelection" class="btn-confirm">Confirm</button>
+        </div>
+    </div> --}}
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-white">Guests for the Room</h2>
+
+            </div>
+            <div class="modal-body">
+                <div class="room-section">
+                    <div class="form-group">
+                        <label for="room1Adults">Adults</label>
+                        <input type="number" id="room1Adults" name="room1Adults" min="1" value="1"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="room1Children">Children</label>
+                        <input type="number" id="room1Children" name="room1Children" min="0" value="0"
+                            required>
+                    </div>
+                </div>
+                <button id="confirmSelection"
+                    style="background-color: #deb666; color: white; border: none; padding: 10px 20px; width: 100%; font-size: 16px; cursor: pointer; border-radius: 3px; transition: all 0.3s ease;"
+                    onmouseover="this.style.backgroundColor='#c9a14d'"
+                    onmouseout="this.style.backgroundColor='#deb666'">Confirm</button>
             </div>
         </div>
     </div>
@@ -1200,29 +1607,6 @@
         // });
 
         $(document).ready(function() {
-            function fetchRooms(url) {
-                const roomsContainer = $('#rooms-container');
-                const formData = $('#filter-form').serialize(); // Include form data for filtering
-
-                $.ajax({
-                    url: url,
-                    method: "GET",
-                    data: formData,
-                    beforeSend: function() {
-                        roomsContainer.html('<p>Loading rooms...</p>'); // Loading message
-                    },
-                    success: function(response) {
-                        roomsContainer.html(response); // Update the room list dynamically
-
-                        // Attach event listeners to "Book Now" buttons after the room list is updated
-                        attachBookNowButtonListeners();
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching rooms:', error);
-                        roomsContainer.html('<p>Failed to load rooms. Please try again.</p>');
-                    }
-                });
-            }
 
             // Function to attach event listeners to "Book Now" buttons
             function attachBookNowButtonListeners() {
@@ -1234,7 +1618,7 @@
                 console.log("hasVerifiedEmail:", hasVerifiedEmail);
 
                 var bookNowButtons = document.querySelectorAll('.book-now-btn');
-                console.log("Number of Book Now buttons:", bookNowButtons.length);
+                // console.log("Number of Book Now buttons:", bookNowButtons.length);
 
                 bookNowButtons.forEach(function(button) {
                     console.log("Attaching event listener to button:", button);
@@ -1242,7 +1626,7 @@
                         if (!isLoggedIn) {
                             console.log("User is not logged in. Redirecting to register page.");
                             event.preventDefault();
-                            window.location.href = "{{ route('register') }}?redirect=" +
+                            window.location.href = "{{ route('register.guest') }}?redirect=" +
                                 encodeURIComponent(window.location.href);
                         } else if (!hasVerifiedEmail) {
                             console.log("User has not verified email. Showing modal.");
@@ -1318,7 +1702,7 @@
                     value: Math.round(priceValues[1])
                 }).appendTo('#filter-form');
 
-                fetchRooms("{{ route('rooms.filter') }}");
+                // fetchRooms("{{ route('filterRooms') }}");
             });
 
             // Handle immediate removal of the red border on input change
@@ -1332,7 +1716,7 @@
             $(document).on('click', '.pagination-links a', function(e) {
                 e.preventDefault();
                 const url = $(this).attr('href');
-                fetchRooms(url);
+                // fetchRooms(url);
             });
 
             // Initialize the noUiSlider
@@ -1381,182 +1765,347 @@
             });
         });
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const guestInput = document.getElementById("guestInput");
-            const guestsSummary = document.getElementById("guests-summary");
-            const guestModal = document.getElementById("guestModal");
-            const addRoomBtn = document.getElementById("addRoomBtn");
-            const doneBtn = document.getElementById("doneBtn");
-            const roomsContainer = document.getElementById("roomsContainer");
+        //hide "Select Booking Date" and check box
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterForm = document.getElementById('filter-form');
+            const roomCheckboxes = document.querySelectorAll('input[name="rooms[]"]'); // Select all room checkboxes
+            const bookingDateBtns = document.querySelectorAll('.booking-date-btn');
 
-            // Update the guest summary
-            // const updateGuestSummary = () => {
-            //     let totalAdults = 0;
-            //     let totalChildren = 0;
-
-            //     // Sum up all adults and children across all rooms
-            //     document.querySelectorAll(".adults-input").forEach(input => {
-            //         totalAdults += parseInt(input.value);
-            //     });
-            //     document.querySelectorAll(".children-input").forEach(input => {
-            //         totalChildren += parseInt(input.value);
-            //     });
-
-            //     // Update the summary text
-            //     guestsSummary.textContent =
-            //         `${totalAdults} adult${totalAdults > 1 ? 's' : ''}, ${totalChildren} child${totalChildren > 1 ? 'ren' : ''}`;
-            // };
-            // Update the guest summary and manage the visibility of remove-room buttons
-            const updateGuestSummary = () => {
-                let totalAdults = 0;
-                let totalChildren = 0;
-
-                // Sum up all adults and children across all rooms
-                document.querySelectorAll(".adults-input").forEach(input => {
-                    totalAdults += parseInt(input.value);
-                });
-                document.querySelectorAll(".children-input").forEach(input => {
-                    totalChildren += parseInt(input.value);
-                });
-
-                // Update the summary text
-                guestsSummary.textContent =
-                    `${totalAdults} adult${totalAdults > 1 ? 's' : ''}, ${totalChildren} child${totalChildren > 1 ? 'ren' : ''}`;
-
-                // Hide the remove button if only one room exists
-                const currentRooms = roomsContainer.querySelectorAll(".room");
-                const removeRoomButtons = document.querySelectorAll(".remove-room");
-                if (currentRooms.length === 1) {
-                    removeRoomButtons.forEach(button => {
-                        button.style.display = "none";
-                    });
-                } else {
-                    removeRoomButtons.forEach(button => {
-                        button.style.display =
-                            "inline"; // Show the button when more than one room exists
-                    });
-                }
-            };
-
-
-            // Toggle the guest modal
-            guestInput.addEventListener("click", () => {
-                if (guestModal.classList.contains("d-none")) {
-                    guestModal.classList.remove("d-none");
-                    setTimeout(() => guestModal.classList.add("show"), 10); // Add animation
-                } else {
-                    guestModal.classList.remove("show");
-                    setTimeout(() => guestModal.classList.add("d-none"), 300);
-                }
+            // Initially hide all room checkboxes before filter
+            roomCheckboxes.forEach(checkbox => {
+                checkbox.closest('.form-check').style.display = 'none'; // Hide the checkbox wrapper
             });
 
-            // Add a new room dynamically
-            // Add a new room dynamically
-            const addRoom = () => {
-                const currentRooms = roomsContainer.querySelectorAll(".room");
-                const nextRoomNumber = currentRooms.length + 1; // Correctly calculate the next room number
+            // Check if URL has query params (meaning the filter has been applied)
+            if (window.location.search.includes('check_in') && window.location.search.includes('check_out')) {
+                // Show room checkboxes after filter is applied
+                roomCheckboxes.forEach(checkbox => {
+                    checkbox.closest('.form-check').style.display = 'block'; // Show the checkbox wrapper
+                });
 
-                const roomDiv = document.createElement("div");
-                roomDiv.classList.add("room");
-                roomDiv.setAttribute("data-room", nextRoomNumber);
+                // Hide "Select Booking Date" buttons
+                bookingDateBtns.forEach(btn => {
+                    btn.style.display = 'none'; // Hide all "Select Booking Date" buttons
+                });
+            }
 
-                roomDiv.innerHTML = `
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <strong>Room ${nextRoomNumber}</strong>
-            <div class="mt-1">
-                <i class="bi bi-x-square remove-room" role="button" data-room="${nextRoomNumber}"></i>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-12 mb-3">
-                <label class="form-label" style="margin-bottom: -15px;">Adults</label>
-                <div class="input-group">
-                    <button class="btn btn-outline-secondary shadow-none decrease-adults rounded-0" type="button">-</button>
-                    <input type="number" class="form-control shadow-none rounded-0 text-center adults-input" style="margin-top: 10px;" value="1" min="1">
-                    <button class="btn btn-outline-secondary shadow-none increase-adults rounded-0" type="button">+</button>
-                </div>
-            </div>
-            <div class="col-12 col-md-12">
-                <label class="form-label" style="margin-bottom: -15px;">Children under 12 years old</label>
-                <div class="input-group">
-                    <button class="btn btn-outline-secondary shadow-none decrease-children rounded-0" type="button">-</button>
-                    <input type="number" class="form-control shadow-none rounded-0 text-center children-input" style="margin-top: 10px;" value="0" min="0">
-                    <button class="btn btn-outline-secondary shadow-none increase-children rounded-0" type="button">+</button>
-                </div>
-            </div>
-        </div>
-        <hr class="border-2 border-danger">
-    `;
+            // Handle filter form submission (e.g., after user selects filter options)
+            filterForm.addEventListener('submit', function() {
+                bookingDateBtns.forEach(btn => {
+                    btn.style.display = 'none'; // Hide on form submit
+                });
 
-                roomsContainer.appendChild(roomDiv);
-                updateGuestSummary(); // Update summary after adding a new room
-            };
-
-
-            addRoomBtn.addEventListener("click", addRoom);
-
-            // Increment and decrement functionality for adults and children
-            document.addEventListener("click", (e) => {
-                if (e.target.classList.contains("increase-adults")) {
-                    const input = e.target.previousElementSibling;
-                    input.value = parseInt(input.value) + 1;
-                }
-                if (e.target.classList.contains("decrease-adults")) {
-                    const input = e.target.nextElementSibling;
-                    if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
-                }
-                if (e.target.classList.contains("increase-children")) {
-                    const input = e.target.previousElementSibling;
-                    input.value = parseInt(input.value) + 1;
-                }
-                if (e.target.classList.contains("decrease-children")) {
-                    const input = e.target.nextElementSibling;
-                    if (parseInt(input.value) > 0) input.value = parseInt(input.value) - 1;
-                }
-
-                updateGuestSummary(); // Update summary after changing values
+                // Show room checkboxes after filter is applied
+                roomCheckboxes.forEach(checkbox => {
+                    checkbox.closest('.form-check').style.display =
+                        'block'; // Show the checkbox wrapper
+                });
             });
 
+            // Optional: Show the room checkboxes if the user clicks on a reset filter button
+            const resetFilterBtn = document.getElementById('reset-filter-btn'); // Optional reset button
+            if (resetFilterBtn) {
+                resetFilterBtn.addEventListener('click', function() {
+                    // Show room checkboxes when reset is clicked
+                    roomCheckboxes.forEach(checkbox => {
+                        checkbox.closest('.form-check').style.display =
+                            'block'; // Show the checkbox wrapper
+                    });
+                    // Show booking date buttons after reset
+                    bookingDateBtns.forEach(btn => {
+                        btn.style.display = 'block'; // Show "Select Booking Date" buttons
+                    });
+                });
+            }
+        });
 
-            // Remove a room and renumber remaining rooms
-            document.addEventListener("click", (e) => {
-                if (e.target.classList.contains("remove-room")) {
-                    const currentRooms = roomsContainer.querySelectorAll(".room");
 
-                    // Prevent removing the last room
-                    if (currentRooms.length === 1) {
-                        alert("You cannot remove the last room.");
-                        return; // Stop further execution
+
+
+        //Reset filter
+        document.addEventListener('DOMContentLoaded', function() {
+            const resetBtn = document.getElementById('reset-btn');
+            const filterForm = document.getElementById('filter-form');
+
+            resetBtn.addEventListener('click', function() {
+                // Reset form fields to their default values
+                filterForm.reset();
+
+                // Reset the price range values
+                document.getElementById('price_min_input').value = "50";
+                document.getElementById('price_max_input').value = "5000";
+                document.getElementById('price-min').innerText = "50";
+                document.getElementById('price-max').innerText = "5000";
+
+                // Redirect back to the original room page
+                window.location.href = "/room";
+            });
+        });
+
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     const proceedButton = document.getElementById('proceedToBooking');
+        //     const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
+
+        //     proceedButton.addEventListener('click', function(event) {
+        //         console.log("Proceed to Booking button clicked"); // Add this line
+        //         event.preventDefault(); // Prevent default navigation
+
+        //         // Collect selected room IDs
+        //         let selectedRooms = [];
+        //         checkboxes.forEach(checkbox => {
+        //             if (checkbox.checked) {
+        //                 selectedRooms.push(checkbox.value);
+        //             }
+        //         });
+        //         // Prepare query parameters
+        //         const checkIn = "{{ $checkIn }}";
+        //         const checkOut = "{{ $checkOut }}";
+        //         const adults = "{{ $adults }}";
+        //         const children = "{{ $children }}";
+
+        //         // Log the parameters to ensure correctness
+        //         console.log('Selected rooms:', selectedRooms);
+        //         console.log('Check-in:', checkIn);
+        //         console.log('Check-out:', checkOut);
+        //         console.log('Adults:', adults);
+        //         console.log('Children:', children);
+
+        //         // Generate the URL with selected values
+        //         const bookingUrl = `{{ route('books.create') }}?rooms=${selectedRooms.join(',')}&check_in=${checkIn}&check_out=${checkOut}&adults=${adults}&children=${children}`;
+
+        //         // Log the final URL to ensure it's correct
+        //         console.log('Booking URL:', bookingUrl);
+
+        //         // Redirect to booking page
+        //         window.location.href = bookingUrl;
+        //     });
+        // });
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
+        //     const proceedButton = document.getElementById('proceedToBooking');
+        //     const maxRooms = 3;
+
+        //     checkboxes.forEach(checkbox => {
+        //         checkbox.addEventListener('change', function() {
+        //             const selectedRooms = document.querySelectorAll(
+        //                 'input[name="rooms[]"]:checked');
+
+        //             // If more than 3 rooms are selected, show an alert and uncheck the last selected room
+        //             if (selectedRooms.length > maxRooms) {
+        //                 alert(`You can select up to ${maxRooms} rooms only.`);
+        //                 checkbox.checked = false; // Uncheck the last selected room
+        //             }
+        //         });
+        //     });
+
+        //     proceedButton.addEventListener('click', function(event) {
+        //         let selectedRooms = [];
+        //         checkboxes.forEach(checkbox => {
+        //             if (checkbox.checked) {
+        //                 selectedRooms.push(checkbox.value);
+        //             }
+        //         });
+
+        //         if (selectedRooms.length === 0) {
+        //             alert('Please select at least one room.');
+        //             return;
+        //         } else if (selectedRooms.length > maxRooms) {
+        //             alert(`You can select up to ${maxRooms} rooms only.`);
+        //             return;
+        //         }
+
+        //         // Collect data for each selected room
+        //         let roomData = {};
+        //         selectedRooms.forEach(roomId => {
+        //             roomData[roomId] = {
+        //                 adults: document.getElementById(`adults_${roomId}`).value,
+        //                 children: document.getElementById(`children_${roomId}`).value
+        //             };
+        //         });
+
+        //         // Proceed to booking with selected rooms and guest info
+        //         const checkIn = "{{ $checkIn }}";
+        //         const checkOut = "{{ $checkOut }}";
+        //         const adults = "{{ $adults }}";
+        //         const children = "{{ $children }}";
+
+        //         const bookingUrl =
+        //             `{{ route('books.create') }}?rooms=${selectedRooms.join(',')}&check_in=${checkIn}&check_out=${checkOut}&adults=${adults}&children=${children}&room_data=${JSON.stringify(roomData)}`;
+
+        //         window.location.href = bookingUrl;
+        //     });
+        // });
+
+        // // Get the modal element
+        // const modal = document.getElementById('myModal');
+        // // Get the confirm button
+        // const confirmBtn = document.getElementById('confirmSelection');
+
+        // // Get checkboxes or any element you want to trigger the modal
+        // const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
+
+        // // Show the modal with fade-in and scale-up effect
+        // function showModal() {
+        //     modal.classList.add('open');
+        //     // Disable background scrolling when modal is open
+        //     document.body.style.overflow = 'hidden';
+        // }
+
+        // // Close the modal with fade-out effect
+        // function closeModal() {
+        //     modal.classList.add('closing');
+        //     // Wait for the fade-out animation to finish before hiding the modal
+        //     setTimeout(() => {
+        //         modal.classList.remove('open', 'closing');
+        //         // Re-enable background scrolling
+        //         document.body.style.overflow = 'auto';
+        //     }, 500); // Match the duration of fade-out animation (0.5s)
+        // }
+
+        // // Add event listener to checkboxes (trigger modal)
+        // checkboxes.forEach(checkbox => {
+        //     checkbox.addEventListener('change', function() {
+        //         if (this.checked) {
+        //             // Show modal when a room is selected
+        //             showModal();
+        //         }
+        //     });
+        // });
+
+        // // Disable the close button and the ability to click outside the modal until "Confirm" is clicked
+        // modal.addEventListener('click', function(event) {
+        //     if (event.target === modal) {
+        //         // Prevent modal from closing when clicking outside
+        //         event.stopImmediatePropagation();
+        //     }
+        // });
+
+        // // Handle the confirm button click (add your booking logic here)
+        // confirmBtn.addEventListener('click', function() {
+        //     const adults = document.getElementById('room1Adults').value;
+        //     const children = document.getElementById('room1Children').value;
+        //     console.log('Adults:', adults);
+        //     console.log('Children:', children);
+
+        //     // Close the modal after confirming selection
+        //     closeModal();
+        // });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const proceedButton = document.getElementById('proceedToBooking');
+            const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
+            const maxRooms = 3;
+
+            proceedButton.addEventListener('click', function(event) {
+                console.log("Proceed to Booking button clicked"); // Add this line
+                event.preventDefault(); // Prevent default navigation
+
+                // Collect selected room IDs
+                let selectedRooms = [];
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        selectedRooms.push(checkbox.value);
                     }
+                });
 
-                    e.stopPropagation(); // Prevent modal close or click propagation
-                    const roomToRemove = e.target.closest(".room");
-                    roomToRemove.remove();
+                // If no rooms or more than the allowed rooms are selected, show an alert and stop further action
+                if (selectedRooms.length === 0) {
+                    alert('Please select at least one room.');
+                    return;
+                } else if (selectedRooms.length > maxRooms) {
+                    alert(`You can select up to ${maxRooms} rooms only.`);
+                    return;
+                }
 
-                    // Re-number rooms dynamically
-                    const rooms = roomsContainer.querySelectorAll(".room");
-                    rooms.forEach((room, index) => {
-                        const roomNumber = index + 1; // Room numbers start at 1
-                        room.querySelector("strong").textContent = `Room ${roomNumber}`;
-                        room.setAttribute("data-room", roomNumber);
-                        room.querySelector(".remove-room").setAttribute("data-room", roomNumber);
-                    });
+                // Prepare query parameters
+                const checkIn = "{{ $checkIn }}";
+                const checkOut = "{{ $checkOut }}";
+                const adults = "{{ $adults }}";
+                const children = "{{ $children }}";
 
-                    updateGuestSummary(); // Update summary after removing a room
+                // Log the parameters to ensure correctness
+                console.log('Selected rooms:', selectedRooms);
+                console.log('Check-in:', checkIn);
+                console.log('Check-out:', checkOut);
+                console.log('Adults:', adults);
+                console.log('Children:', children);
+
+                // Generate the URL with selected values
+                const bookingUrl =
+                    `{{ route('books.create') }}?rooms=${selectedRooms.join(',')}&check_in=${checkIn}&check_out=${checkOut}&adults=${adults}&children=${children}`;
+
+                // Log the final URL to ensure it's correct
+                console.log('Booking URL:', bookingUrl);
+
+                // Redirect to booking page
+                window.location.href = bookingUrl;
+            });
+
+            // Add event listener to checkboxes (trigger modal)
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const selectedRooms = document.querySelectorAll(
+                        'input[name="rooms[]"]:checked');
+
+                    // If more than 3 rooms are selected, show an alert and uncheck the last selected room
+                    if (selectedRooms.length > maxRooms) {
+                        alert(`You can select up to ${maxRooms} rooms only.`);
+                        checkbox.checked = false; // Uncheck the last selected room
+                    }
+                });
+            });
+
+            // Get the modal element
+            const modal = document.getElementById('myModal');
+            // Get the confirm button
+            const confirmBtn = document.getElementById('confirmSelection');
+
+            // Show the modal with fade-in and scale-up effect
+            function showModal() {
+                modal.classList.add('open');
+                // Disable background scrolling when modal is open
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Close the modal with fade-out effect
+            function closeModal() {
+                modal.classList.add('closing');
+                // Wait for the fade-out animation to finish before hiding the modal
+                setTimeout(() => {
+                    modal.classList.remove('open', 'closing');
+                    // Re-enable background scrolling
+                    document.body.style.overflow = 'auto';
+                }, 500); // Match the duration of fade-out animation (0.5s)
+            }
+
+            // Add event listener to checkboxes (trigger modal)
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked && document.querySelectorAll('input[name="rooms[]"]:checked')
+                        .length <= maxRooms) {
+                        // Show modal when a room is selected and not exceeding max limit
+                        showModal();
+                    }
+                });
+            });
+
+            // Disable the close button and the ability to click outside the modal until "Confirm" is clicked
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    // Prevent modal from closing when clicking outside
+                    event.stopImmediatePropagation();
                 }
             });
-            // Handle the Done button
-            doneBtn.addEventListener("click", () => {
-                guestModal.classList.remove("show");
-                setTimeout(() => guestModal.classList.add("d-none"), 300);
-            });
-            // Close modal when clicking outside (but not on the modal content or remove button)
-            document.addEventListener("click", (e) => {
-                if (!guestModal.contains(e.target) && !guestInput.contains(e.target) && !e.target.classList
-                    .contains("remove-room")) {
-                    guestModal.classList.remove("show");
-                    setTimeout(() => guestModal.classList.add("d-none"), 300);
-                }
+
+            // Handle the confirm button click (add your booking logic here)
+            confirmBtn.addEventListener('click', function() {
+                const adults = document.getElementById('room1Adults').value;
+                const children = document.getElementById('room1Children').value;
+                console.log('Adults:', adults);
+                console.log('Children:', children);
+
+                // Close the modal after confirming selection
+                closeModal();
             });
         });
     </script>
