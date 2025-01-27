@@ -9,7 +9,7 @@
         label {
             font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
         }
-        
+
         input[type="date"] {
             cursor: pointer;
         }
@@ -213,73 +213,59 @@
             }
         }
 
-        .modal-fullscreen-custom {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* Card hover effect */
+        .room-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .room-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Image styling */
+        .room-image {
+            height: 300px;
+            /* Adjust image height as needed */
+            object-fit: cover;
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-
-            z-index: 9999;
-            display: none;
-
-            overflow: hidden;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-in-out forwards;
-            justify-content: center;
-            align-items: center;
+            border-radius: 10px 10px 0 0;
+            /* Rounded corners on top */
         }
 
-        /* Center and Style Modal Content */
-        .modal-content {
-            background-color: white;
-            width: 90%;
-            /* Adjust width */
-            height: 90%;
-            /* Fullscreen modal height */
-            max-height: 90%;
-            /* Ensures content is scrollable */
-            margin: auto;
-            border-radius: 8px;
-            overflow-y: auto;
-            /* padding: 20px; */
+        /* Special Price */
+        .special-price {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #28a745;
         }
 
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+        /* Price styling */
+        .original-price {
+            text-decoration: line-through;
+            color: #6c757d;
         }
 
-        .modal-header {
-            padding: 1.5rem;
-            background-color: #007bff;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Guest Badge styling */
+        .badge {
+            font-size: 0.9rem;
         }
 
-        .modal-header span {
-            font-size: 2rem;
-            color: rgb(214, 15, 15);
-            cursor: pointer;
+        /* Card Title */
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
         }
 
-        .modal-title {
-            margin: 0;
-            font-size: 1.5rem;
+        /* Card text and price */
+        .text-muted {
+            font-size: 0.9rem;
         }
 
-        .close {
-            font-size: 1.5rem;
-            cursor: pointer;
+        /* Star Rating */
+        .bi-star,
+        .bi-star-fill {
+            font-size: 1.1rem;
         }
 
         select.form-select {
@@ -353,7 +339,122 @@
             outline: none;
         }
 
-        
+        main {
+            max-width: 720px;
+            margin: 5% auto;
+        }
+
+        .card {
+            box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
+            transition: 200ms;
+            background: #fff;
+        }
+
+    /* Room Cards Layout */
+.room-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Individual Card Styling */
+.room-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 400px;
+    margin: auto;  /* Center when there's only one card */
+}
+
+.room-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Room Image */
+.room-image img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+/* Room Content */
+.room-content {
+    padding: 20px;
+    
+}
+
+.room-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.room-location {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+/* Price Styling */
+.room-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #27ae60;
+    margin-bottom: 10px;
+}
+
+.special-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-left: 10px;
+}
+
+/* Rating Styling */
+.room-rating {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #f39c12;
+}
+
+.filled-star {
+    color: #f39c12;
+}
+
+.empty-star {
+    color: #ddd;
+}
+
+/* Guest Details */
+.room-guests,
+.room-adults,
+.room-children {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .room-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+
     </style>
 @endsection
 @section('content')
@@ -386,8 +487,8 @@
                 </div>
                 <div class="container mt-5">
                     <div class="row">
-                        <div class="col-md-8">
-                            <div class="billing-section">
+                        <div class="col-md-12">
+                            <div class="billing-section p-5">
                                 <h5 class="mb-4">Billing Details</h5>
                                 <div class="form-row">
                                     <div class="col-md-6 mb-3">
@@ -459,29 +560,166 @@
                                 {{-- <input type="hidden" name="room_type_id" value="{{ $rooms->roomType->id }}"> --}}
                             </div>
                         </div>
-                        {{-- <div class="col-md-4 mt-3">
-                            <div class="booking-summary ">
-                                <div class="card-body">
-                                    <h5>Booking Details</h5>
-                                    <p><strong>Check-In: </strong> {{ date('d-m-Y', strtotime($checkIn)) }}</p>
-                                    <p><strong>Check-Out: </strong> {{ date('d-m-Y', strtotime($checkOut)) }}</p>
-                                    <p><strong>Nights:</strong> {{ $nights }}</p>
-                                    <p><strong>Guests:</strong> {{ $adults }} Adults, {{ $children }}
-                                        Children
-                                    </p>
-                                    <h6 class="mt-4 section-title">Price Summary</h6>
-                                    <p><strong>{{ $rooms->roomType->type_name }}:</strong>
-                                        @if ($room->special_price)
-                                            ${{ number_format($room->special_price, 0) }}
+                        <div class="col-md-12 mt-3">
+    
+                            {{-- <div class="room-container">
+                                @foreach ($rooms as $roomDetail)
+                                <div class="room-card">
+                                    
+                                        <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}" 
+                                             alt="{{ $roomDetail['room']->roomType->type_name }} image" style="height: 250px;" loading="lazy">
+                                    <div class="room-content">
+                                        <h2 class="room-title">{{ $roomDetail['room']->roomType->type_name }}</h2>
+                                        <p class="room-location">📍 Siem Reap</p>
+                                        
+                                        @if ($roomDetail['room']->special_price)
+                                            <p class="room-price">
+                                                <span class="special-price">${{ number_format($roomDetail['room']->special_price, 0) }}</span>
+                                                <span class="original-price">${{ number_format($roomDetail['room']->price, 0) }}</span>
+                                            </p>
                                         @else
-                                            ${{ number_format($room->price, 0) }}
-                                    </p>
-                                    @endif
-                                    <p class="price-summary"><strong>Total Price:</strong>
-                                        ${{ number_format($totalPrice, 2) }}</p>
+                                            <span class="price">${{ number_format($roomDetail['room']->price, 0) }}</span>
+                                            @endif
+                                        
+                                        <p class="room-guests">Max Guests: {{ $roomDetail['room']->max_person }} Persons</p>
+                                        <p class="room-adults">Adults: {{ $roomDetail['adults'] }}</p>
+                                        <p class="room-children">Children: {{ $roomDetail['children'] }}</p>
+                                        <p><strong>Check In/Out: </strong>{{ date('d-m-Y', strtotime($checkIn)) }} <i class="fa fa-arrow"></i> {{ date('d-m-Y', strtotime($checkOut)) }}</p>
+                                       
+                                    </div>
                                 </div>
-                            </div>
-                                    <a href="{{ route('checkout.index', [
+                                @endforeach
+                                <div class="booking-summary p-4">
+                                 
+                                    <h4>Total Price: ${{ number_format($totalPrice, 2) }}</h4>
+                                    <h5>Total Guests:
+                                        @php
+                                            $totalGuests = 0;
+                                            foreach ($rooms as $roomDetail) {
+                                                $totalGuests += $roomDetail['adults'] + $roomDetail['children'];
+                                            }
+                                        @endphp
+                                        {{ $totalGuests }}
+                                    </h5>
+                                </div>
+                            </div> --}}
+
+                            {{-- <div class="room-container">
+                                <form action="{{ route('proceedToCheckout') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="check_in" value="{{ $checkIn }}">
+                                    <input type="hidden" name="check_out" value="{{ $checkOut }}">
+                                    <input type="hidden" name="total_price" value="{{ $totalPrice }}">
+                                    <input type="hidden" name="guest_id" value="{{ auth()->guard('guest')->user()->id }}">
+                                    
+                                    
+                                    <div class="rooms">
+                                        @foreach ($rooms as $roomDetail)
+                                        <div class="room-card">
+                                            <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}" 
+                                                 alt="{{ $roomDetail['room']->roomType->type_name }} image" style="height: 250px;" loading="lazy">
+                                            <div class="room-content">
+                                                <h2 class="room-title">{{ $roomDetail['room']->roomType->type_name }}</h2>
+                                                <p class="room-location">📍 Siem Reap</p>
+                                                
+                                                @if ($roomDetail['room']->special_price)
+                                                    <p class="room-price">
+                                                        <span class="special-price">${{ number_format($roomDetail['room']->special_price, 0) }}</span>
+                                                        <span class="original-price">${{ number_format($roomDetail['room']->price, 0) }}</span>
+                                                    </p>
+                                                @else
+                                                    <span class="price">${{ number_format($roomDetail['room']->price, 0) }}</span>
+                                                @endif
+                            
+                                                <p class="room-guests">Max Guests: {{ $roomDetail['room']->max_person }} Persons</p>
+                                                <p class="room-adults">Adults: {{ $roomDetail['adults'] }}</p>
+                                                <p class="room-children">Children: {{ $roomDetail['children'] }}</p>
+                                                <p><strong>Check In/Out: </strong>{{ date('d-m-Y', strtotime($checkIn)) }} <i class="fa fa-arrow"></i> {{ date('d-m-Y', strtotime($checkOut)) }}</p>
+                            
+                                                <!-- Hidden inputs for room details -->
+                                                <input type="hidden" name="rooms[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['room']->id }}">
+                                                <input type="hidden" name="adults[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['adults'] }}">
+                                                <input type="hidden" name="children[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['children'] }}">
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                            
+                                    <!-- Booking Summary -->
+                                    <div class="booking-summary p-4">
+                                        <h4>Total Price: ${{ number_format($totalPrice, 2) }}</h4>
+                                        <h5>Total Guests:
+                                            @php
+                                                $totalGuests = 0;
+                                                foreach ($rooms as $roomDetail) {
+                                                    $totalGuests += $roomDetail['adults'] + $roomDetail['children'];
+                                                }
+                                            @endphp
+                                            {{ $totalGuests }}
+                                        </h5>
+                                    </div>
+                            
+                                    <!-- Proceed to Checkout Button -->
+                                    <button type="submit" class="btn btn-primary mt-4">Proceed to Payment</button>
+                                </form>
+                            </div>                             --}}
+                            <div class="room-container">
+                                <form action="{{ route('proceedToCheckout') }}" method="POST">
+                                    @csrf
+                                    <!-- Hidden fields for check-in, check-out, total price, and guest -->
+                                    <input type="hidden" name="check_in" value="{{ $checkIn }}">
+                                    <input type="hidden" name="check_out" value="{{ $checkOut }}">
+                                    <input type="hidden" name="guest_id" value="{{ auth()->guard('guest')->user()->id }}">
+                                    <input type="hidden" name="total_price" value="{{ $totalPrice }}">
+                                    <!-- Loop through available rooms -->
+                                    <div class="rooms">
+                                        @foreach ($rooms as $roomDetail)
+                                            <div class="room-card">
+                                                <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}" alt="{{ $roomDetail['room']->roomType->type_name }} image" style="height: 250px;" loading="lazy">
+                                                <div class="room-content">
+                                                    <h2 class="room-title">{{ $roomDetail['room']->roomType->type_name }}</h2>
+                                                    <p class="room-location">📍 Siem Reap</p>
+                    
+                                                    <!-- Display price (with special price if applicable) -->
+                                                    @if ($roomDetail['room']->special_price)
+                                                        <p class="room-price">
+                                                            <span class="special-price">${{ number_format($roomDetail['room']->special_price, 0) }}</span>
+                                                            <span class="original-price">${{ number_format($roomDetail['room']->price, 0) }}</span>
+                                                        </p>
+                                                    @else
+                                                        <span class="price">${{ number_format($roomDetail['room']->price, 0) }}</span>
+                                                    @endif
+                            
+                                                    <p class="room-guests">Max Guests: {{ $roomDetail['room']->max_person }} Persons</p>
+                                                    <p class="room-adults">Adults: {{ $roomDetail['adults'] }}</p>
+                                                    <p class="room-children">Children: {{ $roomDetail['children'] }}</p>
+                                                    <p><strong>Check In/Out: </strong>{{ date('d-m-Y', strtotime($checkIn)) }} <i class="fa fa-arrow"></i> {{ date('d-m-Y', strtotime($checkOut)) }}</p>
+                        
+                                                    <!-- Hidden inputs for room details (passed to checkout) -->
+                                                    <input type="hidden" name="rooms[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['room']->id }}">
+                                                    <input type="hidden" name="adults[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['adults'] }}">
+                                                    <input type="hidden" name="children[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['children'] }}">
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-4">Proceed to Payment</button>
+                                </form>
+                                <div class="booking-summary p-4">
+                                    <h4>Total Price: ${{ number_format($totalPrice, 2) }}</h4>
+                                    <h5>Total Guests:
+                                        @php
+                                            $totalGuests = 0;
+                                            foreach ($rooms as $roomDetail) {
+                                                $totalGuests += $roomDetail['adults'] + $roomDetail['children'];
+                                            }
+                                        @endphp
+                                        {{ $totalGuests }}
+                                    </h5>
+                                </div>
+                            </div>                            
+                        </div>
+                        {{-- <a href="{{ route('checkout.index', [
                                         'room_id' => $room->id,
                                         'check_in' => $checkIn->format('Y-m-d'),
                                         'check_out' => $checkOut->format('Y-m-d'),
@@ -494,19 +732,58 @@
                                     ]) }}"
                                         class="btn btn-warning w-100 rounded-0 text-white">
                                         Proceed to Checkout
-                                    </a>
+                                    </a> --}}
+                                    {{-- @foreach ($rooms as $roomDetail)
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card__body">
+                                                <div class="half">
+                                                        <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}"
+                                                        alt="{{ $roomDetail['room']->roomType->type_name }} image"
+                                                        class="" style="height: 350px;" loading="lazy">
+                                                </div>
+                                                <div class="half mt-4 px-3">
+                                                    <div class="description">
+                                                        <h3>{{ $roomDetail['room']->roomType->type_name }}</h3>
+                                                        <p>Facilities</p>
+                                                        Tv,
+                                                        Wifi,
+                                                        Air Condition,
+                                                        Room Service,
+                                                        Swimming Pool
+                                                    </div>
+                                                    <p>Check In : 01-25-2025</p>
+                                                    <p style="margin-top: -15px;">Check Out : 01-25-2025</p>
+                                                    <p><strong>Days : </strong> 2 Nights</p>
+                                                    <div class="descriptions mt-1">
+                                                        <p>2 Adults , 3 Children</p>
+                                                        <p>Total Guest : 5 peoples</p>
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="card__footer">
+                                               
+                                                <div class="recommend">
+                                                    <p>Room Price : $ 200</p>
+                                                   
+                                                    <h3 class="mt-2">Total Price : $ 400</h3>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    @endforeach --}}
                             </div>
-                        </div> --}}
-                    </div>
+
                 </div>
             </div>
+        </div>
+        </div>
         </div>
     </section>
 @endsection
 @section('script')
-   
-
-    <script>
-        
-    </script>
+    <script></script>
 @endsection

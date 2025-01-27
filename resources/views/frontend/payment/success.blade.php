@@ -8,7 +8,7 @@
             justify-content: space-between;
             margin-bottom: 20px;
             /* background: rgba(255, 255, 255, 0.9);
-                                                                                                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+                                                                                                                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
             border-radius: 3px;
             padding: 20px;
         }
@@ -212,8 +212,6 @@
                     </button>
                 </div>
             @endif
-
-
             <!-- Booking Details Card -->
             <div id="printArea" class="booking-details-card shadow-sm p-5 mx-auto print-font-size"
                 style="max-width: 550px;">
@@ -223,34 +221,34 @@
                 <!-- Transaction ID -->
                 <div class="row mb-3 print-font-size">
                     <div class="col-5 details-label">Transaction ID</div>
-                    <div class="col-7 details-value font-weight-bold">{{ $payment->payment_intent_id }}</div>
+                    <div class="col-7 details-value font-weight-bold">{{ $data['payment_intent_id'] }}</div>
                 </div>
 
                 <!-- Full Name -->
                 <div class="row mb-3 print-font-size">
                     <div class="col-5 details-label">Full Name</div>
                     <div class="col-7 details-value font-weight-bold">
-                        {{ $payment->guest->first_name }} {{ $payment->guest->last_name }}
+                        {{ $data['first_name'] }} {{ $data['last_name'] }}
                     </div>
                 </div>
 
                 <!-- Email -->
                 <div class="row mb-3 print-font-size">
                     <div class="col-5 details-label">Email</div>
-                    <div class="col-7 details-value font-weight-bold">{{ $payment->guest->email }}</div>
+                    <div class="col-7 details-value font-weight-bold">{{ $data['email'] }}</div>
                 </div>
 
                 <!-- Phone -->
                 <div class="row mb-3 print-font-size">
                     <div class="col-5 details-label">Phone</div>
-                    <div class="col-7 details-value font-weight-bold">{{ $payment->guest->mobile }}</div>
+                    <div class="col-7 details-value font-weight-bold">{{ $data['mobile'] }}</div>
                 </div>
 
                 <!-- Room -->
                 <div class="row mb-3 print-font-size">
-                    <div class="col-5 details-label">Room</div>
+                    <div class="col-5 details-label">Room Type</div>
                     <div class="col-7 details-value font-weight-bold">
-                        {{ $payment->booking->room->roomType->type_name ?? 'Room details not available' }}
+                        {{ implode(', ', $data['room_types']) }}
                     </div>
                 </div>
 
@@ -258,16 +256,20 @@
                 <div class="row mb-3 print-font-size">
                     <div class="col-5 details-label">Check In/Out</div>
                     <div class="col-7 details-value font-weight-bold">
-                        {{ date('d-m-y', strtotime($payment->booking->check_in_date ?? 'Check-in date not available')) }} →
-                        {{ date('d-m-y', strtotime($payment->booking->check_out_date ?? 'Check-out date not available')) }}
+                        {{-- {{ date('d-m-y', strtotime($payment->booking->check_in_date ?? 'Check-in date not available')) }} → --}}
+                        {{ date('d-m-y', strtotime($data['check_in_date'])) }} →
+                        {{ date('d-m-y', strtotime($data['check_out_date'])) }}
+                        {{-- {{ date('d-m-y', strtotime($payment->booking->check_out_date ?? 'Check-out date not available')) }} --}}
 
                     </div>
                 </div>
                 <div class="row mb-3 print-font-size">
                     <div class="col-5 details-label">Guests</div>
                     <div class="col-7 details-value font-weight-bold">
-                        {{ $payment->booking->total_adults ?? 'N/A' }} Adults,
-                        {{ $payment->booking->total_children ?? 'N/A' }} Children
+                        {{-- {{ $payment->booking->total_adults ?? 'N/A' }} Adults, --}}
+                        {{ $data['total_adults'] }} Adults
+                        {{-- {{ $payment->booking->total_children ?? 'N/A' }} Children --}}
+                        {{ $data['total_children'] }} Children
                     </div>
                 </div>
                 <div class="row mb-3 print-font-size">
@@ -280,7 +282,7 @@
                 <div class="row mb-3 print-font-size">
                     <div class="col-5 details-label">Total Price</div>
                     {{-- <div class="col-7 details-value">${{ number_format($payment->amount / 100, 2) }}</div> --}}
-                    <div class="col-7 details-value font-weight-bold">${{ number_format($payment->amount, 2) }}</div>
+                    <div class="col-7 details-value font-weight-bold">${{ number_format($data['amount'], 2) }}</div>
                 </div>
             </div>
             <div class="text-center mt-4">

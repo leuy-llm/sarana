@@ -119,10 +119,10 @@
 
         <!-- Body -->
         <div class="body">
-            <p>Hello <strong>{{ $guest->last_name }}</strong>,</p>
+            <p>Dear  <strong>{{ $guest->last_name }}</strong>,</p>
             <p class="mb-2">Thank you for choosing Sinaka Angkor Hotel.</p>
             <div class="reservation-details">
-                <h3 class="mt-4">Reservation Details:</h3>
+                <h3 class="mt-4">Here are the details of your reservation:</h3>
                 <table class="table table-borderless">
                     <tbody>
                         <tr>
@@ -139,20 +139,22 @@
                         </tr>
                         <tr>
                             <th>Room:</th>
-                            <td>{{ optional($booking->room)->roomType->type_name ?? 'N/A' }}</td>
+                            <td>@foreach ($rooms as $room)
+                                
+                                    <strong>Room Type:</strong> {{ $room->roomType->type_name }}<br>
+                                    {{-- <strong>Room Number:</strong> {{ $room->room_number }}<br> --}}
+                                    <strong>Room Floor:</strong> {{ $room->floor }}<br>
+                                
+                            @endforeach</td>
                         </tr>
-                        <tr>
-                            <th>Room Numer:</th>
-                            {{-- <td>{{ $booking->room->room_number }}</td> --}}
-                            <td>{{ optional($booking->room)->room_number ?? 'N/A' }}</td>
-                        </tr>
-                        <tr>
+                       
+                        {{-- <tr>
                             <th>Room Floor:</th>
                             <td>{{ optional($booking->room)->floor ?? 'N/A' }}</td>
-                        </tr>
+                        </tr> --}}
                         <tr>
                             <th>Guests:</th>
-                            <td>{{ $booking->total_adults }} Adults, {{ $booking->total_children }} Children</td>
+                            <td>{{ $booking->rooms->sum('pivot.total_adults') }} Adults, {{ $booking->rooms->sum('pivot.total_children') }} Children</td>
                         </tr>
                         <tr>
                             <th>Check In:</th>
@@ -180,7 +182,7 @@
                         </tr>
                         <tr>
                             <th>Status:</th>
-                            <td>{{ ucfirst($booking->status) }}</td>
+                            <td>{{ ucfirst($payment->status) }}</td>
                         </tr>
                         <tr>
                             <th>Transaction ID:</th>
@@ -188,7 +190,7 @@
                         </tr>
                         <tr>
                             <th>Amount:</th>
-                            <td>$ {{ $payment->amount }}</td>
+                            <td>${{ number_format($payment->amount, 2) }}</td>
                         </tr>
                     </tbody>
                 </table>

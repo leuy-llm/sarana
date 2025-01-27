@@ -57,7 +57,8 @@ class BookingStatusMail extends Mailable
             with: [
                 'booking' => $this->booking,
                 'guest' => $this->guest,
-                'payment' => $this->payment,  // Pass payment variable here
+                'payment' => $this->payment,
+                'rooms' => $this->booking->rooms, // Pass rooms to the view
             ]
         );
     }

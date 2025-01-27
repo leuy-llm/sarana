@@ -344,12 +344,12 @@
                     </div>
                     <div class="col-md-4  col-6">
                         <p><strong>Email:</strong> {{ $guestData['email'] }}</p>
-                        {{-- <p><strong>Guests:</strong> 1 Adult, 0 Children</p> --}}
+                       
                         <p><strong>Guests:</strong> {{ $adults }} Adult, {{ $children }} Children</p>
                     </div>
                     <div class="col-md-4 col-12">
                         <p><strong>Phone:</strong> {{ $guestData['mobile'] }}</p>
-                        {{-- <p><strong>Guests:</strong> 1 Adult, 0 Children</p> --}}
+                        
                         <p><strong>Check In/Out:</strong>{{ date('d-m-Y H:i A', strtotime($checkIn)) }} →
                             {{ date('d-m-Y H:i A', strtotime($checkOut)) }}</p>
                         </p>

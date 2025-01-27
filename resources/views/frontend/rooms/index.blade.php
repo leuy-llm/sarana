@@ -70,7 +70,7 @@
         }
 
         .search-header {
-            background-color: #b8c72f;
+            background-color: #750d0d;
             color: #fff;
             padding: 20px;
             border-radius: 3px 3px 0 0;
@@ -625,7 +625,7 @@
         .form-group label {
             display: block;
             margin-bottom: 5px;
-            font-weight: bold;
+            font-weight: 500;
         }
 
         .form-group input {
@@ -674,6 +674,28 @@
             }
         }
 
+        .no-rooms {
+            transition: all 0.3s ease;
+            animation: pulsate1 2s infinite;
+        }
+
+        @keyframes pulsate1 {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            }
+        }
+
         .book-now-btn {
             background: #deb666;
             color: #fff;
@@ -702,133 +724,6 @@
         </div>
     </section>
     <section id="rooms" class="rooms_wrapper">
-        {{-- <div class="container">
-            <div class="booking-form shadow">
-                <div class="row g-3 d-flex align-items-center">
-                    <div class="col-3">
-                        <label for="children" class="form-label">Check in </label>
-                        <input type="date" class="form-control rounded-0 shadow-none">
-                    </div>
-                    <div class="col-3">
-                        <label for="children" class="form-label">Check Out </label>
-                        <input type="date" class="form-control rounded-0 shadow-none" placeholder="Check in / Check out">
-                    </div>
-
-                    <div class="col-2">
-                        <label for="adults" class="form-label">Adults</label>
-                        <select name="adults" id="adults" class="form-control shadow-none select2" style="box-shadow: none;"
-                            style="" required>
-                            <option value="" disabled selected>Select adults</option>
-                            @for ($i = 1; $i <= 10; $i++)
-                                <option value="{{ $i }}">{{ $i }} Adult{{ $i > 1 ? 's' : '' }}
-                                </option>
-                            @endfor
-                        </select>
-
-                    </div>
-                    <div class="col-md-2">
-                        <label for="children" class="form-label">Children</label>
-                        <input type="number" class="form-control rounded-0 shadow-none">
-                    </div>
-                    <div class="col-2" style="margin-top: 30px;">
-                        <button class="btn btn-dark rounded-0 w-100" id="search-btn">Find room</button>
-                    </div>
-
-                </div>
-            </div>
-            {{-- <div class="booking-form shadow">
-                <div class="row g-3 d-flex align-items-center">
-                    <div class="col-3">
-                        <label for="check-in" class="form-label">Check in</label>
-                        <input type="date" class="form-control rounded-0 shadow-none" id="check-in">
-                    </div>
-                    <div class="col-3">
-                        <label for="check-out" class="form-label">Check Out</label>
-                        <input type="date" class="form-control rounded-0 shadow-none" id="check-out">
-                    </div>
-                    <div class="col-4 position-relative">
-                        <label for="guestInput" class="form-label">Guests</label>
-
-                        <!-- Guest Input Trigger -->
-                        <div class="form-control d-flex align-items-center justify-content-between rounded-0 shadow-none"
-                            id="guestInput" role="button">
-                            <span id="guests-summary">1 adult, 0 children</span>
-                            <i class="fa fa-user"></i>
-                        </div>
-
-                        <!-- Guest Modal -->
-                        <div id="guestModal" class="custom-modal d-none">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="mb-4">Guests</h5>
-
-                                    <!-- Rooms Container -->
-                                    <div id="roomsContainer">
-                                      
-                                        <div class="room" data-room="1">
-                                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <strong>Room 1</strong>
-                                                <div class="mt-1">
-                                                    <i class="bi bi-x-square remove-room" role="button" data-room="1"></i>
-                                                </div>
-                                            </div>
-
-                                            <!-- Adults Input -->
-                                            <div class="row">
-                                                <div class="col-12 col-md-12 mb-3">
-                                                    <label for="adults" class="form-label"
-                                                        style="margin-bottom: -15px;">Adults</label>
-                                                    <div class="input-group">
-                                                        <button
-                                                            class="btn btn-outline-secondary shadow-none decrease-adults rounded-0"
-                                                            type="button">-</button>
-                                                        <input type="number"
-                                                            class="form-control shadow-none rounded-0 text-center adults-input"
-                                                            style="margin-top:10px;" value="1" min="1">
-                                                        <button
-                                                            class="btn btn-outline-secondary shadow-none increase-adults rounded-0"
-                                                            type="button">+</button>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Children Input -->
-                                                <div class="col-12 col-md-12">
-                                                    <label for="children" class="form-label"
-                                                        style="margin-bottom: -15px;">Children under 12 years
-                                                        old</label>
-                                                    <div class="input-group">
-                                                        <button
-                                                            class="btn btn-outline-secondary shadow-none decrease-children rounded-0"
-                                                            type="button">-</button>
-                                                        <input type="number"
-                                                            class="form-control shadow-none rounded-0 text-center children-input"
-                                                            style="margin-top:10px;" value="0" min="0">
-                                                        <button
-                                                            class="btn btn-outline-secondary shadow-none increase-children rounded-0"
-                                                            type="button">+</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <hr class="border-2 border-danger">
-                                        </div>
-                                    </div>
-
-                                    <!-- Add Room and Done Buttons -->
-                                    <div class="mt-3 d-flex justify-content-between">
-                                        <button type="button" class="btn-add" id="addRoomBtn">+ Add a room</button>
-                                        <button type="button" class="btn-done" id="doneBtn">Done</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-2" style="margin-top: 30px;">
-                        <button class="btn btn-dark rounded-0 w-100" id="search-btn">Find room</button>
-                    </div>
-                </div>
-            </div> 
-        </div> --}}
         <div class="container-fluid p-5">
             <div class="row">
                 <div class="col-sm-12 section-title text-center mb-5">
@@ -858,60 +753,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0 rounded">
+                <div class="col-lg-3 p-3 col-md-12 mb-4 mb-lg-0 rounded">
                     <div class="search-box shadow">
                         <div class="search-header">
-                            <i class="fas fa-search"></i>Modify Filter
+                            Modify Filter
                         </div>
-                        {{-- <form id="filter-form" action="{{ route('filterRooms')}}" method="GET">
-                            <div class="px-3 pt-3">
-                                <label for="checkin" class="form-label">Check In</label>
-                                <input type="date" name="check_in" id="checkin" class="form-control shadow-none me-1"
-                                    required>
-                            </div>
-                            <div class="px-3 pt-3">
-                                <label for="checkout" class="form-label">Check Out</label>
-                                <input type="date" name="check_out" id="checkout" class="form-control shadow-none me-1"
-                                    required>
-                            </div>
-                            <div class="footer-label p-3">
-                                <div class="d-flex justify-content-center align-items-center gap-4">
-                                    <div>
-                                        <label for="adults" class="form-label">Adults</label>
-                                        <select name="adults" id="adults"
-                                            class="form-select select2 form-control shadow-none" required>
-                                            <option value="" disabled selected>Select adults</option>
-                                            @for ($i = 1; $i <= 10; $i++)
-                                                <option value="{{ $i }}">{{ $i }}
-                                                    Adult{{ $i > 1 ? 's' : '' }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="ml-3">
-                                        <label for="children" class="form-label">Children</label>
-                                        <select name="children" id="children"
-                                            class="form-select form-control shadow-none me-1" required>
-                                            <option value="" disabled selected>Select children</option>
-                                            @for ($i = 1; $i <= 10; $i++)
-                                                <option value="{{ $i }}">{{ $i }}
-                                                    Children{{ $i > 1 ? 's' : '' }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="px-3 pt-3">
-                                <label for="price-range" class="form-label">Price Range</label>
-                                <div id="price-range-slider" style="margin: 20px 0;"></div>
-                                <p class="text-center mt-2">
-                                    <span id="price-min">50</span> - <span id="price-max">5000</span>
-                                </p>
-                            </div>
-                            <div class="px-3 mb-3">
-                                <button type="button" id="search-btn" class="btn btn-primary mb-3 shadow-none py-2 w-100"
-                                    style="border-radius: 0;">Apply Filter</button>
-                            </div>
-                        </form> --}}
                         {{-- <form id="filter-form" action="{{ route('filterRooms') }}" method="GET">
                             <div class="px-3 pt-3">
                                 <label for="checkin" class="form-label">Check In</label>
@@ -927,7 +773,8 @@
                                 <div class="d-flex justify-content-center align-items-center gap-4">
                                     <div>
                                         <label for="adults" class="form-label">Adults</label>
-                                        <select name="adults" id="adults" class="form-select shadow-none" required>
+                                        <select name="adults" id="adults"
+                                            class="form-select select2 adults form-control shadow-none" required>
                                             <option value="" disabled selected>Select adults</option>
                                             @for ($i = 1; $i <= 10; $i++)
                                                 <option value="{{ $i }}">{{ $i }}
@@ -937,65 +784,12 @@
                                     </div>
                                     <div class="ml-3">
                                         <label for="children" class="form-label">Children</label>
-                                        <select name="children" id="children" class="form-select shadow-none me-1"
-                                            required>
+                                        <select name="children" id="children"
+                                            class="form-select form-control select2 children shadow-none me-1" required>
                                             <option value="" disabled selected>Select children</option>
-                                            @for ($i = 0; $i <= 10; $i++)
-                                                <option value="{{ $i }}">{{ $i }}
-                                                    Child{{ $i > 1 ? 'ren' : '' }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="px-3 pt-3">
-                                <label for="price-range" class="form-label">Price Range</label>
-                                <div id="price-range-slider" style="margin: 20px 0;"></div>
-                                <input type="hidden" name="price_min" id="price_min_input" value="50">
-                                <input type="hidden" name="price_max" id="price_max_input" value="5000">
-                                <p class="text-center mt-2">
-                                    <span id="price-min">50</span> - <span id="price-max">5000</span>
-                                </p>
-                            </div>
-                            <div class="px-3 mb-3">
-                                <button type="submit" class="btn btn-primary mb-3 shadow-none py-2 w-100"
-                                    style="border-radius: 0;">
-                                    Apply Filter
-                                </button>
-                            </div>
-                        </form> --}}
-
-                        <form id="filter-form" action="{{ route('filterRooms') }}" method="GET">
-                            <div class="px-3 pt-3">
-                                <label for="checkin" class="form-label">Check In</label>
-                                <input type="date" name="check_in" id="checkin" class="form-control shadow-none me-1"
-                                    required>
-                            </div>
-                            <div class="px-3 pt-3">
-                                <label for="checkout" class="form-label">Check Out</label>
-                                <input type="date" name="check_out" id="checkout" class="form-control shadow-none me-1"
-                                    required>
-                            </div>
-                            <div class="footer-label p-3">
-                                <div class="d-flex justify-content-center align-items-center gap-4">
-                                    <div>
-                                        <label for="adults" class="form-label">Adults</label>
-                                        <select name="adults" id="adults" class="form-select shadow-none" required>
-                                            <option value="" disabled selected>Select adults</option>
                                             @for ($i = 1; $i <= 10; $i++)
                                                 <option value="{{ $i }}">{{ $i }}
-                                                    Adult{{ $i > 1 ? 's' : '' }}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="ml-3">
-                                        <label for="children" class="form-label">Children</label>
-                                        <select name="children" id="children" class="form-select shadow-none me-1"
-                                            required>
-                                            <option value="" disabled selected>Select children</option>
-                                            @for ($i = 0; $i <= 10; $i++)
-                                                <option value="{{ $i }}">{{ $i }}
-                                                    Child{{ $i > 1 ? 'ren' : '' }}</option>
+                                                    Child{{ $i > 1 ? 's' : '' }}</option>
                                             @endfor
                                         </select>
                                     </div>
@@ -1011,7 +805,7 @@
                                 </p>
                             </div>
                             <div class="px-3">
-                                <button type="submit" class="btn btn-primary mb-3 px-3 w-100 shadow-none py-3 "
+                                <button type="submit" id="search-btn" class="btn btn-primary mb-3 px-3 w-100 shadow-none py-3 "
                                     style="border-radius: 0;">
                                     Apply Filter
                                 </button>
@@ -1023,7 +817,99 @@
                                     Reset Filter
                                 </button>
                             </div>
+                        </form> --}}
+                        <form id="filter-form" action="{{ route('filterRooms') }}" method="GET">
+                            <div class="px-3 pt-3">
+                                <label for="checkin" class="form-label">Check In</label>
+                                <input type="date" name="check_in" id="checkin"
+                                    class="form-control rounded-0 p-2 shadow-none me-1" value="{{ request('check_in') }}"
+                                    required>
+                            </div>
+                            <div class="px-3 pt-3">
+                                <label for="checkout" class="form-label">Check Out</label>
+                                <input type="date" name="check_out" id="checkout"
+                                    class="form-control rounded-0 p-2 shadow-none me-1" value="{{ request('check_out') }}"
+                                    required>
+                            </div>
+                            {{-- <div class="footer-label p-3">
+                                <div class="d-flex justify-content-center align-items-center gap-4">
+                                    <div>
+                                        <label for="adults" class="form-label">Adults</label>
+                                        <select name="adults" id="adults" class="form-select select2 adults shadow-none" required>
+                                            <option value="" disabled>Select adults</option>
+                                            @for ($i = 1; $i <= 10; $i++)
+                                                <option value="{{ $i }}" {{ request('adults') == $i ? 'selected' : '' }}>
+                                                    {{ $i }} Adult{{ $i > 1 ? 's' : '' }}
+                                                </option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="ml-3">
+                                        <label for="children" class="form-label">Children</label>
+                                        <select name="children" id="children" class="form-select select2 shadow-none children shadow-none" required>
+                                            <option value="" disabled>Select children</option>
+                                            @for ($i = 0; $i <= 10; $i++)
+                                                <option value="{{ $i }}" {{ request('children') == $i ? 'selected' : '' }}>
+                                                    {{ $i }} Child{{ $i > 1 ? 'ren' : '' }}
+                                                </option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> --}}
+                            <div class="footer-label p-3">
+                                <div class="d-flex justify-content-center align-items-center gap-4">
+                                    <div>
+                                        <label for="adults" class="form-label">Adults</label>
+                                        <select name="adults" id="adults"
+                                            class="form-select select2 form-control adults shadow-none" required>
+                                            <option value="" disabled>Select adults</option>
+                                            @for ($i = 1; $i <= 10; $i++)
+                                                <option value="{{ $i }}"
+                                                    {{ request('adults') == $i ? 'selected' : '' }}>
+                                                    {{ $i }} Adult{{ $i > 1 ? 's' : '' }}
+                                                </option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                    <div class="ml-3">
+                                        <label for="children" class="form-label">Children</label>
+                                        <select name="children" id="children"
+                                            class="form-select select2 form-control shadow-none children shadow-none"
+                                            required>
+                                            <option value="" disabled>Select children</option>
+                                            @for ($i = 0; $i <= 10; $i++)
+                                                <option value="{{ $i }}"
+                                                    {{ request('children') == $i ? 'selected' : '' }}>
+                                                    {{ $i }} Child{{ $i > 1 ? 'ren' : '' }}
+                                                </option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-3 pt-3">
+                                <label for="price-range" class="form-label">Price Range</label>
+                                <div id="price-range-slider" style="margin: 20px 0;"></div>
+                                <input type="hidden" name="price_min" id="price_min_input"
+                                    value="{{ request('price_min', 50) }}">
+                                <input type="hidden" name="price_max" id="price_max_input"
+                                    value="{{ request('price_max', 5000) }}">
+                                <p class="text-center mt-1">
+                                    <span id="price-min">{{ request('price_min', 50) }}</span> -
+                                    <span id="price-max">{{ request('price_max', 5000) }}</span>
+                                </p>
+                            </div>
+                            <div class="px-3">
+                                <button type="submit" id="search-btn"
+                                    class="btn shadow-none  btn-primary mb-3 w-100 py-3">Apply Filter</button>
+                            </div>
+                            <div class="px-3">
+                                <button type="button" id="reset-btn"
+                                    class="btn btn-secondary shadow-none mb-3 w-100 py-3">Reset Filter</button>
+                            </div>
                         </form>
+
                     </div>
                 </div>
                 {{-- <div class="col-lg-9 col-md-12">
@@ -1236,8 +1122,10 @@
                 <div class="col-lg-9 col-md-12">
                     <div id="rooms-container" class="container py-4">
                         @if ($rooms->isEmpty())
-                            <div class="col-12 text-center">
-                                <p>No rooms available for the selected criteria.</p>
+                            <div class="alert alert-warning no-rooms text-center"
+                                style="font-family: 'Jost', serif;font-size: 16px;">
+                                <h3> No rooms available for the selected criteria. Please adjust your search and try again.
+                                </h3>
                             </div>
                         @else
                             @foreach ($rooms as $room)
@@ -1302,12 +1190,41 @@
                                             </a>
 
                                             <div class="form-check mb-2">
+                                                {{-- <input type="checkbox" class="form-check-input"
+                                                    id="room_{{ $room->id }}" name="rooms[]"
+                                                    value="{{ $room->id }}"> --}}
                                                 <input type="checkbox" class="form-check-input"
                                                     id="room_{{ $room->id }}" name="rooms[]"
-                                                    value="{{ $room->id }}">
+                                                    value="{{ $room->id }}"
+                                                    data-max-person="{{ $room->max_person }}">
+
                                                 <label class="form-check-label" for="room_{{ $room->id }}">Select
                                                     Room</label>
                                             </div>
+
+
+                                            {{-- <div class="adultchild">
+                                                <input type="text" placeholder="Enter number of adults" class="mb-2 shadow-none rounded-0 form-control form-control-sm"
+                                                    id="adults_room_{{ $room->id }}" placeholder="Enter number of adults" name="adults[{{ $room->id }}]" oninput="this.value = this.value.replace(/[^0-9]/g, '')"  min="1" required>
+                                                <input type="text" placeholder="Enter number of children" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="shadow-none rounded-0 form-control form-control-sm"
+                                                    id="children_room_{{ $room->id }}" placeholder="Enter number of child" name="children[{{ $room->id }}]" min="0"  required>
+                                            </div> --}}
+                                            <div class="adultchild">
+                                                <input type="text" placeholder="Enter number of adults"
+                                                    class="mb-2 shadow-none rounded-0 form-control form-control-sm"
+                                                    id="adults_room_{{ $room->id }}"
+                                                    name="adults[{{ $room->id }}]"
+                                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                                    min="1" required>
+                                                <input type="text" placeholder="Enter number of children"
+                                                    class="shadow-none rounded-0 form-control form-control-sm"
+                                                    id="children_room_{{ $room->id }}"
+                                                    name="children[{{ $room->id }}]"
+                                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                                    min="0" required>
+                                                {{-- <small class="form-text text-muted">Max guests: {{ $room->max_person }}</small> --}}
+                                            </div>
+
 
                                         </div>
                                     </div>
@@ -1351,54 +1268,18 @@
         </div>
     </div>
 
-    {{-- <div id="customModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
-            <h2>Select Guests for the Room</h2>
-            <div class="mb-2">
-                <label for="adults_modal" class="form-label">Adults</label>
-                <input type="number" class="form-control" id="adults_modal" min="1" value="1">
-            </div>
-            <div class="mb-2">
-                <label for="children_modal" class="form-label">Children</label>
-                <input type="number" class="form-control" id="children_modal" min="0" value="0">
-            </div>
-            <button id="confirmSelection" class="btn-confirm">Confirm</button>
-        </div>
-    </div> --}}
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="text-white">Guests for the Room</h2>
-
-            </div>
-            <div class="modal-body">
-                <div class="room-section">
-                    <div class="form-group">
-                        <label for="room1Adults">Adults</label>
-                        <input type="number" id="room1Adults" name="room1Adults" min="1" value="1"
-                            required>
-                    </div>
-                    <div class="form-group">
-                        <label for="room1Children">Children</label>
-                        <input type="number" id="room1Children" name="room1Children" min="0" value="0"
-                            required>
-                    </div>
-                </div>
-                <button id="confirmSelection"
-                    style="background-color: #deb666; color: white; border: none; padding: 10px 20px; width: 100%; font-size: 16px; cursor: pointer; border-radius: 3px; transition: all 0.3s ease;"
-                    onmouseover="this.style.backgroundColor='#c9a14d'"
-                    onmouseout="this.style.backgroundColor='#deb666'">Confirm</button>
-            </div>
-        </div>
-    </div>
 @endsection
 @section('script')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        $('.select2').select2({
+        $('.select2.adults').select2({
             theme: 'bootstrap-5',
             placeholder: "Select adults",
+            allowClear: true
+        });
+        $('.select2.children').select2({
+            theme: 'bootstrap-5',
+            placeholder: "Select children",
             allowClear: true
         });
         $('form').on('submit', function(e) {
@@ -1607,7 +1488,6 @@
         // });
 
         $(document).ready(function() {
-
             // Function to attach event listeners to "Book Now" buttons
             function attachBookNowButtonListeners() {
                 var isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
@@ -1649,26 +1529,20 @@
             // Disable "Check-out" field initially
             $('#checkout').prop('disabled', true);
 
-            // Update "Check-out" min date and enable it based on "Check-in" selection
+            // Enable check-out date based on check-in date selection
             $('#checkin').on('change', function() {
                 const checkinDate = $(this).val();
-
                 if (checkinDate) {
-                    $('#checkout')
-                        .attr('min', checkinDate) // Set min date
-                        .prop('disabled', false); // Enable the field
+                    $('#checkout').attr('min', checkinDate).prop('disabled', false);
                 } else {
-                    $('#checkout')
-                        .prop('disabled', true) // Disable the field
-                        .val(''); // Clear the value
+                    $('#checkout').prop('disabled', true).val('');
                 }
             });
 
-            // Handle form submission
+            // Form validation and submission
             $('#search-btn').on('click', function(e) {
                 e.preventDefault();
 
-                // Validation
                 let isValid = true;
                 const fieldsToValidate = ['#checkin', '#checkout', '#adults', '#children'];
 
@@ -1683,65 +1557,43 @@
                 });
 
                 if (!isValid) {
-                    // Focus on the first invalid field
                     $(fieldsToValidate.find((field) => !$(field).val())).focus();
                     return;
                 }
 
-                // Pass the price range to the form
+                // Update hidden inputs with price range values before submitting
                 const priceValues = priceSlider.noUiSlider.get();
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'price_min',
-                    value: Math.round(priceValues[0])
-                }).appendTo('#filter-form');
+                $('#price_min_input').val(Math.round(priceValues[0]));
+                $('#price_max_input').val(Math.round(priceValues[1]));
 
-                $('<input>').attr({
-                    type: 'hidden',
-                    name: 'price_max',
-                    value: Math.round(priceValues[1])
-                }).appendTo('#filter-form');
-
-                // fetchRooms("{{ route('filterRooms') }}");
+                $('#filter-form').submit();
             });
 
-            // Handle immediate removal of the red border on input change
+            // Handle immediate removal of red border on input change
             $('#filter-form').on('input change', 'input, select', function() {
                 if ($(this).val()) {
                     $(this).removeClass('border-red');
                 }
             });
 
-            // Handle pagination link clicks
-            $(document).on('click', '.pagination-links a', function(e) {
-                e.preventDefault();
-                const url = $(this).attr('href');
-                // fetchRooms(url);
-            });
-
-            // Initialize the noUiSlider
+            // Initialize price range slider
             const priceSlider = document.getElementById('price-range-slider');
             noUiSlider.create(priceSlider, {
-                start: [50, 1000],
+                start: [parseInt($('#price_min_input').val()), parseInt($('#price_max_input').val())],
                 connect: true,
                 range: {
-                    min: 0,
-                    max: 2000
+                    min: 50,
+                    max: 5000
                 },
                 step: 50,
                 tooltips: [true, true]
             });
 
-            const priceMin = document.getElementById('price-min');
-            const priceMax = document.getElementById('price-max');
-
-            priceSlider.noUiSlider.on('update', function(values, handle) {
-                if (handle === 0) {
-                    priceMin.textContent = Math.round(values[0]);
-                } else {
-                    priceMax.textContent = Math.round(values[1]);
-                }
+            priceSlider.noUiSlider.on('update', function(values) {
+                $('#price-min').text(Math.round(values[0]));
+                $('#price-max').text(Math.round(values[1]));
             });
+
         });
 
         //Select Date 
@@ -1771,10 +1623,18 @@
             const roomCheckboxes = document.querySelectorAll('input[name="rooms[]"]'); // Select all room checkboxes
             const bookingDateBtns = document.querySelectorAll('.booking-date-btn');
 
+
             // Initially hide all room checkboxes before filter
             roomCheckboxes.forEach(checkbox => {
                 checkbox.closest('.form-check').style.display = 'none'; // Hide the checkbox wrapper
             });
+
+            const adultchild = document.querySelectorAll('.adultchild');
+
+            // Check if URL has query params (meaning the filter has been applied)
+            adultchild.forEach(field => {
+                field.closest('.adultchild').style.display = 'none';
+            })
 
             // Check if URL has query params (meaning the filter has been applied)
             if (window.location.search.includes('check_in') && window.location.search.includes('check_out')) {
@@ -1783,10 +1643,17 @@
                     checkbox.closest('.form-check').style.display = 'block'; // Show the checkbox wrapper
                 });
 
+                // Show "Select Booking Date" buttonsad
+                adultchild.forEach(field => {
+                    field.closest('.adultchild').style.display = 'block';
+                })
+
+
                 // Hide "Select Booking Date" buttons
                 bookingDateBtns.forEach(btn => {
                     btn.style.display = 'none'; // Hide all "Select Booking Date" buttons
                 });
+                // Show adult/child fields
             }
 
             // Handle filter form submission (e.g., after user selects filter options)
@@ -1818,10 +1685,6 @@
                 });
             }
         });
-
-
-
-
         //Reset filter
         document.addEventListener('DOMContentLoaded', function() {
             const resetBtn = document.getElementById('reset-btn');
@@ -1845,6 +1708,7 @@
         // document.addEventListener("DOMContentLoaded", function() {
         //     const proceedButton = document.getElementById('proceedToBooking');
         //     const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
+        //     const maxRooms = 4;
 
         //     proceedButton.addEventListener('click', function(event) {
         //         console.log("Proceed to Booking button clicked"); // Add this line
@@ -1857,11 +1721,19 @@
         //                 selectedRooms.push(checkbox.value);
         //             }
         //         });
+
+        //         // If no rooms or more than the allowed rooms are selected, show an alert and stop further action
+        //         if (selectedRooms.length === 0) {
+        //             alert('Please select at least one room.');
+        //             return;
+        //         } else if (selectedRooms.length > maxRooms) {
+        //             alert(`You can select up to ${maxRooms} rooms only.`);
+        //             return;
+        //         }
+
         //         // Prepare query parameters
         //         const checkIn = "{{ $checkIn }}";
         //         const checkOut = "{{ $checkOut }}";
-        //         const adults = "{{ $adults }}";
-        //         const children = "{{ $children }}";
 
         //         // Log the parameters to ensure correctness
         //         console.log('Selected rooms:', selectedRooms);
@@ -1871,7 +1743,8 @@
         //         console.log('Children:', children);
 
         //         // Generate the URL with selected values
-        //         const bookingUrl = `{{ route('books.create') }}?rooms=${selectedRooms.join(',')}&check_in=${checkIn}&check_out=${checkOut}&adults=${adults}&children=${children}`;
+        //         const bookingUrl =
+        //             `{{ route('books.create') }}?rooms=${selectedRooms.join(',')}&check_in=${checkIn}&check_out=${checkOut}&adults=${adults}&children=${children}`;
 
         //         // Log the final URL to ensure it's correct
         //         console.log('Booking URL:', bookingUrl);
@@ -1879,12 +1752,8 @@
         //         // Redirect to booking page
         //         window.location.href = bookingUrl;
         //     });
-        // });
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
-        //     const proceedButton = document.getElementById('proceedToBooking');
-        //     const maxRooms = 3;
 
+        //     // Add event listener to checkboxes (trigger modal)
         //     checkboxes.forEach(checkbox => {
         //         checkbox.addEventListener('change', function() {
         //             const selectedRooms = document.querySelectorAll(
@@ -1898,11 +1767,27 @@
         //         });
         //     });
 
-        //     proceedButton.addEventListener('click', function(event) {
+
+        // });
+
+        //         document.addEventListener("DOMContentLoaded", function () {
+        //     const proceedButton = document.getElementById('proceedToBooking');
+        //     const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
+        //     const maxRooms = 4;
+
+        //     proceedButton.addEventListener('click', function (event) {
+        //         event.preventDefault();
+
         //         let selectedRooms = [];
+        //         let adults = {};
+        //         let children = {};
+
         //         checkboxes.forEach(checkbox => {
         //             if (checkbox.checked) {
-        //                 selectedRooms.push(checkbox.value);
+        //                 const roomId = checkbox.value;
+        //                 selectedRooms.push(roomId);
+        //                 adults[roomId] = document.getElementById(`adults_room_${roomId}`).value || 0;
+        //                 children[roomId] = document.getElementById(`children_room_${roomId}`).value || 0;
         //             }
         //         });
 
@@ -1914,198 +1799,164 @@
         //             return;
         //         }
 
-        //         // Collect data for each selected room
-        //         let roomData = {};
-        //         selectedRooms.forEach(roomId => {
-        //             roomData[roomId] = {
-        //                 adults: document.getElementById(`adults_${roomId}`).value,
-        //                 children: document.getElementById(`children_${roomId}`).value
-        //             };
-        //         });
-
-        //         // Proceed to booking with selected rooms and guest info
         //         const checkIn = "{{ $checkIn }}";
         //         const checkOut = "{{ $checkOut }}";
-        //         const adults = "{{ $adults }}";
-        //         const children = "{{ $children }}";
 
-        //         const bookingUrl =
-        //             `{{ route('books.create') }}?rooms=${selectedRooms.join(',')}&check_in=${checkIn}&check_out=${checkOut}&adults=${adults}&children=${children}&room_data=${JSON.stringify(roomData)}`;
+        //         const bookingUrl = `{{ route('books.create') }}?rooms=${selectedRooms.join(',')}&check_in=${checkIn}&check_out=${checkOut}&adults=${encodeURIComponent(JSON.stringify(adults))}&children=${encodeURIComponent(JSON.stringify(children))}`;
+        //         console.log('Booking URL:', bookingUrl);
 
         //         window.location.href = bookingUrl;
         //     });
         // });
 
-        // // Get the modal element
-        // const modal = document.getElementById('myModal');
-        // // Get the confirm button
-        // const confirmBtn = document.getElementById('confirmSelection');
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     const proceedButton = document.getElementById("proceedToBooking");
+        //     const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
+        //     const maxRooms = 4;
 
-        // // Get checkboxes or any element you want to trigger the modal
-        // const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
+        //     proceedButton.addEventListener("click", function (event) {
+        //         event.preventDefault();
 
-        // // Show the modal with fade-in and scale-up effect
-        // function showModal() {
-        //     modal.classList.add('open');
-        //     // Disable background scrolling when modal is open
-        //     document.body.style.overflow = 'hidden';
-        // }
+        //         let selectedRooms = [];
+        //         let adults = {};
+        //         let children = {};
 
-        // // Close the modal with fade-out effect
-        // function closeModal() {
-        //     modal.classList.add('closing');
-        //     // Wait for the fade-out animation to finish before hiding the modal
-        //     setTimeout(() => {
-        //         modal.classList.remove('open', 'closing');
-        //         // Re-enable background scrolling
-        //         document.body.style.overflow = 'auto';
-        //     }, 500); // Match the duration of fade-out animation (0.5s)
-        // }
+        //         let validationErrors = false;
 
-        // // Add event listener to checkboxes (trigger modal)
-        // checkboxes.forEach(checkbox => {
-        //     checkbox.addEventListener('change', function() {
-        //         if (this.checked) {
-        //             // Show modal when a room is selected
-        //             showModal();
+        //         checkboxes.forEach((checkbox) => {
+        //             if (checkbox.checked) {
+        //                 const roomId = checkbox.value;
+        //                 const maxPerson = parseInt(checkbox.dataset.maxPerson, 10); // Get max_person from dataset
+        //                 const adultCount = parseInt(
+        //                     document.getElementById(`adults_room_${roomId}`).value || "0",
+        //                     10
+        //                 );
+        //                 const childCount = parseInt(
+        //                     document.getElementById(`children_room_${roomId}`).value || "0",
+        //                     10
+        //                 );
+
+        //                 if (adultCount === 0 && childCount === 0) {
+        //                     // alert(`Please enter adults or children for Room ID: ${roomId}.`);
+        //                     alert(`Please enter adults or children`);
+        //                     validationErrors = true;
+        //                 } else if (adultCount + childCount > maxPerson) {
+        //                     alert(
+        //                         `The total number of guests exceeds the limit (${maxPerson})`
+        //                     );
+        //                     validationErrors = true;
+        //                 }
+
+        //                 if (validationErrors) {
+        //                     document.getElementById(`adults_room_${roomId}`).focus();
+        //                     return; // Stop further validation
+        //                 }
+
+        //                 selectedRooms.push(roomId);
+        //                 adults[roomId] = adultCount;
+        //                 children[roomId] = childCount;
+        //             }
+        //         });
+
+        //         if (validationErrors) {
+        //             return; // Stop form submission if validation fails
         //         }
+
+        //         if (selectedRooms.length === 0) {
+        //             alert("Please select at least one room.");
+        //             return;
+        //         } else if (selectedRooms.length > maxRooms) {
+        //             alert(`You can select up to ${maxRooms} rooms only.`);
+        //             return;
+        //         }
+
+        //         const checkIn = "{{ $checkIn }}";
+        //         const checkOut = "{{ $checkOut }}";
+
+        //         const bookingUrl = `{{ route('books.create') }}?rooms=${selectedRooms.join(
+    //             ","
+    //         )}&check_in=${checkIn}&check_out=${checkOut}&adults=${encodeURIComponent(
+    //             JSON.stringify(adults)
+    //         )}&children=${encodeURIComponent(JSON.stringify(children))}`;
+        //         console.log("Booking URL:", bookingUrl);
+
+        //         window.location.href = bookingUrl;
         //     });
         // });
 
-        // // Disable the close button and the ability to click outside the modal until "Confirm" is clicked
-        // modal.addEventListener('click', function(event) {
-        //     if (event.target === modal) {
-        //         // Prevent modal from closing when clicking outside
-        //         event.stopImmediatePropagation();
-        //     }
-        // });
-
-        // // Handle the confirm button click (add your booking logic here)
-        // confirmBtn.addEventListener('click', function() {
-        //     const adults = document.getElementById('room1Adults').value;
-        //     const children = document.getElementById('room1Children').value;
-        //     console.log('Adults:', adults);
-        //     console.log('Children:', children);
-
-        //     // Close the modal after confirming selection
-        //     closeModal();
-        // });
-
         document.addEventListener("DOMContentLoaded", function() {
-            const proceedButton = document.getElementById('proceedToBooking');
+            const proceedButton = document.getElementById("proceedToBooking");
             const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
-            const maxRooms = 3;
+            const maxRooms = 4;
 
-            proceedButton.addEventListener('click', function(event) {
-                console.log("Proceed to Booking button clicked"); // Add this line
-                event.preventDefault(); // Prevent default navigation
+            proceedButton.addEventListener("click", function(event) {
+                event.preventDefault();
 
-                // Collect selected room IDs
                 let selectedRooms = [];
-                checkboxes.forEach(checkbox => {
+                let adults = {};
+                let children = {};
+
+                let validationErrors = false;
+
+                checkboxes.forEach((checkbox) => {
                     if (checkbox.checked) {
-                        selectedRooms.push(checkbox.value);
+                        const roomId = checkbox.value;
+                        const maxPerson = parseInt(checkbox.dataset.maxPerson,
+                        10); // Get max_person from dataset
+                        const adultCount = parseInt(
+                            document.getElementById(`adults_room_${roomId}`).value || "0",
+                            10
+                        );
+                        const childCount = parseInt(
+                            document.getElementById(`children_room_${roomId}`).value || "0",
+                            10
+                        );
+
+                        // Validate both adults and children must be entered
+                        if (adultCount === 0 || childCount === 0) {
+                            alert(`Please enter both adults and children`);
+                            validationErrors = true;
+                        } else if (adultCount + childCount > maxPerson) {
+                            alert(
+                                `The total number of guests exceeds the limit (${maxPerson}).`
+                            );
+                            validationErrors = true;
+                        }
+
+                        if (validationErrors) {
+                            document.getElementById(`adults_room_${roomId}`).focus();
+                            return; // Stop further validation
+                        }
+
+                        selectedRooms.push(roomId);
+                        adults[roomId] = adultCount;
+                        children[roomId] = childCount;
                     }
                 });
 
-                // If no rooms or more than the allowed rooms are selected, show an alert and stop further action
+                if (validationErrors) {
+                    return; // Stop form submission if validation fails
+                }
+
                 if (selectedRooms.length === 0) {
-                    alert('Please select at least one room.');
+                    alert("Please select at least one room.");
                     return;
                 } else if (selectedRooms.length > maxRooms) {
                     alert(`You can select up to ${maxRooms} rooms only.`);
                     return;
                 }
 
-                // Prepare query parameters
                 const checkIn = "{{ $checkIn }}";
                 const checkOut = "{{ $checkOut }}";
-                const adults = "{{ $adults }}";
-                const children = "{{ $children }}";
 
-                // Log the parameters to ensure correctness
-                console.log('Selected rooms:', selectedRooms);
-                console.log('Check-in:', checkIn);
-                console.log('Check-out:', checkOut);
-                console.log('Adults:', adults);
-                console.log('Children:', children);
+                const bookingUrl = `{{ route('books.create') }}?rooms=${selectedRooms.join(
+            ","
+        )}&check_in=${checkIn}&check_out=${checkOut}&adults=${encodeURIComponent(
+            JSON.stringify(adults)
+        )}&children=${encodeURIComponent(JSON.stringify(children))}`;
+                console.log("Booking URL:", bookingUrl);
 
-                // Generate the URL with selected values
-                const bookingUrl =
-                    `{{ route('books.create') }}?rooms=${selectedRooms.join(',')}&check_in=${checkIn}&check_out=${checkOut}&adults=${adults}&children=${children}`;
-
-                // Log the final URL to ensure it's correct
-                console.log('Booking URL:', bookingUrl);
-
-                // Redirect to booking page
                 window.location.href = bookingUrl;
-            });
-
-            // Add event listener to checkboxes (trigger modal)
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    const selectedRooms = document.querySelectorAll(
-                        'input[name="rooms[]"]:checked');
-
-                    // If more than 3 rooms are selected, show an alert and uncheck the last selected room
-                    if (selectedRooms.length > maxRooms) {
-                        alert(`You can select up to ${maxRooms} rooms only.`);
-                        checkbox.checked = false; // Uncheck the last selected room
-                    }
-                });
-            });
-
-            // Get the modal element
-            const modal = document.getElementById('myModal');
-            // Get the confirm button
-            const confirmBtn = document.getElementById('confirmSelection');
-
-            // Show the modal with fade-in and scale-up effect
-            function showModal() {
-                modal.classList.add('open');
-                // Disable background scrolling when modal is open
-                document.body.style.overflow = 'hidden';
-            }
-
-            // Close the modal with fade-out effect
-            function closeModal() {
-                modal.classList.add('closing');
-                // Wait for the fade-out animation to finish before hiding the modal
-                setTimeout(() => {
-                    modal.classList.remove('open', 'closing');
-                    // Re-enable background scrolling
-                    document.body.style.overflow = 'auto';
-                }, 500); // Match the duration of fade-out animation (0.5s)
-            }
-
-            // Add event listener to checkboxes (trigger modal)
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    if (this.checked && document.querySelectorAll('input[name="rooms[]"]:checked')
-                        .length <= maxRooms) {
-                        // Show modal when a room is selected and not exceeding max limit
-                        showModal();
-                    }
-                });
-            });
-
-            // Disable the close button and the ability to click outside the modal until "Confirm" is clicked
-            modal.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    // Prevent modal from closing when clicking outside
-                    event.stopImmediatePropagation();
-                }
-            });
-
-            // Handle the confirm button click (add your booking logic here)
-            confirmBtn.addEventListener('click', function() {
-                const adults = document.getElementById('room1Adults').value;
-                const children = document.getElementById('room1Children').value;
-                console.log('Adults:', adults);
-                console.log('Children:', children);
-
-                // Close the modal after confirming selection
-                closeModal();
             });
         });
     </script>

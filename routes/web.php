@@ -89,7 +89,7 @@ Route::get('/reservation/skip-payment/{id}/{totalAmount}', [ReservationControlle
 Route::get('books/create', [HomeController::class, 'createBooking'])->name('books.create');
 
 Route::get('booking/{room}', [BookingController::class, 'show'])->name('booking.show');
-Route::get('checkout', [HomeController::class, 'checkout'])->name('checkout.index');
+// Route::get('checkout', [HomeController::class, 'checkout'])->name('checkout.index');
 
 Route::get('/rooms/available', [BookingCalender::class, 'showAvailableRooms'])->name('rooms.available');
 Route::post('/booking/process', [BookingCalender::class, 'processReservation'])->name('booking.process');
@@ -442,3 +442,11 @@ Route::get('/booking', [HomeController::class, 'bookingPage'])->name('booking.pa
 //         return view('dashboard');
 //     })->name('dashboard');
 // });
+
+Route::post('/proceed-to-checkout', [BookingController::class, 'proceedToCheckout'])->name('proceedToCheckout');
+Route::get('/checkout/{booking_id}', [PaymentController::class, 'index'])->name('checkout');
+Route::post('/stripe/process', [PaymentController::class, 'process'])->name('stripe.process');
+
+Route::post('/stripe/checkout', [PaymentController::class, 'checkout'])->name('stripe.checkout');
+Route::get('/stripe/success', [PaymentController::class, 'success'])->name('stripe.success');
+Route::get('/stripe/cancel', [PaymentController::class, 'cancel'])->name('stripe.cancel');
