@@ -58,7 +58,7 @@ class HomeController extends Controller
 
     public function rooms(Request $request)
     {
-        $data = "Room";
+        $data = "Reservation Page";
         $settings = DB::table('settings')->get();
         $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
         $banner = Banner::where('page_name', 'rooms')->first();
@@ -75,7 +75,7 @@ class HomeController extends Controller
         $orderBy = $request->get('order_by', 'desc');
 
         // $query->orderBy($sortBy, $orderBy);
-        $query->with(['images', 'roomType']);
+        $query->with(['images', 'roomType', 'facilities']);
 
         $rooms = $query->paginate(10); // Adjust per page as needed for testing
         $rooms->appends($request->all()); // Append query parameters to pagination links
@@ -152,12 +152,9 @@ class HomeController extends Controller
         return view('frontend.rooms.room', compact('rooms', 'data', 'banner', 'contact', 'settings', 'roomTypes', 'checkIn', 'checkOut', 'adults', 'children'));
     }
 
-
-
-
     public function food()
     {
-        $data = "Food & Drinks";
+        $data = "Food & Drinks Page";
         $settings = DB::table('settings')->get();
         $contact = DB::table('contact_details')->get();
         $banner = Banner::where('page_name', 'food')->first();
@@ -424,7 +421,7 @@ class HomeController extends Controller
 
     public function Roomfilter(Request $request)
     {
-        $data = "Room";
+        $data = "Reservation";
         $checkIn = $request->input('check_in');
         $checkOut = $request->input('check_out');
         $adults = (int) $request->input('adults', 0);
@@ -626,7 +623,7 @@ class HomeController extends Controller
 
     public function contact()
     {
-        $data = "Contact";
+        $data = "Contact Page";
         $settings = DB::table('settings')->get();
         $contact = DB::table('contact_details')->get();
         $banner = Banner::where('page_name', 'contact_details')->first();
@@ -636,7 +633,7 @@ class HomeController extends Controller
             dd('No banner found for contact page.');
         }
         // Fetch only the specific room types you want to display
-        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+        $roomTypes = RoomType::getRoomType();
 
         return view('frontend.contact_detail.index', compact('data', 'banner', 'contact', 'settings', 'roomTypes'));
     }
@@ -788,91 +785,91 @@ class HomeController extends Controller
     //     ]);
     // }
 
-//     public function createBooking(Request $request)
-// {
-//     $contact = DB::table('contact_details')->get();
-//     $rooms = explode(',', $request->input('rooms'));
-//     $adults = json_decode($request->input('adults', '{}'), true);
-//     $children = json_decode($request->input('children', '{}'), true);
+    //     public function createBooking(Request $request)
+    // {
+    //     $contact = DB::table('contact_details')->get();
+    //     $rooms = explode(',', $request->input('rooms'));
+    //     $adults = json_decode($request->input('adults', '{}'), true);
+    //     $children = json_decode($request->input('children', '{}'), true);
 
-//     $request->merge(['rooms' => $rooms]);
+    //     $request->merge(['rooms' => $rooms]);
 
-//     $request->validate([
-//         'check_in' => 'required|date|before:check_out',
-//         'check_out' => 'required|date|after:check_in',
-//         'rooms' => 'required|array|min:1',
-//         'rooms.*' => 'exists:rooms,id',
-//     ]);
+    //     $request->validate([
+    //         'check_in' => 'required|date|before:check_out',
+    //         'check_out' => 'required|date|after:check_in',
+    //         'rooms' => 'required|array|min:1',
+    //         'rooms.*' => 'exists:rooms,id',
+    //     ]);
 
-//     $checkIn = Carbon::parse($request->input('check_in'));
-//     $checkOut = Carbon::parse($request->input('check_out'));
-//     $nights = $checkIn->diffInDays($checkOut);
+    //     $checkIn = Carbon::parse($request->input('check_in'));
+    //     $checkOut = Carbon::parse($request->input('check_out'));
+    //     $nights = $checkIn->diffInDays($checkOut);
 
-//     $selectedRooms = Room::with('roomType')->whereIn('id', $rooms)->get();
-//     $totalPrice = $selectedRooms->sum(function ($room) use ($nights) {
-//         return ($room->special_price ?? $room->price) * $nights;
-//     });
+    //     $selectedRooms = Room::with('roomType')->whereIn('id', $rooms)->get();
+    //     $totalPrice = $selectedRooms->sum(function ($room) use ($nights) {
+    //         return ($room->special_price ?? $room->price) * $nights;
+    //     });
 
-//     return view('frontend.booking.bookings', [
-//         'rooms' => $selectedRooms,
-//         'totalPrice' => $totalPrice,
-//         'nights' => $nights,
-//         'checkIn' => $checkIn,
-//         'checkOut' => $checkOut,
-//         'adults' => $adults,
-//         'children' => $children,
-//         'contact' => $contact,
-//     ]);
-// }
+    //     return view('frontend.booking.bookings', [
+    //         'rooms' => $selectedRooms,
+    //         'totalPrice' => $totalPrice,
+    //         'nights' => $nights,
+    //         'checkIn' => $checkIn,
+    //         'checkOut' => $checkOut,
+    //         'adults' => $adults,
+    //         'children' => $children,
+    //         'contact' => $contact,
+    //     ]);
+    // }
 
-public function createBooking(Request $request)
-{
-    $contact = DB::table('contact_details')->get();
+    public function createBooking(Request $request)
+    {
+        $contact = DB::table('contact_details')->get();
 
-    // Parse the rooms and decode adults and children JSON strings
-    $rooms = explode(',', $request->input('rooms'));
-    $adults = json_decode($request->input('adults'), true); // Decode the JSON to associative array
-    $children = json_decode($request->input('children'), true); // Decode the JSON to associative array
+        // Parse the rooms and decode adults and children JSON strings
+        $rooms = explode(',', $request->input('rooms'));
+        $adults = json_decode($request->input('adults'), true); // Decode the JSON to associative array
+        $children = json_decode($request->input('children'), true); // Decode the JSON to associative array
 
-    $request->merge(['rooms' => $rooms]);
+        $request->merge(['rooms' => $rooms]);
 
-    // Validate the request
-    $request->validate([
-        'check_in' => 'required|date|before:check_out',
-        'check_out' => 'required|date|after:check_in',
-        'rooms' => 'required|array|min:1',
-        'rooms.*' => 'exists:rooms,id',
-    ]);
-    
-    $checkIn = Carbon::parse($request->input('check_in'));
-    $checkOut = Carbon::parse($request->input('check_out'));
-    $nights = $checkIn->diffInDays($checkOut);
+        // Validate the request
+        $request->validate([
+            'check_in' => 'required|date|before:check_out',
+            'check_out' => 'required|date|after:check_in',
+            'rooms' => 'required|array|min:1',
+            'rooms.*' => 'exists:rooms,id',
+        ]);
 
-    $selectedRooms = Room::with('roomType')->whereIn('id', $rooms)->get();
-    $totalPrice = $selectedRooms->sum(function ($room) use ($nights) {
-        return ($room->special_price ?? $room->price) * $nights;
-    });
+        $checkIn = Carbon::parse($request->input('check_in'));
+        $checkOut = Carbon::parse($request->input('check_out'));
+        $nights = $checkIn->diffInDays($checkOut);
 
-    // Attach adults and children to rooms
-    $roomDetails = $selectedRooms->map(function ($room) use ($adults, $children) {
-        return [
-            'room' => $room,
-            'adults' => $adults[$room->id] ?? 0,
-            'children' => $children[$room->id] ?? 0,
-        ];
-    });
+        $selectedRooms = Room::with('roomType')->whereIn('id', $rooms)->get();
+        $totalPrice = $selectedRooms->sum(function ($room) use ($nights) {
+            return ($room->special_price ?? $room->price) * $nights;
+        });
 
-    return view('frontend.booking.bookings', [
-        'rooms' => $roomDetails,
-        'totalPrice' => $totalPrice,
-        'nights' => $nights,
-        'checkIn' => $checkIn,
-        'checkOut' => $checkOut,
-        'adults' => $adults,
-        'children' => $children,
-        'contact' => $contact,
-    ]);
-}
+        // Attach adults and children to rooms
+        $roomDetails = $selectedRooms->map(function ($room) use ($adults, $children) {
+            return [
+                'room' => $room,
+                'adults' => $adults[$room->id] ?? 0,
+                'children' => $children[$room->id] ?? 0,
+            ];
+        });
+
+        return view('frontend.booking.bookings', [
+            'rooms' => $roomDetails,
+            'totalPrice' => $totalPrice,
+            'nights' => $nights,
+            'checkIn' => $checkIn,
+            'checkOut' => $checkOut,
+            'adults' => $adults,
+            'children' => $children,
+            'contact' => $contact,
+        ]);
+    }
 
 
 
@@ -1089,7 +1086,7 @@ public function createBooking(Request $request)
 
     public function service()
     {
-        $data = "Service";
+        $data = "Service Page";
         $settings = DB::table('settings')->get();
         $services = DB::table('services')->where('status', 1)->get();
         $banner = Banner::where('page_name', 'service')->first();
@@ -1123,7 +1120,7 @@ public function createBooking(Request $request)
 
     public function meeting()
     {
-        $data = "Meeting";
+        $data = "Meeting Page";
         $settings = DB::table('settings')->get();
         $meetings = Meeting::with('images')->where('availability', 1)->get();
         $banner = Banner::where('page_name', 'meeting')->first();
@@ -1135,14 +1132,14 @@ public function createBooking(Request $request)
         // }
 
         // Fetch only the specific room types you want to display
-        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+        $roomTypes = RoomType::getRoomType();
 
         return view('frontend.meeting.index', compact('data', 'banner', 'meetings', 'contact', 'settings', 'roomTypes'));
     }
 
     public function tour()
     {
-        $data = "Restaurant";
+        $data = "Tours Page";
         $settings = DB::table('settings')->get();
         $tours = Tour::with('images')->get();
         $banner = Banner::where('page_name', 'meeting')->first();
@@ -1153,7 +1150,7 @@ public function createBooking(Request $request)
         // }
 
         // Fetch only the specific room types you want to display
-        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+        $roomTypes = RoomType::getRoomType();
 
         return view('frontend.tour.index', compact('data', 'banner', 'contact', 'settings', 'roomTypes', 'tours'));
     }

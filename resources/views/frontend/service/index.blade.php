@@ -32,7 +32,7 @@
 
         .image-container {
             overflow: hidden;
-            
+
         }
 
         .image-container img {
@@ -53,59 +53,67 @@
         .service-card.bg-dark p {
             color: white;
         }
-        .service-card h5{
+
+        .service-card h5 {
             font-family: 'Source Sans Pro', sans-serif;
-            font-size: 21px;
+            font-size: 20px;
             font-weight: bold;
             color: #212529;
         }
-        .service-card p{
+
+        .service-card p {
             font-family: 'Source Sans Pro', sans-serif;
             font-size: 18px;
-            
+
         }
 
         @media (max-width: 768px) {
             .service-card {
-                margin-bottom: 20px;
+                margin-bottom: 18px;
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
                 margin-top: 10px;
 
             }
-            .banner_wrapper img{
+
+            .banner_wrapper img {
                 width: 100%;
-               
+
             }
-            h6{
+
+            h6 {
                 font-size: 16px;
-               
+
             }
-            h3{
+
+            h3 {
                 font-size: 30px;
             }
-            .image-container img{
+
+            .image-container img {
                 width: 100%;
                 height: 350px;
                 object-fit: cover;
-               
+
             }
-            .service-card h5{
+
+            .service-card h5 {
                 font-size: 18px;
             }
-            .service-card p{
+
+            .service-card p {
                 font-size: 14px;
             }
 
         }
-            </style>
+    </style>
 @endsection
 @section('content')
     <section id="home" class="banner_wrapper p-0 " data-aos="zoom-in" data-aos-duration="2000">
         <div class="overlay">
             @if ($banner)
-                <img src="{{ asset('storage/' . $banner->banner_image) }}" 
+                <img src="{{ asset('storage/' . $banner->banner_image) }}"
                     style="width: 100%; height: 90vh; object-fit: cover;" alt="Banner Image">
             @else
                 <img src="{{ asset('hotel') }}/image/services/service3.png"
@@ -117,27 +125,30 @@
         </div>
     </section>
     <section id="services" class="services_wrapper" style="margin-bottom: 60px;">
-        <div class="container-fluid">
+        <div class="container">
             <div class="my-5">
-                <div class="text-center" style="margin-bottom: 60px;">
-                    <h6 class="fw-bold">OUR AWESOME SERVICES</h6>
-                    <h3 class="text-muted" style="margin-top: -10px">Check out our awesome services</h3>
+                <div class="text-center" data-aos="fade-down" data-aos-duration="1000">
+                    <h3 class="fw-bold" style="font-family: 'Sail', system-ui;font-size: 50px;">Our Awesome Services</h3>
+                    <p class=""
+                        style="font-family: 'Sail', system-ui; letter-spacing: 1px; line-height:1.5; font-size: 25px; font-weight: 100;  margin-top: 10px;">
+                        Experience exceptional hospitality with a range of services designed to make your stay truly
+                        unforgettable.
+                    </p>
                 </div>
-                <div class="row align-items-stretch">
-                    <div class="col-md-6 d-flex image-container">
-                        <img id="mainImage" 
-                            src="{{ asset('storage/' . $services[0]->image) }}" 
-                            alt="Awesome Services" class="img-fluid w-100">
+                <div class="row align-items-stretch mt-5">
+                    <div class="col-md-6 d-flex image-container" data-aos="fade-right" data-aos-duration="1000">
+                        <img id="mainImage" src="{{ asset('storage/' . $services[0]->image) }}" alt="Awesome Services"
+                            class="img-fluid w-100">
 
                     </div>
-                    <div class="col-md-6 d-flex flex-column">
-                        @foreach($services as $index => $service)
-                        <div class="service-card p-3 mb-3 {{ $index === $services->count() - 1 ? 'bg-dark text-white' : '' }}"
-                            onclick="changeBackground(this, '{{ asset('storage/' . $service->image) }}')">
-                           <h5 class="fw-bold">{{ $service->title }}</h5>
-                           <p class="{{ $index === $services->count() - 1 ? '' : 'text-muted' }}">{{ $service->description }}</p>
-                       </div>
-                       
+                    <div class="col-md-6 d-flex flex-column" data-aos="fade-left" data-aos-duration="1000">
+                        @foreach ($services as $index => $service)
+                            <div class="service-card p-3 mb-3 {{ $index === $services->count() - 1 ? 'bg-dark text-white' : '' }}"
+                                onclick="changeBackground(this, '{{ asset('storage/' . $service->image) }}')">
+                                <h5 class="fw-bold">{{ $service->title }}</h5>
+                                <p class="{{ $index === $services->count() - 1 ? '' : 'text-muted' }}">
+                                    {{ $service->description }}</p>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -146,37 +157,37 @@
     </section>
 @endsection
 @section('script')
-<script>
-    function changeBackground(selectedCard, imageUrl) {
-        const allCards = document.querySelectorAll('.service-card');
-        const mainImage = document.getElementById('mainImage');
+    <script>
+        function changeBackground(selectedCard, imageUrl) {
+            const allCards = document.querySelectorAll('.service-card');
+            const mainImage = document.getElementById('mainImage');
 
-        // Reset all cards to their default style
-        allCards.forEach(card => {
-            card.classList.remove('bg-dark', 'text-white');
-            card.style.backgroundColor = ''; // Reset any inline styles
+            // Reset all cards to their default style
+            allCards.forEach(card => {
+                card.classList.remove('bg-dark', 'text-white');
+                card.style.backgroundColor = ''; // Reset any inline styles
 
-            // Reset text styles for all child elements
-            const childElements = card.querySelectorAll('h5, p');
-            childElements.forEach(child => {
-                child.classList.remove('text-white');
-                if (child.tagName === 'P') {
-                    child.classList.add('text-muted'); // Restore muted text for paragraphs
-                }
+                // Reset text styles for all child elements
+                const childElements = card.querySelectorAll('h5, p');
+                childElements.forEach(child => {
+                    child.classList.remove('text-white');
+                    if (child.tagName === 'P') {
+                        child.classList.add('text-muted'); // Restore muted text for paragraphs
+                    }
+                });
             });
-        });
 
-        // Apply dark background to the selected card
-        selectedCard.classList.add('bg-dark', 'text-white');
+            // Apply dark background to the selected card
+            selectedCard.classList.add('bg-dark', 'text-white');
 
-        // Change text styles for all child elements of the selected card
-        const childElements = selectedCard.querySelectorAll('h5, p');
-        childElements.forEach(child => {
-            child.classList.remove('text-muted'); // Remove muted text class
-            child.classList.add('text-white'); // Add white text class
-        });
-        // Change the main image
-        mainImage.src = imageUrl;
-    }
-</script>
+            // Change text styles for all child elements of the selected card
+            const childElements = selectedCard.querySelectorAll('h5, p');
+            childElements.forEach(child => {
+                child.classList.remove('text-muted'); // Remove muted text class
+                child.classList.add('text-white'); // Add white text class
+            });
+            // Change the main image
+            mainImage.src = imageUrl;
+        }
+    </script>
 @endsection

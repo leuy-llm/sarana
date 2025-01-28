@@ -13,7 +13,6 @@
             font-family: 'Source Sans Pro', sans-serif;
         }
 
-        
 
         .image-container {
             overflow: hidden;
@@ -61,7 +60,7 @@
 
         .menu {
             padding: 80px 0;
-            background-color: #f9f9f9;
+           
         }
 
         .menu h2 {
@@ -143,9 +142,15 @@
     <section id="services" class="services_wrapper" style="margin-bottom: 60px;">
         <div class="container-fluid">
             <div class="my-5">
-                <div class="text-center" style="margin-bottom: 60px;">
-                    <h6 class="fw-bold">Restaurant Menu</h6>
-                    <h3 style="margin-top: -10px">Experience luxury dining at its finest </h3>
+                <div class="text-center" data-aos="fade-down" data-aos-duration="1000">
+                    <h3 class="fw-bold" style="font-family: 'Sail', system-ui;font-size: 50px;">Our Delicious Menu</h3>
+                    <p class=""
+                        style="font-family: 'Sail', system-ui; letter-spacing: 1px; line-height:1.5; font-size: 25px; font-weight: 100;  margin-top: 10px;">
+                        Savor the art of fine dining at our hotel. From locally inspired dishes to international cuisines,
+                        our chefs use the freshest ingredients to craft meals that will tantalize your taste buds.
+                        Whether you're in the mood for a hearty breakfast, a quick bite, or a gourmet dinner,
+                        we have something special for every palate.
+                    </p>
                 </div>
                 <section id="menu" class="menu">
                     <div class="container">
@@ -156,8 +161,8 @@
                                         <img src="{{ asset('storage/' . $food->image) }}" alt="Food 1">
                                     </div>
                                     <div class="food-details">
-                                        <h3>{{ $food->name }}</h3>
-                                        <p>{{ $food->description }}</p>
+                                        <h3 style="font-family: 'Source Sans Pro', sans-serif;font-size: 25px;">{{ $food->name }}</h3>
+                                        <p style="font-family: 'Source Sans Pro', sans-serif;font-size: 18px;">{{ $food->description }}</p>
                                     </div>
                                 </div>
                             @endforeach
@@ -169,4 +174,7 @@
     </section>
 @endsection
 @section('script')
+    <script>
+        
+    </script>
 @endsection

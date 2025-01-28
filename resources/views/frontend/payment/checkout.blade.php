@@ -663,7 +663,6 @@
                             @elseif(session('error'))
                                 <div class="alert alert-danger">{{ session('error') }}</div>
                             @endif
-
                             <form action="{{ route('payment.process') }}" method="POST" id="payment-form"
                                 class="require-validation">
                                 @csrf

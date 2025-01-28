@@ -98,24 +98,24 @@
     </section>
     <section id="meeting" class="meeting_wrapper">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12 section-title text-center mb-5">
-                    <h6 class="text-center" data-aos="fade-right">Explore our meeting plans and schedules</h6>
-                    @foreach ($meetings as $meeting)
-                        <h3 style="margin-top: -10px" data-aos="fade-right" data-aos-duration="1500">{{ $meeting->title }}</h3>
-                    @endforeach
-                </div>
+            <div class="text-center" data-aos="fade-down" data-aos-duration="1000">
+                @foreach($meetings as $meeting)
+                <h3 class="fw-bold" style="font-family: 'Sail', system-ui;font-size: 50px;color: #caa169">{{$meeting->title}}</h3>
+                @endforeach
+                <p class=""
+                    style="font-family: 'Sail', system-ui; letter-spacing: 1px; line-height:1.5; font-size: 25px; font-weight: 100;  margin-top: 10px;">
+                </p>
             </div>
             <div class="meeting">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
                             @foreach ($meetings as $meeting)
-                                <p style="line-height: 2.8; text-align: justify" data-aos="fade-right" data-aos-duration="2000">{{ $meeting->description }}</p>
+                                <p style="line-height: 2.1; text-align: justify;font-family: 'Source Sans Pro', sans-serif;font-size: 20px;'" data-aos="fade-right" data-aos-duration="2000">{{ $meeting->description }}</p>
                             @endforeach
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mb-5">
                         @foreach ($meeting->images as $image)
                             @if ($meeting->images->isNotEmpty())
                                 <div class="col-md-6 mt-3 img-hover" data-aos="fade-down" data-aos-duration="1500">
@@ -130,35 +130,7 @@
                                 </div>
                             @endif
                         @endforeach
-
                     </div>
-                    {{-- <div class="row">
-                        <div class="col-lg-6">
-                            @foreach ($meetings as $meeting)
-                                <p style="line-height: 2.8; text-align: justify">{{ $meeting->description }}</p>
-                            @endforeach
-                        </div>
-                        <div class="col-lg-6">
-                            @if ($meeting->images->isNotEmpty())
-                                    <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
-                                        <div class="carousel-inner">
-                                            @foreach ($meeting->images as $key => $image)
-                                                <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                                    <img class="d-block w-100 rounded animate__animated animate__fadeIn" 
-                                                        src="{{ asset('storage/' . $image->image) }}" 
-                                                        alt="{{ $key + 1 }}"  style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="text-center">
-                                        <img src="{{ asset('default-image.jpg') }}" alt="Default Image"
-                                            class="img-fluid rounded shadow">
-                                    </div>
-                                @endif
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>

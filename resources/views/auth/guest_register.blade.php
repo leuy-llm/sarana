@@ -16,7 +16,11 @@
         body {
             font-family: 'Coda', system-ui;
             background-color: #f8f9fa;
-            background: url('https://images.pexels.com/photos/189333/pexels-photo-189333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')
+            background-image: url('{{ asset('admin_dashboard') }}/assets/images/login/login.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
         }
 
         .register-container {
@@ -127,8 +131,7 @@
 <body>
     <div class="register-container d-flex flex-md-row flex-column">
         <div class="register-left d-md-flex align-items-center flex-column d-none">
-            <img src="https://www.sinakaangkorhotel.com/wp-content/uploads/2022/12/cropped-sinaka-logo-300x243.png"
-                alt="Sinaka Angkor Hotel Logo">
+            <img src="{{ asset('admin_dashboard') }}/assets/images/logo1.png" alt="Sinaka Angkor Hotel Logo">
             <h1 class="mt-2">SINAKA ANGKOR HOTEL</h1>
         </div>
         <div class="register-right ">
@@ -234,7 +237,8 @@
                 <button type="submit" class="btn btn-primary w-100" id="previewButton"><i
                         class="bi bi-person-plus"></i> Sign up</button>
                 <div class="d-flex justify-content-between mt-1">
-                    <a href="{{ route('guest.logins') }}?redirect={{ request()->input('redirect', url()->current()) }}" class="d-block text-center mt-2">
+                    <a href="{{ route('guest.logins') }}?redirect={{ request()->input('redirect', url()->current()) }}"
+                        class="d-block text-center mt-2">
                         Already have an account? <span class="text-primary">Sign in</span>
                     </a>
                     <a href="{{ route('homepage') }}" class="btn border-0 px-4 btn-outline-secondary "

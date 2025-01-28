@@ -10,9 +10,6 @@
         </span>
     </a>
 
-    <!-- LOGO -->
-
-
     <div class="h-100" id="leftside-menu-container" data-simplebar="">
 
         <!--- Sidemenu -->

@@ -113,10 +113,11 @@
             margin-top: -40px;
 
         }
+
         .swiper-slide.highlighted {
-                transform: scale(1.1);
-                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            }
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
 
 
         .swiper-button-next::after,
@@ -131,21 +132,24 @@
 
         /* Responsive design */
         @media (max-width: 768px) {
+
             .swiper-button-next,
             .swiper-button-prev {
                 display: none;
             }
+
             /* Hide navigation arrows */
             .swiper-pagination {
                 display: none;
             }
+
             .main-image {
                 max-width: 100%;
                 height: auto;
                 margin-bottom: 20px;
             }
-            
-            
+
+
         }
     </style>
 @endsection
@@ -166,17 +170,18 @@
     </section>
     <section id="tour" class="tours_wrapper">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12 section-title text-center mb-5">
-                    <h6 class="text-center">Explore our tours plans and schedules</h6>
-                    <h3 style="margin-top: -10px">Our Tours</h3>
-                </div>
+            <div class="text-center" data-aos="fade-down" data-aos-duration="1000">
+                <h3 class="fw-bold" style="font-family: 'Sail', system-ui;font-size: 50px;color:#caa169">Our Tours</h3>
+                <p class=""
+                    style="font-family: 'Sail', system-ui; letter-spacing: 1px; line-height:1.5; font-size: 25px; font-weight: 100;  margin-top: 10px;">
+                    Explore our tours plans and schedules.
+                </p>
             </div>
-            <div class="tour">
+            <div class="tour my-5">
                 <div class="container">
-                    <div class="row">
-                        <!-- Tour Images -->
-                        <div class="col-lg-6">
+                    <div class="row g-0">
+                       
+                        <div class="col-lg-6" data-aos="fade-down" data-aos-duration="1500" >
                             @if ($tours->isNotEmpty())
                                 @foreach ($tours as $tour)
                                     @if ($tour->images->isNotEmpty())
@@ -192,21 +197,19 @@
                                 <p>No tours available.</p>
                             @endif
                         </div>
-
-                        <!-- Tour Descriptions -->
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" data-aos="fade-down" data-aos-duration="2000">
                             @if ($tours->isNotEmpty())
                                 @foreach ($tours as $tour)
-                                    <p style="line-height: 2.3; text-align: justify;">{{ $tour->description }}</p>
+                                    <p
+                                        style="line-height: 1.9; text-align: justify;font-family: 'Source Sans Pro', sans-serif;font-size: 17px">
+                                        {{ $tour->description }}</p>
                                 @endforeach
                             @else
                                 <p>No descriptions available.</p>
                             @endif
                         </div>
                     </div>
-
-                    <!-- Swiper Section -->
-                    <div class="mt-3">
+                    <div class="mt-3" >
                         @if ($tours->isNotEmpty())
                             @foreach ($tours as $tour)
                                 @if ($tour->images->isNotEmpty())
@@ -240,54 +243,55 @@
             </div>
         </div>
     </section>
-
-
-    @include('auth.register')
 @endsection
 
 @section('script')
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const swiper = new Swiper(".swiper", {
-        loop: true,
-        slidesPerView: 3,
-        spaceBetween: 20,
-        centeredSlides: true,
-        centeredSlides: true,
-        autoplay: { delay: 5000 },
-        pagination: { el: ".swiper-pagination", clickable: true },
-
-        breakpoints: {
-            1200: {
-                slidesPerView: 3, // Show 4 images for desktop
-                spaceBetween: 40,
-            },
-            768: {
-                slidesPerView: 2, // Show 2 images for tablets
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const swiper = new Swiper(".swiper", {
+                loop: true,
+                slidesPerView: 3,
                 spaceBetween: 20,
-            },
-            480: {
-                slidesPerView: 1, // Show 1 image for smaller screens
-            },
-        }, 
-        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-    });
+                centeredSlides: true,
+                centeredSlides: true,
+                autoplay: {
+                    delay: 5000
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true
+                },
 
-    // Example: Adjust Swiper behavior based on image attributes
-    swiper.on('slideChangeTransitionEnd', function () {
-        let activeSlide = document.querySelector('.swiper-slide-active');
-        let imageType = activeSlide.getAttribute('data-type'); // e.g., "highlighted" or "standard"
-        
-        if (imageType === "highlighted") {
-            swiper.autoplay.stop(); // Pause autoplay for special images
-        } else {
-            swiper.autoplay.start();
-        }
-    });
+                breakpoints: {
+                    1200: {
+                        slidesPerView: 3, // Show 4 images for desktop
+                        spaceBetween: 40,
+                    },
+                    768: {
+                        slidesPerView: 2, // Show 2 images for tablets
+                        spaceBetween: 20,
+                    },
+                    480: {
+                        slidesPerView: 1, // Show 1 image for smaller screens
+                    },
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev"
+                },
+            });
 
+            // Example: Adjust Swiper behavior based on image attributes
+            swiper.on('slideChangeTransitionEnd', function() {
+                let activeSlide = document.querySelector('.swiper-slide-active');
+                let imageType = activeSlide.getAttribute('data-type'); // e.g., "highlighted" or "standard"
 
-});
-
-</script>
-
+                if (imageType === "highlighted") {
+                    swiper.autoplay.stop(); // Pause autoplay for special images
+                } else {
+                    swiper.autoplay.start();
+                }
+            });
+        });
+    </script>
 @endsection

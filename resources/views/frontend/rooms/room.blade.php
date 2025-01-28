@@ -20,23 +20,12 @@
 
         }
 
-        .btn-book-now {
-            background-color: #28a745;
-            color: white;
-            font-family: 'Source Sans Pro', sans-serif;
-        }
-
         h5 {
             /* font-family: 'Jost', sans-serif ; */
             font-family: 'Source Sans Pro', sans-serif;
             font-weight: bold;
 
             font-size: 20px;
-        }
-
-        h6 {
-            /* font-family: 'Jost', serif */
-            font-family: 'Source Sans Pro', sans-serif;
         }
 
         span {
@@ -66,33 +55,6 @@
             cursor: pointer;
         }
 
-        .form-select {
-            cursor: pointer;
-            transition: border 0.3s ease, box-shadow 0.3s ease;
-            -moz-appearance: none;
-            cursor: pointer;
-            font-family: 'Jost', serif
-        }
-
-        .results-header .text-primary {
-            color: #00bcd4;
-            /* Use the primary color */
-            font-weight: bold;
-        }
-
-        .results-header .text-primary:hover {
-            text-decoration: underline;
-            cursor: pointer;
-        }
-
-        .results-header select {
-            color: #00bcd4;
-            border: none !important;
-            background-color: #eff3f8;
-            outline: none;
-        }
-
-
         @media (max-width: 991px) {
             .search-box {
                 width: 100%;
@@ -100,13 +62,6 @@
 
             .search-box.form-group {
                 width: 100%;
-            }
-
-            #price-range-slider {
-                /* height: 10px; */
-
-                background: #b8905d;
-                border-radius: 5px;
             }
 
             h5.text-primary {
@@ -286,6 +241,113 @@
 
         }
 
+        /* Custom CSS for Minimalistic Grid Layout */
+        /* .card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .card-img-top {
+                border-radius: 10px 10px 0 0;
+            }
+
+            .badge {
+                font-size: 0.85rem;
+                font-weight: 500;
+                padding: 0.5em 0.75em;
+            }
+
+            .btn-outline-primary {
+                border-color: #b8905d;
+                color: #b8905d;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+
+            .btn-outline-primary:hover {
+                background-color: #b8905d;
+                color: #fff;
+            }
+
+            .text-warning {
+                color: #ffc107 !important;
+            }
+
+            .text-muted {
+                color: #6c757d !important;
+            }
+
+            .text-decoration-line-through {
+                text-decoration: line-through;
+            } */
+
+        /* Custom CSS for Price Tag on Image */
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+            border-radius: 10px 10px 0 0;
+        }
+
+        .position-absolute {
+            z-index: 1;
+            /* Ensure the price tag is above the image */
+            top: 10px;
+            right: 10px;
+            padding: 5px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            /* border-radius: 5px; */
+            font-size: 14px;
+        }
+
+        .bg-primary {
+            background-color: #b8905d !important;
+            /* Match your theme color */
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.5em 0.75em;
+        }
+
+        .btn-outline-primary {
+            border-color: #b8905d;
+            color: #b8905d;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #b8905d;
+            color: #fff;
+        }
+
+        .text-warning {
+            color: #ffc107 !important;
+        }
+
+        .text-muted {
+            color: #6c757d !important;
+        }
+
+        .text-decoration-line-through {
+            text-decoration: line-through;
+        }
+
         @media (max-width: 768px) {
             .room-card {
                 flex-direction: column;
@@ -435,82 +497,72 @@
     </section>
     <section id="rooms" class="rooms_wrapper">
         <div class="container-fluid p-5">
-            <h1 class="text-center" style=" font-family: 'Sail', system-ui;font-size: 50px;">Our Room </h1>
-            <div class="row">
+            <div class="text-center mb-5" data-aos="fade-down" data-aos-duration="1000" >
+                <h3 class="fw-bold" style="font-family: 'Sail', system-ui;font-size: 50px;">Our Rooms</h3>
+                <p class="" style="font-family: 'Sail', system-ui; letter-spacing: 1px; line-height:1.5; font-size: 25px; font-weight: 100;  margin-top: 10px;">
+                    Welcome to Sinaka Hotel, where comfort meets luxury. Explore our range of beautifully designed rooms, each offering a unique blend of modern 
+                    amenities and traditional charm. Whether you're here for a relaxing retreat or a business trip, we have the perfect space to suit your needs. Scroll down to find the ideal room for your stay.
+                 </p>
+            </div>
+            <div class="row mt-5">
                 <div class="col-lg-12 col-md-12">
                     <div id="rooms-container" class="container py-4">
-                        @foreach ($rooms as $room)
-                            <div class="mb-4 border-0">
-                                <div class="row g-0">
-                                    <div class="col-12 col-md-12">
-                                        <div class="room-card">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                            @foreach ($rooms as $room)
+                                <div class="col mb-4" data-aos="fade-down" data-aos-duration="2000">
+                                    <div class="card h-100 border-0 shadow-sm position-relative">
+                                        <!-- Room Image with Price Tag -->
+                                        <div class="position-relative">
                                             <img src="{{ asset('storage/' . $room->images->first()->image) }}"
-                                                alt="{{ $room->roomType->type_name }}">
-                                            <div class="room-info">
-                                                <h4>{{ $room->roomType->type_name }}</h4>
-                                                <p class="text-muted">{{ Str::limit($room->description, 50) }}</p>
-                                                <p style="margin-top: -5px;">
-                                                    @for ($i = 1; $i <= 5; $i++)
-                                                        <i
-                                                            class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-1 text-muted' }}"></i>
-                                                    @endfor
-                                                </p>
+                                                alt="{{ $room->roomType->type_name }}" class="card-img-top"
+                                                style="height: 200px; object-fit: cover;">
+                                            <!-- Price Tag -->
+                                            <div
+                                                class="position-absolute top-0 end-0 bg-primary text-white p-2 m-2 rounded">
                                                 @if ($room->special_price)
-                                                    <h6 class="mb-2 text-uppercase" style="margin-top: -5px;">Special Price
-                                                    </h6>
-                                                    <div class="text-success">
-                                                        <strong>$ {{ number_format($room->special_price, 0) }}</strong>
-                                                        <span class="original-price ms-2">
-                                                            $ {{ number_format($room->price, 0) }}
-                                                        </span>
-                                                    </div>
+                                                    <span
+                                                        class="fs-5">${{ number_format($room->special_price, 0) }}</span>
+                                                    <span
+                                                        class="text-decoration-line-through text-muted ms-1">${{ number_format($room->price, 0) }}</span>
+                                                @else
+                                                    <span class="fs-5">${{ number_format($room->price, 0) }}</span>
                                                 @endif
-                                                <div class="mt-3"
-                                                    style="display:flex;align-items:center; gap: 4px;flex-wrap: wrap">
-                                                    <span
-                                                        style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>Bed</strong>:
-                                                        {{ $room->bed_type }}</span>,
-                                                    <span
-                                                        style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>View</strong>:
-                                                        {{ $room->view_type }}</span>,
-                                                    <span
-                                                        style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>Size</strong>
-                                                        : {{ $room->room_size }} m²</span>,
-                                                    <span
-                                                        style="font-family: 'Source Sans Pro', sans-serif;font-size:16px;"><strong>Capacity</strong>:
-                                                        {{ $room->max_person }} persons</span>
-                                                </div>
                                             </div>
-                                            <div class="room-price">
-                                                <div>
-                                                    @if ($room->special_price)
-                                                        <span
-                                                            class="badge bg-danger text-white p-2 rounded-0 mt-3 mt-md-0  text-wrap text-uppercase"
-                                                            style="margin-top: -5px;">SPECIAL
-                                                            OFFER</span>
-                                                        <p class="mb-1 text-muted text-uppercase">From</p>
-                                                        <h5 class="text-primary">
-                                                            ${{ number_format($room->special_price, 0) }}
-                                                        </h5>
-                                                        <p class="text-muted text-uppercase">per night</p>
-                                                    @else
-                                                        <p class="mb-1 text-muted text-uppercase">From</p>
-                                                        <h5 class="text-primary">${{ number_format($room->price, 0) }}</h5>
-                                                        <p class="text-muted text-uppercase">per night</p>
-                                                    @endif
-                                                </div>
-                                                <a href="{{ route('roomDetail', ['id' => $room->id, 'type_name' => $room->roomType->type_name]) }}"
-                                                    style="font-family: 14px;font-family: 'Source Sans Pro', sans-serif;color:#fff;background: #b8905d;border-radius:20px;font-weight: 500;"
-                                                    class="mb-2 text-center btn-more btn px-3  text-decoration-none shadow-none">
-                                                    MORE DETAILS
-                                                </a>
+                                        </div>
+                                        <!-- Room Details -->
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $room->roomType->type_name }}</h5>
+                                            <p class="card-text text-muted">{{ Str::limit($room->description, 50) }}</p>
+                                            <!-- Rating -->
+                                            <div class="mb-2">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i
+                                                        class="bi {{ $i <= $room->rating ? 'bi-star-fill text-warning' : 'bi-star text-muted' }}"></i>
+                                                @endfor
                                             </div>
+                                            <!-- Room Features -->
+                                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                                <span class="badge text-dark"><strong>Bed:</strong>
+                                                    {{ $room->bed_type }}</span>
+                                                <span class="badge  text-dark"><strong>View:</strong>
+                                                    {{ $room->view_type }}</span>
+                                                <span class="badge  text-dark"><strong>Size:</strong>
+                                                    {{ $room->room_size }} m²</span>
+                                                <span class="badge  text-dark"><strong>Capacity:</strong>
+                                                    {{ $room->max_person }} persons</span>
+                                            </div>
+                                            <!-- CTA Button -->
+                                            <a href="{{ route('roomDetail', ['id' => $room->id, 'type_name' => $room->roomType->type_name]) }}"
+                                                class="btn btn-outline-primary w-100">
+                                                More Details
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
-                        <div class="d-flex justify-content-center">
+                            @endforeach
+                        </div>
+                        <!-- Pagination -->
+                        <div class="d-flex justify-content-center mt-4">
                             {{ $rooms->appends(request()->query())->links() }}
                         </div>
                     </div>
