@@ -13,12 +13,6 @@
             font-family: 'Source Sans Pro', sans-serif;
         }
 
-        .form-control {
-            border-radius: 0px;
-            padding: 15px;
-            box-shadow: none;
-        }
-
         .btn-primary1 {
             font-family: 'Source Sans Pro', sans-serif;
             font-weight: bold;
@@ -42,7 +36,7 @@
             </div>
         </div>
     </section>
-    <section id="contacts" class="contacts_wrapper mb-5">
+    <section id="contacts" class="contacts_wrapper mb-5" style="margin-bottom: 160px;">
         <div class="container">
             <div class="text-center" data-aos="fade-down" data-aos-duration="1000">
                 <h3 class="fw-bold" style="font-family: 'Sail', system-ui;font-size: 50px;">Contact Us</h3>
@@ -89,9 +83,11 @@
                             Information</h4>
                         @foreach ($contact as $data)
                             <p style="text-decoration: none; font-family: 'Source Sans Pro', sans-serif;font-weight: 100;">
-                                <i class="fa fa-map-marker"></i>{{ $data->address }}</p>
+                                <i class="fa fa-map-marker"></i>{{ $data->address }}
+                            </p>
                             <p style="text-decoration: none; font-family: 'Source Sans Pro', sans-serif;font-weight: 100;">
-                                <i class="fa fa-envelope"></i>{{ $data->email }}</p>
+                                <i class="fa fa-envelope"></i>{{ $data->email }}
+                            </p>
                             <p>
                                 <i class="fa fa-phone"></i>
                                 <a href="tel:{{ $data->pn1 }}"
@@ -119,11 +115,11 @@
                 </div>
             </div>
         </div>
+        <div class="map w-full mb-3 mx-auto">
+            <iframe src="{{ $data->iframe }}" height="500px" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
     </section>
-    <div class="map w-full mb-3 mx-auto" style="margin-bottom: 100px">
-        <iframe src="{{ $data->iframe }}" height="500px" style="border:0;" allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
     @endforeach
 @endsection
 

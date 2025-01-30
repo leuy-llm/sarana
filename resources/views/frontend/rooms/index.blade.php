@@ -663,18 +663,18 @@
         }
 
         .book-now-btn {
-            background: #deb666;
-            color: #fff;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            animation: pulsate 2s infinite;
+            /* background: #deb666;
+                        color: #fff;
+                        font-size: 14px; */
+            /* transition: all 0.3s ease; */
+            /* animation: pulsate 2s infinite; */
         }
 
         .book-now-btn:hover {
-            background: #c89c55;
-            color: #ffffff;
-            transform: scale(1.1);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            /* background: #c89c55;
+                        color: #ffffff; */
+            /* transform: scale(1.1);
+                        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); */
             /* Enhance shadow on hover */
         }
 
@@ -907,6 +907,86 @@
         .close-modalwarning:hover {
             transform: scale(1.1);
         }
+
+        .selected {
+            background-color: #007bff;
+            /* Change to your desired color */
+            color: white;
+            border: 2px solid #0056b3;
+            /* Add border if needed */
+        }
+
+        .select-room-button {
+
+            display: inline-block;
+            outline: 0;
+            border: 0;
+            cursor: pointer;
+            background-color: #4299e1;
+            border-radius: 4px;
+            padding: 8px 16px;
+            font-size: 16px;
+            border-bottom: 4px solid #2b6cb0;
+            font-weight: 700;
+            color: white;
+            line-height: 26px;
+
+        }
+
+        .button-50 {
+            appearance: button;
+            background-color: #deb666;
+            background-image: none;
+            border: 1px solid #000;
+            border-radius: 4px;
+            box-shadow: #fff 4px 4px 0 0, #000 4px 4px 0 1px;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: ITCAvantGardeStd-Bk, Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 20px;
+            margin: 0 5px 10px 0;
+            overflow: visible;
+            padding: 12px 40px;
+            text-align: center;
+            text-transform: none;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+            white-space: nowrap;
+            text-transform: uppercase;
+
+        }
+
+        .button-50:focus {
+            text-decoration: none;
+        }
+
+        .button-50:hover {
+            text-decoration: none;
+
+
+        }
+
+        .button-50:active {
+            box-shadow: rgba(0, 0, 0, .125) 0 3px 5px inset;
+            outline: 0;
+        }
+
+        .button-50:not([disabled]):active {
+            box-shadow: #fff 2px 2px 0 0, #000 2px 2px 0 1px;
+            transform: translate(2px, 2px);
+        }
+
+        @media (min-width: 768px) {
+            .button-50 {
+                padding: 12px 50px;
+            }
+        }
     </style>
 @endsection
 @section('content')
@@ -1064,7 +1144,8 @@
                                                             class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-1 text-muted' }}"></i>
                                                     @endfor
                                                 </div>
-                                                <h6 class="mt-3 "><strong class="text-uppercase">Guests</strong> :
+                                                <h6 class="mt-3 "><strong class="text-uppercase">Guests</strong> : <i
+                                                        class="fas fa-user-friends text-muted"></i>
                                                     {{ $room->max_person }} persons
                                                 </h6>
 
@@ -1111,16 +1192,21 @@
                                                 style="font-size: 14px; background:#f1f2f3;">
                                                 Select Booking Date
                                             </a>
-
                                             <div class="form-check mb-2">
-
-                                                <input type="checkbox" class="form-check-input"
+                                                {{-- <input type="checkbox" class="form-check-input"
                                                     id="room_{{ $room->id }}" name="rooms[]"
                                                     value="{{ $room->id }}"
                                                     data-max-person="{{ $room->max_person }}">
 
                                                 <label class="form-check-label" for="room_{{ $room->id }}">Select
-                                                    Room</label>
+                                                    Room</label> --}}
+                                                <button type="button" class=" mb-2 w-100 mt-1 px-2 select-room-button"
+                                                    data-room-id="{{ $room->id }}"
+                                                    data-room-name="{{ $room->roomType->type_name }}"
+                                                    data-max-person="{{ $room->max_person }}">
+                                                    Select Room
+                                                </button>
+
                                             </div>
                                             <div class="adultchild">
                                                 <input type="text" placeholder="Enter number of adults"
@@ -1147,10 +1233,13 @@
                                 {{ $rooms->appends(request()->query())->links() }}
                             </div>
                             <div class="col-12 text-center mt-3">
-                                <a id="proceedToBooking"
+                                {{-- <a id="proceedToBooking"
                                     class="btn book-now-btn mb-2 shadow-none rounded-0 py-3 font-weight-bold text-uppercase text-white px-4"
                                     style="background: #deb666; font-size: 14px; border-radius: 3px;">
                                     Proceed to Booking
+                                </a> --}}
+                                <a id="proceedToBooking" class="button-50 book-now-btn mt-5">
+                                    Procced to Booking
                                 </a>
                             </div>
                         @endif
@@ -1329,11 +1418,24 @@
             const filterForm = document.getElementById('filter-form');
             const roomCheckboxes = document.querySelectorAll('input[name="rooms[]"]'); // Select all room checkboxes
             const bookingDateBtns = document.querySelectorAll('.booking-date-btn');
+            const selectRoom = document.querySelectorAll('.select-room-button');
+            const proceedBooking = document.querySelectorAll('.book-now-btn');
 
             // Initially hide all room checkboxes before filter
             roomCheckboxes.forEach(checkbox => {
                 checkbox.closest('.form-check').style.display = 'none'; // Hide the checkbox wrapper
             });
+
+            selectRoom.forEach(selectRoom => {
+                selectRoom.closest('.select-room-button').style.display =
+                    'none'; // Hide the checkbox wrapper
+            })
+
+            proceedBooking.forEach(booking => {
+                booking.closest('.book-now-btn').style.display = 'none';
+            })
+
+
 
             const adultchild = document.querySelectorAll('.adultchild');
 
@@ -1355,11 +1457,31 @@
                 })
 
 
+
                 // Hide "Select Booking Date" buttons
                 bookingDateBtns.forEach(btn => {
                     btn.style.display = 'none'; // Hide all "Select Booking Date" buttons
                 });
                 // Show adult/child fields
+                selectRoom.forEach(field => {
+                    field.closest('.select-room-button').style.display = 'block';
+                });
+
+                // proceedBooking.forEach(booking => {
+                //     booking.closest('.book-now-btn').style.display = 'block';
+                // })
+
+                proceedBooking.forEach(booking => {
+                    let button = booking.closest('.book-now-btn');
+                    if (button) {
+                        button.style.display = 'block';
+                        button.style.width = "400px";
+                        button.style.textAlign = 'center';
+                    }
+                });
+
+
+
             }
 
             // Handle filter form submission (e.g., after user selects filter options)
@@ -1372,6 +1494,10 @@
                 roomCheckboxes.forEach(checkbox => {
                     checkbox.closest('.form-check').style.display =
                         'block'; // Show the checkbox wrapper
+                });
+
+                selectRoom.forEach(field => {
+                    field.closest('.select-room-button').style.display = 'block';
                 });
             });
 
@@ -1585,9 +1711,136 @@
         //     });
         // });
 
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     const proceedButton = document.getElementById("proceedToBooking");
+        //     const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
+        //     const maxRooms = 4;
+
+        //     // Show the modal
+        //     function showModal() {
+        //         const modal = document.getElementById("customModal");
+        //         modal.style.display = "flex";
+        //     }
+
+        //     // Hide the modal
+        //     function closeModal() {
+        //         const modal = document.getElementById("customModal");
+        //         modal.style.display = "none";
+        //     }
+
+        //     // Attach event listeners for modal close buttons
+        //     document.querySelectorAll(".close-modal").forEach((button) => {
+        //         button.addEventListener("click", closeModal);
+        //     });
+
+        //     function showErrorModal(message) {
+        //         const modal = document.getElementById("errorModal");
+        //         const messageContainer = document.getElementById("errorMessage");
+        //         messageContainer.textContent = message;
+        //         modal.style.display = "flex";
+        //     }
+
+        //     document.getElementById("closeErrorModal").addEventListener("click", function() {
+        //         const modal = document.getElementById("errorModal");
+        //         modal.style.display = "none";
+        //     });
+
+
+        //     proceedButton.addEventListener("click", function(event) {
+        //         event.preventDefault();
+        //         let selectedRooms = [];
+        //         let adults = {};
+        //         let children = {};
+        //         let validationErrors = false;
+
+        //         checkboxes.forEach((checkbox) => {
+        //             if (checkbox.checked) {
+        //                 const roomId = checkbox.value;
+        //                 const maxPerson = parseInt(checkbox.dataset.maxPerson,
+        //                     10); // Get max_person from dataset
+        //                 const adultCount = parseInt(
+        //                     document.getElementById(`adults_room_${roomId}`).value || "0",
+        //                     10
+        //                 );
+        //                 const childCount = parseInt(
+        //                     document.getElementById(`children_room_${roomId}`).value || "0",
+        //                     10
+        //                 );
+
+        //                 // Validate adults must be at least 1
+        //                 if (adultCount < 1) {
+        //                     // alert(`Please enter both adults and children`);
+        //                     showErrorModal(`Please enter at least 1 adult .`);
+        //                     validationErrors = true;
+        //                 } else if (adultCount + childCount > maxPerson) {
+        //                     // Validate total guests don't exceed maxPerson
+        //                     // alert(
+        //                     //     `The total number of guests exceeds the limit (${maxPerson}) .`
+        //                     // );
+        //                     showErrorModal(
+        //                         `The total number of guests exceeds the limit (${maxPerson}).`
+        //                     );
+        //                     validationErrors = true;
+        //                 }
+
+        //                 if (validationErrors) {
+        //                     document.getElementById(`adults_room_${roomId}`).focus();
+        //                     return; // Stop further validation
+        //                 }
+
+        //                 selectedRooms.push(roomId);
+        //                 adults[roomId] = adultCount;
+        //                 children[roomId] = childCount;
+        //             }
+        //         });
+
+        //         if (validationErrors) {
+        //             return; // Stop form submission if validation fails
+        //         }
+
+        //         if (selectedRooms.length === 0) {
+        //             // alert("Please select at least one room.");
+        //             showErrorModal("Please select at least one room.");
+
+        //             return;
+        //         } else if (selectedRooms.length > maxRooms) {
+        //             // alert(`You can select up to ${maxRooms} rooms only.`);
+        //             showErrorModal(`You can select up to ${maxRooms} rooms only.`);
+        //             return;
+        //         }
+
+        //         // Use server-side data to check verification status
+        //         const isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
+        //         const hasVerifiedEmail =
+        //             {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'true' : 'false' }};
+
+        //         if (!isLoggedIn) {
+        //             // Redirect to registration/login if not logged in
+        //             window.location.href = "{{ route('register.guest') }}?redirect=" + encodeURIComponent(
+        //                 window.location.href);
+        //         } else if (!hasVerifiedEmail) {
+        //             // Show modal if the email is not verified
+        //             showModal();
+        //             return;
+        //         } else {
+        //             // If the guest is logged in and email is verified, proceed to booking
+        //             const checkIn = "{{ $checkIn }}";
+        //             const checkOut = "{{ $checkOut }}";
+        //             const bookingUrl = `{{ route('books.create') }}?rooms=${selectedRooms.join(
+    //         ","
+    //     )}&check_in=${checkIn}&check_out=${checkOut}&adults=${encodeURIComponent(
+    //         JSON.stringify(adults)
+    //     )}&children=${encodeURIComponent(JSON.stringify(children))}`;
+        //             console.log("Booking URL:", bookingUrl);
+
+        //             window.location.href = bookingUrl;
+        //         }
+        //     });
+        // });
+
         document.addEventListener("DOMContentLoaded", function() {
             const proceedButton = document.getElementById("proceedToBooking");
-            const checkboxes = document.querySelectorAll('input[name="rooms[]"]');
+            const roomButtons = document.querySelectorAll('.select-room-button');
             const maxRooms = 4;
 
             // Show the modal
@@ -1619,67 +1872,67 @@
                 modal.style.display = "none";
             });
 
+            let selectedRooms = [];
+
+            roomButtons.forEach((button) => {
+                button.addEventListener("click", function() {
+                    const roomId = button.dataset.roomId;
+                    const maxPerson = parseInt(button.dataset.maxPerson,
+                        10); // Get max_person from dataset
+
+                    // Toggle room selection
+                    if (selectedRooms.includes(roomId)) {
+                        selectedRooms = selectedRooms.filter(id => id !== roomId);
+                        button.classList.remove('selected'); // Remove selected class
+                        button.innerText = "Select Room"; // Reset text to "Select Room"
+                    } else {
+                        if (selectedRooms.length >= maxRooms) {
+                            showErrorModal(`You can select up to ${maxRooms} rooms only.`);
+                            return;
+                        }
+                        selectedRooms.push(roomId);
+                        button.classList.add('selected'); // Add selected class
+                        button.innerText = "Room Selected"; // Change text to indicate selection
+                    }
+                });
+            });
 
             proceedButton.addEventListener("click", function(event) {
                 event.preventDefault();
-                let selectedRooms = [];
                 let adults = {};
                 let children = {};
                 let validationErrors = false;
 
-                checkboxes.forEach((checkbox) => {
-                    if (checkbox.checked) {
-                        const roomId = checkbox.value;
-                        const maxPerson = parseInt(checkbox.dataset.maxPerson,
-                            10); // Get max_person from dataset
-                        const adultCount = parseInt(
-                            document.getElementById(`adults_room_${roomId}`).value || "0",
-                            10
+                selectedRooms.forEach((roomId) => {
+                    const roomButton = document.querySelector(`button[data-room-id="${roomId}"]`);
+                    const maxPerson = parseInt(roomButton.dataset.maxPerson,
+                        10); // Get max_person for this room
+
+                    const adultCount = parseInt(document.getElementById(`adults_room_${roomId}`)
+                        .value || "0", 10);
+                    const childCount = parseInt(document.getElementById(`children_room_${roomId}`)
+                        .value || "0", 10);
+                    adults[roomId] = adultCount;
+                    children[roomId] = childCount;
+
+                    // Validate adults must be at least 1
+                    if (adultCount < 1) {
+                        showErrorModal(`Please enter at least 1 adult for room ${roomId}.`);
+                        validationErrors = true;
+                        return;
+                    } else if (adultCount + childCount > maxPerson) {
+                        showErrorModal(
+                            `The total number of guests for room ${roomId} exceeds the limit (${maxPerson}).`
                         );
-                        const childCount = parseInt(
-                            document.getElementById(`children_room_${roomId}`).value || "0",
-                            10
-                        );
-
-                        // Validate adults must be at least 1
-                        if (adultCount < 1) {
-                            // alert(`Please enter both adults and children`);
-                            showErrorModal(`Please enter at least 1 adult .`);
-                            validationErrors = true;
-                        } else if (adultCount + childCount > maxPerson) {
-                            // Validate total guests don't exceed maxPerson
-                            // alert(
-                            //     `The total number of guests exceeds the limit (${maxPerson}) .`
-                            // );
-                            showErrorModal(
-                                `The total number of guests exceeds the limit (${maxPerson}).`
-                            );
-                            validationErrors = true;
-                        }
-
-                        if (validationErrors) {
-                            document.getElementById(`adults_room_${roomId}`).focus();
-                            return; // Stop further validation
-                        }
-
-                        selectedRooms.push(roomId);
-                        adults[roomId] = adultCount;
-                        children[roomId] = childCount;
+                        validationErrors = true;
+                        return;
                     }
                 });
 
-                if (validationErrors) {
-                    return; // Stop form submission if validation fails
-                }
+                if (validationErrors) return;
 
                 if (selectedRooms.length === 0) {
-                    // alert("Please select at least one room.");
                     showErrorModal("Please select at least one room.");
-
-                    return;
-                } else if (selectedRooms.length > maxRooms) {
-                    // alert(`You can select up to ${maxRooms} rooms only.`);
-                    showErrorModal(`You can select up to ${maxRooms} rooms only.`);
                     return;
                 }
 
@@ -1700,17 +1953,16 @@
                     // If the guest is logged in and email is verified, proceed to booking
                     const checkIn = "{{ $checkIn }}";
                     const checkOut = "{{ $checkOut }}";
-                    const bookingUrl = `{{ route('books.create') }}?rooms=${selectedRooms.join(
-                ","
-            )}&check_in=${checkIn}&check_out=${checkOut}&adults=${encodeURIComponent(
-                JSON.stringify(adults)
-            )}&children=${encodeURIComponent(JSON.stringify(children))}`;
+                    const bookingUrl =
+                        `{{ route('books.create') }}?rooms=${selectedRooms.join(",")}&check_in=${checkIn}&check_out=${checkOut}&adults=${encodeURIComponent(JSON.stringify(adults))}&children=${encodeURIComponent(JSON.stringify(children))}`;
                     console.log("Booking URL:", bookingUrl);
-
                     window.location.href = bookingUrl;
                 }
             });
         });
+
+
+
         document.addEventListener("DOMContentLoaded", function() {
             // Check if the URL contains the anchor (#rooms-container)
             if (window.location.hash === "#rooms-container") {

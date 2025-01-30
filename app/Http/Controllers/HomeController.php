@@ -617,10 +617,6 @@ class HomeController extends Controller
         }
     }
 
-
-
-
-
     public function contact()
     {
         $data = "Contact Page";
@@ -1043,9 +1039,9 @@ class HomeController extends Controller
 
     public function roomDetail($id, $type_name, Request $request)
     {
-        $data = "Details";
+        $data = "Room Details";
         $settings = DB::table('settings')->get();
-        $roomTypes = RoomType::whereIn('type_name', ['Deluxe Double Room', 'Deluxe Twin Room', 'Studio Suite Room', 'Family 3 bedroom', 'Trip Room', 'King Room'])->get();
+        $roomTypes = RoomType::getRoomType();
         $banner = Banner::where('page_name', 'rooms')->first();
         $rooms = Room::with('roomType', 'images', 'facilities')->findOrFail($id);
         $contact = DB::table('contact_details')->get();
@@ -1062,18 +1058,20 @@ class HomeController extends Controller
         }
 
         // Fetch similar properties
-        $propertys = Room::where('is_deleted', 0)
-            ->where('status', 1)
-            ->whereNotIn('id', function ($subQuery) use ($checkInDate) {
-                $subQuery->select('room_id')
-                    ->from('bookings')
-                    ->whereNotIn('status', ['cancelled', 'checked-out'])
-                    ->whereRaw("'$checkInDate' BETWEEN check_in_date AND check_out_date");
-            })
-            ->when($totalPersons > 0, function ($query) use ($totalPersons) {
-                $query->where('max_person', '>=', $totalPersons);
-            })
-            ->limit(5)
+        // $propertys = Room::where('is_deleted', 0)
+        //     ->where('status', 1)
+        //     ->whereNotIn('id', function ($subQuery) use ($checkInDate) {
+        //         $subQuery->select('room_id')
+        //             ->from('bookings')
+        //             ->whereNotIn('status', ['cancelled', 'checked-out'])
+        //             ->whereRaw("'$checkInDate' BETWEEN check_in_date AND check_out_date");
+        //     })
+        //     ->when($totalPersons > 0, function ($query) use ($totalPersons) {
+        //         $query->where('max_person', '>=', $totalPersons);
+        //     })
+        //     ->limit(5)
+        $propertys = Room::where('is_deleted',0)
+            ->where('status',1)
             ->with(['images', 'roomType', 'facilities'])
             ->where('id', '!=', $id)
             ->get();

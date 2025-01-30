@@ -10,6 +10,7 @@
     .swiper2 {
         width: 100%;
         height: 500px;
+        border-radius: 5px;
     }
 
     .swiper-slide2 {
@@ -17,43 +18,26 @@
         align-items: center;
         justify-content: center;
         transition: transform 0.3s ease;
+        border-radius: 5px;
     }
 
     .swiper-slide2 img {
         width: 90%;
         height: 100%;
         object-fit: cover;
-        border-radius: 10px;
+     
+        border-radius: 5px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .swiper-slide2.swiper-slide-active img {
         transform: scale(1.1);
-        /* Zoom in on the center image */
+        border-radius: 5px;
     }
 
     .swiper-pagination-bullet {
         background-color: #007bff;
     }
-
-
-    /* .swiper-button-next,
-    .swiper-button-prev {
-        width: 50px;
-        height: 50px;
-        background-color: rgba(0, 0, 0, 0.5);
-        
-        color: #fff;
-      
-        border-radius: 50%;
-       
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-       
-        transition: background-color 0.3s ease, transform 0.2s ease;[p'o98tyu]
-    } */
     .swiper-button-next,
     .swiper-button-prev {
         color: #fff;
@@ -122,7 +106,6 @@
 
         .swiper2 {
             height: 350px;
-            /* Adjust height for smaller screens */
             margin-bottom: 30px;
         }
 
@@ -131,8 +114,6 @@
             display: none;
         }
 
-        /* Add media queries for smaller screens */
-
     }
 </style>
 <div class="container-fluid mt-5" style="margin-bottom: 200px;">
@@ -140,15 +121,12 @@
     <div class="swiper swiper2">
         <div class="swiper-wrapper swiper-wrapper2">
             @foreach ($galleries as $gallery)
-                <!-- Slide 1 -->
+              
                 <div class="swiper-slide swiper-slide2">
-                    <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title }}">
+                    <img src="{{ asset('storage/' . $gallery->image) }}" alt="{{ $gallery->title }}" class="round">
                 </div>
             @endforeach
         </div>
-        <!-- Add Pagination -->
-        <!-- <div class="swiper-pagination"></div> -->
-        <!-- Add Navigation -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
     </div>
@@ -157,37 +135,90 @@
 <!-- Swiper.js JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
+    // const swiper = new Swiper('.swiper2', {
+    //     loop: true,
+    //     effect: 'coverflow',
+    //     grabCursor: true,
+
+    //     autoplay: {
+    //         delay: 3000,
+    //         disableOnInteraction: false,
+    //     },
+    //     slidesPerView: 30, // Display 3 images
+    //     centeredSlides: true, // Center the middle image
+    //     spaceBetween: 30,
+    //     satisfiesSlides: true,
+    //     // speed: 800,    
+
+    //     breakpoints: {
+    //         768: {
+    //             slidesPerView: 2, // Show 2 images for tablets
+    //             spaceBetween: 20,
+    //         },
+    //         480: {
+    //             slidesPerView: 1, // Show 1 image for smaller screens
+    //         },
+    //     }, 
+    //     navigation: {
+    //         nextEl: '.swiper-button-next',
+    //         prevEl: '.swiper-button-prev',
+    //     },
+    // });
+
     const swiper = new Swiper('.swiper2', {
-        loop: true,
-        effect: 'coverflow',
-        grabCursor: true,
-
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
+    loop: true,
+    effect: 'coverflow',
+    grabCursor: true,
+    speed:800,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+    slidesPerView: 3, // Show 3 images
+    centeredSlides: true, // Center the middle image
+    spaceBetween: 30,
+    coverflowEffect: {
+        rotate: 0, // Rotation angle
+        stretch: 80, // Stretch space between slides
+        depth: 350, // Depth for 3D effect
+        modifier: 1, // Strength of the effect
+        slideShadows: true, // Add shadows for better depth effect
+        scale: 0.85, // Scale down non-active slides
+    },
+    breakpoints: {
+        768: {
+            slidesPerView: 2, // Show 2 images on tablets
+            spaceBetween: 20,
         },
-        slidesPerView: 30, // Display 3 images
-        centeredSlides: true, // Center the middle image
-        spaceBetween: 30,
-        satisfiesSlides: true,
-        // speed: 800,    
-
-        breakpoints: {
-            768: {
-                slidesPerView: 2, // Show 2 images for tablets
-                spaceBetween: 20,
-            },
-            480: {
-                slidesPerView: 1, // Show 1 image for smaller screens
-            },
-        }, // Add spacing between images
-        // pagination: {
-        //     el: '.swiper-pagination',
-        //     clickable: true,
-        // },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+        480: {
+            slidesPerView: 1, // Show 1 image on smaller screens
         },
-    });
+    },
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+});
+
+// const swiper = new Swiper('.swiper2',{
+//     effect: "coverflow",
+//     grabCursor: true,
+//     loop: true,
+//     centeredSlides: true,
+//     initialSlides:true,
+//     speed:600,
+//     preventClickss:true,
+//     slidesPerView: "auto",
+//     spaceBetween: 30,
+//     coverflowEffect: {
+//         rotate: 0,
+//         stretch: 80,
+//         depth: 150,
+//         modifier: 1,
+//         slideShadows: true,
+//         scale: 0.85
+//     },
+    
+// })
+
 </script>

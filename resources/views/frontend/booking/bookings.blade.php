@@ -255,6 +255,7 @@
         .card-title {
             font-size: 1.25rem;
             font-weight: bold;
+            font-family: "Poppins", sans-serif;
         }
 
         /* Card text and price */
@@ -454,7 +455,119 @@
     }
 }
 
+.card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-img-top {
+            border-radius: 10px 10px 0 0;
+        }
+
+        .position-absolute {
+            z-index: 1;
+            /* Ensure the price tag is above the image */
+            top: 10px;
+            right: 10px;
+            padding: 5px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            /* border-radius: 5px; */
+            font-size: 14px;
+        }
+
+        .bg-primary {
+            background-color: #b8905d !important;
+            /* Match your theme color */
+        }
+
+        .badge {
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.5em 0.75em;
+        }
+
+        .btn-outline-primary {
+            border-color: #b8905d;
+            color: #b8905d;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #b8905d;
+            color: #fff;
+        }
+
+        .text-warning {
+            color: #ffc107 !important;
+        }
+
+        .text-muted {
+            color: #6c757d !important;
+        }
+
+        .text-decoration-line-through {
+            text-decoration: line-through;
+        }
+
+        
+          
+        .button-50 {
+            appearance: button;
+            background-color: #000;
+            background-image: none;
+            border: 1px solid #000;
+            border-radius: 4px;
+            box-shadow: #fff 4px 4px 0 0,#000 4px 4px 0 1px;
+            box-sizing: border-box;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: ITCAvantGardeStd-Bk,Arial,sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            margin: 0 5px 10px 0;
+            overflow: visible;
+            padding: 12px 40px;
+            text-align: center;
+            text-transform: none;
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+            white-space: nowrap;
+          }
+
+          .button-50:focus {
+            text-decoration: none;
+          }
+
+          .button-50:hover {
+            text-decoration: none;
+          }
+
+          .button-50:active {
+            box-shadow: rgba(0, 0, 0, .125) 0 3px 5px inset;
+            outline: 0;
+          }
+
+          .button-50:not([disabled]):active {
+            box-shadow: #fff 2px 2px 0 0, #000 2px 2px 0 1px;
+            transform: translate(2px, 2px);
+          }
+
+          @media (min-width: 768px) {
+            .button-50 {
+              padding: 12px 50px;
+            }
+          }
     </style>
 @endsection
 @section('content')
@@ -560,223 +673,228 @@
                                 {{-- <input type="hidden" name="room_type_id" value="{{ $rooms->roomType->id }}"> --}}
                             </div>
                         </div>
-                        <div class="col-md-12 mt-3">
-    
-                            {{-- <div class="room-container">
-                                @foreach ($rooms as $roomDetail)
-                                <div class="room-card">
-                                    
-                                        <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}" 
-                                             alt="{{ $roomDetail['room']->roomType->type_name }} image" style="height: 250px;" loading="lazy">
-                                    <div class="room-content">
-                                        <h2 class="room-title">{{ $roomDetail['room']->roomType->type_name }}</h2>
-                                        <p class="room-location">📍 Siem Reap</p>
-                                        
-                                        @if ($roomDetail['room']->special_price)
-                                            <p class="room-price">
-                                                <span class="special-price">${{ number_format($roomDetail['room']->special_price, 0) }}</span>
-                                                <span class="original-price">${{ number_format($roomDetail['room']->price, 0) }}</span>
-                                            </p>
-                                        @else
-                                            <span class="price">${{ number_format($roomDetail['room']->price, 0) }}</span>
-                                            @endif
-                                        
-                                        <p class="room-guests">Max Guests: {{ $roomDetail['room']->max_person }} Persons</p>
-                                        <p class="room-adults">Adults: {{ $roomDetail['adults'] }}</p>
-                                        <p class="room-children">Children: {{ $roomDetail['children'] }}</p>
-                                        <p><strong>Check In/Out: </strong>{{ date('d-m-Y', strtotime($checkIn)) }} <i class="fa fa-arrow"></i> {{ date('d-m-Y', strtotime($checkOut)) }}</p>
-                                       
+                        {{-- <div class="col-md-12 mt-3">
+                            <div class="room-container row mt-4">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                                        <form action="{{ route('proceedToCheckout') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="check_in" value="{{ $checkIn }}">
+                                            <input type="hidden" name="check_out" value="{{ $checkOut }}">
+                                            <input type="hidden" name="guest_id" value="{{ auth()->guard('guest')->user()->id }}">
+                                            <input type="hidden" name="total_price" value="{{ $totalPrice }}">
+                                         
+                                                @foreach ($rooms as $roomDetail)
+                                                    <div class="col mb-4" data-aos="fade-down" data-aos-duration="1000">
+                                                        <div class="card h-100 border-0 shadow-smposition-relative ">
+                                                            <div class="position-relative">
+                                                                <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}" alt="{{ $roomDetail['room']->roomType->type_name }} image" style="height: 200px;object-fit: cover;" loading="lazy">
+                                                            
+                                                                <div class="position-absolute top-0 end-0 bg-primary text-white p-2 m-2 rounded">
+                                                                    @if ($roomDetail['room']->special_price)
+                                                                        <span
+                                                                            class="fs-5">${{ number_format($roomDetail['room']->special_price, 0) }}</span>
+                                                                        <span
+                                                                            class="text-decoration-line-through text-muted ms-1">${{ number_format($roomDetail['room']->price, 0) }}</span>
+                                                                    @else
+                                                                        <span class="fs-5">${{ number_format($roomDetail['room']->price, 0) }}</span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">{{ $roomDetail['room']->roomType->type_name }}</h5>
+                                                                <p class="card-text text-muted">
+                                                                    <i class="fas fa-bed"></i> {{ $roomDetail['room']->max_person }} Persons
+                                                                    <i class="fas fa-user-friends"></i> {{ $roomDetail['adults'] }} Adults
+                                                                    <i class="fas fa-child"></i> {{ $roomDetail['children'] }} Children
+                                                                </p>
+                                                                <div class="mb-1">
+                                                                    @for ($i =1; $i <= 5 ; $i++)
+                                                                      @if ($i <= $roomDetail['room']->rating)
+                                                                        <i class="fas fa-star text-warning"></i>
+                                                                    @else
+                                                                     <i class="fas fa-star text-muted"></i>
+                                                                      @endif
+                                                                @endfor
+                                                                </div>
+                                                                <p class="card-text text-muted">{{ Str::limit($roomDetail['room']->description, 50) }}</p>
+                                                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                                                    <span class="badge text-dark"><strong>Bed:</strong>
+                                                                        {{ $roomDetail['room']->bed_type }}</span>
+                                                                    <span class="badge  text-dark"><strong>View:</strong>
+                                                                        {{ $roomDetail['room']->view_type }}</span>
+                                                                    <span class="badge  text-dark"><strong>Size:</strong>
+                                                                        {{ $roomDetail['room']->room_size }} m²</span>
+                                                                    
+                                                                </div>
+                                                                <input type="hidden" name="rooms[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['room']->id }}">
+                                                                <input type="hidden" name="adults[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['adults'] }}">
+                                                                <input type="hidden" name="children[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['children'] }}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                          
+                                            <button type="submit" class="btn btn-primary mt-4">Proceed to Payment</button>
+                                        </form>
                                     </div>
                                 </div>
-                                @endforeach
-                                <div class="booking-summary p-4">
-                                 
-                                    <h4>Total Price: ${{ number_format($totalPrice, 2) }}</h4>
-                                    <h5>Total Guests:
-                                        @php
-                                            $totalGuests = 0;
-                                            foreach ($rooms as $roomDetail) {
-                                                $totalGuests += $roomDetail['adults'] + $roomDetail['children'];
-                                            }
-                                        @endphp
-                                        {{ $totalGuests }}
-                                    </h5>
-                                </div>
-                            </div> --}}
-
-                            {{-- <div class="room-container">
-                                <form action="{{ route('proceedToCheckout') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="check_in" value="{{ $checkIn }}">
-                                    <input type="hidden" name="check_out" value="{{ $checkOut }}">
-                                    <input type="hidden" name="total_price" value="{{ $totalPrice }}">
-                                    <input type="hidden" name="guest_id" value="{{ auth()->guard('guest')->user()->id }}">
-                                    
-                                    
-                                    <div class="rooms">
-                                        @foreach ($rooms as $roomDetail)
-                                        <div class="room-card">
-                                            <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}" 
-                                                 alt="{{ $roomDetail['room']->roomType->type_name }} image" style="height: 250px;" loading="lazy">
-                                            <div class="room-content">
-                                                <h2 class="room-title">{{ $roomDetail['room']->roomType->type_name }}</h2>
-                                                <p class="room-location">📍 Siem Reap</p>
-                                                
-                                                @if ($roomDetail['room']->special_price)
-                                                    <p class="room-price">
-                                                        <span class="special-price">${{ number_format($roomDetail['room']->special_price, 0) }}</span>
-                                                        <span class="original-price">${{ number_format($roomDetail['room']->price, 0) }}</span>
-                                                    </p>
-                                                @else
-                                                    <span class="price">${{ number_format($roomDetail['room']->price, 0) }}</span>
-                                                @endif
-                            
-                                                <p class="room-guests">Max Guests: {{ $roomDetail['room']->max_person }} Persons</p>
-                                                <p class="room-adults">Adults: {{ $roomDetail['adults'] }}</p>
-                                                <p class="room-children">Children: {{ $roomDetail['children'] }}</p>
-                                                <p><strong>Check In/Out: </strong>{{ date('d-m-Y', strtotime($checkIn)) }} <i class="fa fa-arrow"></i> {{ date('d-m-Y', strtotime($checkOut)) }}</p>
-                            
-                                                <!-- Hidden inputs for room details -->
-                                                <input type="hidden" name="rooms[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['room']->id }}">
-                                                <input type="hidden" name="adults[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['adults'] }}">
-                                                <input type="hidden" name="children[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['children'] }}">
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                    </div>
-                            
-                                    <!-- Booking Summary -->
-                                    <div class="booking-summary p-4">
-                                        <h4>Total Price: ${{ number_format($totalPrice, 2) }}</h4>
-                                        <h5>Total Guests:
-                                            @php
-                                                $totalGuests = 0;
-                                                foreach ($rooms as $roomDetail) {
-                                                    $totalGuests += $roomDetail['adults'] + $roomDetail['children'];
-                                                }
-                                            @endphp
-                                            {{ $totalGuests }}
-                                        </h5>
-                                    </div>
-                            
-                                    <!-- Proceed to Checkout Button -->
-                                    <button type="submit" class="btn btn-primary mt-4">Proceed to Payment</button>
-                                </form>
-                            </div>                             --}}
-                            <div class="room-container">
-                                <form action="{{ route('proceedToCheckout') }}" method="POST">
-                                    @csrf
-                                    <!-- Hidden fields for check-in, check-out, total price, and guest -->
-                                    <input type="hidden" name="check_in" value="{{ $checkIn }}">
-                                    <input type="hidden" name="check_out" value="{{ $checkOut }}">
-                                    <input type="hidden" name="guest_id" value="{{ auth()->guard('guest')->user()->id }}">
-                                    <input type="hidden" name="total_price" value="{{ $totalPrice }}">
-                                    <!-- Loop through available rooms -->
-                                    <div class="rooms">
-                                        @foreach ($rooms as $roomDetail)
-                                            <div class="room-card">
-                                                <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}" alt="{{ $roomDetail['room']->roomType->type_name }} image" style="height: 250px;" loading="lazy">
-                                                <div class="room-content">
-                                                    <h2 class="room-title">{{ $roomDetail['room']->roomType->type_name }}</h2>
-                                                    <p class="room-location">📍 Siem Reap</p>
-                    
-                                                    <!-- Display price (with special price if applicable) -->
-                                                    @if ($roomDetail['room']->special_price)
-                                                        <p class="room-price">
-                                                            <span class="special-price">${{ number_format($roomDetail['room']->special_price, 0) }}</span>
-                                                            <span class="original-price">${{ number_format($roomDetail['room']->price, 0) }}</span>
-                                                        </p>
-                                                    @else
-                                                        <span class="price">${{ number_format($roomDetail['room']->price, 0) }}</span>
-                                                    @endif
-                            
-                                                    <p class="room-guests">Max Guests: {{ $roomDetail['room']->max_person }} Persons</p>
-                                                    <p class="room-adults">Adults: {{ $roomDetail['adults'] }}</p>
-                                                    <p class="room-children">Children: {{ $roomDetail['children'] }}</p>
-                                                    <p><strong>Check In/Out: </strong>{{ date('d-m-Y', strtotime($checkIn)) }} <i class="fa fa-arrow"></i> {{ date('d-m-Y', strtotime($checkOut)) }}</p>
-                        
-                                                    <!-- Hidden inputs for room details (passed to checkout) -->
-                                                    <input type="hidden" name="rooms[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['room']->id }}">
-                                                    <input type="hidden" name="adults[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['adults'] }}">
-                                                    <input type="hidden" name="children[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['children'] }}">
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mt-4">Proceed to Payment</button>
-                                </form>
-                                <div class="booking-summary p-4">
-                                    <h4>Total Price: ${{ number_format($totalPrice, 2) }}</h4>
-                                    <h5>Total Guests:
-                                        @php
-                                            $totalGuests = 0;
-                                            foreach ($rooms as $roomDetail) {
-                                                $totalGuests += $roomDetail['adults'] + $roomDetail['children'];
-                                            }
-                                        @endphp
-                                        {{ $totalGuests }}
-                                    </h5>
-                                </div>
+                                
+                               
                             </div>                            
-                        </div>
-                        {{-- <a href="{{ route('checkout.index', [
-                                        'room_id' => $room->id,
-                                        'check_in' => $checkIn->format('Y-m-d'),
-                                        'check_out' => $checkOut->format('Y-m-d'),
-                                        'adults' => $adults,
-                                        'children' => $children,
-                                        'first_name' => optional($guest)->first_name,
-                                        'last_name' => optional($guest)->last_name,
-                                        'email' => optional($guest)->email,
-                                        'mobile' => optional($guest)->mobile,
-                                    ]) }}"
-                                        class="btn btn-warning w-100 rounded-0 text-white">
-                                        Proceed to Checkout
-                                    </a> --}}
-                                    {{-- @foreach ($rooms as $roomDetail)
-                                    <div class="col-md-6">
-                                        <div class="card">
-                                            <div class="card__body">
-                                                <div class="half">
+                        </div> --}}
+                    </div>
+                    {{-- <div class="row mt-5">
+                        <div class="col-lg-12 col-md-12">
+                            <div id="rooms-container" class="container py-4">
+                                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                                    <form action="{{ route('proceedToCheckout') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="check_in" value="{{ $checkIn }}">
+                                        <input type="hidden" name="check_out" value="{{ $checkOut }}">
+                                        <input type="hidden" name="guest_id" value="{{ auth()->guard('guest')->user()->id }}">
+                                        <input type="hidden" name="total_price" value="{{ $totalPrice }}">
+                                        @foreach ($rooms as $roomDetail)
+                                            <div class="col mb-4" data-aos="fade-down" data-aos-duration="2000">
+                                                <div class="card h-100 border-0 shadow-sm position-relative">
+                                                  
+                                                    <div class="position-relative">
                                                         <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}"
-                                                        alt="{{ $roomDetail['room']->roomType->type_name }} image"
-                                                        class="" style="height: 350px;" loading="lazy">
-                                                </div>
-                                                <div class="half mt-4 px-3">
-                                                    <div class="description">
-                                                        <h3>{{ $roomDetail['room']->roomType->type_name }}</h3>
-                                                        <p>Facilities</p>
-                                                        Tv,
-                                                        Wifi,
-                                                        Air Condition,
-                                                        Room Service,
-                                                        Swimming Pool
+                                                            alt="{{ $roomDetail['room']->roomType->type_name }}" class="card-img-top"
+                                                            style="height: 200px; object-fit: cover;">
+                                                        <!-- Price Tag -->
+                                                        <div
+                                                            class="position-absolute top-0 end-0 bg-primary text-white p-2 m-2 rounded">
+                                                            @if ($roomDetail['room']->special_price)
+                                                                <span
+                                                                    class="fs-5">${{ number_format($roomDetail['room']->special_price, 0) }}</span>
+                                                                <span
+                                                                    class="text-decoration-line-through text-muted ms-1">${{ number_format($room->price, 0) }}</span>
+                                                            @else
+                                                                <span class="fs-5">${{ number_format($roomDetail['room']->price, 0) }}</span>
+                                                            @endif
+                                                        </div>
                                                     </div>
-                                                    <p>Check In : 01-25-2025</p>
-                                                    <p style="margin-top: -15px;">Check Out : 01-25-2025</p>
-                                                    <p><strong>Days : </strong> 2 Nights</p>
-                                                    <div class="descriptions mt-1">
-                                                        <p>2 Adults , 3 Children</p>
-                                                        <p>Total Guest : 5 peoples</p>
+                                                    
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">{{ $roomDetail['room']->roomType->type_name }}</h5>
+                                                        <p class="card-text text-muted">
+                                                            <i class="fas fa-bed"></i> {{ $roomDetail['room']->max_person }} Persons
+                                                            <i class="fas fa-user-friends"></i> {{ $roomDetail['adults'] }} Adults
+                                                            <i class="fas fa-child"></i> {{ $roomDetail['children'] }} Children
+                                                        </p>
+                                                        
+                                                       
+                                                        <div class="mb-1">
+                                                            @for ($i =1; $i <= 5 ; $i++)
+                                                            @if ($i <= $roomDetail['room']->rating)
+                                                                <i class="fas fa-star text-warning"></i>
+                                                            @else
+                                                            <i class="fas fa-star text-muted"></i>
+                                                            @endif
+                                                        @endfor
+                                                        <p class="card-text text-muted">{{ Str::limit($roomDetail['room']->description, 50) }}</p>
+                                                       
+                                                        <div class="d-flex flex-wrap gap-2 mb-3">
+                                                            <span class="badge text-dark"><strong>Bed:</strong>
+                                                                {{ $roomDetail['room']->bed_type }}</span>
+                                                            <span class="badge  text-dark"><strong>View:</strong>
+                                                                {{ $roomDetail['room']->view_type }}</span>
+                                                            <span class="badge  text-dark"><strong>Size:</strong>
+                                                                {{ $roomDetail['room']->room_size }} m²</span>
+                                                            
+                                                        </div>
+                                                        <input type="hidden" name="rooms[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['room']->id }}">
+                                                        <input type="hidden" name="adults[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['adults'] }}">
+                                                        <input type="hidden" name="children[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['children'] }}">
                                                     </div>
-                                                   
                                                 </div>
                                             </div>
-                                            <div class="card__footer">
-                                               
-                                                <div class="recommend">
-                                                    <p>Room Price : $ 200</p>
-                                                   
-                                                    <h3 class="mt-2">Total Price : $ 400</h3>
-                                                </div>
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    @endforeach --}}
+                                        @endforeach
+                                        <button type="submit" class="btn btn-primary mt-4">Proceed to Payment</button>
+                                    </form>
+                                </div>
                             </div>
-
+                        </div>
+                    </div> --}}
+                    <div class="row mt-5" style="margin-bottom: 60px;">
+                        <div class="col-lg-12 col-md-12">
+                            <h2 style="font-family: 'Source Sans Pro', sans-serif">Rooms in Your Booking </h2>
+                            <div id="rooms-container" class="container py-4">
+                                <form action="{{ route('proceedToCheckout') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="check_in" value="{{ $checkIn }}">
+                                    <input type="hidden" name="check_out" value="{{ $checkOut }}">
+                                    <input type="hidden" name="guest_id" value="{{ auth()->guard('guest')->user()->id }}">
+                                    <input type="hidden" name="total_price" value="{{ $totalPrice }}">
+                    
+                                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                                        @foreach ($rooms as $roomDetail)
+                                            <div class="col mb-4" data-aos="fade-down" data-aos-duration="2000">
+                                                <div class="card h-100 border-0 shadow-sm position-relative">
+                                                    <div class="position-relative">
+                                                        <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}"
+                                                            alt="{{ $roomDetail['room']->roomType->type_name }}" class="card-img-top"
+                                                            style="height: 200px; object-fit: cover;">
+                                                        <!-- Price Tag -->
+                                                        <div class="position-absolute top-0 end-0 bg-primary text-white p-2 m-2 rounded">
+                                                            @if ($roomDetail['room']->special_price)
+                                                                <span class="fs-5">${{ number_format($roomDetail['room']->special_price, 0) }}</span>
+                                                                <span class="text-decoration-line-through text-muted ms-1">
+                                                                    ${{ number_format($roomDetail['room']->price, 0) }}</span>
+                                                            @else
+                                                                <span class="fs-5">${{ number_format($roomDetail['room']->price, 0) }}</span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <!-- Room Details -->
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">{{ $roomDetail['room']->roomType->type_name }}</h5>
+                                                        <p class="card-text text-muted">
+                                                            <i class="fas fa-bed"></i> {{ $roomDetail['room']->max_person }} Persons
+                                                            <i class="fas fa-user-friends"></i> {{ $roomDetail['adults'] }} Adults
+                                                            <i class="fas fa-child"></i> {{ $roomDetail['children'] }} Children
+                                                        </p>
+                    
+                                                        <!-- Rating -->
+                                                        <div class="mb-1">
+                                                            @for ($i = 1; $i <= 5; $i++)
+                                                                @if ($i <= $roomDetail['room']->rating)
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                @else
+                                                                    <i class="fas fa-star text-muted"></i>
+                                                                @endif
+                                                            @endfor
+                                                        </div>
+                                                        <p class="card-text text-muted">{{ Str::limit($roomDetail['room']->description, 50) }}</p>
+                                                        <!-- Room Features -->
+                                                        <div class="d-flex flex-wrap gap-2 mb-3">
+                                                            <span class="badge text-dark"><strong>Bed:</strong> {{ $roomDetail['room']->bed_type }}</span>
+                                                            <span class="badge text-dark"><strong>View:</strong> {{ $roomDetail['room']->view_type }}</span>
+                                                            <span class="badge text-dark"><strong>Size:</strong> {{ $roomDetail['room']->room_size }} m²</span>
+                                                        </div>
+                                                        <!-- Hidden Inputs for Room Data -->
+                                                        <input type="hidden" name="rooms[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['room']->id }}">
+                                                        <input type="hidden" name="adults[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['adults'] }}">
+                                                        <input type="hidden" name="children[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['children'] }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="text-center">
+                                        {{-- <button type="submit" class="btn mt-4" style="">Proceed to Payment</button> --}}
+                                        <div class="button-wrapper mt-5" data-tippy-content="Click to copy button 50">
+                                            <button class="button-50" style="font-family: 'Source Sans Pro', sans-serif;font-size: 20px;" type="submit" role="button">Proceed to Payment</button>
+                                          </div>
+                                          
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
                 </div>
             </div>
         </div>
