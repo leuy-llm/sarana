@@ -11,6 +11,7 @@ use App\Models\UserQuery;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
@@ -18,20 +19,43 @@ class AuthController extends Controller
     //
     public function Auth()
     {
-
         return view('auth.login');
     }
     public function logindash(Request $request)
     {
+        // $request->validate([
+        //     'name' => 'required',
+        //     'password' => 'required'
+        // ]);
+
+        // if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
+        //     return redirect()->route('app');
+        // } else {
+        //     return redirect()->back()->withErrors(['name' => 'Invalid name or password.']);
+        // }
+
         $request->validate([
             'name' => 'required',
             'password' => 'required'
         ]);
-
-        if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
-            return redirect()->route('app');
+    
+        // Check if "Remember Me" is checked
+        $remember = $request->has('remember'); 
+    
+        // Attempt login with Remember Me
+        if (Auth::attempt(['name' => $request->name, 'password' => $request->password], $remember)) {
+            // Store name and password in cookies if "Remember Me" is checked
+            if ($remember) {
+                Cookie::queue('remember_name', $request->name, 43200); // Store for 30 days (43200 minutes)
+                Cookie::queue('remember_password', $request->password, 43200); // Store for 30 days
+            } else {
+                Cookie::queue(Cookie::forget('remember_name'));
+                Cookie::queue(Cookie::forget('remember_password'));
+            }
+    
+            return redirect()->route('app'); // Redirect to dashboard
         } else {
-            return redirect()->back()->withErrors(['name' => 'Invalid name or password.']);
+            return redirect()->back()->withErrors(['name' => 'Invalid username or password.']);
         }
     }
 
@@ -519,9 +543,11 @@ class AuthController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
-        return redirect('/login');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/logindash');
     }
 }

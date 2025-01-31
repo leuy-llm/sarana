@@ -273,15 +273,15 @@
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
                 role="button" aria-haspopup="false" aria-expanded="false">
-                <span class="account-user-avatar">
-                    @if (Auth::user()->gender === 'male')
-                        <img src="{{ asset('admin_dashboard/assets/images/users/man.png') }}" alt="user-image"
-                            class="rounded-circle">
-                    @else
-                        <img src="{{ asset('admin_dashboard/assets/images/users/woman.png') }}" alt="user-image"
-                            class="rounded-circle">
-                    @endif
-                </span>
+            <span class="account-user-avatar">
+                @if (Auth::user()->gender === 'male')
+                    <img src="{{ asset('admin_dashboard/assets/images/users/man.png') }}" alt="user-image"
+                        class="rounded-circle">
+                @else
+                    <img src="{{ asset('admin_dashboard/assets/images/users/woman.png') }}" alt="user-image"
+                        class="rounded-circle">
+                @endif
+            </span>
                 <span>
                     <span class="account-user-name">{{ Auth::user()->full_name }}</span>
                 </span>

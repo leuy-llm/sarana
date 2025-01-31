@@ -11,7 +11,6 @@
     </a>
 
     <div class="h-100" id="leftside-menu-container" data-simplebar="">
-
         <!--- Sidemenu -->
         <ul class="side-nav">
             <li class="side-nav-title side-nav-item">Navigation</li>
@@ -25,7 +24,7 @@
             </li> --}}
             <li class="side-nav-item font @if (Request::segment(1) == 'dashboard') active @endif">
                 <a href="{{ url('app') }}" class="side-nav-link">
-                    <i class="uil-calender"></i>
+                    <i class="uil-home-alt"></i>
                     <span> @lang('label.dashboard') </span>
                 </a>
             </li>
@@ -47,7 +46,7 @@
 
             <li class="side-nav-item font @if (Request::segment(1) == 'roomTypes') active @endif">
                 <a href="{{ url('roomtypes') }}" class="side-nav-link">
-                    <i class="uil-bed"></i>
+                    <i class="uil-layers"></i>
                     <span> @lang('label.roomType') </span>
                 </a>
             </li>
@@ -62,7 +61,7 @@
 
             <li class="side-nav-item font @if (Request::segment(1) == 'bookings') active @endif">
                 <a href="{{ url('bookings') }}" class="side-nav-link">
-                    <i class="uil-calender"></i>
+                    <i class="uil-book-open"></i>
                     <span> @lang('label.booking') </span>
                 </a>
             </li>
@@ -71,15 +70,20 @@
             <li class="side-nav-item font @if (Request::segment(1) == 'payments') active @endif"">
                 <a href="{{ url('payments') }}" class="side-nav-link">
                     <i class="uil-money-bill"></i>
-
                     <span> @lang('label.payment') </span>
                 </a>
             </li>
             <li class="side-nav-title side-nav-item font">Report Section</li>
-            <li class="side-nav-item font @if (Request::segment(1) == 'reports') active @endif">
+            <li class="side-nav-item font @if (Request::segment(1) == 'reports/reservations') active @endif">
                 <a href="{{ route('reports.reservations') }}" class="side-nav-link">
-                    <i class="uil-file"></i>
-                    <span> @lang('label.report') </span>
+                    <i class="uil-clipboard-notes"></i>
+                    <span> @lang('label.reservationReport') </span>
+                </a>
+            </li>
+            <li class="side-nav-item font @if (Request::segment(1) == 'reports/rooms') active @endif">
+                <a href="{{ route('reports.rooms') }}" class="side-nav-link">
+                    <i class="uil-chart-line"></i>
+                    <span> @lang('label.roomReport') </span>
                 </a>
             </li>
             {{-- <li class="side-nav-item">

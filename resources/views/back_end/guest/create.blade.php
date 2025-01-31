@@ -70,10 +70,9 @@ $currentPageTitle =  __('label.newGuest');
                                     @enderror
                                 </div>
                             </div>
-                            
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">@lang('label.last_name')</label>
+                                    <label class="form-label">@lang('label.lastName')</label>
                                     <input type="text" value="{{ old('last_name') }}" name="last_name"
                                         class="form-control  @error('last_name') is-invalid @enderror "
                                         placeholder="@lang('label.enterGuestName') . . . " required="">

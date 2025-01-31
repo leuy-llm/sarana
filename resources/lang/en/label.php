@@ -332,5 +332,17 @@ return [
   'newTransaction' => 'New Transaction',
   'enterTotalAdults' => 'Enter adults',
   'enterTotalChildren' => 'Enter children',
+
+
+  'reservationReport'=>'Reservations Report',
+  'roomReport'=>'Room Reports',
+  'page' => 'Pages',
+
+  'userQuery'=>'User Queries',
+  'facility' =>'Facilities',
+  'Setting '=>'Settings',
+
+  'last_name' =>'Last Name',
+  
   
 ];

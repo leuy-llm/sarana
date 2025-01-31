@@ -2,7 +2,53 @@
 
 @section('style')
     <style>
+        body {
+            font-family: 'Oswald', sans-serif;
+        }
 
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+            /* this font is work */
+        }
+
+        th {
+            background-color: #343a40;
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            /* Ensure font is applied here */
+        }
+
+        thead th {
+            font-family: 'Oswald', sans-serif;
+            /* Apply to table headers */
+        }
+
+        .status-table th,
+        .status-table td {
+            text-align: left;
+            font-family: 'Oswald', sans-serif;
+            /* Ensure font is applied here */
+        }
+
+        .logo {
+            width: 150px;
+            height: auto;
+        }
+
+        .text-center {
+            text-align: center;
+        }
     </style>
 @endsection
 @section('content')
@@ -16,7 +62,6 @@
                 <input type="date" name="start_date" id="start_date" class="form-control "
                     value="{{ request()->start_date }}" style="width: 350px;">
             </div>
-
             <!-- End Date -->
             <div class="d-flex flex-column">
                 <label for="end_date" class="">End Date</label>
@@ -31,14 +76,14 @@
                     class="btn btn-danger">
                     Export
                 </a>
+                <a href="{{ route('reports.reservations') }}" class="btn btn-dark">
+                    Reset
+                </a>
             </div>
         </div>
     </form>
-
-
-
     <!-- Check if Start Date and End Date are present to display table -->
-    @if (request()->has('start_date') && request()->has('end_date'))
+    {{-- @if (request()->has('start_date') && request()->has('end_date'))
         <!-- Reservation Table -->
 
         <table class="table table-bordered table-striped table-hover">
@@ -54,23 +99,66 @@
                     <th>@lang('label.totalAdults')</th>
                     <th>@lang('label.totalChildren')</th>
                     <th>@lang('label.status')</th>
-                    {{-- <th>Payment Status</th> --}}
+                   
                 </tr>
             </thead>
             <tbody>
                 @forelse ($reservations as $reservation)
+                    @foreach ($reservation->rooms as $room)
+                        <tr>
+                            <td>{{ $loop->parent->iteration }}</td> <!-- Use parent loop for iteration -->
+                            <td>{{ $reservation->guest->first_name }} {{ $reservation->guest->last_name }}</td>
+                            <td>{{ $room->room_number }}</td>
+                            <td>{{ $room->roomType->type_name }}</td>
+                            <td>${{ $room->price }}</td>
+                            <td>{{ date('d-m-Y', strtotime($reservation->check_in_date)) }}</td>
+                            <td>{{ date('d-m-Y', strtotime($reservation->check_out_date)) }}</td>
+                            <td>{{ $room->pivot->total_adults }}</td> <!-- Fetch from pivot table -->
+                            <td>{{ $room->pivot->total_children }}</td> <!-- Fetch from pivot table -->
+                            <td>{{ ucfirst($reservation->status) }}</td>
+                        </tr>
+                    @endforeach
+                @empty
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $reservation->guest->name }}</td>
-                        <td>{{ $reservation->room->room_number }}</td>
-                        <td>{{ $reservation->room->roomType->type_name }}</td>
-                        <td>${{ $reservation->room->price }}</td>
-                        <td>{{ date('d-m-Y', strtotime($reservation->check_in_date)) }}</td>
-                        <td>{{ date('d-m-Y', strtotime($reservation->check_out_date)) }}</td>
-                        <td>{{ $reservation->total_adults }}</td>
-                        <td>{{ $reservation->total_children }}</td>
-                        <td>{{ ucfirst($reservation->status) }}</td>
+                        <td colspan="11" class="text-center">No reservations found for the selected dates.</td>
                     </tr>
+                @endforelse
+            </tbody>
+        </table>
+    @endif --}}
+
+    @if (request()->has('start_date') && request()->has('end_date'))
+        <table class="table table-bordered table-striped table-hover mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>@lang('label.guestName')</th>
+                    <th>@lang('label.room')</th>
+                    <th>@lang('label.roomType')</th>
+                    <th>@lang('label.price')</th>
+                    <th>@lang('label.checkIn')</th>
+                    <th>@lang('label.checkOut')</th>
+                    <th>@lang('label.totalAdults')</th>
+                    <th>@lang('label.totalChildren')</th>
+                    <th>@lang('label.status')</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($reservations as $reservation)
+                    @foreach ($reservation->rooms as $room)
+                        <tr>
+                            <td>{{ $loop->parent->iteration }}</td> <!-- Use parent loop for iteration -->
+                            <td>{{ $reservation->guest->first_name }} {{ $reservation->guest->last_name }}</td>
+                            <td>{{ $room->room_number }}</td>
+                            <td>{{ $room->roomType->type_name }}</td>
+                            <td>${{ $room->price }}</td>
+                            <td>{{ date('d-m-Y', strtotime($reservation->check_in_date)) }}</td>
+                            <td>{{ date('d-m-Y', strtotime($reservation->check_out_date)) }}</td>
+                            <td>{{ $room->pivot->total_adults }}</td> <!-- Fetch from pivot table -->
+                            <td>{{ $room->pivot->total_children }}</td> <!-- Fetch from pivot table -->
+                            <td>{{ ucfirst($reservation->status) }}</td>
+                        </tr>
+                    @endforeach
                 @empty
                     <tr>
                         <td colspan="11" class="text-center">No reservations found for the selected dates.</td>
@@ -79,4 +167,24 @@
             </tbody>
         </table>
     @endif
+@endsection
+
+@section('script')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // var ctx = document.getElementById('statusChart').getContext('2d');
+        // var statusChart = new Chart(ctx, {
+        //     type: 'pie',
+        //     data: {
+        //         labels: ['Confirmed', 'Pending', 'Canceled', 'Completed', 'Checked-In', 'Checked-Out'],
+        //         datasets: [{
+        //             data: [{{ $statusBreakdown['Reserved'] }}, {{ $statusBreakdown['Pending'] }},
+        //                 {{ $statusBreakdown['Cancelled'] }}, {{ $statusBreakdown['Completed'] }},
+        //                 {{ $statusBreakdown['Checked-In'] }}, {{ $statusBreakdown['Checked-Out'] }}
+        //             ],
+        //             backgroundColor: ['#28a745', '#ffc107', '#dc3545', '#000000', '#ddff00']
+        //         }]
+        //     }
+        // });
+    </script>
 @endsection

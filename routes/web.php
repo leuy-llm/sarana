@@ -429,8 +429,14 @@ Route::get('/booking', [HomeController::class, 'bookingPage'])->name('booking.pa
         ->name('reports.index');
     Route::get('/reports/reservations', [ReportController::class, 'reservationReport'])
         ->name('reports.reservations');
+        
+        Route::get('/reports/rooms', [ReportController::class, 'roomReservationReport'])
+        ->name('reports.rooms');
+        Route::get('/reports/rooms/export', [ReportController::class, 'exportRoomOccupancyReport'])
+        ->name('reports.rooms.export');
     Route::get('/reports/reservations/export', [ReportController::class, 'exportReservationReport'])
         ->name('reports.reservations.export');
+    
 });
 
 // Route::middleware([
