@@ -279,14 +279,15 @@ return [
   'calenderList' => 'Calendar List',
   'report' => 'Report',
   'totalNights' => 'Total Nights',
-  
+  'bookingSource' => 'Booking Source',
 
   /*============= Booking ============= */
-  'checkIn' => 'Check_In',
-  'checkOut' => 'Check_Out',
-  'totalAdults' => 'Total_Adults',
-  'totalChildren' => 'Total_Children',
+  'checkIn' => 'Check In',
+  'checkOut' => 'Check Out',
+  'totalAdults' => 'Total Adults',
+  'totalChildren' => 'Total Children',
   'avaiableRoom' => 'Avaiable Room',
+  'totalGuest' => 'Total Guest',
   'reservation' => 'Reservation',
   'bookingList' => 'Booking List',
   'addBooking' => 'Add Booking',
@@ -333,7 +334,6 @@ return [
   'enterTotalAdults' => 'Enter adults',
   'enterTotalChildren' => 'Enter children',
 
-
   'reservationReport'=>'Reservations Report',
   'roomReport'=>'Room Reports',
   'page' => 'Pages',
@@ -341,8 +341,8 @@ return [
   'userQuery'=>'User Queries',
   'facility' =>'Facilities',
   'Setting '=>'Settings',
+  'roomDetails' =>'Room Details',
 
-  'last_name' =>'Last Name',
   
   
 ];

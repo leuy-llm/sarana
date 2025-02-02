@@ -107,7 +107,6 @@ class GuestController extends Controller
     }
 }
 
-
     public function destroy($guestId)
     {
         $guest = Guest::findOrFail($guestId);
@@ -298,7 +297,6 @@ class GuestController extends Controller
             'country' => 'required|string',
             'password' => 'required|string|min:8|confirmed',
         ]);
-
 
         $guest = Guest::create([
             'first_name' => $request->first_name,

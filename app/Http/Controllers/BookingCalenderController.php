@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 class BookingCalenderController extends Controller
 {
     //
-    public function index(){
-        $bookings = Booking::with(['guest', 'rooms.roomType'])->where('status', '=', 'Reserved')->get(); 
+    public function index()
+    {
+        $bookings = Booking::with(['guest', 'rooms.roomType'])->where('status', '=', 'Reserved')->where('booking_source', '=', 'website')->get();
         $header_title = "Booking Calender";
-        return view('back_end.calender.index',compact('header_title','bookings'));
+        return view('back_end.calender.index', compact('header_title', 'bookings'));
     }
 }

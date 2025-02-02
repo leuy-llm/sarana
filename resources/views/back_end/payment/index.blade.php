@@ -172,14 +172,7 @@
            <div class="col-12">
                <div class="card">
                    <div class="card-body">
-                       <div class="row mb-2">
-                           <div class="col-sm-9">
-                               <a href="{{ url('guests/create') }}" tabindex="0" data-bs-toggle="popover"
-                                   data-bs-trigger="hover" data-bs-placement="top" title="@lang('label.createNew')"
-                                   class="btn btn-danger mb-2">
-                                   <i class="mdi mdi-plus-circle me-1"></i> @lang('label.creatpayment')</a>
-                           </div>
-                       </div>
+
                        <div class="table-responsive">
                            <table class="table table-centered table-striped dt-responsive nowrap w-100"
                                id="payment-datatable">
@@ -222,20 +215,16 @@
                                            <td>${{ number_format($payment->amount, 2) }} </td>
                                            <td>{{ $payment->payment_method }}</td>
                                            <td class="table-action">
-                                               <a href="}" class="action-icon text-success"> <i
-                                                       class="mdi mdi-eye"></i>
-                                               </a>
-                                               </a>
-                                               <a href="" class="action-icon text-primary"> <i
-                                                       class="mdi mdi-square-edit-outline"></i>
-                                               </a>
-                                               <a href="" onclick="confirmation(event)"
+                                               {{-- <a href="{{ url('payments/' . $payment->payment_id . '/delete') }}" onclick="confirmation(event)"
                                                    class="action-icon  text-danger"> <i class="mdi mdi-delete"></i>
+                                               </a> --}}
+                                               <a href="{{ route('payments.destroy', $payment->payment_id) }}"
+                                                   onclick="confirmation(event)" class="action-icon text-danger">
+                                                   <i class="mdi mdi-delete"></i>
                                                </a>
                                            </td>
                                        </tr>
                                    @endforeach
-
                                </tbody>
                            </table>
                        </div>
@@ -343,11 +332,5 @@
                        }
                    });
            }
-
-           // /*============= Tranlsate ==============*/
-           // var displayText = @json(__('label.display'));
-           // var displayGuest = @json(__('label.guest'));
-           // var showingGuestsText =
-           //     "{{ __('label.showing_guests', ['start' => '_START_', 'end' => '_END_', 'total' => '_TOTAL_']) }}";
        </script>
    @endsection

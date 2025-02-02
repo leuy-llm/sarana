@@ -19,57 +19,35 @@
             padding: 8px;
             text-align: center;
             font-family: 'Oswald', sans-serif;
-            /* this font is work */
         }
 
         th {
             background-color: #343a40;
             color: white;
             font-family: 'Oswald', sans-serif;
-            /* Ensure font is applied here */
         }
 
         thead th {
             font-family: 'Oswald', sans-serif;
-            /* Apply to table headers */
-        }
 
-        .status-table th,
-        .status-table td {
-            text-align: left;
-            font-family: 'Oswald', sans-serif;
-            /* Ensure font is applied here */
-        }
-
-        .logo {
-            width: 150px;
-            height: auto;
-        }
-
-        .text-center {
-            text-align: center;
         }
     </style>
 @endsection
 @section('content')
     <h1 class="text-center mb-4 mt-3">@lang('label.reportReservation')</h1>
-    <!-- Date Range Filter Form -->
     <form method="GET" action="{{ route('reports.reservations') }}" class="mb-4">
         <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
-            <!-- Start Date -->
+
             <div class="d-flex flex-column ">
                 <label for="start_date" class="">Start Date</label>
                 <input type="date" name="start_date" id="start_date" class="form-control "
                     value="{{ request()->start_date }}" style="width: 350px;">
             </div>
-            <!-- End Date -->
             <div class="d-flex flex-column">
                 <label for="end_date" class="">End Date</label>
                 <input type="date" name="end_date" id="end_date" class="form-control" value="{{ request()->end_date }}"
                     style="width: 350px;">
             </div>
-
-            <!-- Buttons -->
             <div class="d-flex gap-2 align-self-end">
                 <button type="submit" class="btn btn-primary">Filter</button>
                 <a href="{{ route('reports.reservations.export', ['start_date' => request()->start_date, 'end_date' => request()->end_date]) }}"
@@ -170,21 +148,5 @@
 @endsection
 
 @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // var ctx = document.getElementById('statusChart').getContext('2d');
-        // var statusChart = new Chart(ctx, {
-        //     type: 'pie',
-        //     data: {
-        //         labels: ['Confirmed', 'Pending', 'Canceled', 'Completed', 'Checked-In', 'Checked-Out'],
-        //         datasets: [{
-        //             data: [{{ $statusBreakdown['Reserved'] }}, {{ $statusBreakdown['Pending'] }},
-        //                 {{ $statusBreakdown['Cancelled'] }}, {{ $statusBreakdown['Completed'] }},
-        //                 {{ $statusBreakdown['Checked-In'] }}, {{ $statusBreakdown['Checked-Out'] }}
-        //             ],
-        //             backgroundColor: ['#28a745', '#ffc107', '#dc3545', '#000000', '#ddff00']
-        //         }]
-        //     }
-        // });
-    </script>
+    <script></script>
 @endsection

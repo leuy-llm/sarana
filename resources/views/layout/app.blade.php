@@ -4,10 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title style="font-family: 'Hanuman', 'serif'!important;">{{ !empty($header_title) ? $header_title : '' }} @lang('label.for_hotel')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
+    <meta content="Hotel Reservation" name="description">
     <meta content="Coderthemes" name="author">
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('admin_dashboard') }}/assets/images/favicon.ico">
@@ -35,8 +34,8 @@
 
     {{-- <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" /> --}}
     <!-- Fine Uploader styles -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fine-uploader/5.16.2/fine-uploader-new.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" />
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/fine-uploader/5.16.2/fine-uploader-new.min.css" rel="stylesheet"> --}}
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" /> --}}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.3.0/css/lightgallery.min.css">
     {{-- <link rel="stylesheet"
@@ -46,12 +45,6 @@
     <script src="https://cdn.jsdelivr.net/npm/viewerjs@1.10.1/dist/viewer.min.js"></script>
     <!-- third party css -->
     <link href="{{ asset('admin_dashboard') }}/assets/css/vendor/fullcalendar.min.css" rel="stylesheet" type="text/css">
-    <!-- third party css end -->
-    <!-- CSS -->
-    
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
@@ -89,121 +82,20 @@
 
                 </style> 
                 </head>
-
                 <body class ="loading" data-layout-config = '{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}' >
-                <div class = "wrapper" >
-                
-                !-- === === === = Left Sidebar Start === === === = -- >
-                @include('layout.sidebar') 
-               
-
-                <div class = "content-page" >
-                    <div class = "content" >
-                
+                    <div class = "wrapper" >
                     
-                    @include('layout.navbar') 
-                   
-                    <div class = "container-fluid" >
+                    !-- === === === = Left Sidebar Start === === === = -- >
+                    @include('layout.sidebar') 
+                    <div class = "content-page" >
+                        <div class = "content" >                    
+                        @include('layout.navbar') 
                     
-                        @yield('content') 
-                    </div>
+                        <div class = "container-fluid" >
+                        
+                            @yield('content') 
+                        </div>
                 </div>
-        
-        {{-- <div class="end-bar">
-            <div class="rightbar-title">
-                <a href="javascript:void(0);" class="end-bar-toggle float-end">
-                    <i class="dripicons-cross noti-icon"></i>
-                </a>
-                <h5 class="m-0">Settings</h5>
-            </div>
-
-            <div class="rightbar-content h-100" data-simplebar="">
-                <div class="p-3">
-                    <div class="alert alert-warning" role="alert">
-                        <strong>Customize </strong> the overall color scheme, sidebar menu, etc.
-                    </div>
-
-                    <!-- Settings -->
-                    <h5 class="mt-3">Color Scheme</h5>
-                    <hr class="mt-1">
-
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="light"
-                            id="light-mode-check" checked="">
-                        <label class="form-check-label" for="light-mode-check">Light Mode</label>
-                    </div>
-
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="dark"
-                            id="dark-mode-check">
-                        <label class="form-check-label" for="dark-mode-check">Dark Mode</label>
-                    </div>
-
-                    <!-- Width -->
-                    <h5 class="mt-4">Width</h5>
-                    <hr class="mt-1">
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" name="width" value="fluid" id="fluid-check"
-                            checked="">
-                        <label class="form-check-label" for="fluid-check">Fluid</label>
-                    </div>
-
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" name="width" value="boxed"
-                            id="boxed-check">
-                        <label class="form-check-label" for="boxed-check">Boxed</label>
-                    </div>
-
-                    <!-- Left Sidebar -->
-                    <h5 class="mt-4">Left Sidebar</h5>
-                    <hr class="mt-1">
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" name="theme" value="default"
-                            id="default-check">
-                        <label class="form-check-label" for="default-check">Default</label>
-                    </div>
-
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" name="theme" value="light"
-                            id="light-check" checked="">
-                        <label class="form-check-label" for="light-check">Light</label>
-                    </div>
-
-                    <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" name="theme" value="dark"
-                            id="dark-check">
-                        <label class="form-check-label" for="dark-check">Dark</label>
-                    </div>
-
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" name="compact" value="fixed"
-                            id="fixed-check" checked="">
-                        <label class="form-check-label" for="fixed-check">Fixed</label>
-                    </div>
-
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" name="compact" value="condensed"
-                            id="condensed-check">
-                        <label class="form-check-label" for="condensed-check">Condensed</label>
-                    </div>
-
-                    <div class="form-check form-switch mb-1">
-                        <input class="form-check-input" type="checkbox" name="compact" value="scrollable"
-                            id="scrollable-check">
-                        <label class="form-check-label" for="scrollable-check">Scrollable</label>
-                    </div>
-
-                    <div class="d-grid mt-4">
-                        <button class="btn btn-primary" id="resetBtn">Reset to Default</button>
-                        <a href="../../product/hyper-responsive-admin-dashboard-template/index.htm"
-                            class="btn btn-danger mt-3" target="_blank"><i class="mdi mdi-basket me-1"></i> Purchase
-                            Now</a>
-                    </div>
-                </div> <!-- end padding-->
-            </div>
-        </div> --}}
-
-        {{-- <div class="rightbar-overlay"></div> --}}
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor.min.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/app.min.js"></script>
 
@@ -211,7 +103,7 @@
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor/apexcharts.min.js"></script>
 
         <!-- Todo js -->
-        <script src="{{ asset('admin_dashboard') }}/assets/js/ui/component.todo.js"></script>
+        {{-- <script src="{{ asset('admin_dashboard') }}/assets/js/ui/component.todo.js"></script> --}}
 
         <!-- demo app -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.dashboard-crm.js"></script>
@@ -248,7 +140,6 @@
         
         <!-- Demo -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.typehead.js"></script>
-        {{-- <script src='fullcalendar-scheduler/dist/index.global.js'></> --}}
 
         <!-- Timepicker -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.timepicker.js"></script>
@@ -256,18 +147,7 @@
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.toastr.js"></script>
         <!-- -->
 
-        <!-- plugin js -->
-        <script src="{{ asset('admin_dashboard') }}/assets/js/vendor/dropzone.min.js"></script>
-        <!-- init js -->
-        {{-- <script src="{{ asset('admin_dashboard') }}/assets/js/ui/component.fileupload.js"></script> --}}
-
-        <!-- Datatables js -->
-
-
-        <!-- Datatable Init js -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.datatable-init.js"></script>
-
-        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
         <!-- end demo js-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -281,21 +161,14 @@
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor/buttons.flash.min.js"></script>
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor/buttons.print.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fine-uploader/5.16.2/fine-uploader.min.js"></script>
-        <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.js"></script>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.3.0/lightgallery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.3.0/plugins/thumbnail/lg-thumbnail.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.3.0/plugins/zoom/lg-zoom.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
         <!-- third party js -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/vendor/fullcalendar.min.js"></script>
         <!-- third party js ends -->
-
-    
         <!-- demo app -->
         <script src="{{ asset('admin_dashboard') }}/assets/js/pages/demo.calendar.js"></script>
         

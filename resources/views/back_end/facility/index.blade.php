@@ -287,9 +287,6 @@
             @endif
         }
         (window.jQuery);
-
-
-
         /* =============== Remove RoomType ============ */
 
         function confirmation(ev) {

@@ -17,10 +17,10 @@ class BookingController extends Controller
     public function index()
     {
         $bookings = Booking::getBooking();
-
+        $guests = Guest::getGuest();
         $header_title = "Manage Booking";
 
-        return view('back_end.booking.index', compact('header_title', 'bookings'));
+        return view('back_end.booking.index', compact('header_title', 'bookings', 'guests'));
     }
 
     public function create()
@@ -31,224 +31,6 @@ class BookingController extends Controller
 
         return view("back_end.booking.create", compact('rooms', 'guests', 'header_title'));
     }
-
-
-    // public function store(Request $request)
-    // {
-    //     $request->validate(
-    //         [
-    //             'guest_id' => 'required|exists:guests,id',
-    //             'room_id' => 'required|exists:rooms,id',
-    //             'check_in_date' => 'required|date|after_or_equal:today',
-    //             'check_out_date' => 'required|date|after:check_in_date',
-    //             'total_adults' => 'required|integer|min:1',
-    //             'total_children' => 'nullable|integer|min:0',
-    //             'payment_status' => 'required|in:Unpaid,Paid',
-
-    //             'status' => 'required|in:Reserved,Cancelled,Pending,Checked-In,Checked-Out,Completed',
-    //         ],
-    //     );
-
-    //     $booking = new Booking();
-    //     $booking->guest_id = $request->guest_id;
-    //     $booking->room_id = $request->room_id;
-    //     $booking->check_in_date = $request->check_in_date;
-    //     $booking->check_out_date = $request->check_out_date;
-    //     $booking->payment_status = $request->payment_status;
-    //     $booking->quantity = $request->quantity;
-    //     $booking->total_adults = $request->total_adults;
-    //     $booking->total_children = $request->total_children;
-    //     $booking->status = $request->status;
-    //     $booking->save();
-    //     return redirect()->route('bookings.index')->with('success', __('label.bookingCreatedSuccess'));
-
-    // }
-
-    //     public function store(Request $request)
-    // {
-    //     $request->validate(
-    //         [
-    //             'guest_id' => 'required|exists:guests,id',
-    //             'room_id' => 'required|exists:rooms,id',
-    //             'check_in_date' => 'required|date|after_or_equal:today',
-    //             'check_out_date' => 'required|date|after:check_in_date',
-    //             'total_adults' => 'required|integer|min:1',
-    //             'total_children' => 'nullable|integer|min:0',
-    //             'payment_status' => 'required|in:Unpaid,Paid',
-    //             'status' => 'required|in:Reserved,Cancelled,Pending,Checked-In,Checked-Out,Completed',
-    //             'quantity' => 'required|integer|min:1',
-    //         ]
-    //     );
-
-    //     // Check if enough rooms are available
-    //     $availableRooms = DB::table('rooms')
-    //         ->where('id', $request->room_id)
-    //         ->where('status', 1)
-    //         ->whereNotIn('id', function ($query) use ($request) {
-    //             $query->select('room_id')
-    //                 ->from('bookings')
-    //                 ->whereNotIn('status', ['Cancelled', 'Checked-Out'])
-    //                 ->whereRaw("'" . $request->check_in_date . "' BETWEEN check_in_date AND check_out_date");
-    //         })
-    //         ->count();
-
-    //     if ($availableRooms < $request->quantity) {
-    //         return redirect()->route('bookings.index')->with('error','Not enough rooms available')->withInput();
-    //     }
-
-    //     // Save the booking
-    //     $booking = new Booking();
-    //     $booking->guest_id = $request->guest_id;
-    //     $booking->room_id = $request->room_id;
-    //     $booking->check_in_date = $request->check_in_date;
-    //     $booking->check_out_date = $request->check_out_date;
-    //     $booking->quantity = $request->quantity;
-    //     $booking->total_adults = $request->total_adults;
-    //     $booking->total_children = $request->total_children;
-    //     $booking->payment_status = $request->payment_status;
-    //     $booking->status = $request->status;
-    //     $booking->save();
-
-    //     return redirect()->route('bookings.index')->with('success', __('label.bookingCreatedSuccess'));
-    // }
-
-    // public function store(Request $request)
-    // {
-    //     // Validate the form inputs
-    //     $request->validate([
-    //         'guest_id' => 'required|exists:guests,id',
-    //         'check_in_date' => 'required|date|after_or_equal:today',
-    //         'check_out_date' => 'required|date|after:check_in_date',
-    //         'room_id' => 'required|array|min:1', // Ensure at least one room is selected
-    //         'room_id.*' => 'exists:rooms,id',
-    //         'total_adults' => 'required|array|min:1',
-    //         'total_adults.*' => 'integer|min:1',
-    //         'total_children.*' => 'nullable|integer|min:0',
-    //         'payment_status' => 'required|in:Paid,Unpaid',
-    //         'status' => 'required|in:Reserved,Cancelled,Pending,Checked-In,Checked-Out',
-    //     ]);
-
-    //     try {
-    //         DB::beginTransaction();
-
-    //         // Create the booking
-    //         $bookingId = DB::table('bookings')->insertGetId([
-    //             'guest_id' => $request->guest_id,
-    //             'check_in_date' => $request->check_in_date,
-    //             'check_out_date' => $request->check_out_date,
-    //             'payment_status' => $request->payment_status,
-    //             'status' => $request->status,
-    //         ]);
-
-    //         // Loop through the rooms and insert data into booking_rooms
-    //         foreach ($request->room_id as $index => $roomId) {
-
-    //             $isRoomAvailable = DB::table('bookings')
-    //                 ->where('room_id', $roomId)
-    //                 ->whereNotIn('status', ['Cancelled', 'Checked-Out'])
-    //                 ->where(function ($query) use ($request) {
-    //                     $query->whereBetween('check_in_date', [$request->check_in_date, $request->check_out_date])
-    //                         ->orWhereBetween('check_out_date', [$request->check_in_date, $request->check_out_date])
-    //                         ->orWhereRaw('? BETWEEN check_in_date AND check_out_date', [$request->check_in_date])
-    //                         ->orWhereRaw('? BETWEEN check_in_date AND check_out_date', [$request->check_out_date]);
-    //                 })
-    //                 ->exists();
-
-    //             if ($isRoomAvailable) {
-    //                 return back()->withErrors(["room_id.$index" => "Room $roomId is unavailable for the selected dates."])->withInput();
-    //             }
-
-    //             // Insert data into booking_rooms table
-    //             DB::table('booking_rooms')->insert([
-    //                 'booking_id' => $bookingId,
-    //                 'room_id' => $roomId,
-    //                 'total_adults' => $request->total_adults[$index],
-    //                 'total_children' => $request->total_children[$index] ?? 0,
-
-    //             ]);
-    //         }
-
-    //         DB::commit();
-
-    //         return redirect()->route('bookings.index')->with('success', 'Booking created successfully!');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-
-    //         // Log the error for debugging
-    //         Log::error('Booking Store Error: ', ['error' => $e->getMessage()]);
-
-    //         return back()->withErrors(['error' => 'An error occurred while saving the booking. Please try again.'])->withInput();
-    //     }
-    // }
-
-    // public function store(Request $request)
-    // {
-    //     // Validate the form data
-    //     $request->validate([
-    //         'guest_id' => 'required|exists:guests,id',
-    //         'check_in_date' => 'required|date',
-    //         'check_out_date' => 'required|date|after:check_in_date',
-    //         'room_id' => 'required|array|min:1', // Ensure at least one room is selected
-    //         'room_id.*' => [
-    //             'required',
-    //             'exists:rooms,id',
-    //             function ($attribute, $value, $fail) use ($request) {
-    //                 // Validate room availability
-    //                 $isRoomAvailable = DB::table('booking_rooms')
-    //                     ->join('bookings', 'booking_rooms.booking_id', '=', 'bookings.id')
-    //                     ->where('booking_rooms.room_id', $value)
-    //                     ->whereNotIn('bookings.status', ['Cancelled', 'Checked-Out'])
-    //                     ->where(function ($query) use ($request) {
-    //                         $query->whereBetween('bookings.check_in_date', [$request->check_in_date, $request->check_out_date])
-    //                             ->orWhereBetween('bookings.check_out_date', [$request->check_in_date, $request->check_out_date])
-    //                             ->orWhere(function ($query) use ($request) {
-    //                                 $query->where('bookings.check_in_date', '<=', $request->check_in_date)
-    //                                     ->where('bookings.check_out_date', '>=', $request->check_out_date);
-    //                             });
-    //                     })
-    //                     ->exists();
-
-    //                 if ($isRoomAvailable) {
-    //                     $fail("Room ID $value is not available for the selected dates.");
-    //                 }
-    //             },
-    //         ],
-    //         'total_adults' => 'required|array|min:1',
-    //         'total_adults.*' => 'required|integer|min:1',
-    //         'total_children' => 'nullable|array',
-    //         'total_children.*' => 'nullable|integer|min:0',
-    //         'status' => 'required|in:Approved,Cancelled,Pending,Checked-In,Checked-Out',
-    //         'payment_status' => 'required|in:Unpaid,Paid',
-    //     ]);
-
-
-    //     try {
-    //         // Create the booking
-    //         $booking = Booking::create([
-    //             'guest_id' => $request->guest_id,
-    //             'check_in_date' => $request->check_in_date,
-    //             'check_out_date' => $request->check_out_date,
-    //             'status' => $request->status,
-    //             'payment_status' => $request->payment_status,
-    //         ]);
-
-    //         // Attach rooms
-    //         foreach ($request->room_id as $index => $roomId) {
-    //             $booking->rooms()->attach($roomId, [
-    //                 'total_adults' => $request->total_adults[$index],
-    //                 'total_children' => $request->total_children[$index] ?? 0,
-    //             ]);
-    //         }
-
-    //         DB::commit();
-
-    //         return redirect()->route('bookings.index')->with('success', 'Booking created successfully.');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-    //         Log::error('Booking Store Error: ' . $e->getMessage());
-    //         return redirect()->back()->withInput()->with('error', 'An error occurred: ' . $e->getMessage());
-    //     }
-    // }
 
     public function store(Request $request)
     {
@@ -263,8 +45,9 @@ class BookingController extends Controller
             'total_adults.*' => 'required|integer|min:1',
             'total_children' => 'nullable|array',
             'total_children.*' => 'nullable|integer|min:0',
-            'status' => 'required|in:Approved,Cancelled,Pending,Checked-In,Checked-Out',
+            'status' => 'required|in:Reserved,Cancelled,Pending,Checked-In,Checked-Out',
             'payment_status' => 'required|in:Paid,Unpaid',
+            'booking_source' => 'required|in:website,walk-in'
         ]);
 
         try {
@@ -276,6 +59,7 @@ class BookingController extends Controller
                 'check_in_date' => $validated['check_in_date'],
                 'check_out_date' => $validated['check_out_date'],
                 'status' => $validated['status'],
+                'booking_source' => $validated['booking_source'],
                 'payment_status' => $validated['payment_status'],
             ]);
 
@@ -313,21 +97,6 @@ class BookingController extends Controller
             return redirect()->back()->withErrors('An error occurred while creating the booking. Please try again.');
         }
     }
-    // public function available_rooms(Request $request, $checkin_date)
-    // {
-    //     $arooms = DB::table('rooms')
-    //         ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
-    //         ->select('rooms.id', 'rooms.room_number', 'room_types.type_name')
-    //         ->whereNotIn('rooms.id', function ($query) use ($checkin_date) {
-    //             $query->select('room_id')
-    //                 ->from('bookings')
-    //                 ->whereRaw("'$checkin_date' BETWEEN check_in_date AND check_out_date");
-    //         })
-    //         ->get();
-
-    //     return response()->json(['data' => $arooms]);
-    // }
-
 
     //កូដដែលយកពិតប្រាកដ
     // public function available_rooms(Request $request, $checkin_date)
@@ -392,26 +161,6 @@ class BookingController extends Controller
             if (!$checkout_date) {
                 return response()->json(['error' => 'Check-out date is required.'], 400);
             }
-
-            // $arooms = DB::table('rooms')
-            //     ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
-            //     ->select('rooms.id', 'rooms.room_number', 'room_types.type_name')
-            //     ->where('rooms.is_deleted', '=', 0) // Ensure room is not deleted
-            //     ->where('rooms.status', '=', 1)    // Ensure room is active
-            //     ->whereNotIn('rooms.id', function ($query) use ($checkin_date, $checkout_date) {
-            //         $query->select('room_id')
-            //             ->from('booking_rooms')
-            //             ->join('bookings', 'booking_rooms.booking_id', '=', 'bookings.id')
-            //             ->whereNotIn('bookings.status', ['Cancelled', 'Checked-Out'])
-            //             ->where(function ($query) use ($checkin_date, $checkout_date) {
-            //                 // Check if room is booked during the selected period
-            //                 $query->whereRaw("'$checkin_date' BETWEEN bookings.check_in_date AND bookings.check_out_date")
-            //                     ->orWhereRaw("'$checkout_date' BETWEEN bookings.check_in_date AND bookings.check_out_date")
-            //                     ->orWhereRaw("bookings.check_in_date <= '$checkin_date' AND bookings.check_out_date >= '$checkout_date'");
-            //             });
-            //     })
-            //     ->get();
-
             $arooms = Room::where('is_deleted', 0)
                 ->where('status', 1)
                 ->whereDoesntHave('bookings', function ($query) use ($checkin_date, $checkout_date) {
@@ -434,43 +183,6 @@ class BookingController extends Controller
             return response()->json(['error' => 'Failed to fetch available rooms. Please try again later.'], 500);
         }
     }
-
-
-    //     public function available_rooms(Request $request, $checkin_date)
-    // {
-    //     try {
-    //         $checkout_date = $request->check_out_date;
-
-    //         if (!$checkout_date) {
-    //             return response()->json(['error' => 'Check-out date is required.'], 400);
-    //         }
-
-    //         $arooms = DB::table('rooms')
-    //             ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
-    //             ->select('rooms.id', 'rooms.room_number', 'room_types.type_name')
-    //             ->where('rooms.is_deleted', '=', 0)
-    //             ->where('rooms.status', '=', 1)
-    //             ->whereNotIn('rooms.id', function ($query) use ($checkin_date, $checkout_date) {
-    //                 $query->select('room_id')
-    //                     ->from('booking_rooms')
-    //                     ->join('bookings', 'booking_rooms.booking_id', '=', 'bookings.id')
-    //                     ->whereNotIn('bookings.status', ['Cancelled', 'Checked-Out'])
-    //                     ->where(function ($query) use ($checkin_date, $checkout_date) {
-    //                         $query->whereRaw("'$checkin_date' BETWEEN bookings.check_in_date AND bookings.check_out_date")
-    //                             ->orWhereRaw("'$checkout_date' BETWEEN bookings.check_in_date AND bookings.check_out_date")
-    //                             ->orWhereRaw("bookings.check_in_date <= '$checkin_date' AND bookings.check_out_date >= '$checkout_date'");
-    //                     });
-    //             })
-    //             ->get();
-
-    //         return response()->json($arooms, 200);
-    //     } catch (\Exception $e) {
-    //         Log::error('Available Rooms Error: ', ['error' => $e->getMessage()]);
-    //         return response()->json(['error' => 'Failed to fetch available rooms. Please try again later.'], 500);
-    //     }
-    // }
-
-
 
 
     public function available_room_types(Request $request, $checkin_date)
@@ -504,30 +216,6 @@ class BookingController extends Controller
         return response()->json(['isBooked' => $isBooked]);
     }
 
-    // public function edit($id)
-    // {
-    //     $booking = Booking::findOrFail($id);
-    //     $rooms  = Room::getRoom();
-    //     $guests = Guest::getGuest();
-    //     $header_title = "Edit Booking";
-    //     $bookedDates = DB::table('bookings')
-    //         ->select('check_in_date', 'check_out_date')
-    //         ->get();
-
-    //     return view("back_end.booking.edit", compact('rooms', 'booking', 'guests', 'header_title', 'bookedDates'));
-    // }
-    // public function edit($id)
-    // {
-    //     $header_title = "Edit Bookings";
-    //     $booking = Booking::with('rooms')->findOrFail($id); // Fetch booking with related rooms
-    //     $guests = Guest::getGuest(); // Fetch all guests
-    //     $rooms = Room::with('roomType')->get(); // Fetch all rooms with their types
-
-    //     // return view('bookings.edit', compact('booking', 'guests', 'rooms'));
-    //     return view("back_end.booking.edit", compact('rooms', 'booking', 'guests', 'header_title'));
-    // }
-
-
     public function getBookedDates()
     {
         $bookedDates = DB::table('bookings')
@@ -536,188 +224,6 @@ class BookingController extends Controller
 
         return response()->json(['bookedDates' => $bookedDates]);
     }
-
-    // public function update(Request $request, $id)
-    // {
-    //     // Validate the form data
-    //     $request->validate([
-    //         'guest_id' => 'required|exists:guests,id',
-    //         'room_id' => 'required|exists:rooms,id',
-    //         'check_in_date' => 'required|date|after_or_equal:today',
-    //         'check_out_date' => 'required|date|after:check_in_date',
-    //         'total_adults' => 'required|integer|min:1',
-    //         'total_children' => 'nullable|integer|min:0',
-    //         'payment_status' => 'required|in:Unpaid,Paid',
-    //         'quantity' => 'required|integer|min:1',
-    //         'status' => 'required|in:Reserved,Cancelled,Pending,Checked-In,Checked-Out,Completed',
-    //     ]);
-    //     // Find the booking by ID
-    //     $booking = Booking::findOrFail($id);
-    //     // Update the booking details
-    //     $booking->guest_id = $request->guest_id;
-    //     $booking->room_id = $request->room_id;
-    //     $booking->check_in_date = $request->check_in_date;
-    //     $booking->check_out_date = $request->check_out_date;
-    //     $booking->total_adults = $request->total_adults;
-    //     $booking->total_children = $request->total_children;
-    //     $booking->status = $request->status;
-
-    //     // Save the updated booking
-    //     $booking->save();
-
-    //     // Redirect to a relevant page (e.g., bookings index) with a success message
-    //     return redirect()->route('bookings.index')->with('success', __('label.bookingUpdateSuccess'));
-    // }
-
-    // public function update(Request $request, $id)
-    // {
-    //     DB::beginTransaction();
-
-    //     try {
-    //         // Get the current booking
-    //         $booking = Booking::findOrFail($id);
-
-    //         // Check if check-in or check-out date has been changed
-    //         $checkInDateRule = 'nullable|date';
-    //         $checkOutDateRule = 'nullable|date|after:' . $booking->check_in_date;
-
-    //         // Only require the dates if they have been changed
-    //         if ($request->filled('check_in_date') && $request->check_in_date !== $booking->check_in_date) {
-    //             $checkInDateRule = 'required|date';
-    //         }
-
-    //         if ($request->filled('check_out_date') && $request->check_out_date !== $booking->check_out_date) {
-    //             $checkOutDateRule = 'required|date|after:' . $request->check_in_date;
-    //         }
-
-    //         // Validate the incoming data
-    //         $validatedData = $request->validate([
-    //             'check_in_date' => $checkInDateRule,
-    //             'check_out_date' => $checkOutDateRule,
-    //             'room_id' => 'required|array',
-    //             'room_id.*' => 'exists:rooms,id', // Ensure room IDs are valid
-    //             'total_adults' => 'required|array',
-    //             'total_adults.*' => 'integer|min:1',
-    //             'total_children' => 'nullable|array',
-    //             'total_children.*' => 'integer|min:0',
-    //         ]);
-
-    //         // Update the booking details (check-in and check-out dates)
-    //         $booking->update([
-    //             'check_in_date' => $validatedData['check_in_date'] ?? $booking->check_in_date,
-    //             'check_out_date' => $validatedData['check_out_date'] ?? $booking->check_out_date,
-    //         ]);
-
-    //         // Update or create the pivot table (booking_rooms) for the rooms
-    //         foreach ($validatedData['room_id'] as $index => $roomId) {
-    //             // Find the room
-    //             $room = Room::findOrFail($roomId);
-
-    //             // Check if the room is already associated with the booking
-    //             if ($room->bookings->contains($booking->id)) {
-    //                 // Update the pivot table with the selected room, adults, and children count
-    //                 $booking->rooms()->updateExistingPivot($room->id, [
-    //                     'total_adults' => $validatedData['total_adults'][$index],
-    //                     'total_children' => $validatedData['total_children'][$index] ?? 0,
-    //                 ]);
-    //             } else {
-    //                 // Add a new room to the pivot table
-    //                 $booking->rooms()->attach($room->id, [
-    //                     'total_adults' => $validatedData['total_adults'][$index],
-    //                     'total_children' => $validatedData['total_children'][$index] ?? 0,
-    //                 ]);
-    //             }
-    //         }
-
-    //         DB::commit();
-
-    //         // Return success response
-    //         return redirect()->route('bookings.index')->with('success', 'Booking updated successfully!');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-
-    //         // Log the error
-    //         Log::error('Booking Update Error: ', ['error' => $e->getMessage()]);
-
-    //         // Return error response
-    //         return back()->withErrors(['error' => 'Failed to update the booking. Please try again later.']);
-    //     }
-    // }
-
-    //     public function update(Request $request, $id)
-    // {
-    //     DB::beginTransaction();
-
-    //     try {
-    //         // Get the current booking
-    //         $booking = Booking::findOrFail($id);
-
-    //         // Check if check-in or check-out date has been changed
-    //         $checkInDateRule = 'nullable|date';
-    //         $checkOutDateRule = 'nullable|date|after:' . $booking->check_in_date;
-
-    //         // Only require the dates if they have been changed
-    //         if ($request->filled('check_in_date') && $request->check_in_date !== $booking->check_in_date) {
-    //             $checkInDateRule = 'required|date';
-    //         }
-
-    //         if ($request->filled('check_out_date') && $request->check_out_date !== $booking->check_out_date) {
-    //             $checkOutDateRule = 'required|date|after:' . $request->check_in_date;
-    //         }
-
-    //         // Validate the incoming data
-    //         $validatedData = $request->validate([
-    //             'check_in_date' => $checkInDateRule,
-    //             'check_out_date' => $checkOutDateRule,
-    //             'room_id' => 'required|array',
-    //             'room_id.*' => 'exists:rooms,id', // Ensure room IDs are valid
-    //             'total_adults' => 'required|array',
-    //             'total_adults.*' => 'integer|min:1',
-    //             'total_children' => 'nullable|array',
-    //             'total_children.*' => 'integer|min:0',
-    //         ]);
-
-    //         // Update the booking details (check-in and check-out dates)
-    //         $booking->update([
-    //             'check_in_date' => $validatedData['check_in_date'] ?? $booking->check_in_date,
-    //             'check_out_date' => $validatedData['check_out_date'] ?? $booking->check_out_date,
-    //         ]);
-
-    //         // Sync the pivot table (booking_rooms) with the new rooms
-    //         $roomsData = [];
-    //         foreach ($validatedData['room_id'] as $index => $roomId) {
-    //             $roomsData[$roomId] = [
-    //                 'total_adults' => $validatedData['total_adults'][$index],
-    //                 'total_children' => $validatedData['total_children'][$index] ?? 0,
-    //             ];
-    //         }
-
-    //         // Sync the rooms to the booking (this will remove any rooms not in the new request)
-    //         $booking->rooms()->sync($roomsData);
-
-    //         DB::commit();
-
-    //         // Return success response
-    //         return redirect()->route('bookings.index')->with('success', 'Booking updated successfully!');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-
-    //         // Log the error
-    //         Log::error('Booking Update Error: ', ['error' => $e->getMessage()]);
-
-    //         // Return error response
-    //         return back()->withErrors(['error' => 'Failed to update the booking. Please try again later.']);
-    //     }
-    // }
-    // Helper method to check room availability
-
-    // public function edit($id)
-    // {
-    //     $guests = Guest::getGuest();
-    //     $booking = Booking::with('rooms')->findOrFail($id);
-    //     $rooms = Room::getRoom(); // Get all rooms to show as options
-    //     return view("back_end.booking.edit", compact('rooms', 'booking', 'guests'));
-    // }
     public function edit($id)
     {
         $guests = Guest::getGuest();
@@ -743,57 +249,8 @@ class BookingController extends Controller
             ->whereNotIn('id', $bookedRoomIds)  // Exclude rooms already selected in this booking
             ->get();
 
-        return view('back_end.booking.edit', compact('booking', 'availableRooms', 'guests', 'rooms'));
+        return view('back_end.booking.edit', compact('booking', 'availableRooms', 'guests'));
     }
-
-
-
-
-
-
-    // public function edit($id)
-    // {
-    //     $header_title = "Edit Bookings";
-    //     $booking = Booking::with('rooms')->findOrFail($id); // Fetch booking with related rooms
-    //     $guests = Guest::getGuest(); // Fetch all guests
-    //     $rooms = Room::with('roomType')->get(); // Fetch all rooms with their types
-
-    //     // return view('bookings.edit', compact('booking', 'guests', 'rooms'));
-    //     return view("back_end.booking.edit", compact('rooms', 'booking', 'guests', 'header_title'));
-    // }
-    // public function update(Request $request, $id)
-    // {
-    //     $booking = Booking::findOrFail($id);
-    //     $validatedData = $request->validate([
-    //         'check_in_date' => 'required|date',
-    //         'check_out_date' => 'required|date|after:check_in_date',
-    //         'room_id' => 'required|array',
-    //         'room_id.*' => 'exists:rooms,id',
-    //         'total_adults' => 'required|array',
-    //         'total_adults.*' => 'integer|min:1',
-    //         'total_children' => 'nullable|array',
-    //         'total_children.*' => 'integer|min:0',
-    //     ]);
-
-    //     // Update the booking details (check-in and check-out dates)
-    //     $booking->update([
-    //         'check_in_date' => $validatedData['check_in_date'],
-    //         'check_out_date' => $validatedData['check_out_date'],
-    //     ]);
-
-    //     // Update the pivot table (booking_rooms) for the rooms
-    //     $booking->rooms()->detach();  // Remove all previously associated rooms
-
-    //     foreach ($validatedData['room_id'] as $index => $roomId) {
-    //         $room = Room::findOrFail($roomId);
-    //         $booking->rooms()->attach($room->id, [
-    //             'total_adults' => $validatedData['total_adults'][$index],
-    //             'total_children' => $validatedData['total_children'][$index] ?? 0,
-    //         ]);
-    //     }
-
-    //     return redirect()->route('bookings.index')->with('success', 'Booking updated successfully!');
-    // }
 
     public function update(Request $request, $id)
     {
@@ -806,6 +263,7 @@ class BookingController extends Controller
             'total_children.*' => 'nullable|integer|min:0',
             'status' => 'required',
             'payment_status' => 'required',
+            'booking_source' => 'required'
         ]);
 
         $booking = Booking::findOrFail($id);
@@ -827,9 +285,10 @@ class BookingController extends Controller
             if ($isRoomBooked) {
                 return redirect()->back()->withErrors(['rooms' => 'One or more selected rooms are not available for the chosen dates.']);
             }
+            Log::info('Room ID: ' . $roomId . ' is available for the chosen dates.');
         }
 
-        $booking->update($request->only(['guest_id', 'check_in_date', 'check_out_date', 'status', 'payment_status']));
+        $booking->update($request->only(['guest_id', 'check_in_date', 'check_out_date', 'status', 'payment_status', 'booking_source']));
 
         $roomData = [];
         foreach ($request->rooms as $index => $roomId) {
@@ -840,50 +299,9 @@ class BookingController extends Controller
         }
         $booking->rooms()->sync($roomData);
 
+
         return redirect()->route('bookings.index')->with('success', 'Booking updated successfully!');
     }
-
-
-
-
-
-
-    //     public function availableRooms(Request $request, $checkInDate)
-    // {
-    //     try {
-    //         $checkOutDate = $request->check_out_date;
-    //         $bookingId = $request->booking_id;
-    //         $excludeDefaultRooms = $request->exclude_default_rooms; // New flag
-    //         $defaultRoomIds = $request->default_room_ids; // Default rooms
-
-    //         $arooms = DB::table('rooms')
-    //             ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
-    //             ->select('rooms.id', 'rooms.room_number', 'room_types.type_name')
-    //             ->where('rooms.is_deleted', '=', 0)
-    //             ->where('rooms.status', '=', 1)
-    //             ->when($excludeDefaultRooms, function ($query) use ($defaultRoomIds) {
-    //                 // Exclude default rooms only if flag is true
-    //                 $query->whereNotIn('rooms.id', $defaultRoomIds);
-    //             })
-    //             ->whereNotIn('rooms.id', function ($query) use ($checkInDate, $checkOutDate, $bookingId) {
-    //                 $query->select('room_id')
-    //                     ->from('booking_rooms')
-    //                     ->join('bookings', 'booking_rooms.booking_id', '=', 'bookings.id')
-    //                     ->where(function ($query) use ($checkInDate, $checkOutDate) {
-    //                         $query->whereRaw("'$checkInDate' BETWEEN bookings.check_in_date AND bookings.check_out_date")
-    //                               ->orWhereRaw("'$checkOutDate' BETWEEN bookings.check_in_date AND bookings.check_out_date")
-    //                               ->orWhereRaw("bookings.check_in_date <= '$checkInDate' AND bookings.check_out_date >= '$checkOutDate'");
-    //                     })
-    //                     ->where('bookings.id', '!=', $bookingId);
-    //             })
-    //             ->get();
-
-    //         return response()->json(['data' => $arooms], 200);
-    //     } catch (\Exception $e) {
-    //         Log::error('Available Rooms Error: ', ['error' => $e->getMessage()]);
-    //         return response()->json(['error' => 'Failed to fetch available rooms. Please try again later.'], 500);
-    //     }
-    // }
 
     public function availableRooms(Request $request, $checkInDate)
     {
@@ -921,43 +339,6 @@ class BookingController extends Controller
             return response()->json(['error' => 'Failed to fetch available rooms. Please try again later.'], 500);
         }
     }
-
-
-    // public function getAvailableRooms(Request $request)
-    // {
-    //     $checkInDate = $request->query('check_in_date');
-    //     $checkOutDate = $request->query('check_out_date');
-
-    //     // Query the booking_rooms pivot table to find booked rooms
-    //     $bookedRooms = Booking::where(function ($query) use ($checkInDate, $checkOutDate) {
-    //         $query->whereBetween('check_in_date', [$checkInDate, $checkOutDate])
-    //               ->orWhereBetween('check_out_date', [$checkInDate, $checkOutDate])
-    //               ->orWhere(function ($query) use ($checkInDate, $checkOutDate) {
-    //                   $query->where('check_in_date', '<=', $checkInDate)
-    //                         ->where('check_out_date', '>=', $checkOutDate);
-    //               });
-    //     })
-    //     ->with('rooms') // Eager load rooms for the booking
-    //     ->get()
-    //     ->flatMap(function ($booking) {
-    //         return $booking->rooms; // Flatten the array of rooms from the bookings
-    //     })
-    //     ->pluck('id'); // Get the IDs of the booked rooms (flattened)
-
-    //     // Get available rooms (those not booked) with the room type
-    //     $availableRooms = Room::with('roomType') // Eager load the roomType relationship
-    //         ->whereNotIn('id', $bookedRooms)
-    //         ->get();
-
-    //     // Return the rooms along with room_number and type_name
-    //     return response()->json($availableRooms->map(function ($room) {
-    //         return [
-    //             'id' => $room->id,
-    //             'room_number' => $room->room_number,
-    //             'type_name' => $room->roomType ? $room->roomType->type_name : null, // Safely access type_name
-    //         ];
-    //     }));
-    // }
 
 
     public function getAvailableRooms(Request $request)
@@ -1051,134 +432,40 @@ class BookingController extends Controller
     }
 
 
-
     public function destroy($bookingId)
     {
-        $booking = Booking::findOrFail($bookingId);
-
-        if (!empty($booking)) {
-            $booking->is_deleted = 1;
-            $booking->save();
+        try {
+            $query = Booking::findOrFail($bookingId);
+            $query->delete();
 
             return redirect('/bookings')->with('success', __('label.bookingDeleteSuccess'));
-            //with('success', 'The Booking was marked as deleted successfully');
+        } catch (\Exception $e) {
+            return redirect('/bookings')->with('error', __('label.bookingDeleteError'));
         }
-        return redirect('/bookings')->with('error', __('label.bookingDeleteError'));
-        //with('error', 'Booking not found');
+        return redirect('/bookings');
     }
-
 
     public function show($id)
     {
-        $booking = Booking::with(['guest', 'room.roomType', 'payment'])
+        $booking = Booking::with(['guest', 'rooms.roomType', 'payment'])
             ->where('id', $id)
             ->first();
+
+        $totalAdults = 0;
+        $totalChildren = 0;
+
+        foreach ($booking->rooms as $room) {
+            $totalAdults += $room->pivot->total_adults;
+            $totalChildren += $room->pivot->total_children;
+        }
 
         if (!$booking) {
             return redirect()->route('bookings.index')->with('error', 'Booking not found.');
         }
 
-        return view('back_end.booking.show', compact('booking'));
+        return view('back_end.booking.show', compact('booking', 'totalAdults', 'totalChildren'));
     }
 
-
-
-    // public function toggleActive(Request $request, $id)
-    // {
-    //     // Find the booking by ID
-    //     $booking = Booking::findOrFail($id);
-
-    //     // Handle status transitions
-    //     if ($booking->status === 'confirmed' && $request->status === 'staying') {
-    //         // Change 'confirmed' to 'staying'
-    //         $booking->status = 'staying';
-    //     } elseif ($booking->status === 'stay' && $request->status === 'staying') {
-    //         // Change 'stay' to 'staying'
-    //         $booking->status = 'staying';
-    //     } elseif ($booking->status === 'staying' && $request->status === 'leave') {
-    //         // Change 'staying' to 'leave'
-    //         $booking->status = 'leave';
-    //     }
-
-    //     // Save the updated status
-    //     $booking->save();
-
-    //     // Redirect back with a success message
-    //     return redirect()->back()->with('success', __('Status updated successfully!'));
-    // }
-
-    // public function toggleActive(Request $request, $id)
-    // {
-    //     // Find the booking by ID
-    //     $booking = Booking::findOrFail($id);
-
-    //     // Handle status transitions
-    //     if ($booking->status === 'confirmed' && $request->status === 'staying') {
-    //         // Change 'confirmed' to 'staying'
-    //         $booking->status = 'staying';
-    //     } elseif ($booking->status === 'stay' && $request->status === 'staying') {
-    //         // Change 'stay' to 'staying'
-    //         $booking->status = 'staying';
-    //     } elseif ($booking->status === 'staying' && $request->status === 'leave') {
-    //         // Change 'staying' to 'leave'
-    //         $booking->status = 'leave';
-    //     } elseif ($booking->status === 'leave') {
-    //         // Transition to 'check_out' (no actual action, just prevent interaction)
-    //         $booking->status = 'check_out';
-    //     }
-
-    //     // Save the updated status
-    //     $booking->save();
-
-    //     // Redirect back with a success message
-    //     return redirect()->back()->with('success', __('Status updated successfully!'));
-    // }
-
-    // public function toggleActive(Request $request, $id)
-    // {
-    //     // Find the booking by ID
-    //     $booking = Booking::findOrFail($id);
-
-    //     // Define valid transitions
-    //     $transitions = [
-    //         'confirmed' => 'checked-in',
-    //         'checked-in' => 'checked-out',
-    //     ];
-
-    //     // Check if the requested status is a valid transition
-    //     if (isset($transitions[$booking->status]) && $transitions[$booking->status] === $request->status) {
-    //         $booking->status = $request->status;
-    //         $booking->save();
-
-    //         return redirect()->back()->with('success', __('Status updated successfully!'));
-    //     }
-
-    //     // If invalid transition, redirect with an error
-    //     return redirect()->back()->with('error', __('Invalid status transition!'));
-    // }
-
-    // public function toggleActive(Request $request, $id)
-    // {
-    //     // Find the booking by ID
-    //     $booking = Booking::findOrFail($id);
-
-    //     // Define valid transitions
-    //     $transitions = [
-    //         'confirmed' => 'checked-in',
-    //         'checked-in' => 'checked-out',
-    //         'confirmed' => 'cancelled', // Allow cancelling from 'confirmed'
-    //     ];
-
-    //     // Check if the requested status is a valid transition
-    //     if (isset($transitions[$booking->status]) && $transitions[$booking->status] === $request->status) {
-    //         $booking->status = $request->status;
-    //         $booking->save();
-
-    //         return redirect()->back()->with('success', __('Status updated successfully!'));
-    //     }
-    //     // If invalid transition, redirect with an error
-    //     return redirect()->back()->with('error', __('Invalid status transition!'));
-    // }
     public function toggleActive(Request $request, $id)
     {
         // Find the booking by ID
@@ -1329,40 +616,6 @@ class BookingController extends Controller
         }
     }
 
-
-    // Your Controller
-    //     public function checkAvailability(Request $request)
-    // {
-    //     try {
-    //         $validated = $request->validate([
-    //             'room_id' => 'required|exists:rooms,id',
-    //             'check_in_date' => 'required|date',
-    //             'check_out_date' => 'required|date|after_or_equal:check_in_date',
-    //         ]);
-
-    //         $roomId = $validated['room_id'];
-    //         $checkInDate = $validated['check_in_date'];
-    //         $checkOutDate = $validated['check_out_date'];
-
-    //         $isAvailable = !Booking::whereHas('rooms', function($query) use ($roomId, $checkInDate, $checkOutDate) {
-    //             $query->where('room_id', $roomId)
-    //                 ->where(function ($query) use ($checkInDate, $checkOutDate) {
-    //                     $query->whereBetween('check_in_date', [$checkInDate, $checkOutDate])
-    //                           ->orWhereBetween('check_out_date', [$checkInDate, $checkOutDate])
-    //                           ->orWhere(function ($query) use ($checkInDate, $checkOutDate) {
-    //                               $query->where('check_in_date', '<=', $checkInDate)
-    //                                     ->where('check_out_date', '>=', $checkOutDate);
-    //                           });
-    //                 });
-    //         })->exists();
-
-    //         return response()->json(['is_available' => $isAvailable]);
-    //     } catch (\Exception $e) {
-    //         Log::error('Check Availability Error: ', ['error' => $e->getMessage()]);
-    //         return response()->json(['error' => $e->getMessage()], 422);
-    //     }
-    // }
-
     public function checkAvailability(Request $request)
     {
         try {
@@ -1445,72 +698,37 @@ class BookingController extends Controller
             }),
         ]);
     }
-
-
-    // public function proceedToCheckout(Request $request)
-    // {
-    //     // Validate the incoming request
-    //     $validatedData = $request->validate([
-    //         'rooms' => 'required|array',
-    //         'check_in' => 'required|date',
-    //         'check_out' => 'required|date',
-    //         'adults' => 'required|array',
-    //         'children' => 'required|array',
-    //     ]);
-
-    //     // Create a new booking entry
-    //     $booking = Booking::create([
-    //         'guest_id' => auth()->guard('guest')->id(),
-    //         'check_in_date' => $validatedData['check_in'],
-    //         'check_out_date' => $validatedData['check_out'],
-    //         'status' => 'Pending',
-    //         'payment_status' => 'Unpaid',
-    //     ]);
-    //     // Attach rooms to the booking
-    //     foreach ($validatedData['rooms'] as $roomId) {
-    //         $booking->rooms()->attach($roomId, [
-    //             'total_adults' => $validatedData['adults'][$roomId],
-    //             'total_children' => $validatedData['children'][$roomId],
-    //         ]);
-    //     }
-
-        
-
-    //     // Redirect to checkout page with booking ID
-    //     return redirect()->route('checkout', ['booking_id' => $booking->id]);
-    // }
-
     public function proceedToCheckout(Request $request)
-{
-    // Validate the incoming request
-    $validatedData = $request->validate([
-        'rooms' => 'required|array',
-        'check_in' => 'required|date',
-        'check_out' => 'required|date',
-        'adults' => 'required|array',
-        'children' => 'required|array',
-        'total_price' => 'required|numeric',  // Validate total_price
-    ]);
-
-    // Create a new booking entry
-    $booking = Booking::create([
-        'guest_id' => auth()->guard('guest')->id(),
-        'check_in_date' => $validatedData['check_in'],
-        'check_out_date' => $validatedData['check_out'],
-        'status' => 'Pending',
-        'payment_status' => 'Unpaid',
-    ]);
-
-    // Attach rooms to the booking
-    foreach ($validatedData['rooms'] as $roomId) {
-        $booking->rooms()->attach($roomId, [
-            'total_adults' => $validatedData['adults'][$roomId],
-            'total_children' => $validatedData['children'][$roomId],
+    {
+        // Validate the incoming request
+        $validatedData = $request->validate([
+            'rooms' => 'required|array',
+            'check_in' => 'required|date',
+            'check_out' => 'required|date',
+            'adults' => 'required|array',
+            'children' => 'required|array',
+            'total_price' => 'required|numeric',  // Validate total_price
         ]);
+
+        // Create a new booking entry
+        $booking = Booking::create([
+            'guest_id' => auth()->guard('guest')->id(),
+            'check_in_date' => $validatedData['check_in'],
+            'check_out_date' => $validatedData['check_out'],
+            'status' => 'Pending',
+            'payment_status' => 'Unpaid',
+            'booking_source' => 'website',
+        ]);
+
+        // Attach rooms to the booking
+        foreach ($validatedData['rooms'] as $roomId) {
+            $booking->rooms()->attach($roomId, [
+                'total_adults' => $validatedData['adults'][$roomId],
+                'total_children' => $validatedData['children'][$roomId],
+            ]);
+        }
+
+        // Now that we have total_price, pass it to the checkout page
+        return redirect()->route('checkout', ['booking_id' => $booking->id, 'total_price' => $validatedData['total_price']]);
     }
-
-    // Now that we have total_price, pass it to the checkout page
-    return redirect()->route('checkout', ['booking_id' => $booking->id, 'total_price' => $validatedData['total_price']]);
-}
-
 }

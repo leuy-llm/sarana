@@ -118,541 +118,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    {{-- <form class="needs-validation" enctype="multipart/form-data"
-                        action="{{ route('bookings.update', $booking->id) }}"" method="POST" novalidate="">
-                        @csrf
-                        @method('PUT')
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.guestName') <span class="text-danger">*</span></label>
-                                    <select name="guest_id" required class="form-control select2" data-toggle="select2">
-                                        <option value="" selected disabled>Select Guest</option>
-                                        @foreach ($guests as $guest)
-                                            <option value="{{ $guest->id }}"
-                                                {{ $guest->id == $booking->guest_id ? 'selected' : '' }}>
-                                                {{ $guest->first_name }} {{ $guest->last_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.checkIn') <span class="text-danger">*</span></label>
-                                    <input type="date" id="check_in_date" name="check_in_date"
-                                        value="{{ old('check_in_date', $booking->check_in_date) }}"
-                                        class="form-control checkin_date @error('check_in_date') is-invalid @enderror"
-                                        required="">
-                                    @error('check_in_date')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.checkOut') <span class="text-danger">*</span></label>
-                                    <input type="date" id="check_out_date"
-                                        value="{{ old('check_out_date', $booking->check_out_date) }}" name="check_out_date"
-                                        class="form-control  @error('check_out_date') is-invalid @enderror" required="">
-                                    @error('check_out_date')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.avaiableRoom') <span class="text-danger">*</span></label>
-                                    <select name="room_id" required="" class="form-control room-list select2"
-                                        data-toggle="select2">
-                                        @foreach ($rooms as $room)
-                                            <option value="{{ $room->id }}"
-                                                {{ $room->id == $booking->room_id ? 'selected' : '' }}>
-                                                {{ $room->room_number }} - {{ $room->roomType->type_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.totalAdults') <span class="text-danger">*</span></label>
-                                    <input type="number" value="{{ old('total_adults', $booking->total_adults) }}"
-                                        name="total_adults"
-                                        class="form-control  @error('total_adults') is-invalid @enderror "
-                                        placeholder="@lang('label.entertoalAdult') . . ." required="">
-                                    @error('total_adults')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.totalChildren') <span class="text-danger">*</span></label>
-                                    <input type="number" value="{{ old('total_children', $booking->total_children) }}"
-                                        name="total_children"
-                                        class="form-control  @error('total_children') is-invalid @enderror "
-                                        placeholder="@lang('label.entertotalChildren') . . ." required="">
-                                    @error('total_children')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
-                                    <select name="status"
-                                        class="form-control @error('status') is-invalid @enderror select2"
-                                        data-toggle="select2">
-
-                                        <option value="Canceled" {{ $booking->status == 'Canceled' ? 'selected' : '' }}>
-                                            Canceled</option>
-                                        <option value="Pending" {{ $booking->status == 'Pending' ? 'selected' : '' }}>
-                                            Pending</option>
-                                        <option value="Checked-In"
-                                            {{ $booking->status == 'Checked-In' ? 'selected' : '' }}>Checked_In</option>
-                                        <option value="Checked-Out"
-                                            {{ $booking->status == 'Checked-Out' ? 'selected' : '' }}>Checked_Out</option>
-                                        <option value="Approved" {{ $booking->status == 'Approve' ? 'selected' : '' }}>
-                                            Approved</option>
-
-                                    </select>
-                                    @error('status')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                        </div>
-                        <button class="btn btn-primary" type="submit">@lang('label.update')</button>
-
-                        <a href="{{ url('bookings') }}" class="btn btn-dark">@lang('label.cancel')</a>
-                    </form> --}}
-                    {{-- <form class="needs-validation" enctype="multipart/form-data" action="{{ route('bookings.update', $booking->id) }}" method="POST" novalidate="">
-                        @csrf
-                        @method('PUT')
-                        <div class="row">
-                            <!-- Guest Selection -->
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.guestName') <span class="text-danger">*</span></label>
-                                    <select name="guest_id" required class="form-control select2" data-toggle="select2">
-                                        <option value="" selected disabled>Select Guest</option>
-                                        @foreach ($guests as $guest)
-                                            <option value="{{ $guest->id }}" {{ $booking->guest_id == $guest->id ? 'selected' : '' }}>
-                                                {{ $guest->first_name }} {{ $guest->last_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                           
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.checkInDate') <span class="text-danger">*</span></label>
-                                    <input type="date" id="check_in_date" name="check_in_date" class="form-control" value="{{ old('check_in_date', $booking->check_in_date) }}" >
-                                </div>
-                            </div>    
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.checkOutDate') <span class="text-danger">*</span></label>
-                                    <input type="date" id="check_out_date" name="check_out_date" value="{{ old('check_out_date', $booking->check_out_date) }}" class="form-control" >
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div id="room-container">
-                                    @foreach ($booking->rooms as $index => $room)
-                                    <div class="room-item">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
-                                                    <label class="form-label">@lang('label.room') <span class="text-danger">*</span></label>
-                                                    <select name="room_id[]" required class="form-control select2 room-list" data-toggle="select2">
-                                                        <option value="">--- Select Room ---</option>
-                                                        <option value="{{ $room->id }}" selected>{{ $room->room_number }} - {{ $room->roomType->type_name }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                            
-                                            <div class="col-md-3">
-                                                <div class="mb-3">
-                                                    <label class="form-label">@lang('label.totalAdults') <span class="text-danger">*</span></label>
-                                                    <input type="number" name="total_adults[]" value="{{ $room->pivot->total_adults }}" class="form-control" min="1" required>
-                                                </div>
-                                            </div>
-                            
-                                            <div class="col-md-3">
-                                                <div class="mb-3">
-                                                    <label class="form-label">@lang('label.totalChildren')</label>
-                                                    <input type="number" name="total_children[]" value="{{ $room->pivot->total_children }}" class="form-control" min="0">
-                                                </div>
-                                            </div>
-                            
-                                            <div class="col-md-12 text-end">
-                                                <i class="badge bg-danger text-light p-1 cursor-pointer border-none border-0 mdi mdi-close-thick fs-5 remove-room-btn" style="cursor: pointer;"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                </div>
-                                <button type="button" id="add-room-btn" class="btn btn-success btn-sm mb-3"><i class="bi bi-plus fs-5"></i> Add Room</button>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
-                                    <select name="status" class="form-control select2" data-toggle="select2">
-                                        <option value="Approved" {{ $booking->status == 'Approved' ? 'selected' : '' }}>Reserved</option>
-                                        <option value="Cancelled" {{ $booking->status == 'Cancelled' ? 'selected' : '' }}>Canceled</option>
-                                        <option value="Pending" {{ $booking->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                        <option value="Checked-In" {{ $booking->status == 'Checked-In' ? 'selected' : '' }}>Checked-In</option>
-                                        <option value="Checked-Out" {{ $booking->status == 'Checked-Out' ? 'selected' : '' }}>Checked-Out</option>
-                                    </select>
-                                </div>
-                            </div>
-                    
-                            <!-- Payment Status -->
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.paymentStatus') <span class="text-danger">*</span></label>
-                                    <select name="payment_status" class="form-control select2" required>
-                                        <option value="Unpaid" {{ $booking->payment_status == 'Unpaid' ? 'selected' : '' }}>Unpaid</option>
-                                        <option value="Paid" {{ $booking->payment_status == 'Paid' ? 'selected' : '' }}>Paid</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="bookingId" value="{{ $booking->id ?? '' }}">
-                        <!-- Submit and Cancel Buttons -->
-                        <button class="btn btn-primary" type="submit">@lang('label.update')</button>
-                        <a href="{{ url('bookings') }}" class="btn btn-dark">@lang('label.cancel')</a>
-                    </form>             --}}
-                    {{-- <form id="booking-form" enctype="multipart/form-data" action="{{ route('bookings.update', $booking->id) }}"
-                        method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.guestName') <span class="text-danger">*</span></label>
-                                    <select name="guest_id" required class="form-control select2" data-toggle="select2">
-                                        <option value="" selected disabled>Select Guest</option>
-                                        @foreach ($guests as $guest)
-                                            <option value="{{ $guest->id }}"
-                                                {{ $booking->guest_id == $guest->id ? 'selected' : '' }}>
-                                                {{ $guest->first_name }} {{ $guest->last_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.checkIn') <span class="text-danger">*</span></label>
-                                    <input type="date" id="check_in_date" name="check_in_date"
-                                        class="form-control @error('check_in_date') is-invalid @enderror " type="date"
-                                        id="check_in_date" name="check_in_date" class="form-control"
-                                        value="{{ old('check_in_date', $booking->check_in_date) }}" required>
-                                    @error('check_in_date')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.checkOut') <span class="text-danger">*</span></label>
-                                    <input type="date" id="check_out_date" name="check_out_date"
-                                        value="{{ old('check_out_date', $booking->check_out_date) }}"
-                                        class="form-control @error('check_out_date') is-invalid @enderror" required>
-                                    @error('check_out_date')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-
-                            <div class="col-12">
-                                <div id="room-selection">
-                                    @foreach ($booking->rooms as $index => $room)
-                                        <div class="room-group">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">@lang('label.room') <span
-                                                                class="text-danger">*</span></label>
-                                                        <select name="rooms[]" required
-                                                            class="form-control room-list">
-                                                            <option selected disabled>--- Select Room ---</option>
-                                                            <option value="{{ $room->id }}" selected>{{ $room->room_number }} - {{ $room->roomType->type_name }}</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">@lang('label.totalAdults') <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="number" name="total_adults[]"
-                                                            value="{{ old('total_adults.0') }}"
-                                                            class="form-control @error('total_adults') is-invalid @enderror"
-                                                            min="1" placeholder="@lang('label.enterTotalAdults')" required>
-                                                        @error('total_adults')
-                                                            <span class="invalid-feedback">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">@lang('label.totalChildren')</label>
-                                                        <input type="number" name="total_children[]"
-                                                            value="{{ old('total_children.0') }}"
-                                                            class="form-control @error('total_children') is-invalid @enderror"
-                                                            min="0" placeholder="@lang('label.enterTotalChildren')">
-                                                        @error('total_children')
-                                                            <span class="invalid-feedback">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 text-end">
-                                                    <i class=" badge bg-danger text-light p-1 cursor-pointer border-none border-0 mdi mdi-close-thick fs-5 remove-room"
-                                                        style="cursor: pointer;"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-
-                                <button type="button" id="add-room" class="btn btn-success btn-sm mb-3"><i
-                                        class="bi bi-plus fs-5"></i> Add Room</button>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
-                                    <select name="status" class="form-control select2" data-toggle="select2">
-                                        <option value="Approved" {{ $booking->status == 'Approved' ? 'selected' : '' }}>
-                                            Reserved</option>
-                                        <option value="Cancelled" {{ $booking->status == 'Cancelled' ? 'selected' : '' }}>
-                                            Canceled</option>
-                                        <option value="Pending" {{ $booking->status == 'Pending' ? 'selected' : '' }}>
-                                            Pending</option>
-                                        <option value="Checked-In"
-                                            {{ $booking->status == 'Checked-In' ? 'selected' : '' }}>Checked-In</option>
-                                        <option value="Checked-Out"
-                                            {{ $booking->status == 'Checked-Out' ? 'selected' : '' }}>Checked-Out</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.paymentStatus') <span class="text-danger">*</span></label>
-                                    <select name="payment_status" class="form-control select2" data-toggle="select2"
-                                        required>
-                                        <option value="Unpaid"
-                                            {{ $booking->payment_status == 'Unpaid' ? 'selected' : '' }}>Unpaid</option>
-                                        <option value="Paid" {{ $booking->payment_status == 'Paid' ? 'selected' : '' }}>
-                                            Paid</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary" type="submit">@lang('label.update')</button>
-                        <a href="{{ url('bookings') }}" class="btn btn-dark">@lang('label.cancel')</a>
-                    </form> --}}
-
-                    {{-- <form action="{{ route('bookings.update', $booking->id) }}" method="POST" id="edit-booking-form">
-                        @csrf
-                        @method('PUT')
-
-                        <!-- Check-In Date -->
-                        <div class="mb-3">
-                            <label for="check_in_date" class="form-label">@lang('label.checkInDate') <span
-                                    class="text-danger">*</span></label>
-                            <input type="date" id="check_in_date" name="check_in_date" class="form-control"
-                                value="{{ $booking->check_in_date }}" required>
-                        </div>
-
-                        <!-- Check-Out Date -->
-                        <div class="mb-3">
-                            <label for="check_out_date" class="form-label">@lang('label.checkOutDate') <span
-                                    class="text-danger">*</span></label>
-                            <input type="date" id="check_out_date" name="check_out_date" class="form-control"
-                                value="{{ $booking->check_out_date }}" required>
-                        </div>
-
-                        <!-- Room Selection -->
-                        <div id="room-selection">
-                            @foreach ($booking->rooms as $room)
-                                <div class="room-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="form-label">@lang('label.room') <span
-                                                        class="text-danger">*</span></label>
-                                                <select name="rooms[]" class="form-select room-list" required>
-                                                    <option value="{{ $room->id }}" selected>{{ $room->room_number }} -
-                                                        {{ $room->roomType->type_name }}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="mb-3">
-                                                <label class="form-label">@lang('label.totalAdults') <span
-                                                        class="text-danger">*</span></label>
-                                                <input type="number" name="total_adults[]" class="form-control"
-                                                    value="{{ $room->pivot->total_adults }}" min="1" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="mb-3">
-                                                <label class="form-label">@lang('label.totalChildren')</label>
-                                                <input type="number" name="total_children[]" class="form-control"
-                                                    value="{{ $room->pivot->total_children }}" min="0">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 text-end">
-                                            <button type="button"
-                                                class="remove-room badge bg-danger pt-1 border-none border-0"><i
-                                                    class="mdi mdi-close-thick fs-5"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-
-                        <!-- Add Room Button -->
-                        <div class="text-end mb-3">
-                            <button type="button" id="add-room" class="btn btn-primary">@lang('label.addRoom')</button>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-success">@lang('label.updateBooking')</button>
-                        </div>
-                    </form> --}}
-
-                    {{-- <form id="booking-form" enctype="multipart/form-data" action="{{ url('/bookings/'.$booking->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                      
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="mb-3">
-                              <label class="form-label">@lang('label.guestName') <span class="text-danger">*</span></label>
-                              <select name="guest_id" required class="form-control select2" data-toggle="select2">
-                                <option value="" selected disabled>Select Guest</option>
-                                @foreach ($guests as $guest)
-                                  <option value="{{ $guest->id }}" {{ $booking->guest_id == $guest->id ? 'selected' : '' }}>
-                                    {{ $guest->first_name }} {{ $guest->last_name }}
-                                  </option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="mb-3">
-                              <label class="form-label">@lang('label.checkIn') <span class="text-danger">*</span></label>
-                              <input type="date" id="check_in_date" name="check_in_date" value="{{ old('check_in_date') ?? $booking->check_in_date }}"
-                                class="form-control @error('check_in_date') is-invalid @enderror" required>
-                              @error('check_in_date')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                              @enderror
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="mb-3">
-                              <label class="form-label">@lang('label.checkOut') <span class="text-danger">*</span></label>
-                              <input type="date" id="check_out_date" name="check_out_date" value="{{ old('check_out_date') ?? $booking->check_out_date }}"
-                                class="form-control @error('check_out_date') is-invalid @enderror" required>
-                              @error('check_out_date')
-                                <span class="invalid-feedback">{{ $message }}</span>
-                              @enderror
-                            </div>
-                          </div>
-                        </div>
-                      
-                        <div id="room-selection">
-                          @foreach ($booking->rooms as $key => $room)
-                            <div class="room-group">
-                              <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('label.room') <span
-                                                class="text-danger">*</span></label>
-                                        <select name="rooms[]" class="form-select room-list" required>
-                                            <option value="{{ $room->id }}" selected>{{ $room->room_number }} -
-                                                {{ $room->roomType->type_name }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <div class="mb-3">
-                                    <label class="form-label">@lang('label.totalAdults') <span class="text-danger">*</span></label>
-                                    <input type="number" name="total_adults[]" value="{{ old('total_adults')[$key] ?? $room->pivot->total_adults }}"
-                                      class="form-control @error('total_adults') is-invalid @enderror" min="1" placeholder="@lang('label.enterTotalAdults')" required>
-                                    @error('total_adults')
-                                      <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                  </div>
-                                </div>
-                                <div class="col-md-3">
-                                  <div class="mb-3">
-                                    <label class="form-label">@lang('label.totalChildren')</label>
-                                    <input type="number" name="total_children[]" value="{{ old('total_children')[$key] ?? $room->pivot->total_children }}"
-                                      class="form-control @error('total_children') is-invalid @enderror" min="0" placeholder="@lang('label.enterTotalChildren')">
-                                    @error('total_children')
-                                      <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                  </div>
-                                </div>
-                                <div class="col-md-12 text-end">
-                                  <i class="badge bg-danger text-light p-1 cursor-pointer border-none border-0 mdi mdi-close-thick fs-5 remove-room"
-                                    style="cursor: pointer;"></i>
-                                </div>
-                              </div>
-                            </div>
-                          @endforeach
-                      
-                          <button type="button" id="add-room" class="btn btn-success btn-sm mb-3">
-                            <i class="bi bi-plus fs-5"></i> Add Room
-                          </button>
-                        </div>
-                      
-                        <div class="col-md-6">
-                          <div class="mb-3">
-                            <label class="form-label">@lang('label.status') <span class="text-danger">*</span></label>
-                            <select name="status" class="form-control select2" data-toggle="select2">
-                              <option value="" selected disabled>Choose Status</option>
-                              <option value="Approved" {{ $booking->status == 'Approved' ? 'selected' : '' }}>Reserved</option>
-                              <option value="Cancelled" {{ $booking->status == 'Cancelled' ? 'selected' : '' }}>Canceled</option>
-                              <option value="Pending" {{ $booking->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                              <option value="Checked-In" {{ $booking->status == 'Checked-In' ? 'selected' : '' }}>Checked-In</option>
-                              <option value="Checked-Out" {{ $booking->status == 'Checked-Out' ? 'selected' : '' }}>Checked-Out</option>
-                            </select>
-                            @error('status')
-                              <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="mb-3">
-                            <label class="form-label">@lang('label.paymentStatus') <span class="text-danger">*</span></label>
-                            <select name="payment_status" class="form-control @error('payment_status') is-invalid @enderror select2"
-                              data-toggle="select2" required>
-                              <option value="" selected disabled>Choose Status</option>
-                              <option value="Unpaid" {{ $booking->payment_status == 'Unpaid' ? 'selected' : '' }}>@lang('label.unpaid')</option>
-                              <option value="Paid" {{ $booking->payment_status == 'Paid' ? 'selected' : '' }}>@lang('label.paid')</option>
-                            </select>
-                            @error('payment_status')
-                              <span class="invalid-feedback">{{ $message }}</span>
-                            @enderror
-                          </div>
-                        </div>
-                      
-                        <button class="btn btn-primary" type="submit">@lang('label.save')</button>
-                        <a href="{{ url('bookings') }}" class="btn btn-dark">@lang('label.cancel')</a>
-                    </form> --}}
-
                     <form id="edit-booking-form" enctype="multipart/form-data"
                         action="{{ route('bookings.update', $booking->id) }}" method="POST">
                         @csrf
@@ -674,7 +139,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="">@lang('label.checkIn')</label>
+                                    <label class="form-label">@lang('label.checkIn')</label>
                                     <input type="date" id="check_in_date" name="check_in_date"
                                         value="{{ \Carbon\Carbon::parse($booking->check_in_date)->format('Y-m-d') }}"
                                         class="form-control" required>
@@ -682,92 +147,68 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="">@lang('label.checkIn')</label>
+                                    <label class="form-label">@lang('label.checkIn')</label>
                                     <input type="date" id="check_out_date" name="check_out_date"
                                         value="{{ \Carbon\Carbon::parse($booking->check_out_date)->format('Y-m-d') }}"
                                         class="form-control" required>
                                 </div>
                             </div>
-
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.bookingSource') <span class="text-danger">*</span></label>
+                                    <select name="booking_source" required class="form-control select2"
+                                        data-toggle="select2">
+                                        <option value="" selected disabled>Choose Booking Source</option>
+                                        <option value="website" {{ $booking->booking_source == 'website' ? 'selected' : '' }}>
+                                            Website</option>
+                                        <option value="walk-in" {{ $booking->booking_source == 'walk-in' ? 'selected' : '' }}>
+                                            Walk-In </option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-12">
-                                {{-- <div id="room-selection">
-                                    @foreach ($booking->rooms as $key => $room)
-                                        <div class="room-group">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Room <span class="text-danger">*</span></label>
-                                                        <select class="room-list form-select" name="rooms[]" required>
-                                                            <option value="{{ $room->id }}" selected>
-                                                                {{ $room->room_number }} - {{ $room->roomType->type_name }}
-                                                            </option>
-                                                            @foreach ($availableRooms as $availableRoom)
-                                                                @if ($availableRoom->id != $room->id)
-                                                                    <option value="{{ $availableRoom->id }}">
-                                                                        {{ $availableRoom->room_number }} - {{ $availableRoom->roomType->type_name }}
-                                                                    </option>
-                                                                @endif
-                                                            @endforeach
-                                                        </select>
-                                                    
-                                                        <div class="invalid-feedback room-error d-none">This room is not available.</div>
-
-                                                    </div>
-                                                    
-                                                    </div>
-                                                
-                                                <div class="col-md-3">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Total Adults <span class="text-danger">*</span></label>
-                                                        <input type="number" name="total_adults[]" value="{{ $room->pivot->total_adults }}" class="form-control" min="1" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Total Children</label>
-                                                        <input type="number" name="total_children[]" value="{{ $room->pivot->total_children }}" class="form-control" min="0">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 text-end">
-                                                  
-                                                    <button class="btn btn-sm remove-room"><i class=""></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div> --}}
                                 <div id="room-selection">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <label class="form-label">Room <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-3">
-                                            <label class="form-label">Total Adults <span
-                                                    class="text-danger">*</span></label>
+                                            <label class="form-label">Total Adults <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-3">
-                                            <label class="form-label">Room <span class="text-danger">*</span></label>
+                                            <label class="form-label">Children <span class="text-danger">*</span></label>
                                         </div>
                                     </div>
-
                                     @foreach ($booking->rooms as $key => $room)
                                         <div class="room-group">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <select class="room-list form-select" name="rooms[]" required>
-                                                            <option value="{{ $room->id }}" selected>
+                                                            <option value="{{ $room->id }}" data-max-person="{{ $room->max_person }}" selected>
                                                                 {{ $room->room_number }} - {{ $room->roomType->type_name }}
                                                             </option>
                                                             @foreach ($availableRooms as $availableRoom)
                                                                 @if ($availableRoom->id != $room->id)
-                                                                    <option value="{{ $availableRoom->id }}">
+                                                                    <option value="{{ $availableRoom->id }}" data-max-person="{{ $availableRoom->max_person }}">
                                                                         {{ $availableRoom->room_number }} -
                                                                         {{ $availableRoom->roomType->type_name }}
                                                                     </option>
                                                                 @endif
                                                             @endforeach
                                                         </select>
+                                                        {{-- <select class="room-list form-select" name="rooms[]" required>
+                                                            <option value="{{ $room->id }}" data-max-person="{{ $room->max_person }}" selected>
+                                                                {{ $room->room_number }} - {{ $room->roomType->type_name }}
+                                                            </option>
+                                                            @foreach ($availableRooms as $availableRoom)
+                                                                @if ($availableRoom->id != $room->id)
+                                                                    <option value="{{ $availableRoom->id }}" data-max-person="{{ $availableRoom->max_person }}">
+                                                                        {{ $availableRoom->room_number }} - {{ $availableRoom->roomType->type_name }}
+                                                                    </option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select> --}}
                                                         <div class="invalid-feedback room-error d-none">This room is not
                                                             available.</div>
                                                     </div>
@@ -782,7 +223,6 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="mb-3">
-
                                                         <input type="number" name="total_children[]"
                                                             value="{{ $room->pivot->total_children }}" class="form-control"
                                                             min="0">
@@ -796,8 +236,7 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                {{-- <button type="button" id="add-room" class="btn btn-primary">Add Room</button> --}}
-
+                               
                                 <button type="button" id="add-room" class="btn btn-success btn-sm mb-3">
                                     <i class="bi bi-plus fs-5"></i> Add Room
                                 </button>
@@ -837,7 +276,26 @@
             </div>
         </div>
     </div>
+    <!-- Modal HTML -->
+<div id="error-modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="error-modal-label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title text-white" id="error-modal-label">Validation Error</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="error-message"></p> <!-- The error message will go here -->
+            </div>
+            {{-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div> --}}
+        </div>
     </div>
+</div>
+
 @endsection
 @section('script')
     <script>
@@ -899,11 +357,6 @@
                 });
         });
 
-        // Track selected room IDs globally
-        // Track selected room IDs globally
-        // Track selected room IDs globally
-
-        // Track selected room IDs globally
         let selectedRoomIds = new Set();
 
         // Function to update dropdown options
@@ -933,12 +386,12 @@
             newDropdown.classList.add('room-dropdown');
 
             newDropdown.innerHTML = `
-        <select class="room-list">
-            <option value="">Select a Room</option>
-            <!-- Options will be populated dynamically -->
-        </select>
-        <button type="button" class="remove-room">Remove</button>
-    `;
+                <select class="room-list">
+                    <option value="">Select a Room</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+                <button type="button" class="remove-room">Remove</button>
+            `;
 
             container.appendChild(newDropdown);
 
@@ -1056,8 +509,6 @@
                     alert('An error occurred while fetching available rooms.');
                 });
         });
-
-        // // Bind Add Room button
         // document.getElementById('add-room').addEventListener('click', addRoomDropdown);
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -1117,10 +568,8 @@
                     });
                 });
             }
-
             // Refresh room dropdowns on page load
             refreshRoomDropdowns();
-
             // Update dropdowns on change
             roomSelectionContainer.addEventListener('change', function(event) {
                 if (event.target.classList.contains('room-list')) {
@@ -1128,5 +577,32 @@
                 }
             });
         });
+
+        document.getElementById('edit-booking-form').addEventListener('submit', function(event) {
+    const roomGroups = document.querySelectorAll('.room-group');
+    let isValid = true;
+    let errorMessage = '';
+
+    roomGroups.forEach(group => {
+        const roomSelect = group.querySelector('.room-list');
+        const maxPerson = parseInt(roomSelect.options[roomSelect.selectedIndex].getAttribute('data-max-person'));
+        const totalAdults = parseInt(group.querySelector('[name="total_adults[]"]').value);
+        const totalChildren = parseInt(group.querySelector('[name="total_children[]"]').value || 0);
+        const totalGuests = totalAdults + totalChildren;
+
+        if (totalGuests > maxPerson) {
+            isValid = false;
+            errorMessage += `Room ${roomSelect.options[roomSelect.selectedIndex].textContent} exceeds the maximum number of guests (${maxPerson}).\n`;
+        }
+    });
+
+    if (!isValid) {
+        event.preventDefault(); // Prevent form submission if validation fails
+        // Show the error modal with the error message
+        document.getElementById('error-message').textContent = errorMessage;
+        $('#error-modal').modal('show'); // Use jQuery to show the modal (Bootstrap modal)
+    }
+    });
+            
     </script>
 @endsection

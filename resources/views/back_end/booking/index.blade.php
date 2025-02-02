@@ -3,12 +3,12 @@
     <style>
         .toast-success.custom-toast {
             background-color: #0acf97 !important;
-            /* Your desired background color */
+
         }
 
         .toast-error.custom-toast {
             background-color: #f44336 !important;
-            /* Your desired error background color */
+
         }
 
         .text-truncate {
@@ -33,7 +33,7 @@
             border-radius: 15px;
             overflow: hidden;
             cursor: pointer;
-            /* border: 1px solid #ea0808; */
+
         }
 
         .slider {
@@ -90,7 +90,7 @@
 
         .badge-active {
             background-color: #0056b3 !important;
-            /* Dark blue for active state */
+
             color: white !important;
             padding-top: 5px !important;
             border: 1px solid #0056b3;
@@ -112,7 +112,7 @@
             transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s outline-color 0.2s;
         }
 
-        /* Tooltip styling */
+
         .tooltip {
             visibility: hidden;
             width: 120px;
@@ -125,15 +125,14 @@
             position: absolute;
             z-index: 1;
             bottom: 125%;
-            /* Position above the button */
+
             left: 50%;
             margin-left: -60px;
-            /* Center the tooltip */
+
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
-        /* Tooltip arrow */
         .tooltip::after {
             content: "";
             position: absolute;
@@ -145,7 +144,6 @@
             border-color: #313a46 transparent transparent transparent;
         }
 
-        /* Show tooltip on hover */
         .p-button-icon:hover .tooltip {
             visibility: visible;
             opacity: 1;
@@ -170,22 +168,11 @@
             background-color: #ff9800 !important;
             border: 1px solid #ff9800;
         }
-        .p-button-icon.p-button-complete{
+
+        .p-button-icon.p-button-complete {
             background-color: #4caf50 !important;
             border: 1px solid #4caf50;
         }
-
-
-        /* .p-button:hover{
-                                background-color: #10b981 !important;
-                            }
-                            .p-button-icon-only{
-                                justify-content: center;
-                            }
-                            .p-button.p-button-icon-only{
-                               
-                                padding: 0.5rem 0;
-                            } */
     </style>
 @endsection
 @section('content')
@@ -273,13 +260,83 @@
     </div> --}}
     <div class="row">
         <div class="col-12">
-            <div class="card">
+            <div class="card shadow-sm">
                 <div class="card-body">
+                    {{-- <div class="row mb-2">
+                        <form method="GET">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">@lang('label.id')</label>
+                                        <input type="number" min="0" name="booking_id" value="{{ Request::get('booking_id') }}"
+                                            class="form-control" placeholder="@lang('label.enterId') . . .">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">@lang('label.guestName')</label>
+                                        <select name="guest_id" class="form-control select2" data-toggle="select2">
+                                            <option value="" selected>Select Guest</option>
+                                            @foreach ($guests as $guest)
+                                                <option value="{{ $guest->id }}" {{ Request::get('guest_id') == $guest->id ? 'selected' : '' }}>
+                                                    {{ $guest->first_name }} {{ $guest->last_name }}
+                                                </option>
+                                            @endforeach
+                                           
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                        
+                                <div class="col-sm-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">@lang('label.room')</label>
+                                        <input type="text" name="room_id" value="{{ Request::get('room_id') }}" class="form-control"
+                                            placeholder="@lang('label.enterRoom') . . .">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="mb-2">
+                                        <label class="form-label">@lang('label.status')</label>
+                                        <select name="status" class="form-control select2" data-toggle="select2">
+                                            <option value="" selected disabled>@lang('label.selectStatus')</option>
+                                            <option value="Pending" {{ Request::get('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                            <option value="Reserved" {{ Request::get('status') == 'Reserved' ? 'selected' : '' }}>Reserved</option>
+                                            <option value="Completed" {{ Request::get('status') == 'Completed' ? 'selected' : '' }}>Completed</option>
+                                            <option value="Checked-In" {{ Request::get('status') == 'Checked-In' ? 'selected' : '' }}>Checked In</option>
+                                            <option value="Checked-Out" {{ Request::get('status') == 'Checked-Out' ? 'selected' : '' }}>Checked Out</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="mb-3">
+                                        <label class="form-label">@lang('label.date')</label>
+                                        <input type="date" name="date" value="{{ Request::get('date') }}" class="form-control"
+                                            placeholder="@lang('label.date') . . .">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 d-flex gap-2">
+                                    <div class="mb-3">
+                                        <button type="submit" style="margin-top: 29px;" class="btn btn-primary font" tabindex="0"
+                                            data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="@lang('label.searchRoom')"
+                                            data-bs-placement="top" title=""><i class="mdi mdi-filter"></i> @lang('label.search')
+                                        </button>
+                                    </div>
+                                    <div class="mb-3">
+                                        <a href="{{ url('/bookings') }}" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
+                                            data-bs-content="@lang('label.resetGuest')" data-bs-placement="top" title="" class="btn btn-success"
+                                            style="margin-top: 29px"><i class="mdi mdi-restore"></i> @lang('label.reset') </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        
+                    </div> --}}
                     <div class="row mb-2">
                         <div class="col-sm-9">
                             <a href="{{ url('bookings/create') }}" tabindex="0" data-bs-toggle="popover"
-                                data-bs-trigger="hover" data-bs-placement="top" 
-                                title="@lang('label.createNewBooking')" class="btn btn-danger mb-2">
+                                data-bs-trigger="hover" data-bs-placement="top" title="@lang('label.createNewBooking')"
+                                class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addBooking')</a>
                         </div>
                     </div>
@@ -298,11 +355,12 @@
                                     <th>@lang('label.room')</th>
                                     <th>@lang('label.checkIn')</th>
                                     <th>@lang('label.checkOut')</th>
-                                    <th>@lang('label.totalAdults')</th>
-                                    <th>@lang('label.totalChildren')</th>
+                                    <th>@lang('label.totalGuest')</th>
+
                                     <th>@lang('label.date')</th>
                                     <th>@lang('label.status')</th>
-                                    <th>@lang('label.action')</th>
+                                    <th>@lang('label.bookingSource')</th>
+                                    <th style="width: 75px;">@lang('label.action')</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -321,27 +379,41 @@
                                         <td>
                                             @if ($booking->rooms->count())
                                                 @foreach ($booking->rooms as $room)
-                                              
-                                                <div>
-                                                    {{ $room->room_number }} - {{ Str::limit($room->roomType->type_name, 15) }}
-                                                </div>
-                                            @endforeach
-                                        
+                                                    <div>
+                                                        {{ $room->room_number }}-{{ Str::limit($room->roomType->type_name, 13) }}
+                                                    </div>
+                                                @endforeach
                                             @else
                                                 N/A
                                             @endif
                                         </td>
                                         <td>{{ date('d-m-Y', strtotime($booking->check_in_date)) }}</td>
                                         <td>{{ date('d-m-Y', strtotime($booking->check_out_date)) }}</td>
-                                        <td>{{ $booking->total_adults }}</td>
-                                        <td>{{ $booking->total_children }}</td>
+                                        <td>
+                                            @php
+                                                $totalAdults = 0;
+                                                $totalChildren = 0;
+                                            @endphp
+                                            @if ($booking->rooms->count())
+                                                @foreach ($booking->rooms as $room)
+                                                    @php
+                                                        $totalAdults += $room->pivot->total_adults;
+                                                        $totalChildren += $room->pivot->total_children;
+                                                    @endphp
+                                                @endforeach
+                                                {{ $totalAdults }} Adults, {{ $totalChildren }} Children
+                                            @else
+                                                N/A
+                                            @endif
+                                        </td>
+
                                         <td>{{ date('d-m-Y', strtotime($booking->created_at)) }}</td>
                                         <td>
                                             <span
                                                 style="padding-top: 5px;padding-bottom: 4px;padding-left: 10px; border-radius: 20px; padding-right: 10px;"
                                                 class="badge
                                                 @if ($booking->status == 'Pending') bg-warning
-                                                @elseif ($booking->status == 'Approved') bg-primary 
+                                                @elseif ($booking->status == 'Reserved') bg-primary 
                                                 @elseif ($booking->status == 'Checked-In') bg-info 
                                                 @elseif ($booking->status == 'Checked-Out') bg-success 
                                                 @elseif ($booking->status == 'Completed') bg-success 
@@ -349,45 +421,40 @@
                                                 {{ $booking->status }}
                                             </span>
                                         </td>
+                                        <td>{{ $booking->booking_source }}</td>
                                         <td class="table-action">
-                                            <!-- Status-based actions -->
-                                            {{-- @if ($booking->status == 'Pending')
-                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Approved']) }}"
-                                                    class="p-button-icon p-button-approve"><i class="mdi mdi-check"></i></a>
-                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}" --}}
+
                                             @if ($booking->status == 'Pending')
-                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Approved']) }}"
+                                                <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Reserved']) }}"
                                                     class="p-button-icon p-button-approve">
                                                     <i class="mdi mdi-check"></i>
-                                                    <span class="tooltip">Approve</span>
+                                                    <span class="tooltip">Reserved</span>
                                                 </a>
                                                 <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}"
                                                     class="p-button-icon p-button-cancel">
                                                     <i class="mdi mdi-cancel"></i>
                                                     <span class="tooltip">Cancel</span>
                                                 </a>
-                                            @elseif ($booking->status == 'Approved')
+                                            @elseif ($booking->status == 'Reserved')
                                                 <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Checked-In']) }}"
                                                     class="p-button-icon p-button-in"><i class="mdi mdi-login"></i>
                                                     <span class="tooltip">Check In</span>
                                                 </a>
                                                 <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Cancelled']) }}"
                                                     class="p-button-icon p-button-cancel"><i class="mdi mdi-cancel"></i>
-                                                
                                                     <span class="tooltip">Cancel</span></a>
                                             @elseif ($booking->status == 'Checked-In')
                                                 <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Checked-Out']) }}"
                                                     class="p-button-icon p-button-out"><i class="mdi mdi-logout"></i>
-                                                
+
                                                     <span class="tooltip">Check Out</span></a>
                                             @elseif ($booking->status == 'Checked-Out')
                                                 <a href="{{ route('booking.status', ['id' => $booking->id, 'status' => 'Completed']) }}"
                                                     class="p-button-icon p-button-complete"><i
                                                         class="mdi mdi-check-all"></i>
-                                                        <span class="tooltip">Complete</span>
-                                                    </a>
+                                                    <span class="tooltip">Complete</span>
+                                                </a>
                                             @endif
-
                                             <a href="{{ route('bookings.show', $booking->id) }}"
                                                 class="action-icon text-success">
                                                 <i class="mdi mdi-eye"></i>
@@ -397,14 +464,14 @@
                                                 <i class="mdi mdi-square-edit-outline"></i>
                                             </a>
                                             <a href="{{ url('bookings/' . $booking->id . '/delete') }}"
-                                                onclick="confirmation(event)" class="action-icon text-danger">
-                                                <i class="mdi mdi-delete"></i>
-                                            </a>
+                                                onclick="confirmation(event)" class="action-icon text-danger"> <i
+                                                    class="mdi mdi-delete"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        {{-- {{ $bookings->appends(request()->query())->links() }} --}}
                     </div>
                 </div>
             </div>
@@ -415,6 +482,7 @@
     <script>
         ! function(i) {
             "use strict";
+
             function showSuccessNotification(message) {
                 toastr.options = {
                     "closeButton": true,
@@ -508,6 +576,5 @@
         }
         /*============= Tranlsate ==============*/
         /*============= Tranlsate ==============*/
-        
     </script>
 @endsection

@@ -23,7 +23,6 @@ class Room extends Model
     {
         return $this->belongsTo(RoomType::class);
     }
-
     public function bookings()
     {
         return $this->belongsToMany(Booking::class, 'booking_rooms')
@@ -40,8 +39,7 @@ class Room extends Model
     static public function getRoom()
     {
         $return  = self::select('rooms.*')
-        ->where('is_deleted', '=', 0)
-        ->where('status', '=',1);
+        ->where('is_deleted', '=', 0);
         if (!empty(Request::get('room_id'))) {
             $return = $return->where('id', '=', Request::get('room_id'));
         }

@@ -14,14 +14,6 @@
         <!--- Sidemenu -->
         <ul class="side-nav">
             <li class="side-nav-title side-nav-item">Navigation</li>
-            {{-- <li class="side-nav-item font">
-                <a data-bs-toggle="collapse" href="{{route('app')}}" aria-expanded="false"
-                    aria-controls="sidebarDashboards" class="side-nav-link">
-                    <i class="uil-home-alt"></i>
-                    <span> @lang('label.dashboard') </span>
-                </a>
-
-            </li> --}}
             <li class="side-nav-item font @if (Request::segment(1) == 'dashboard') active @endif">
                 <a href="{{ url('app') }}" class="side-nav-link">
                     <i class="uil-home-alt"></i>

@@ -26,28 +26,12 @@
             background-color: #343a40;
             color: white;
             font-family: 'Oswald', sans-serif;
-            /* Ensure font is applied here */
+
         }
 
         thead th {
             font-family: 'Oswald', sans-serif;
             /* Apply to table headers */
-        }
-
-        .status-table th,
-        .status-table td {
-            text-align: left;
-            font-family: 'Oswald', sans-serif;
-            /* Ensure font is applied here */
-        }
-
-        .logo {
-            width: 150px;
-            height: auto;
-        }
-
-        .text-center {
-            text-align: center;
         }
     </style>
 @endsection
@@ -120,6 +104,5 @@
 @endsection
 
 @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script></script>
 @endsection

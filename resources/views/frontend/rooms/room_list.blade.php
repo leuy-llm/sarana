@@ -533,9 +533,6 @@
         </div>
     </div>
     @endforeach
-    
-
-
 @endif
 <!-- Add your JavaScript at the bottom of the page or inside a script tag -->
 <script>

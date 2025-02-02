@@ -7,43 +7,38 @@
             font-size: 10px font - family: 'Hanuman', 'serif' !important;
         }
 
-        /* Make the calendar cells taller */
         .fc-daygrid-day-frame {
             height: 130px;
-            /* Increase this value to make the cells taller */
+
             padding: 5px;
-            /* Adjust padding to control the space inside the cells */
         }
 
         .fc-daygrid-day {
             min-height: 130px;
-            /* Ensure the minimum height of day cells is consistent */
+
         }
 
-        /* Adjust the height of events within the cells */
         .fc-event {
             line-height: 1.5;
-            /* Adjust line-height to ensure the event text fits well */
             padding: 5px;
-            /* Adjust padding to add more space around event text */
         }
 
-        /* Adjust the header and title sizes if needed */
+
         .fc-toolbar h2 {
             font-size: 1.5rem;
-            /* Adjust the title size */
+
         }
 
         .fc-button {
             font-size: 1rem;
-            /* Adjust the button text size */
+
             padding: 10px;
-            /* Add padding to buttons */
+
         }
 
         .fc-toolbar-chunk {
             margin-bottom: 10px;
-            /* Add space between toolbar elements */
+
         }
 
         .tooltip-content {
@@ -68,11 +63,11 @@
 
         .fc-event-title i {
             margin-right: 5px;
-            /* Add spacing between the icon and text */
+
             font-size: 14px;
-            /* Adjust the icon size */
+
             vertical-align: middle;
-            /* Align icon vertically */
+
         }
 
         .red {
@@ -99,8 +94,6 @@
         'breadcrumbs' => $breadcrumbs,
         'currentPageTitle' => $currentPageTitle,
     ])
-    <!-- end page title -->
-
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -108,24 +101,21 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="calendar-legend text-center">
-                                {{-- <span class="badge bg-warning">Pending</span> --}}
+
                                 <span class="badge bg-danger py-1">Previous</span>
                                 <span class="badge bg-success py-1">Current</span>
                             </div>
                             <div class="mt-4 mt-lg-0 ">
-                                <!-- Legend placed here -->
 
                                 <div id="calendar" class="font"></div>
 
                             </div>
-                        </div> <!-- end col -->
-                    </div> <!-- end row -->
-                </div> <!-- end card body-->
-            </div> <!-- end card -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div> <!-- end row -->
-
-    <!-- Booking Details Modal -->
+    </div>
     <div class="modal fade" data-bs-backdrop="static" id="bookingDetailsModal" tabindex="-1"
         aria-labelledby="bookingDetailsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -149,6 +139,9 @@
                     <hr>
                     <p><strong>@lang('label.totalChildren') :</strong> <span id="modalTotalChildren"></span></p>
                     <hr>
+                    <p><strong>@lang('label.bookingSource') :</strong> <span id="modalBookingSource"></span></p>
+                    <hr>
+
                 </div>
                 <div class="modal-footer border-0">
                     <button type="button" class="btn text-white btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -158,13 +151,6 @@
     </div>
 @endsection
 @section('script')
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fullcalendar/scheduler@5.11.3/main.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@5.11.3/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/resource-timeline@5.11.3/main.min.js"></script> --}}
     <script>
         (function($) {
             "use strict";
@@ -174,45 +160,29 @@
                 this.$calendarObj = null;
             }
 
-            // CalendarApp.prototype.onEventClick = function(info) {
-            //     // Populate modal with event details
-            //     $('#modalGuestName').text(info.event.extendedProps.guestName);
-            //     $('#modalRoomType').text(info.event.extendedProps.roomTypeName);
-            //     $('#modalCheckInDate').text(info.event.start.toISOString().split('T')[0]); // Format start date
-            //     $('#modalCheckOutDate').text(info.event.end ? info.event.end.toISOString().split('T')[0] :
-            //     'N/A'); // Format end date
-            //     $('#modalTotalAdults').text(info.event.extendedProps.total_adults);
-            //     $('#modalTotalChildren').text(info.event.extendedProps.total_children);
-
-            //     // Show the modal
-            //     $('#bookingDetailsModal').modal('show');
-            // };
-
-
             CalendarApp.prototype.onEventClick = function(event) {
-                // Populate modal fields
                 document.getElementById("modalGuestName").innerText = event.extendedProps.guestName;
                 document.getElementById("modalRoomType").innerText = event.extendedProps.roomTypeName;
-                document.getElementById("modalRoomNumber").innerText = event.extendedProps
-                    .roomNumber; // Add room number here
+                document.getElementById("modalRoomNumber").innerText = event.extendedProps.roomNumber;
                 document.getElementById("modalTotalAdults").innerText = event.extendedProps.total_adults;
                 document.getElementById("modalTotalChildren").innerText = event.extendedProps.total_children;
                 document.getElementById("modalCheckInDate").innerText = event.start.toLocaleDateString();
                 document.getElementById("modalCheckOutDate").innerText = event.end.toLocaleDateString();
 
-                // Get modal header and set color dynamically
-                const modalHeader = document.querySelector('#bookingDetailsModal .modal-header');
-                if (event.classNames.includes('bg-danger')) {
-                    modalHeader.className = 'modal-header text-white bg-danger';
-                } else {
-                    modalHeader.className = 'modal-header text-white bg-success';
-                }
+                // Set booking source in modal
+                document.getElementById("modalBookingSource").innerText = event.extendedProps.bookingSource;
 
-                // Show the modal
+                const modalHeader = document.querySelector('#bookingDetailsModal .modal-header');
+                modalHeader.className = event.classNames.includes('bg-danger') ?
+                    'modal-header text-white bg-danger' :
+                    event.classNames.includes('bg-warning') ?
+                    'modal-header text-white bg-warning' // Change color for walk-in bookings
+                    :
+                    'modal-header text-white bg-success';
+
                 const modal = new bootstrap.Modal(document.getElementById('bookingDetailsModal'));
                 modal.show();
             };
-
 
 
             CalendarApp.prototype.onEventMouseEnter = function(info) {
@@ -239,91 +209,49 @@
                 $('.tooltip-content').remove();
             };
 
-            // CalendarApp.prototype.init = function(bookings) {
-            //     const events = bookings.map(booking => {
-            //         const guestName = booking.guest ? booking.guest.name : 'Unknown Guest';
-            //         const roomTypeName = booking.room && booking.room.room_type ? booking.room.room_type
-            //             .type_name : 'Unknown Room Type';
-            //         const totalAdults = booking.total_adults || 0;
-            //         const totalChildren = booking.total_children || 0;
-
-            //         // Determine if the booking is past the check-out date
-            //         const today = new Date();
-            //         const checkOutDate = new Date(booking.check_out_date);
-            //         const eventClassName = checkOutDate < today ? 'bg-danger border-0' :
-            //             'bg-success border-0';
-
-            //         return {
-            //             title: `${guestName} - ${roomTypeName}`, // Plain text title
-            //             start: booking.check_in_date,
-            //             end: booking.check_out_date,
-            //             className: eventClassName,
-            //             extendedProps: {
-            //                 guestName: guestName,
-            //                 roomTypeName: roomTypeName,
-            //                 total_adults: totalAdults,
-            //                 total_children: totalChildren,
-            //             }
-            //         };
-            //     });
-
-            //     // Initialize the calendar with event content customization
-            //     this.$calendarObj = new FullCalendar.Calendar(this.$calendar[0], {
-            //         initialView: "dayGridMonth",
-            //         headerToolbar: {
-            //             left: "prev,next today",
-            //             center: "title",
-            //             right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
-            //         },
-            //         events: events,
-            //         editable: false,
-            //         selectable: true,
-            //         eventColor: "#3786D6",
-            //         eventLimit: true,
-            //         eventClick: (event) => this.onEventClick(event),
-            //         eventMouseEnter: (info) => this.onEventMouseEnter(info),
-            //         eventMouseLeave: (info) => this.onEventMouseLeave(info),
-            //         eventContent: function(arg) {
-            //             // Custom event content with icon
-            //             return {
-            //                 html: `<div>
-        //             <i class="mdi mdi-lock-check-outline text-white text-left"></i> 
-        //             ${arg.event.title}
-        //            </div>`
-            //             };
-            //         }
-            //     });
-            //     this.$calendarObj.render();
-            // };
-
-
             CalendarApp.prototype.init = function(bookings) {
                 const events = bookings.map(booking => {
-                    const guestName = booking.guest ? booking.guest.name : 'Unknown Guest';
-                    const roomTypeName = booking.room && booking.room.room_type ? booking.room.room_type
-                        .type_name : 'Unknown Room Type';
-                    const roomNumber = booking.room ? booking.room.room_number : 'N/A'; // Fetch room_number
-                    const totalAdults = booking.total_adults || 0;
-                    const totalChildren = booking.total_children || 0;
+                    const guestName = booking.guest ? booking.guest.first_name + ' ' + booking.guest
+                        .last_name : 'Unknown Guest';
 
-                    // Determine if the booking is past the check-out date
-                    const today = new Date();
-                    const checkOutDate = new Date(booking.check_out_date);
-                    const eventClassName = checkOutDate < today ? 'bg-danger border-0' :
-                        'bg-success border-0';
+                    // Since booking.rooms is a collection, extract room details
+                    const roomDetails = booking.rooms.map(room => {
+                        return {
+                            roomTypeName: room.room_type ? room.room_type.type_name :
+                                'Unknown Room Type',
+                            roomNumber: room.room_number || 'N/A',
+                            totalAdults: room.pivot ? room.pivot.total_adults : 0, // Get from pivot
+                            totalChildren: room.pivot ? room.pivot.total_children :
+                                0 // Get from pivot
+                        };
+                    });
+                    // If multiple rooms exist, join their details into a single string
+                    const roomTypeNames = roomDetails.map(r => r.roomTypeName).join(', ') ||
+                        'Unknown Room Type';
+                    const roomNumbers = roomDetails.map(r => r.roomNumber).join(', ') || 'N/A';
+                    const totalAdults = roomDetails.reduce((sum, r) => sum + r.totalAdults, 0);
+                    const totalChildren = roomDetails.reduce((sum, r) => sum + r.totalChildren, 0);
+                    const bookingSource = booking.booking_source || 'Unknown';
+                    // Determine booking type color
+                    let eventClassName = 'bg-success border-0'; // Default for current bookings
+                    if (new Date(booking.check_out_date) < new Date()) {
+                        eventClassName = 'bg-danger border-0'; // Mark previous bookings
+                    } else if (bookingSource === 'walk-in') {
+                        eventClassName = 'bg-warning border-0'; // Different color for walk-in
+                    }
 
                     return {
-                        title: `${guestName} - ${roomTypeName}`,
+                        title: `${guestName} - ${roomTypeNames} (${bookingSource})`,
                         start: booking.check_in_date,
                         end: booking.check_out_date,
-                        className: eventClassName, // Pass event color class
+                        className: eventClassName,
                         extendedProps: {
                             guestName: guestName,
-                            roomTypeName: roomTypeName,
-                            roomNumber: roomNumber, // Add room_number here
+                            roomTypeName: roomTypeNames,
+                            roomNumber: roomNumbers,
                             total_adults: totalAdults,
                             total_children: totalChildren,
-                            isExpired: checkOutDate < today, // Flag for expired bookings
+                            bookingSource: bookingSource,
                         }
                     };
                 });
@@ -338,10 +266,8 @@
                     events: events,
                     editable: false,
                     selectable: true,
-                    eventColor: "#3786D6",
-                    eventLimit: true,
                     eventClick: (info) => {
-                        this.onEventClick(info.event); // Pass the clicked event
+                        this.onEventClick(info.event);
                     },
                     eventContent: function(arg) {
                         return {
@@ -354,6 +280,8 @@
                 });
                 this.$calendarObj.render();
             };
+
+
             // Initialize the app with booking data
             $(document).ready(function() {
                 const bookings = @json($bookings); // Pass Laravel bookings data to JavaScript
