@@ -58,16 +58,18 @@
         }
     </style>
 </head>
+
 <body>
     <div class="text-center">
         <img src="https://www.sinakaangkorhotel.com/wp-content/uploads/2022/12/cropped-sinaka-logo-300x243.png"
             alt="Logo" class="logo">
         <h1 style="font-family: 'Oswald', sans-serif;">Reservation Report</h1>
         <p style="font-family: 'Oswald', sans-serif;">
-            <strong style="font-family: 'Oswald', sans-serif;">Date Range:</strong> {{ request()->start_date ?? 'N/A' }} to {{ request()->end_date ?? 'N/A' }}
+            <strong style="font-family: 'Oswald', sans-serif;">Date Range:</strong> {{ request()->start_date ?? 'N/A' }}
+            to {{ request()->end_date ?? 'N/A' }}
         </p>
     </div>
-    
+
     <!-- Add Total Reservations and Total Guests -->
     <h3 style="font-family: 'Oswald', sans-serif;">Summary</h3>
     <table class="summary-table" style="font-family: 'Oswald', sans-serif;">
@@ -79,10 +81,10 @@
         <tr>
             <td>{{ $totalReservations }}</td>
             <td>{{ $totalGuests }}</td>
-            <td>Paid : {{$tatalPaid}} / Unpaid : {{$totalUnpaid}}</td>
+            <td>Paid : {{ $tatalPaid }} / Unpaid : {{ $totalUnpaid }}</td>
         </tr>
     </table>
-    
+
     <h3 style="font-family: 'Oswald', sans-serif;">Status Breakdown</h3>
     <table class="status-table" style="font-family: 'Oswald', sans-serif;">
         <tr>
@@ -104,7 +106,7 @@
             <td>{{ $statusBreakdown['Total'] }}</td>
         </tr>
     </table>
-    
+
 
     <h3>Reservation Details</h3>
     <table>
@@ -139,7 +141,7 @@
                         <td>{{ $room->pivot->total_children }}</td>
                         <td>{{ ucfirst($reservation->status) }}</td>
                         <td>{{ ucfirst($reservation->payment_status) }}</td>
-                        
+
                     </tr>
                 @endforeach
             @empty
@@ -150,7 +152,7 @@
         </tbody>
     </table>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>
 

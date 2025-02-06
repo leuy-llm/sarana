@@ -82,21 +82,37 @@
     </style>
 @endsection
 @section('content')
-    <section id="home" class="banner_wrapper p-0 " data-aos="zoom-in" data-aos-duration="2000">
-        <div class="overlay">
-            @if ($banner)
-                <img src="{{ asset('storage/' . $banner->banner_image) }}"
-                    style="width: 100%; height: 90vh; object-fit: cover;" alt="Banner Image">
-            @else
-                <img src="{{ asset('hotel') }}/image/services/service3.png"
-                    style="width: 100%; height: 90vh; object-fit: cover;" alt="">
-            @endif
-            <div class="img-overlay">
-                <h2>{{ $data }}</h2>
-            </div>
-        </div>
-    </section>
-    <section id="meeting" class="meeting_wrapper">
+<div class="hero-section banner_wrapper"  data-aos="fade-down" data-aos-duration="1000">
+    <div class="container">
+        <h1 class="display-4 mb-4" data-aos="zoom-in" data-aos-duration="2000"
+            style="color: white;font-weight: 700;font-family: 'Sail', system-ui;font-size: 75px;">
+            {{ $data }}
+        </h1>
+        {{-- <p class="lead" style="color: #fff;font-family: 'Sail', system-ui;font-size: 25px;">
+            Find your perfect room with stunning views and ultimate comfort
+        </p> --}}
+    </div>
+</div>
+@if ($banner)
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('{{ asset('storage/' . $banner->banner_image) }}');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            margin-bottom: -100px;
+        }
+    </style>
+@else
+    <p>No banner found for this page.</p>
+@endif
+    <section id="meeting" class="meeting_wrapper" style="margin-top: 100px;">
         <div class="container-fluid">
             <div class="text-center" data-aos="fade-down" data-aos-duration="1000">
                 @foreach($meetings as $meeting)
@@ -136,11 +152,6 @@
         </div>
         </div>
     </section>
-
-
-
-
-    @include('auth.register')
 @endsection
 
 @section('script')

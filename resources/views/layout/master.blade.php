@@ -27,8 +27,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-    
-
+   
     
         @yield('style')
     {{--     
@@ -116,18 +115,15 @@
     <!-- UIkit JS -->
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.16/dist/js/uikit-icons.min.js"></script>
-    
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script>
         AOS.init({
-        // duration: 2000, // Animation duration in milliseconds
         once: false,    // Allow animations to trigger both on scroll down and up
         mirror: true    // Trigger animations when elements scroll back into view
     });
       </script>
        @yield('script')
-
 </body>
 
 </html>

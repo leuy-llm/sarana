@@ -321,13 +321,13 @@ p {
   z-index: 9999999;
 }
 
-.booking-area .form-control,
+/* .booking-area .form-control,
 .booking-area .form-select{
   border: .0625rem solid var(--primary-color);
   height: 2.5rem;
   text-transform: uppercase;
 
-}
+} */
 
 /*======== about ==========*/
 .about_wrapper{

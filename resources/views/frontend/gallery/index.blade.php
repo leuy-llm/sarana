@@ -135,36 +135,6 @@
 <!-- Swiper.js JS -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script>
-    // const swiper = new Swiper('.swiper2', {
-    //     loop: true,
-    //     effect: 'coverflow',
-    //     grabCursor: true,
-
-    //     autoplay: {
-    //         delay: 3000,
-    //         disableOnInteraction: false,
-    //     },
-    //     slidesPerView: 30, // Display 3 images
-    //     centeredSlides: true, // Center the middle image
-    //     spaceBetween: 30,
-    //     satisfiesSlides: true,
-    //     // speed: 800,    
-
-    //     breakpoints: {
-    //         768: {
-    //             slidesPerView: 2, // Show 2 images for tablets
-    //             spaceBetween: 20,
-    //         },
-    //         480: {
-    //             slidesPerView: 1, // Show 1 image for smaller screens
-    //         },
-    //     }, 
-    //     navigation: {
-    //         nextEl: '.swiper-button-next',
-    //         prevEl: '.swiper-button-prev',
-    //     },
-    // });
-
     const swiper = new Swiper('.swiper2', {
     loop: true,
     effect: 'coverflow',
@@ -199,26 +169,5 @@
         prevEl: '.swiper-button-prev',
     },
 });
-
-// const swiper = new Swiper('.swiper2',{
-//     effect: "coverflow",
-//     grabCursor: true,
-//     loop: true,
-//     centeredSlides: true,
-//     initialSlides:true,
-//     speed:600,
-//     preventClickss:true,
-//     slidesPerView: "auto",
-//     spaceBetween: 30,
-//     coverflowEffect: {
-//         rotate: 0,
-//         stretch: 80,
-//         depth: 150,
-//         modifier: 1,
-//         slideShadows: true,
-//         scale: 0.85
-//     },
-    
-// })
 
 </script>

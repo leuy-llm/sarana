@@ -4,11 +4,8 @@
         top: 9px;
         right: -5px;
         background-color: #f43506;
-        /* Green background */
         color: white;
-        /* White text */
         font-size: 14px;
-        /* Adjust font size as needed */
         font-weight: bold;
         padding: 8px;
         border-radius: 100%;
@@ -18,16 +15,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
     }
 
     .disabled {
         pointer-events: none;
-        /* Prevent click events */
         opacity: 0.5;
-        /* Make it look dimmed */
         cursor: not-allowed;
-        /* Show "not allowed" cursor */
+       
     }
 
     .list-group-item {
@@ -64,14 +58,12 @@
                     class="mdi mdi-chevron-down d-none d-sm-inline-block align-middle"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">
-
                 <!-- item-->
                 <a href="{{ route('locale.switch', ['lang' => 'en']) }}" class="dropdown-item notify-item">
                     <img src="{{ asset('admin_dashboard') }}/assets/images/flags/england.png" alt="user-image"
                         class="me-1" height="12">
                     <span class="align-middle font">@lang('label.english')</span>
                 </a>
-
                 <!-- item-->
                 <a href="{{ route('locale.switch', ['lang' => 'kh']) }}" class="dropdown-item notify-item">
                     <img src="{{ asset('admin_dashboard') }}/assets/images/flags/cambodia.png" alt="user-image"
@@ -94,7 +86,6 @@
                 @endif
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
-
                 <!-- item-->
                 <div class="dropdown-item noti-title">
                     <h5 class="m-0">
@@ -105,7 +96,6 @@
                         </span>Notification
                     </h5>
                 </div>
-
                 <div style="max-height: 230px;" data-simplebar="">
                     <!-- item-->
                     @forelse ($notifications as $notification)
@@ -122,7 +112,6 @@
                     @empty
                         <p class="text-center text-muted">No new notifications</p>
                     @endforelse
-
                     <!-- item-->
                     {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon bg-info">

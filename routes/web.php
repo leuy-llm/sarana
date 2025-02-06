@@ -111,6 +111,7 @@ Route::get('/bookings/{id}/status/{status}', [BookingController::class, 'updateS
 //     Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
 //     Route::post('/books/create', [HomeController::class, 'bookstore'])->name('books.store');
 // });
+Route::get('/filter-rooms', [HomeController::class, 'filterRooms'])->name('filter.rooms');
 
 Route::post('/booking/cancel/{id}', [ReservationController::class, 'cancelBooking'])->name('booking.cancel');
 Route::get('/guest/logout', [GuestController::class, 'logout'])->name('guest.logout');

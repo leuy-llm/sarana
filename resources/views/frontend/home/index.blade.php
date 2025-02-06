@@ -79,7 +79,4 @@
 @endsection
 
 @section('script')
-</script>
-  AOS.init();
-</script>
 @endsection
