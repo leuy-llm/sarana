@@ -496,6 +496,7 @@
            text-align: center;
            margin-bottom: -100px;
        }
+       
     </style>
 @endsection
 @section('content')

@@ -423,14 +423,10 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
-        /* Styling for H3 */
         .no-rooms h3 {
             font-family: 'Sail', system-ui;
             font-size: 35px;
         }
-
-        /* Gradient Text Effect */
         .gradient-text {
             font-weight: bold;
             background: linear-gradient(45deg, #ff7e5f, #feb47b, #ffec61, #43cea2, #185a9d);
@@ -440,12 +436,10 @@
             animation: gradientAnimation 3s ease infinite;
         }
 
-        /* Fade-in Animation */
         .animate-text {
             animation: fadeIn 1.5s ease-in-out;
         }
 
-        /* Gradient Animation */
         @keyframes gradientAnimation {
             0% {
                 background-position: 0% 50%;
@@ -460,7 +454,6 @@
             }
         }
 
-        /* Fade-in Animation */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -472,6 +465,10 @@
                 transform: translateY(0);
             }
         }
+        /* #filter-form {
+            scroll-margin-top: 500px; 
+        } */
+
     </style>
 @endsection
 @section('content')
@@ -514,12 +511,12 @@
                         <div class="col-12 col-sm-6 col-md-2">
                             <label class="form-label">Check In</label>
                             <input type="date" class="form-control shadow-none" name="check_in"
-                                value="{{ request('check_in') }}" id="checkIn" required>
+                            value="{{ request('check_in') }}" id="checkIn" required>
                         </div>
                         <div class="col-12 col-sm-6 col-md-2">
                             <label class="form-label">Check Out</label>
                             <input type="date" class="form-control shadow-none" name="check_out"
-                                value="{{ request('check_out') }}" id="checkOut" required>
+                            value="{{ request('check_out') }}" id="checkOut" required>
                         </div>
                         <div class="col-12 col-sm-6 col-md-2">
                             <label class="form-label">Room Type</label>
@@ -569,25 +566,11 @@
                         </div>
                     </div>
                 </form>
-
             </div>
             <div class="row">
                 <div class="col-md-3">
                     <div class="filter-section">
                         <h5 class="filter-title">Filters</h5>
-                        <!-- Price Range -->
-                        {{-- <div class="mb-4">
-                            <label for="price-range" class="form-label">Price Range</label>
-                            <div id="price-range-slider" style="margin: 20px 0;"></div>
-                            <input type="hidden" name="price_min" id="price_min_input"
-                                value="{{ request('price_min', 50) }}">
-                            <input type="hidden" name="price_max" id="price_max_input"
-                                value="{{ request('price_max', 5000) }}">
-                            <p class="text-center mt-1">
-                                <span id="price-min">{{ request('price_min', 50) }}</span> -
-                                <span id="price-max">{{ request('price_max', 5000) }}</span>
-                            </p>
-                        </div> --}}
                         <form id="price-filter-form">
                             @csrf
                             <div class="mb-4">
@@ -631,99 +614,7 @@
                 <!-- Room Listings -->
                 <div class="col-md-9">
                     <div class="row" id="roomListings">
-                        {{-- @if ($rooms->isEmpty())
-                            <div class="alert alert-warning no-rooms text-center animate-text">
-                                <h3 class="gradient-text">
-                                    No rooms available for the selected criteria.<br>
-                                    Please adjust your search and try again.
-                                </h3>
-                            </div>
-                        @else
-                            @foreach ($rooms as $room)
-                                <div class="col-md-6">
-
-                                    <div class="card room-card">
-                                        <div class="room-image"
-                                            style="background-image: url('{{ asset('storage/' . $room->images->first()->image) }}')">
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                                <h5 class="card-title mb-0">{{ $room->roomType->type_name }}</h5>
-                                                <span class="badge-custom">Available</span>
-                                            </div>
-                                            <div class="room-features">
-                                                <span class="room-feature"><i class="fas fa-ruler-combined"></i>
-                                                    {{ $room->room_size }}m²</span>
-                                                <span class="room-feature"><i class="fas fa-bed"></i>
-                                                    {{ $room->bed_type }}</span>
-                                                <span class="room-feature"><i class="fas fa-mountain-sun"></i>
-                                                    {{ $room->view_type }}</span>
-                                                <span class="room-feature"><i class="fas fa-user-friends"></i>
-                                                    {{ $room->max_person }} Guests</span>
-                                            </div>
-                                            <div class="d-flex align-items-center">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <i
-                                                        class="bi {{ $i <= $room->rating ? 'bi-star-fill ml-1 text-warning' : 'bi-star ml-1 text-muted' }}"></i>
-                                                @endfor
-                                            </div>
-                                            <p class="card-text text-muted" style="font-family: 'Oswald', sans-serif;">
-                                                {{ Str::limit($room->description, 100) }}</p>
-                                            <div class="guest-inputs">
-                                                <div class="row g-2">
-                                                    <div class="col-6">
-                                                        <label class="form-label">Adults</label>
-                                                        <select class="form-select  adults-select"
-                                                            id="adults_room_{{ $room->id }}"
-                                                            name="adults[{{ $room->id }}]">
-                                                            @for ($i = 1; $i <= 10; $i++)
-                                                                <option value="{{ $i }}"
-                                                                    {{ request('adults') == $i ? 'selected' : '' }}>
-                                                                    {{ $i }} Adult{{ $i > 1 ? 's' : '' }}
-                                                                </option>
-                                                            @endfor
-                                                        </select>
-
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label class="form-label">Children</label>
-                                                        <select class="form-select children-select"
-                                                            id="children_room_{{ $room->id }}"
-                                                            name="children[{{ $room->id }}]">
-                                                            @for ($i = 0; $i <= 10; $i++)
-                                                                <option value="{{ $i }}"
-                                                                    {{ request('children') == $i ? 'selected' : '' }}>
-                                                                    {{ $i }} Child{{ $i > 1 ? 'ren' : '' }}
-                                                                </option>
-                                                            @endfor
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <div class="price-tag">
-                                                    @if ($room->special_price)
-                                                        <span
-                                                            class="badge bg-danger text-white p-2 rounded-sm mb-2 text-uppercase">SPECIAL
-                                                            OFFER</span>
-                                                        ${{ number_format($room->special_price, 0) }}<small>/night</small>
-                                                    @else
-                                                        ${{ number_format($room->price, 0) }}<small>/night</small>
-                                                    @endif
-                                                </div>
-
-                                                <button class="btn btn-book " data-room-id="{{ $room->id }}"
-                                                    data-price={{ $room->price }}
-                                                    data-room-name="{{ $room->roomType->type_name }}"
-                                                    data-max-person="{{ $room->max_person }}">
-                                                    Select Room
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif --}}
+                        
                         @include('frontend.rooms.room_list', ['rooms' => $rooms])
                     </div>
                 </div>
@@ -731,12 +622,10 @@
             <div class="selected-rooms-summary d-none" id="selectedRoomsSummary">
                 <h3 class="mb-4" style="font-family: 'Oswald', sans-serif;">Selected Rooms Summary</h3>
                 <div id="selectedRoomsList" style="font-family: 'Oswald', sans-serif;">
-
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    {{-- <h4 class="mb-0">Total Price:</h4>
-                    <div class="total-price" id="totalPrice">$0</div> --}}
+                   
                 </div>
                 <button class="btn proceed-booking" id="proceedToBooking">
                     Proceed to Booking
@@ -771,27 +660,33 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const filterForm = document.getElementById("filter-form");
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     const filterForm = document.getElementById("filter-form");
 
-            filterForm.addEventListener("submit", function() {
-                // Save the current scroll position in localStorage
-                localStorage.setItem("scrollPosition", window.scrollY);
-            });
+        //     filterForm.addEventListener("submit", function() {
+        //         // Save the current scroll position in localStorage
+        //         localStorage.setItem("scrollPosition", window.scrollY);
+        //     });
 
-            const scrollPosition = localStorage.getItem("scrollPosition");
-            if (scrollPosition) {
-                window.scrollTo(0, parseInt(scrollPosition));
-                localStorage.removeItem("scrollPosition"); // Clear the saved position
-            }
-        });
+        //     const scrollPosition = localStorage.getItem("scrollPosition");
+        //     if (scrollPosition) {
+        //         window.scrollTo(0, parseInt(scrollPosition));
+        //         localStorage.removeItem("scrollPosition"); // Clear the saved position
+        //     }
+        // });
         document.addEventListener("DOMContentLoaded", function() {
             const proceedButton = document.getElementById("proceedToBooking");
             const roomButtons = document.querySelectorAll('.btn-book'); // Use the correct class here
+            const filterForm = document.getElementById('filter-form');
             const maxRooms = 4;
 
             let selectedRooms = [];
             let totalPrice = 0;
+            let isFiltered = false; // Flag to check if filtering has been done
+
+            document.getElementById("filter-form").addEventListener("click", function() {
+                isFiltered = true; // Mark filtering as done
+            });
 
             // Show the modal
             function showModal() {
@@ -810,6 +705,8 @@
                 button.addEventListener("click", closeModal);
             });
 
+
+
             function showErrorModal(message) {
                 const modal = document.getElementById("errorModal");
                 const messageContainer = document.getElementById("errorMessage");
@@ -822,37 +719,45 @@
                 modal.style.display = "none";
             });
 
-            roomButtons.forEach((button) => {
-                button.addEventListener("click", function() {
-                    const roomId = button.dataset.roomId;
-                    const maxPerson = parseInt(button.dataset.maxPerson,
-                        10); // Get max_person from dataset
-                    const price = parseFloat(button.dataset.price); // Get price from dataset
-                    const roomCard = button.closest(
-                        '.room-card'); // Get the parent room-card element
+            document.addEventListener("click", function (event) {
+                if (event.target.classList.contains("btn-book")) {
+                    handleRoomSelection(event.target);
+                }
+            });
 
-                    // Toggle room selection
+            function handleRoomSelection(button) {
+                    if (!isFiltered) {
+                        event.preventDefault();
+                        showErrorModal(`Please filter the rooms first before selecting a room.`);
+                        filterForm.scrollIntoView({ behavior: "smooth" }); // Scroll to filter form
+                        return;
+                    }
+
+                    const roomId = button.dataset.roomId;
+                    const roomCard = button.closest(".room-card");
+                    const price = parseFloat(button.dataset.price);
+
+                    // ✅ Toggle room selection
                     if (selectedRooms.includes(roomId)) {
                         selectedRooms = selectedRooms.filter(id => id !== roomId);
-                        button.classList.remove('selected'); // Remove selected class
-                        roomCard.classList.remove('selected'); // Remove border on the room card
-                        button.innerText = "Select Room"; // Reset text to "Select Room"
-                        totalPrice -= price; // Subtract price from total
+                        button.classList.remove("selected");
+                        roomCard.classList.remove("selected");
+                        button.innerText = "Select Room";
+                        totalPrice -= price;
                     } else {
                         if (selectedRooms.length >= maxRooms) {
                             showErrorModal(`You can select up to ${maxRooms} rooms only.`);
                             return;
                         }
                         selectedRooms.push(roomId);
-                        button.classList.add('selected'); // Add selected class to button
-                        roomCard.classList.add('selected'); // Add border to room card
-                        button.innerText = "Remove Room"; // Change text to indicate selection
-                        totalPrice += price; // Add price to total
+                        button.classList.add("selected");
+                        roomCard.classList.add("selected");
+                        button.innerText = "Remove Room";
+                        totalPrice += price;
                     }
                     updateSelectedRoomsSummary();
-                });
-            });
-
+                }
+            
 
             function updateSelectedRoomsSummary() {
                 const selectedRoomsSummary = document.getElementById("selectedRoomsSummary");
@@ -886,8 +791,7 @@
                         </div>
                         <div class="text-muted mt-1">${adultsCount} Adults, ${childrenCount} Children</div>
                     </div>
-                    
-        `;
+                `;
                     roomSummary.appendChild(roomContent);
                     selectedRoomsList.appendChild(roomSummary);
                     // Update total price
@@ -906,33 +810,39 @@
             }
             proceedButton.addEventListener("click", function(event) {
                 event.preventDefault();
+
+                // Capture check_in and check_out values from the form inputs
+                const checkInInput = document.querySelector('input[name="check_in"]').value;
+                const checkOutInput = document.querySelector('input[name="check_out"]').value;
+
+                // Validate that check_in and check_out are not empty
+                if (!checkInInput || !checkOutInput) {
+                    showErrorModal("Please select both check-in and check-out dates.");
+                    return;
+                }
+
                 let adults = {};
                 let children = {};
                 let validationErrors = false;
+
                 selectedRooms.forEach((roomId) => {
                     const roomButton = document.querySelector(`button[data-room-id="${roomId}"]`);
-                    const maxPerson = parseInt(roomButton.dataset.maxPerson,
-                        10); // Get max_person for this room
-                    const roomTypeName = roomButton.dataset
-                        .roomName; // Retrieve the room type name from the dataset
+                    const maxPerson = parseInt(roomButton.dataset.maxPerson, 10);
+                    const roomTypeName = roomButton.dataset.roomName;
 
-                    const adultCount = parseInt(document.getElementById(`adults_room_${roomId}`)
-                        .value || "0", 10);
-                    const childCount = parseInt(document.getElementById(`children_room_${roomId}`)
-                        .value || "0", 10);
+                    const adultCount = parseInt(document.getElementById(`adults_room_${roomId}`).value || "0", 10);
+                    const childCount = parseInt(document.getElementById(`children_room_${roomId}`).value || "0", 10);
+
                     adults[roomId] = adultCount;
                     children[roomId] = childCount;
 
                     // Validate adults must be at least 1
                     if (adultCount < 1) {
-                        showErrorModal(
-                            `Please enter at least 1 adult for the ${roomTypeName} room.`);
+                        showErrorModal(`Please enter at least 1 adult for the ${roomTypeName} room.`);
                         validationErrors = true;
                         return;
                     } else if (adultCount + childCount > maxPerson) {
-                        showErrorModal(
-                            `The total number of guests for the ${roomTypeName} room exceeds the limit (${maxPerson}).`
-                        );
+                        showErrorModal(`The total number of guests for the ${roomTypeName} room exceeds the limit (${maxPerson}).`);
                         validationErrors = true;
                         return;
                     }
@@ -947,23 +857,18 @@
 
                 // Use server-side data to check verification status
                 const isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
-                const hasVerifiedEmail =
-                    {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'true' : 'false' }};
+                const hasVerifiedEmail = {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'true' : 'false' }};
 
                 if (!isLoggedIn) {
                     // Redirect to registration/login if not logged in
-                    window.location.href = "{{ route('register.guest') }}?redirect=" + encodeURIComponent(
-                        window.location.href);
+                    window.location.href = "{{ route('register.guest') }}?redirect=" + encodeURIComponent(window.location.href);
                 } else if (!hasVerifiedEmail) {
                     // Show modal if the email is not verified
                     showModal();
                     return;
                 } else {
-                    // If the guest is logged in and email is verified, proceed to booking
-                    const checkIn = "{{ request('check_in') }}";
-                    const checkOut = "{{ request('check_out') }}";
-                    const bookingUrl =
-                        `{{ route('books.create') }}?rooms=${selectedRooms.join(",")}&check_in=${checkIn}&check_out=${checkOut}&adults=${encodeURIComponent(JSON.stringify(adults))}&children=${encodeURIComponent(JSON.stringify(children))}`;
+                    // Construct the booking URL with check_in and check_out values
+                    const bookingUrl = `{{ route('books.create') }}?rooms=${selectedRooms.join(",")}&check_in=${encodeURIComponent(checkInInput)}&check_out=${encodeURIComponent(checkOutInput)}&adults=${encodeURIComponent(JSON.stringify(adults))}&children=${encodeURIComponent(JSON.stringify(children))}`;
 
                     // Log the booking URL for debugging
                     console.log("Booking URL:", bookingUrl);
@@ -974,49 +879,7 @@
             });
 
         });
-
-        // $(document).ready(function() {
-        //     // Initialize the price range slider
-        //     $("#price-range-slider").slider({
-        //         range: true,
-        //         min: 50,
-        //         max: 5000,
-        //         values: [$('#price_min_input').val(), $('#price_max_input').val()],
-        //         slide: function(event, ui) {
-        //             console.log("Slider moved:", ui.values); // Debugging
-        //             $("#price-min").text(ui.values[0]);
-        //             $("#price-max").text(ui.values[1]);
-        //             $("#price_min_input").val(ui.values[0]);
-        //             $("#price_max_input").val(ui.values[1]);
-        //             updateRoomList(); // Trigger AJAX request
-        //         }
-        //     });
-
-        //     // Update price range text on page load (to reflect default values)
-        //     $("#price-min").text($('#price_min_input').val());
-        //     $("#price-max").text($('#price_max_input').val());
-        // });
-
-        // function updateRoomList() {
-        //     console.log("Updating room list..."); // Debugging
-        //     const priceFormData = $("#price-filter-form").serialize(); // Price range data
-        //     const mainFormData = $("#filter-form").serialize(); // Other filter data
-
-        //     $.ajax({
-        //         url: "{{ route('filterRooms') }}",
-        //         type: "GET",
-        //         data: priceFormData + "&" + mainFormData, // Combine both sets of data
-        //         success: function(response) {
-        //             console.log("AJAX Response:", response); // Debugging
-        //             $("#roomListings").html(response);
-        //         },
-        //         error: function(xhr, status, error) {
-        //             console.error("AJAX Error: " + status + ": " + error); // Log AJAX errors
-        //         }
-        //     });
-        // }
         $(document).ready(function() {
-            // Initialize price range slider using noUiSlider
             const priceSlider = document.getElementById('price-range-slider');
             noUiSlider.create(priceSlider, {
                 start: [parseInt($('#price_min_input').val()), parseInt($('#price_max_input').val())],
@@ -1049,7 +912,6 @@
             priceSlider.noUiSlider.on('change', function() {
                 $('#filter-form').submit(); // Trigger form submission
             });
-
             // AJAX form submission for filtering rooms
             $('#filter-form').on('submit', function(event) {
                 event.preventDefault(); // Prevent default form submission
@@ -1072,65 +934,5 @@
             });
         });
         //Price range
-
-        // $(document).ready(function() {
-        //     $(".btn-book").on("click", function(e) {
-        //         e.preventDefault(); // Prevent default button action
-
-        //         const checkInDate = $("#checkIn").val(); // Get check-in date value
-        //         const checkOutDate = $("#checkOut").val(); // Get check-out date value
-
-        //         if (!checkInDate || !checkOutDate) {
-        //             alert("Please select check-in and check-out dates before selecting a room.");
-        //             $("html, body").animate({
-        //                 scrollTop: $("#filter-form").offset().top
-        //             }, 800); // Scroll to the filter form
-        //             return;
-        //         }
-
-        //         // Proceed with room selection
-        //         const roomId = $(this).data("room-id");
-        //         const price = $(this).data("price");
-        //         const roomName = $(this).data("room-name");
-
-        //         console.log("Room Selected:", {
-        //             roomId,
-        //             price,
-        //             roomName
-        //         });
-        //     });
-        // });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".btn-book").forEach(function (button) {
-                button.addEventListener("click", function (event) {
-                    // Get check-in and check-out values
-                    let checkIn = document.querySelector("input[name='check_in']").value;
-                    let checkOut = document.querySelector("input[name='check_out']").value;
-
-                    // Check if both fields are filled
-                    if (!checkIn || !checkOut) {
-                        event.preventDefault(); // Prevent default action
-                        
-                        // Show alert or redirect
-                        alert("Please select check-in and check-out dates before booking a room.");
-                        
-                        // Redirect to the filter form section
-                        document.getElementById("filter-form").scrollIntoView({ behavior: "smooth" });
-                        return;
-                    }
-
-                    // If dates are selected, proceed with room booking logic
-                    let roomId = this.getAttribute("data-room-id");
-                    let roomName = this.getAttribute("data-room-name");
-                    let roomPrice = this.getAttribute("data-price");
-
-                    console.log("Room selected:", roomId, roomName, roomPrice);
-                    
-                    // Here you can proceed with booking logic or redirection
-                });
-            });
-        });
-
     </script>
 @endsection
