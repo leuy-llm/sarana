@@ -423,10 +423,12 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
+
         .no-rooms h3 {
             font-family: 'Sail', system-ui;
             font-size: 35px;
         }
+
         .gradient-text {
             font-weight: bold;
             background: linear-gradient(45deg, #ff7e5f, #feb47b, #ffec61, #43cea2, #185a9d);
@@ -465,10 +467,10 @@
                 transform: translateY(0);
             }
         }
-        /* #filter-form {
-            scroll-margin-top: 500px; 
-        } */
 
+        /* #filter-form {
+                scroll-margin-top: 500px;
+            } */
     </style>
 @endsection
 @section('content')
@@ -502,7 +504,7 @@
     @else
         <p>No banner found for this page.</p>
     @endif
-    <div class="booking-container">
+    <div class="booking-container" style="margin-bottom: 150px;">
         <div class="container-fluid">
             <!-- Search Card -->
             <div class="search-card" data-aos="fade-down" data-aos-duration="2000">
@@ -511,12 +513,12 @@
                         <div class="col-12 col-sm-6 col-md-2">
                             <label class="form-label">Check In</label>
                             <input type="date" class="form-control shadow-none" name="check_in"
-                            value="{{ request('check_in') }}" id="checkIn" required>
+                                value="{{ request('check_in') }}" id="checkIn" required>
                         </div>
                         <div class="col-12 col-sm-6 col-md-2">
                             <label class="form-label">Check Out</label>
                             <input type="date" class="form-control shadow-none" name="check_out"
-                            value="{{ request('check_out') }}" id="checkOut" required>
+                                value="{{ request('check_out') }}" id="checkOut" required>
                         </div>
                         <div class="col-12 col-sm-6 col-md-2">
                             <label class="form-label">Room Type</label>
@@ -614,7 +616,7 @@
                 <!-- Room Listings -->
                 <div class="col-md-9">
                     <div class="row" id="roomListings">
-                        
+
                         @include('frontend.rooms.room_list', ['rooms' => $rooms])
                     </div>
                 </div>
@@ -625,7 +627,7 @@
                 </div>
                 <hr>
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                   
+
                 </div>
                 <button class="btn proceed-booking" id="proceedToBooking">
                     Proceed to Booking
@@ -719,45 +721,47 @@
                 modal.style.display = "none";
             });
 
-            document.addEventListener("click", function (event) {
+            document.addEventListener("click", function(event) {
                 if (event.target.classList.contains("btn-book")) {
                     handleRoomSelection(event.target);
                 }
             });
 
             function handleRoomSelection(button) {
-                    if (!isFiltered) {
-                        event.preventDefault();
-                        showErrorModal(`Please filter the rooms first before selecting a room.`);
-                        filterForm.scrollIntoView({ behavior: "smooth" }); // Scroll to filter form
+                if (!isFiltered) {
+                    event.preventDefault();
+                    showErrorModal(`Please filter the rooms first before selecting a room.`);
+                    filterForm.scrollIntoView({
+                        behavior: "smooth"
+                    }); // Scroll to filter form
+                    return;
+                }
+
+                const roomId = button.dataset.roomId;
+                const roomCard = button.closest(".room-card");
+                const price = parseFloat(button.dataset.price);
+
+                // ✅ Toggle room selection
+                if (selectedRooms.includes(roomId)) {
+                    selectedRooms = selectedRooms.filter(id => id !== roomId);
+                    button.classList.remove("selected");
+                    roomCard.classList.remove("selected");
+                    button.innerText = "Select Room";
+                    totalPrice -= price;
+                } else {
+                    if (selectedRooms.length >= maxRooms) {
+                        showErrorModal(`You can select up to ${maxRooms} rooms only.`);
                         return;
                     }
-
-                    const roomId = button.dataset.roomId;
-                    const roomCard = button.closest(".room-card");
-                    const price = parseFloat(button.dataset.price);
-
-                    // ✅ Toggle room selection
-                    if (selectedRooms.includes(roomId)) {
-                        selectedRooms = selectedRooms.filter(id => id !== roomId);
-                        button.classList.remove("selected");
-                        roomCard.classList.remove("selected");
-                        button.innerText = "Select Room";
-                        totalPrice -= price;
-                    } else {
-                        if (selectedRooms.length >= maxRooms) {
-                            showErrorModal(`You can select up to ${maxRooms} rooms only.`);
-                            return;
-                        }
-                        selectedRooms.push(roomId);
-                        button.classList.add("selected");
-                        roomCard.classList.add("selected");
-                        button.innerText = "Remove Room";
-                        totalPrice += price;
-                    }
-                    updateSelectedRoomsSummary();
+                    selectedRooms.push(roomId);
+                    button.classList.add("selected");
+                    roomCard.classList.add("selected");
+                    button.innerText = "Remove Room";
+                    totalPrice += price;
                 }
-            
+                updateSelectedRoomsSummary();
+            }
+
 
             function updateSelectedRoomsSummary() {
                 const selectedRoomsSummary = document.getElementById("selectedRoomsSummary");
@@ -830,19 +834,24 @@
                     const maxPerson = parseInt(roomButton.dataset.maxPerson, 10);
                     const roomTypeName = roomButton.dataset.roomName;
 
-                    const adultCount = parseInt(document.getElementById(`adults_room_${roomId}`).value || "0", 10);
-                    const childCount = parseInt(document.getElementById(`children_room_${roomId}`).value || "0", 10);
+                    const adultCount = parseInt(document.getElementById(`adults_room_${roomId}`)
+                        .value || "0", 10);
+                    const childCount = parseInt(document.getElementById(`children_room_${roomId}`)
+                        .value || "0", 10);
 
                     adults[roomId] = adultCount;
                     children[roomId] = childCount;
 
                     // Validate adults must be at least 1
                     if (adultCount < 1) {
-                        showErrorModal(`Please enter at least 1 adult for the ${roomTypeName} room.`);
+                        showErrorModal(
+                            `Please enter at least 1 adult for the ${roomTypeName} room.`);
                         validationErrors = true;
                         return;
                     } else if (adultCount + childCount > maxPerson) {
-                        showErrorModal(`The total number of guests for the ${roomTypeName} room exceeds the limit (${maxPerson}).`);
+                        showErrorModal(
+                            `The total number of guests for the ${roomTypeName} room exceeds the limit (${maxPerson}).`
+                            );
                         validationErrors = true;
                         return;
                     }
@@ -857,18 +866,21 @@
 
                 // Use server-side data to check verification status
                 const isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
-                const hasVerifiedEmail = {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'true' : 'false' }};
+                const hasVerifiedEmail =
+                    {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'true' : 'false' }};
 
                 if (!isLoggedIn) {
                     // Redirect to registration/login if not logged in
-                    window.location.href = "{{ route('register.guest') }}?redirect=" + encodeURIComponent(window.location.href);
+                    window.location.href = "{{ route('register.guest') }}?redirect=" + encodeURIComponent(
+                        window.location.href);
                 } else if (!hasVerifiedEmail) {
                     // Show modal if the email is not verified
                     showModal();
                     return;
                 } else {
                     // Construct the booking URL with check_in and check_out values
-                    const bookingUrl = `{{ route('books.create') }}?rooms=${selectedRooms.join(",")}&check_in=${encodeURIComponent(checkInInput)}&check_out=${encodeURIComponent(checkOutInput)}&adults=${encodeURIComponent(JSON.stringify(adults))}&children=${encodeURIComponent(JSON.stringify(children))}`;
+                    const bookingUrl =
+                        `{{ route('books.create') }}?rooms=${selectedRooms.join(",")}&check_in=${encodeURIComponent(checkInInput)}&check_out=${encodeURIComponent(checkOutInput)}&adults=${encodeURIComponent(JSON.stringify(adults))}&children=${encodeURIComponent(JSON.stringify(children))}`;
 
                     // Log the booking URL for debugging
                     console.log("Booking URL:", bookingUrl);

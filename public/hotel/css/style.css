@@ -41,7 +41,7 @@ body {
 }
 
 header {
-  border-bottom: 3px solid #fcb900;
+  /* border-bottom: 3px solid #fcb900; */
   font-family: "Coda", system-ui;
   font-weight: 600;
   font-style: normal;

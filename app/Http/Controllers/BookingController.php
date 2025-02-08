@@ -368,14 +368,6 @@ class BookingController extends Controller
 
 
 
-
-
-
-
-
-
-
-
     // BookingController.php
     public function editBookingRooms($booking_id)
     {
@@ -720,6 +712,9 @@ class BookingController extends Controller
             'booking_source' => 'website',
         ]);
 
+        $checkIn = Carbon::parse($validatedData['check_in']);
+        $checkOut = Carbon::parse($validatedData['check_out']);
+        $nights = $checkIn->diffInDays($checkOut);
         // Attach rooms to the booking
         foreach ($validatedData['rooms'] as $roomId) {
             $booking->rooms()->attach($roomId, [
@@ -729,6 +724,8 @@ class BookingController extends Controller
         }
 
         // Now that we have total_price, pass it to the checkout page
-        return redirect()->route('checkout', ['booking_id' => $booking->id, 'total_price' => $validatedData['total_price']]);
+        return redirect()->route('checkout', ['booking_id' => $booking->id, 'total_price' => $validatedData['total_price'],'nights' => $validatedData['nights']]);
     }
+
+   
 }

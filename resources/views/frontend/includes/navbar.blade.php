@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg no-print">
     <div class="container">
         <a class="navbar-brand" href="">
             @foreach ($settings as $setting)
@@ -17,33 +17,6 @@
                         style="font-size: 13px; font-weight: 500;text-transform: uppercase;"
                         href="{{ route('homepage') }}">Home <span class="sr-only">(current)</span></a>
                 </li>
-
-                {{-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMenuButton"
-                        style="font-size: 13px; font-weight: 500; text-transform: uppercase;" data-mdb-toggle="dropdown"
-                        aria-expanded="false">
-                        OUR ROOMS
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        @foreach ($roomTypes as $roomType)
-                            @php
-                                // Get the first room that matches this room type
-                                $room = $roomType->rooms->first();
-                            @endphp
-
-                            @if ($room)
-                                <li>
-                                  
-                                    <a class="dropdown-item" style="font-size: 13px; padding-top: 10px; border-bottom: 1px solid #dee2e6; font-weight: 500; text-transform: uppercase;"
-                                        href="{{ route('roomDetail', ['id' => $room->id, 'type_name' => Str::slug($room->roomType->type_name)]) }}">
-                                        {{ $room->roomType->type_name }}
-                                        </a>
-
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;"
                         href="{{ route('roomindex') }}">Rooms</a>
@@ -71,9 +44,7 @@
                     <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;"
                         href="{{ route('tour') }}">Tour</a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;" href="{{route('gallery')}}">Gallery</a>
-                </li> --}}
+               
                 <li class="nav-item">
                     <a class="nav-link" style="font-size: 13px; font-weight: 500; text-transform: uppercase;"
                         href="{{ route('contact') }}">Contact</a>
