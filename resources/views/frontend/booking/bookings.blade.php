@@ -142,8 +142,9 @@
         .room-info span {
             font-family: 'Oswald', sans-serif;
         }
-        .room-info span.room-price{
-          margin-top: -5px;
+
+        .room-info span.room-price {
+            margin-top: -5px;
         }
 
         .room-info:last-of-type {
@@ -197,8 +198,9 @@
             padding: 4rem 0;
             margin-bottom: 3rem;
         }
-        input[type="email"]{
-          font-family: 'Oswald', sans-serif;
+
+        input[type="email"] {
+            font-family: 'Oswald', sans-serif;
         }
     </style>
 @endsection
@@ -228,17 +230,17 @@
                     <div class="col-md-6">
                         <div class="booking-info-item">
                             <span class="info-label">Check-in:</span>
-                            <span class="info-value ms-2">{{$checkIn}}</span>
+                            <span class="info-value ms-2">{{ $checkIn }}</span>
                         </div>
                         <div class="booking-info-item">
                             <span class="info-label">Check-out:</span>
-                            <span class="info-value ms-2">{{$checkOut}}</span>
+                            <span class="info-value ms-2">{{ $checkOut }}</span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="booking-info-item">
                             <span class="info-label">Nights:</span>
-                            <span class="info-value ms-2">{{$nights}}</span>
+                            <span class="info-value ms-2">{{ $nights }}</span>
                         </div>
                         <div class="booking-info-item">
                             <span class="info-label">Guests:</span>
@@ -247,7 +249,8 @@
                                 $totalChildren = $rooms->sum('children');
                             @endphp
 
-                              <span class="info-value ms-2">Guests: {{ $totalAdults }} Adults, {{ $totalChildren }} Children</span>
+                            <span class="info-value ms-2">Guests: {{ $totalAdults }} Adults, {{ $totalChildren }}
+                                Children</span>
                         </div>
                     </div>
                 </div>
@@ -309,13 +312,13 @@
                                         value="{{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? auth()->guard('guest')->user()->zip : old('zip') }}"
                                         {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'readonly' : '' }}>
                                 </div>
-                              </div>
-                              <div class="mb-3">
-                                  <label class="form-label">Country</label>
-                                  <input type="text" class="form-control" id="country" name="country"
-                                  value="{{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? auth()->guard('guest')->user()->country : old('country') }}"
-                                          {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'readonly' : '' }}>
-                              </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Country</label>
+                                <input type="text" class="form-control shadow-none" id="country" name="country"
+                                    value="{{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? auth()->guard('guest')->user()->country : old('country') }}"
+                                    {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'readonly' : '' }}>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -332,43 +335,66 @@
                             <input type="hidden" name="guest_id" value="{{ auth()->guard('guest')->user()->id }}">
                             <input type="hidden" name="total_price" value="{{ $totalPrice }}">
                             @foreach ($rooms as $roomDetail)
-                            <div class="room-info">
-                                <div class="d-flex gap-3 mb-3">
-                                    
-                                        <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}" alt="{{ $roomDetail['room']->roomType->type_name }} image" class="small-room-img" loading="lazy">
-                                    <div>
-                                        <h5 class="mb-1 ml-3">{{$roomDetail['room']->roomType->type_name}}</h5>
-                                        <p class="room-details mb-1 ml-3" s>{{ $roomDetail['room']->bed_type }} • {{ $roomDetail['room']->view_type }} • {{ $roomDetail['room']->room_size }}m²</p>
-                                        <span class="room-price ml-3">${{ number_format($roomDetail['room']->price, 0) }}/night</span>
+                                <div class="room-info">
+                                    <div class="d-flex gap-3 mb-3">
+
+                                        <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}"
+                                            alt="{{ $roomDetail['room']->roomType->type_name }} image"
+                                            class="small-room-img" loading="lazy">
+                                        <div>
+                                            <h5 class="mb-1 ml-3">{{ $roomDetail['room']->roomType->type_name }}</h5>
+                                            <p class="room-details mb-1 ml-3" s>{{ $roomDetail['room']->bed_type }} •
+                                                {{ $roomDetail['room']->view_type }} •
+                                                {{ $roomDetail['room']->room_size }}m²</p>
+                                            <span class="room-price ml-3">
+                                                {{-- {{ number_format($roomDetail['room']->price, 0) }}/night --}}
+                                                @if ($roomDetail['room']->special_price)
+                                                    <span
+                                                        class="discounted-price">${{ number_format($roomDetail['room']->special_price, 0) }}/night</span>
+                                                    {{-- <span class="discounted-price">${{ number_format($roomDetail['room']->special_price, 0) }}/night</span> --}}
+                                                @else
+                                                    <span
+                                                        class="regular-price">${{ number_format($roomDetail['room']->price, 0) }}/night</span>
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-muted">{{ $nights }} nights</span>
+                                        <span>
+                                            @if ($roomDetail['room']->special_price)
+                                                ${{ $roomDetail['room']->special_price ? $roomDetail['room']->special_price * $nights : $roomDetail['room']->price * $nights }}
+                                            @else
+                                                ${{ $roomDetail['room']->price * $nights }}
+                                            @endif
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-between">
-                                    <span class="text-muted">{{$nights}} nights</span>
-                                    <span>${{$roomDetail['room']->price * $nights}}</span>
-                                </div>
-                            </div>
-                            <input type="hidden" name="rooms[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['room']->id }}">
-                            <input type="hidden" name="adults[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['adults'] }}">
-                            <input type="hidden" name="children[{{ $roomDetail['room']->id }}]" value="{{ $roomDetail['children'] }}">
+                                <input type="hidden" name="rooms[{{ $roomDetail['room']->id }}]"
+                                    value="{{ $roomDetail['room']->id }}">
+                                <input type="hidden" name="adults[{{ $roomDetail['room']->id }}]"
+                                    value="{{ $roomDetail['adults'] }}">
+                                <input type="hidden" name="children[{{ $roomDetail['room']->id }}]"
+                                    value="{{ $roomDetail['children'] }}">
                             @endforeach
 
 
-                        <!-- Total Calculation -->
-                        <div class="total-section">
-                            <div class="d-flex justify-content-between mb-2">
-                                <span>Subtotal</span>
-                                <span>${{$totalPrice}}</span>
-                            </div>
-                            {{-- <div class="d-flex justify-content-between mb-2">
+                            <!-- Total Calculation -->
+                            <div class="total-section">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Subtotal</span>
+                                    <span>${{ $totalPrice }}</span>
+                                </div>
+                                {{-- <div class="d-flex justify-content-between mb-2">
                 <span>Taxes & Fees (10%)</span>
                 <span>$100</span>
               </div> --}}
-                            <div class="d-flex justify-content-between fw-bold mt-3">
-                                <span>Total</span>
-                                <span>${{$totalPrice}}</span>
+                                <div class="d-flex justify-content-between fw-bold mt-3">
+                                    <span>Total</span>
+                                    <span>${{ $totalPrice }}</span>
+                                </div>
                             </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary shadow-none w-100 py-3">Confirm Booking</button>
+                            <button type="submit" class="btn btn-primary shadow-none w-100 py-3">Confirm Booking</button>
                     </div>
                 </div>
             </div>

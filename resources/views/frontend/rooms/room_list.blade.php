@@ -175,23 +175,28 @@
                                             </div>
                                         </div>
                                     </div>
+                                   
                                     <div class="d-flex justify-content-between align-items-center mt-3">
                                         <div class="price-tag">
+                                            
                                             @if ($room->special_price)
-                                                <span class="original-price">$299<small>/night</small></span>
+                                                <span
+                                                    class="original-price">${{ number_format($room->price, 0) }}<small>/night</small></span>
                                                 ${{ number_format($room->special_price, 0) }}<small>/night</small>
                                             @else
                                                 ${{ number_format($room->price, 0) }}<small>/night</small>
                                             @endif
                                         </div>
 
-                                        <button class="btn btn-book " data-room-id="{{ $room->id }}"
-                                            data-price={{ $room->price }}
+                                        <button class="btn btn-book shadow-none" data-room-id="{{ $room->id }}"
+                                            data-price="{{ $room->price }}"
+                                            data-special-price="{{ $room->special_price ?? $room->price }}"
                                             data-room-name="{{ $room->roomType->type_name }}"
                                             data-max-person="{{ $room->max_person }}">
                                             Select Room
                                         </button>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

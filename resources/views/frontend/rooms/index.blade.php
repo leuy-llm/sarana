@@ -467,10 +467,10 @@
                 transform: translateY(0);
             }
         }
-
+    
         /* #filter-form {
-                scroll-margin-top: 500px;
-            } */
+                                    scroll-margin-top: 500px;
+                                } */
     </style>
 @endsection
 @section('content')
@@ -506,7 +506,6 @@
     @endif
     <div class="booking-container" style="margin-bottom: 150px;">
         <div class="container-fluid">
-            <!-- Search Card -->
             <div class="search-card" data-aos="fade-down" data-aos-duration="2000">
                 <form id="filter-form" action="{{ route('filterRooms') }}" method="GET">
                     <div class="row g-3">
@@ -562,7 +561,7 @@
                                 <span class="spinner-border d-none" role="status" aria-hidden="true"></span>
                                 Search Rooms
                             </button>
-                            <a href="{{ url('room') }}" class="btn btn-reset shadow-none ml-2" id="resetButton">
+                            <a href="{{ route('room') }}" class="btn btn-reset shadow-none ml-2" id="resetButton">
                                 Reset
                             </a>
                         </div>
@@ -590,7 +589,7 @@
                                 </p>
                             </div>
                         </form>
-                        <div class="mb-4">
+                        {{-- <div class="mb-4">
                             <label class="form-label">Amenities</label>
                             <div class="amenity-item form-check">
                                 <input class="form-check-input" type="checkbox" value="wifi" id="wifi">
@@ -610,13 +609,12 @@
                                     <i class="fas fa-parking me-2"></i> Parking
                                 </label>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <!-- Room Listings -->
                 <div class="col-md-9">
                     <div class="row" id="roomListings">
-
                         @include('frontend.rooms.room_list', ['rooms' => $rooms])
                     </div>
                 </div>
@@ -676,16 +674,326 @@
         //         localStorage.removeItem("scrollPosition"); // Clear the saved position
         //     }
         // });
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     const proceedButton = document.getElementById("proceedToBooking");
+        //     const roomButtons = document.querySelectorAll('.btn-book'); // Use the correct class here
+        //     const filterForm = document.getElementById('filter-form');
+        //     const maxRooms = 4;
+
+        //     let selectedRooms = [];
+        //     let totalPrice = 0;
+        //     let isFiltered = false; // Flag to check if filtering has been done
+
+        //     document.getElementById("filter-form").addEventListener("click", function() {
+        //         isFiltered = true; // Mark filtering as done
+        //     });
+
+        //     // Show the modal
+        //     function showModal() {
+        //         const modal = document.getElementById("customModal");
+        //         modal.style.display = "flex";
+        //     }
+
+        //     // Hide the modal
+        //     function closeModal() {
+        //         const modal = document.getElementById("customModal");
+        //         modal.style.display = "none";
+        //     }
+
+        //     // Attach event listeners for modal close buttons
+        //     document.querySelectorAll(".close-modal").forEach((button) => {
+        //         button.addEventListener("click", closeModal);
+        //     });
+
+        //     function showErrorModal(message) {
+        //         const modal = document.getElementById("errorModal");
+        //         const messageContainer = document.getElementById("errorMessage");
+        //         messageContainer.textContent = message;
+        //         modal.style.display = "flex";
+        //     }
+
+        //     document.getElementById("closeErrorModal").addEventListener("click", function() {
+        //         const modal = document.getElementById("errorModal");
+        //         modal.style.display = "none";
+        //     });
+
+        //     document.addEventListener("click", function(event) {
+        //         if (event.target.classList.contains("btn-book")) {
+        //             handleRoomSelection(event.target);
+        //         }
+        //     });
+
+        //     function handleRoomSelection(button) {
+        //         if (!isFiltered) {
+        //             event.preventDefault();
+        //             showErrorModal(`Please filter the rooms first before selecting a room.`);
+        //             filterForm.scrollIntoView({
+        //                 behavior: "smooth"
+        //             }); // Scroll to filter form
+        //             return;
+        //         }
+
+        //         const roomId = button.dataset.roomId;
+        //         const roomCard = button.closest(".room-card");
+        //         const price = parseFloat(button.dataset.price);
+
+        //         // ✅ Toggle room selection
+        //         if (selectedRooms.includes(roomId)) {
+        //             selectedRooms = selectedRooms.filter(id => id !== roomId);
+        //             button.classList.remove("selected");
+        //             roomCard.classList.remove("selected");
+        //             button.innerText = "Select Room";
+        //             totalPrice -= price;
+        //         } else {
+        //             if (selectedRooms.length >= maxRooms) {
+        //                 showErrorModal(`You can select up to ${maxRooms} rooms only.`);
+        //                 return;
+        //             }
+        //             selectedRooms.push(roomId);
+        //             button.classList.add("selected");
+        //             roomCard.classList.add("selected");
+        //             button.innerText = "Remove Room";
+        //             totalPrice += price;
+        //         }
+        //         updateSelectedRoomsSummary();
+        //     }
+
+        //     function updateSelectedRoomsSummary() {
+        //         const selectedRoomsSummary = document.getElementById("selectedRoomsSummary");
+        //         const selectedRoomsList = document.getElementById("selectedRoomsList");
+        //         const totalPriceElement = document.getElementById("totalPrice");
+
+        //         selectedRoomsList.innerHTML = ''; // Clear previous list
+        //         let totalPrice = 0; // Reset total price
+
+        //         selectedRooms.forEach((roomId) => {
+        //             const roomButton = document.querySelector(`button[data-room-id="${roomId}"]`);
+        //             const roomName = roomButton.dataset.roomName;
+        //             const originalPrice = parseFloat(roomButton.dataset.price); // Original price
+        //             const specialPrice = parseFloat(roomButton.dataset
+        //             .specialPrice); // Special price (if available)
+
+        //             const roomPrice = specialPrice || originalPrice; // Use special price if available
+
+        //             const adultsCount = parseInt(document.getElementById(`adults_room_${roomId}`).value ||
+        //                 "1", 10);
+        //             const childrenCount = parseInt(document.getElementById(`children_room_${roomId}`)
+        //                 .value || "0", 10);
+
+        //             // Create room summary element
+        //             const roomSummary = document.createElement("div");
+        //             roomSummary.classList.add("room-summary");
+
+        //             // Create the room summary content
+        //             const roomContent = document.createElement("div");
+        //             roomContent.classList.add("room-content");
+                    // roomContent.innerHTML = `
+                    // <div class="selected-room-item">
+                    //     <div class="d-flex justify-content-between">
+                    //         <h5>${roomName}</h5>
+                    //         ${specialPrice !== originalPrice ? `
+                    //                     <span class="original-price price-tag text-muted" style="text-decoration: line-through;">$${originalPrice.toFixed(2)}</span>
+                    //                     <span class="discounted-price price-tag">$${specialPrice.toFixed(2)}</span>
+                    //                 ` : `
+                    //                     <span class="regular-price price-tag">$${roomPrice.toFixed(2)}</span>
+                    //                 `}
+                    //     </div>
+                    //     <div class="text-muted mt-1">${adultsCount} Adults, ${childrenCount} Children</div>
+                    // </div>
+    //             `;
+
+        //             roomSummary.appendChild(roomContent);
+        //             selectedRoomsList.appendChild(roomSummary);
+
+        //             // Update total price
+        //             totalPrice += roomPrice;
+        //         });
+
+        //         // Update the total price in the summary
+        //         // totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+
+        //         // Show or hide the selected rooms summary
+        //         if (selectedRooms.length > 0) {
+        //             selectedRoomsSummary.classList.remove('d-none');
+        //         } else {
+        //             selectedRoomsSummary.classList.add('d-none');
+        //         }
+        //     }
+
+        // proceedButton.addEventListener("click", function(event) {
+        //     event.preventDefault();
+
+        //     // Capture check_in and check_out values from the form inputs
+        //     const checkInInput = document.querySelector('input[name="check_in"]').value;
+        //     const checkOutInput = document.querySelector('input[name="check_out"]').value;
+
+        //     // Validate that check_in and check_out are not empty
+        //     if (!checkInInput || !checkOutInput) {
+        //         showErrorModal("Please select both check-in and check-out dates.");
+        //         return;
+        //     }
+
+        //     let adults = {};
+        //     let children = {};
+        //     let validationErrors = false;
+
+        //     selectedRooms.forEach((roomId) => {
+        //         const roomButton = document.querySelector(`button[data-room-id="${roomId}"]`);
+        //         const maxPerson = parseInt(roomButton.dataset.maxPerson, 10);
+        //         const roomTypeName = roomButton.dataset.roomName;
+
+        //         const adultCount = parseInt(document.getElementById(`adults_room_${roomId}`)
+        //             .value || "0", 10);
+        //         const childCount = parseInt(document.getElementById(`children_room_${roomId}`)
+        //             .value || "0", 10);
+
+        //         adults[roomId] = adultCount;
+        //         children[roomId] = childCount;
+
+        //         // Validate adults must be at least 1
+        //         if (adultCount < 1) {
+        //             showErrorModal(
+        //                 `Please enter at least 1 adult for the ${roomTypeName} room.`);
+        //             validationErrors = true;
+        //             return;
+        //         } else if (adultCount + childCount > maxPerson) {
+        //             showErrorModal(
+        //                 `The total number of guests for the ${roomTypeName} room exceeds the limit (${maxPerson}).`
+        //             );
+        //             validationErrors = true;
+        //             return;
+        //         }
+        //     });
+
+        //     if (validationErrors) return;
+
+        //     if (selectedRooms.length === 0) {
+        //         showErrorModal("Please select at least one room.");
+        //         return;
+        //     }
+
+        //     // Use server-side data to check verification status
+        //     const isLoggedIn = {{ auth()->guard('guest')->check() ? 'true' : 'false' }};
+        //     const hasVerifiedEmail =
+        //         {{ auth()->guard('guest')->check() && auth()->guard('guest')->user()->hasVerifiedEmail() ? 'true' : 'false' }};
+
+        //     if (!isLoggedIn) {
+        //         // Redirect to registration/login if not logged in
+        //         window.location.href = "{{ route('register.guest') }}?redirect=" + encodeURIComponent(
+        //             window.location.href);
+        //     } else if (!hasVerifiedEmail) {
+        //         // Show modal if the email is not verified
+        //         showModal();
+        //         return;
+        //     } else {
+        //         // Construct the booking URL with check_in and check_out values
+        //         const bookingUrl =
+        //             `{{ route('books.create') }}?rooms=${selectedRooms.join(",")}&check_in=${encodeURIComponent(checkInInput)}&check_out=${encodeURIComponent(checkOutInput)}&adults=${encodeURIComponent(JSON.stringify(adults))}&children=${encodeURIComponent(JSON.stringify(children))}`;
+
+        //         // Log the booking URL for debugging
+        //         console.log("Booking URL:", bookingUrl);
+
+        //         // Redirect to booking page
+        //         window.location.href = bookingUrl;
+        //     }
+        // });
+
+
+        //     $(document).ready(function() {
+        //         const priceSlider = document.getElementById('price-range-slider');
+        //         noUiSlider.create(priceSlider, {
+        //             start: [parseInt($('#price_min_input').val()), parseInt($('#price_max_input')
+        //                 .val())],
+        //             connect: true,
+        //             range: {
+        //                 min: 50,
+        //                 max: 5000
+        //             },
+        //             step: 50,
+        //             tooltips: [true, true],
+        //             format: {
+        //                 to: function(value) {
+        //                     return Math.round(value);
+        //                 },
+        //                 from: function(value) {
+        //                     return Number(value);
+        //                 }
+        //             }
+        //         });
+
+        //         // Update input fields and labels when slider changes
+        //         priceSlider.noUiSlider.on('update', function(values) {
+        //             $('#price_min_input').val(values[0]);
+        //             $('#price_max_input').val(values[1]);
+        //             $('#price-min').text(values[0]);
+        //             $('#price-max').text(values[1]);
+        //         });
+
+        //         // Submit the filter form when slider is released
+        //         priceSlider.noUiSlider.on('change', function() {
+        //             $('#filter-form').submit(); // Trigger form submission
+        //         });
+
+        //         // AJAX form submission for filtering rooms
+        //         $('#filter-form').on('submit', function(event) {
+        //             event.preventDefault(); // Prevent default form submission
+        //             const priceFormData = $("#price-filter-form").serialize(); // Price range data
+        //             const mainFormData = $("#filter-form").serialize(); // Other filter data
+        //             $.ajax({
+        //                 url: "{{ route('filterRooms') }}",
+        //                 type: "GET",
+        //                 data: priceFormData + "&" +
+        //                 mainFormData, // Combine both sets of data
+        //                 success: function(response) {
+        //                     console.log("AJAX Response:", response); // Debugging
+        //                     $("#roomListings").html(response);
+
+        //                     // Reapply the selection state for previously selected rooms
+        //                     reapplyRoomSelectionState();
+        //                 },
+        //                 error: function(xhr, status, error) {
+        //                     console.error("AJAX Error: " + status + ": " +
+        //                     error); // Log AJAX errors
+        //                 }
+        //             });
+        //         });
+
+        //         // Function to reapply the selection state after filtering
+        //         function reapplyRoomSelectionState() {
+        //             selectedRooms.forEach((roomId) => {
+        //                 const roomButton = document.querySelector(
+        //                     `button[data-room-id="${roomId}"]`);
+        //                 if (roomButton) {
+        //                     const roomCard = roomButton.closest(".room-card");
+        //                     const price = parseFloat(roomButton.dataset.price);
+
+        //                     // Mark the room as selected
+        //                     roomButton.classList.add("selected");
+        //                     roomCard.classList.add("selected");
+        //                     roomButton.innerText = "Remove Room";
+
+        //                     // Ensure the room is still part of the filtered results
+        //                     if (!roomButton.closest("#roomListings")) {
+        //                         // If the room is no longer in the filtered results, remove it from selectedRooms
+        //                         selectedRooms = selectedRooms.filter(id => id !== roomId);
+        //                         updateSelectedRoomsSummary();
+        //                     }
+        //                 }
+        //             });
+        //             updateSelectedRoomsSummary();
+        //         }
+        //     });
+        // });
+
         document.addEventListener("DOMContentLoaded", function() {
             const proceedButton = document.getElementById("proceedToBooking");
             const roomButtons = document.querySelectorAll('.btn-book'); // Use the correct class here
             const filterForm = document.getElementById('filter-form');
             const maxRooms = 4;
-
             let selectedRooms = [];
             let totalPrice = 0;
             let isFiltered = false; // Flag to check if filtering has been done
-
+           
             document.getElementById("filter-form").addEventListener("click", function() {
                 isFiltered = true; // Mark filtering as done
             });
@@ -707,8 +1015,6 @@
                 button.addEventListener("click", closeModal);
             });
 
-
-
             function showErrorModal(message) {
                 const modal = document.getElementById("errorModal");
                 const messageContainer = document.getElementById("errorMessage");
@@ -727,6 +1033,7 @@
                 }
             });
 
+
             function handleRoomSelection(button) {
                 if (!isFiltered) {
                     event.preventDefault();
@@ -741,7 +1048,7 @@
                 const roomCard = button.closest(".room-card");
                 const price = parseFloat(button.dataset.price);
 
-                // ✅ Toggle room selection
+                // Toggle room selection
                 if (selectedRooms.includes(roomId)) {
                     selectedRooms = selectedRooms.filter(id => id !== roomId);
                     button.classList.remove("selected");
@@ -757,8 +1064,19 @@
                     button.classList.add("selected");
                     roomCard.classList.add("selected");
                     button.innerText = "Remove Room";
+                    button.style.outline = "none";
                     totalPrice += price;
+
+                    // Cache the room data
+                    selectedRoomsCache[roomId] = {
+                        roomName: button.dataset.roomName,
+                        price: button.dataset.price,
+                        specialPrice: button.dataset.specialPrice,
+                        adultsCount: document.getElementById(`adults_room_${roomId}`).value,
+                        childrenCount: document.getElementById(`children_room_${roomId}`).value
+                    };
                 }
+
                 updateSelectedRoomsSummary();
             }
 
@@ -766,19 +1084,21 @@
             function updateSelectedRoomsSummary() {
                 const selectedRoomsSummary = document.getElementById("selectedRoomsSummary");
                 const selectedRoomsList = document.getElementById("selectedRoomsList");
-                // const totalPriceElement = document.getElementById("totalPrice");
 
                 selectedRoomsList.innerHTML = ''; // Clear previous list
-                selectedRooms.forEach((roomId) => {
-                    const roomButton = document.querySelector(`button[data-room-id="${roomId}"]`);
-                    const roomName = roomButton.dataset.roomName; // Retrieve room name from dataset
-                    const roomPrice = parseFloat(roomButton.dataset
-                        .price); // Retrieve room price from dataset
+                let totalPrice = 0; // Reset total price
 
-                    const adultsCount = parseInt(document.getElementById(`adults_room_${roomId}`).value ||
-                        "1", 10);
-                    const childrenCount = parseInt(document.getElementById(`children_room_${roomId}`)
-                        .value || "0", 10);
+                selectedRooms.forEach((roomId) => {
+                    const cachedRoomData = selectedRoomsCache[roomId];
+                    if (!cachedRoomData) return; // Skip if no cached data exists
+
+                    const roomName = cachedRoomData.roomName;
+                    const originalPrice = parseFloat(cachedRoomData.price); // Original price
+                    const specialPrice = parseFloat(cachedRoomData
+                        .specialPrice); // Special price (if available)
+                    const roomPrice = specialPrice || originalPrice; // Use special price if available
+                    const adultsCount = parseInt(cachedRoomData.adultsCount || "1", 10);
+                    const childrenCount = parseInt(cachedRoomData.childrenCount || "0", 10);
 
                     // Create room summary element
                     const roomSummary = document.createElement("div");
@@ -791,27 +1111,73 @@
                     <div class="selected-room-item">
                         <div class="d-flex justify-content-between">
                             <h5>${roomName}</h5>
-                            <span class="price-tag">$${roomPrice.toFixed(2)}</span>
+                            ${specialPrice !== originalPrice ? `
+                                        <span class="original-price price-tag text-muted" style="text-decoration: line-through;">$${originalPrice.toFixed(2)}</span>
+                                        <span class="discounted-price price-tag">$${specialPrice.toFixed(2)}</span>
+                                    ` : `
+                                        <span class="regular-price price-tag">$${roomPrice.toFixed(2)}</span>
+                                    `}
                         </div>
                         <div class="text-muted mt-1">${adultsCount} Adults, ${childrenCount} Children</div>
                     </div>
-                `;
+                    `;
+
                     roomSummary.appendChild(roomContent);
                     selectedRoomsList.appendChild(roomSummary);
+
                     // Update total price
                     totalPrice += roomPrice;
-
                 });
 
-                // totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
-
-                // Show or hide the selected rooms summary based on whether any rooms are selected
+                // Show or hide the selected rooms summary
                 if (selectedRooms.length > 0) {
                     selectedRoomsSummary.classList.remove('d-none');
                 } else {
                     selectedRoomsSummary.classList.add('d-none');
                 }
             }
+            document.getElementById("resetButton").addEventListener("click", function() {
+                selectedRooms = [];
+                selectedRoomsCache = {};
+                updateSelectedRoomsSummary();
+            });
+            // Cache for selected rooms
+            const selectedRoomsCache = {};
+
+
+            function reapplyRoomSelectionState() {
+                selectedRooms.forEach((roomId) => {
+                    const roomButton = document.querySelector(`button[data-room-id="${roomId}"]`);
+                    if (roomButton) {
+                        const roomCard = roomButton.closest(".room-card");
+                        const price = parseFloat(roomButton.dataset.price);
+
+                        // Mark the room as selected
+                        roomButton.classList.add("selected");
+                        roomCard.classList.add("selected");
+                        roomButton.innerText = "Remove Room";
+
+                        // Cache the room data for future reference
+                        selectedRoomsCache[roomId] = {
+                            roomName: roomButton.dataset.roomName,
+                            price: roomButton.dataset.price,
+                            specialPrice: roomButton.dataset.specialPrice,
+                            adultsCount: document.getElementById(`adults_room_${roomId}`).value,
+                            childrenCount: document.getElementById(`children_room_${roomId}`).value
+                        };
+                    } else {
+                        // If the room is no longer in the filtered results, ensure it remains in the cache
+                        if (!selectedRoomsCache[roomId]) {
+                            console.warn(
+                                `Room with ID ${roomId} is no longer available in the filtered results.`
+                            );
+                        }
+                    }
+                });
+
+                updateSelectedRoomsSummary();
+            }
+
             proceedButton.addEventListener("click", function(event) {
                 event.preventDefault();
 
@@ -829,15 +1195,47 @@
                 let children = {};
                 let validationErrors = false;
 
+                // selectedRooms.forEach((roomId) => {
+                //     const roomButton = document.querySelector(`button[data-room-id="${roomId}"]`);
+                //     const maxPerson = parseInt(roomButton.dataset.maxPerson, 10);
+                //     const roomTypeName = roomButton.dataset.roomName;
+
+                //     const adultCount = parseInt(document.getElementById(`adults_room_${roomId}`)
+                //         .value || "0", 10);
+                //     const childCount = parseInt(document.getElementById(`children_room_${roomId}`)
+                //         .value || "0", 10);
+
+                //     adults[roomId] = adultCount;
+                //     children[roomId] = childCount;
+
+                //     // Validate adults must be at least 1
+                //     if (adultCount < 1) {
+                //         showErrorModal(
+                //             `Please enter at least 1 adult for the ${roomTypeName} room.`);
+                //         validationErrors = true;
+                //         return;
+                //     } else if (adultCount + childCount > maxPerson) {
+                //         showErrorModal(
+                //             `The total number of guests for the ${roomTypeName} room exceeds the limit (${maxPerson}).`
+                //         );
+                //         validationErrors = true;
+                //         return;
+                //     }
+                // });
                 selectedRooms.forEach((roomId) => {
                     const roomButton = document.querySelector(`button[data-room-id="${roomId}"]`);
+                    if (!roomButton) {
+                        console.warn(`Room button with ID ${roomId} not found. Skipping...`);
+                        return; // Skip this room if the button is not found
+                    }
+
                     const maxPerson = parseInt(roomButton.dataset.maxPerson, 10);
                     const roomTypeName = roomButton.dataset.roomName;
 
                     const adultCount = parseInt(document.getElementById(`adults_room_${roomId}`)
-                        .value || "0", 10);
+                        ?.value || "0", 10);
                     const childCount = parseInt(document.getElementById(`children_room_${roomId}`)
-                        .value || "0", 10);
+                        ?.value || "0", 10);
 
                     adults[roomId] = adultCount;
                     children[roomId] = childCount;
@@ -851,7 +1249,7 @@
                     } else if (adultCount + childCount > maxPerson) {
                         showErrorModal(
                             `The total number of guests for the ${roomTypeName} room exceeds the limit (${maxPerson}).`
-                            );
+                        );
                         validationErrors = true;
                         return;
                     }
@@ -889,62 +1287,349 @@
                     window.location.href = bookingUrl;
                 }
             });
-
-        });
-        $(document).ready(function() {
-            const priceSlider = document.getElementById('price-range-slider');
-            noUiSlider.create(priceSlider, {
-                start: [parseInt($('#price_min_input').val()), parseInt($('#price_max_input').val())],
-                connect: true,
-                range: {
-                    min: 50,
-                    max: 5000
-                },
-                step: 50,
-                tooltips: [true, true],
-                format: {
-                    to: function(value) {
-                        return Math.round(value);
+            $(document).ready(function() {
+                const priceSlider = document.getElementById('price-range-slider');
+                noUiSlider.create(priceSlider, {
+                    start: [parseInt($('#price_min_input').val()), parseInt($('#price_max_input')
+                        .val())],
+                    connect: true,
+                    range: {
+                        min: 50,
+                        max: 5000
                     },
-                    from: function(value) {
-                        return Number(value);
-                    }
-                }
-            });
-
-            // Update input fields and labels when slider changes
-            priceSlider.noUiSlider.on('update', function(values) {
-                $('#price_min_input').val(values[0]);
-                $('#price_max_input').val(values[1]);
-                $('#price-min').text(values[0]);
-                $('#price-max').text(values[1]);
-            });
-
-            // Submit the filter form when slider is released
-            priceSlider.noUiSlider.on('change', function() {
-                $('#filter-form').submit(); // Trigger form submission
-            });
-            // AJAX form submission for filtering rooms
-            $('#filter-form').on('submit', function(event) {
-                event.preventDefault(); // Prevent default form submission
-                const priceFormData = $("#price-filter-form").serialize(); // Price range data
-                const mainFormData = $("#filter-form").serialize(); // Other filter data
-
-                $.ajax({
-                    url: "{{ route('filterRooms') }}",
-                    type: "GET",
-                    data: priceFormData + "&" + mainFormData, // Combine both sets of data
-                    success: function(response) {
-                        console.log("AJAX Response:", response); // Debugging
-                        $("#roomListings").html(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX Error: " + status + ": " +
-                            error); // Log AJAX errors
+                    step: 50,
+                    tooltips: [true, true],
+                    format: {
+                        to: function(value) {
+                            return Math.round(value);
+                        },
+                        from: function(value) {
+                            return Number(value);
+                        }
                     }
                 });
+
+                // Update input fields and labels when slider changes
+                priceSlider.noUiSlider.on('update', function(values) {
+                    $('#price_min_input').val(values[0]);
+                    $('#price_max_input').val(values[1]);
+                    $('#price-min').text(values[0]);
+                    $('#price-max').text(values[1]);
+                });
+
+                // Submit the filter form when slider is released
+                priceSlider.noUiSlider.on('change', function() {
+                    $('#filter-form').submit(); // Trigger form submission
+                });
+
+                // AJAX form submission for filtering rooms
+                $('#filter-form').on('submit', function(event) {
+                    event.preventDefault(); // Prevent default form submission
+                    const priceFormData = $("#price-filter-form").serialize(); // Price range data
+                    const mainFormData = $("#filter-form").serialize(); // Other filter data
+                    $.ajax({
+                        url: "{{ route('filterRooms') }}",
+                        type: "GET",
+                        data: priceFormData + "&" +
+                            mainFormData, // Combine both sets of data
+                        success: function(response) {
+                            console.log("AJAX Response:", response); // Debugging
+                            $("#roomListings").html(response);
+
+                            // Reapply the selection state for previously selected rooms
+                            reapplyRoomSelectionState();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error: " + status + ": " +
+                                error); // Log AJAX errors
+                        }
+                    });
+                });
             });
+            //             $('#filter-form').on('submit', function(event) {
+            //     event.preventDefault(); // Prevent default form submission
+            //     const priceFormData = $("#price-filter-form").serialize(); // Price range data
+            //     const mainFormData = $("#filter-form").serialize(); // Other filter data
+            //     $.ajax({
+            //         url: "{{ route('filterRooms') }}",
+            //         type: "GET",
+            //         data: priceFormData + "&" + mainFormData, // Combine both sets of data
+            //         success: function(response) {
+            //             console.log("AJAX Response:", response); // Debugging
+            //             $("#roomListings").html(response);
+
+            //             // Reapply the selection state for previously selected rooms
+            //             reapplyRoomSelectionState();
+            //         },
+            //         error: function(xhr, status, error) {
+            //             console.error("AJAX Error: " + status + ": " + error); // Log AJAX errors
+            //         }
+            //     });
+            // });
         });
         //Price range
+
+        //         document.addEventListener("DOMContentLoaded", function () {
+        //     const proceedButton = document.getElementById("proceedToBooking");
+        //     const filterForm = document.getElementById('filter-form');
+        //     const maxRooms = 4;
+        //     let selectedRooms = [];
+        //     let totalPrice = 0;
+        //     let isFiltered = false; // Flag to check if filtering has been done
+
+        //     document.getElementById("filter-form").addEventListener("click", function () {
+        //         isFiltered = true; // Mark filtering as done
+        //     });
+
+        //     // Show the modal
+        //     function showModal() {
+        //         const modal = document.getElementById("customModal");
+        //         modal.style.display = "flex";
+        //     }
+
+        //     // Hide the modal
+        //     function closeModal() {
+        //         const modal = document.getElementById("customModal");
+        //         modal.style.display = "none";
+        //     }
+
+        //     // Attach event listeners for modal close buttons
+        //     document.querySelectorAll(".close-modal").forEach((button) => {
+        //         button.addEventListener("click", closeModal);
+        //     });
+
+        //     function showErrorModal(message) {
+        //         const modal = document.getElementById("errorModal");
+        //         const messageContainer = document.getElementById("errorMessage");
+        //         messageContainer.textContent = message;
+        //         modal.style.display = "flex";
+        //     }
+
+        //     document.getElementById("closeErrorModal").addEventListener("click", function () {
+        //         const modal = document.getElementById("errorModal");
+        //         modal.style.display = "none";
+        //     });
+
+        //     document.addEventListener("click", function (event) {
+        //         if (event.target.classList.contains("btn-book")) {
+        //             handleRoomSelection(event.target);
+        //         }
+        //     });
+
+        //     function handleRoomSelection(button) {
+        //         if (!isFiltered) {
+        //             event.preventDefault();
+        //             showErrorModal(`Please filter the rooms first before selecting a room.`);
+        //             filterForm.scrollIntoView({
+        //                 behavior: "smooth"
+        //             }); // Scroll to filter form
+        //             return;
+        //         }
+
+        //         const roomId = button.dataset.roomId;
+        //         const roomCard = button.closest(".room-card");
+        //         const price = parseFloat(button.dataset.price);
+
+        //         // Toggle room selection
+        //         if (selectedRooms.includes(roomId)) {
+        //             selectedRooms = selectedRooms.filter(id => id !== roomId);
+        //             button.classList.remove("selected");
+        //             roomCard.classList.remove("selected");
+        //             button.innerText = "Select Room";
+        //             totalPrice -= price;
+        //         } else {
+        //             if (selectedRooms.length >= maxRooms) {
+        //                 showErrorModal(`You can select up to ${maxRooms} rooms only.`);
+        //                 return;
+        //             }
+        //             selectedRooms.push(roomId);
+        //             button.classList.add("selected");
+        //             roomCard.classList.add("selected");
+        //             button.innerText = "Remove Room";
+        //             totalPrice += price;
+        //         }
+
+        //         updateSelectedRoomsSummary();
+        //     }
+
+        //     function updateSelectedRoomsSummary() {
+        //         const selectedRoomsSummary = document.getElementById("selectedRoomsSummary");
+        //         const selectedRoomsList = document.getElementById("selectedRoomsList");
+
+        //         selectedRoomsList.innerHTML = ''; // Clear previous list
+        //         let totalPrice = 0; // Reset total price
+
+        //         selectedRooms.forEach((roomId) => {
+        //             const roomButton = document.querySelector(`button[data-room-id="${roomId}"]`);
+        //             if (!roomButton) {
+        //                 // If the room is no longer in the filtered results, use cached data
+        //                 const cachedRoomData = selectedRoomsCache[roomId];
+        //                 if (!cachedRoomData) return; // Skip if no cached data exists
+
+        //                 const roomName = cachedRoomData.roomName;
+        //                 const originalPrice = parseFloat(cachedRoomData.price); // Original price
+        //                 const specialPrice = parseFloat(cachedRoomData.specialPrice); // Special price (if available)
+        //                 const roomPrice = specialPrice || originalPrice; // Use special price if available
+        //                 const adultsCount = parseInt(cachedRoomData.adultsCount || "1", 10);
+        //                 const childrenCount = parseInt(cachedRoomData.childrenCount || "0", 10);
+
+        //                 // Create room summary element
+        //                 const roomSummary = document.createElement("div");
+        //                 roomSummary.classList.add("room-summary");
+
+        //                 // Create the room summary content
+        //                 const roomContent = document.createElement("div");
+        //                 roomContent.classList.add("room-content");
+        //                 roomContent.innerHTML = `
+    //                     <strong>${roomName}</strong>
+    //                     ${specialPrice !== originalPrice ? `
+        //                         <del>$${originalPrice.toFixed(2)}</del>
+        //                         <span>$${specialPrice.toFixed(2)}</span>
+        //                     ` : `
+        //                         $${roomPrice.toFixed(2)}
+        //                     `}
+    //                     <div>${adultsCount} Adults, ${childrenCount} Children</div>
+    //                 `;
+
+        //                 roomSummary.appendChild(roomContent);
+        //                 selectedRoomsList.appendChild(roomSummary);
+
+        //                 // Update total price
+        //                 totalPrice += roomPrice;
+        //                 return;
+        //             }
+
+        //             const roomName = roomButton.dataset.roomName;
+        //             const originalPrice = parseFloat(roomButton.dataset.price); // Original price
+        //             const specialPrice = parseFloat(roomButton.dataset.specialPrice); // Special price (if available)
+        //             const roomPrice = specialPrice || originalPrice; // Use special price if available
+        //             const adultsCount = parseInt(document.getElementById(`adults_room_${roomId}`).value || "1", 10);
+        //             const childrenCount = parseInt(document.getElementById(`children_room_${roomId}`).value || "0", 10);
+
+        //             // Create room summary element
+        //             const roomSummary = document.createElement("div");
+        //             roomSummary.classList.add("room-summary");
+
+        //             // Create the room summary content
+        //             const roomContent = document.createElement("div");
+        //             roomContent.classList.add("room-content");
+        //             roomContent.innerHTML = `
+    //                 <strong>${roomName}</strong>
+    //                 ${specialPrice !== originalPrice ? `
+        //                     <del>$${originalPrice.toFixed(2)}</del>
+        //                     <span>$${specialPrice.toFixed(2)}</span>
+        //                 ` : `
+        //                     $${roomPrice.toFixed(2)}
+        //                 `}
+    //                 <div>${adultsCount} Adults, ${childrenCount} Children</div>
+    //             `;
+
+        //             roomSummary.appendChild(roomContent);
+        //             selectedRoomsList.appendChild(roomSummary);
+
+        //             // Update total price
+        //             totalPrice += roomPrice;
+        //         });
+
+        //         // Show or hide the selected rooms summary
+        //         if (selectedRooms.length > 0) {
+        //             selectedRoomsSummary.classList.remove('d-none');
+        //         } else {
+        //             selectedRoomsSummary.classList.add('d-none');
+        //         }
+        //     }
+
+        //     // Cache for selected rooms
+        //     const selectedRoomsCache = {};
+
+        //     // Function to reapply the selection state after filtering
+        //     function reapplyRoomSelectionState() {
+        //         selectedRooms.forEach((roomId) => {
+        //             const roomButton = document.querySelector(`button[data-room-id="${roomId}"]`);
+        //             if (roomButton) {
+        //                 const roomCard = roomButton.closest(".room-card");
+        //                 const price = parseFloat(roomButton.dataset.price);
+
+        //                 // Mark the room as selected
+        //                 roomButton.classList.add("selected");
+        //                 roomCard.classList.add("selected");
+        //                 roomButton.innerText = "Remove Room";
+
+        //                 // Cache the room data for future reference
+        //                 selectedRoomsCache[roomId] = {
+        //                     roomName: roomButton.dataset.roomName,
+        //                     price: roomButton.dataset.price,
+        //                     specialPrice: roomButton.dataset.specialPrice,
+        //                     adultsCount: document.getElementById(`adults_room_${roomId}`).value,
+        //                     childrenCount: document.getElementById(`children_room_${roomId}`).value
+        //                 };
+        //             } else {
+        //                 // If the room is no longer in the filtered results, ensure it remains in the cache
+        //                 if (!selectedRoomsCache[roomId]) {
+        //                     console.warn(`Room with ID ${roomId} is no longer available in the filtered results.`);
+        //                 }
+        //             }
+        //         });
+
+        //         updateSelectedRoomsSummary();
+        //     }
+
+        //     $(document).ready(function () {
+        //         const priceSlider = document.getElementById('price-range-slider');
+        //         noUiSlider.create(priceSlider, {
+        //             start: [parseInt($('#price_min_input').val()), parseInt($('#price_max_input').val())],
+        //             connect: true,
+        //             range: {
+        //                 min: 50,
+        //                 max: 5000
+        //             },
+        //             step: 50,
+        //             tooltips: [true, true],
+        //             format: {
+        //                 to: function (value) {
+        //                     return Math.round(value);
+        //                 },
+        //                 from: function (value) {
+        //                     return Number(value);
+        //                 }
+        //             }
+        //         });
+
+        //         // Update input fields and labels when slider changes
+        //         priceSlider.noUiSlider.on('update', function (values) {
+        //             $('#price_min_input').val(values[0]);
+        //             $('#price_max_input').val(values[1]);
+        //             $('#price-min').text(values[0]);
+        //             $('#price-max').text(values[1]);
+        //         });
+
+        //         // Submit the filter form when slider is released
+        //         priceSlider.noUiSlider.on('change', function () {
+        //             $('#filter-form').submit(); // Trigger form submission
+        //         });
+
+        //         // AJAX form submission for filtering rooms
+        //         $('#filter-form').on('submit', function (event) {
+        //             event.preventDefault(); // Prevent default form submission
+        //             const priceFormData = $("#price-filter-form").serialize(); // Price range data
+        //             const mainFormData = $("#filter-form").serialize(); // Other filter data
+        //             $.ajax({
+        //                 url: "{{ route('filterRooms') }}",
+        //                 type: "GET",
+        //                 data: priceFormData + "&" + mainFormData, // Combine both sets of data
+        //                 success: function (response) {
+        //                     console.log("AJAX Response:", response); // Debugging
+        //                     $("#roomListings").html(response);
+
+        //                     // Reapply the selection state for previously selected rooms
+        //                     reapplyRoomSelectionState();
+        //                 },
+        //                 error: function (xhr, status, error) {
+        //                     console.error("AJAX Error: " + status + ": " + error); // Log AJAX errors
+        //                 }
+        //             });
+        //         });
+        //     });
+        // });
     </script>
 @endsection
