@@ -121,6 +121,25 @@
         .btn-pay {
             font-family: 'Oswald', sans-serif;
         }
+          /* Loading overlay styles */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's on top of everything */
+}
+
+/* Spinner size */
+.loading-overlay .spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
     </style>
 @endsection
 @section('content')
@@ -131,8 +150,12 @@
             Secure payment processed by Stripe
         </p>
     </div>
-
-    <div class="container mb-5" >
+    <div class="container mb-5">
+        <div id="loading-overlay" class="loading-overlay d-none">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden"></span>
+            </div>
+        </div> 
         <form action="{{ route('payment.process') }}" method="POST" id="payment-form" class="require-validation">
             @csrf
             <div class="row" style="margin-bottom: 150px;">
@@ -141,7 +164,6 @@
                 @elseif(session('error'))
                     <div class="alert alert-danger">{{ session('error') }}</div>
                 @endif
-
                 <!-- Payment Form Section -->
                 <div class="col-lg-8">
                     <div class="payment-section">
@@ -259,53 +281,13 @@
                 form.submit();
             }
         });
-    </script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const filterForm = document.getElementById("payment-form");
+            const loadingOverlay = document.getElementById("loading-overlay");
 
-
-    {{-- <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
-    <script>
-    const stripe = Stripe("{{ env('STRIPE_KEY') }}");
-    const elements = stripe.elements();
-
-    const style = {
-        base: {
-            fontSize: '16px',
-            color: '#32325d',
-        },
-    };
-
-    const cardNumber = elements.create('cardNumber', { style });
-    cardNumber.mount('#card-number');
-
-    const cardExpiry = elements.create('cardExpiry', { style });
-    cardExpiry.mount('#card-expiry');
-
-    const cardCvc = elements.create('cardCvc', { style });
-    cardCvc.mount('#card-cvc');
-
-    const form = document.getElementById('payment-form');
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const cardHolderName = document.getElementById('card-name').value;
-
-        const { paymentMethod, error } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: cardNumber,
-            billing_details: { name: cardHolderName },
+            filterForm.addEventListener("submit", function () {
+                loadingOverlay.classList.remove("d-none"); // Show loading overlay
+            });
         });
-
-        if (error) {
-            document.getElementById('card-errors').textContent = error.message;
-        } else {
-            const hiddenInput = document.createElement('input');
-            hiddenInput.setAttribute('type', 'hidden');
-            hiddenInput.setAttribute('name', 'stripeToken');
-            hiddenInput.setAttribute('value', paymentMethod.id);
-            form.appendChild(hiddenInput);
-
-            form.submit();
-        }
-    });
-</script> --}}
+    </script>
 @endsection

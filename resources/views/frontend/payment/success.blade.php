@@ -55,6 +55,10 @@
             /* margin-top: 0.3rem; */
         }
 
+        /* .detail-value.price {
+                        font-size: 2rem;
+                    } */
+
         .transaction-id {
             font-family: monospace;
             background-color: #f8f9fa;
@@ -174,12 +178,19 @@
                 text-align: center;
                 font-size: 1rem;
                 margin-bottom: 1rem;
+            }
 
+            .page-number::after {
+                content: counter(page);
             }
 
             .print-logo {
                 width: 150px;
                 height: auto;
+            }
+
+            .detail-value.price {
+                font-size: 1.3rem;
             }
         }
     </style>
@@ -191,25 +202,26 @@
             <img src="https://www.sinakaangkorhotel.com/wp-content/uploads/2022/12/cropped-sinaka-logo-300x243.png"
                 alt="Hotel Logo" class="print-logo">
             <h2 style="font-family: 'Oswald', sans-serif;">Sinaka Angkor Hotel</h2>
-            <p>123 Paradise Street, Wonderland</p>
-            <p>Tel: +1 234 567 890 | Email: contact@luxuryhotel.com</p>
+            @foreach ($contact as $contacts)
+                <p>{{ $contacts->address }}</p>
+                <p>Tel: {{ $contacts->pn1 }} | {{ $contacts->pn2 }} | {{ $contacts->pn3 }} </p>
+
+                <p>{{ $contacts->email }}</p>
+            @endforeach
         </div>
 
     </div>
     <!-- Success Header (Screen Only) -->
     <div class="success-header no-print">
-        {{-- <div class="success-icon">
-            <i class="fas fa-check" style="color: white; font-size: 2rem;"></i>
-        </div> --}}
-        <h1>Booking Confirmed!</h1>
 
+        <h1>Booking Confirmed!</h1>
         <p class="lead" style="color: #fff;font-family: 'Sail', system-ui;font-size: 25px;">
             Your reservation has been successfully processed
         </p>
     </div>
     <!-- Main Content -->
     <div class="container">
-        <div class="alert-center">
+        <div class="alert-center no-print">
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible bg-success text-white border-0 fade show alert-center"
                     role="alert">
@@ -236,60 +248,46 @@
                 </div>
             @endif
         </div>
-
         <div class="confirmation-card">
             <div class="booking-header mt-3">
                 <div class="row align-items-center justify-content-end">
-
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <h3 class="mb-2">Booking Confirmation</h3>
-                        <div class=" mb-2 print">Transaction ID: pi_3QqF5KCtdzaqHN410I5IhVBM</div>
+                        <div class="mb-2 print">Transaction ID: {{ $data['payment_intent_id'] }}</div>
+                    </div>
 
-                    </div>
-                    <div class="col-md-6 text-md-end text-right mt-3 mt-md-0 no-print">
-                        <button class="btn btn-outline-primary shadow-none me-2" onclick="window.print()">
-                            <i class="fas fa-print me-2"></i>Print
-                        </button>
-                        <button class="btn btn-primary shadow-none">
-                            <i class="fas fa-download me-2"></i>Download PDF
-                        </button>
-                    </div>
                 </div>
             </div>
-
             <div class="booking-body">
-                <!-- Guest Information -->
                 <div class="row">
                     <div class="col-md-6">
                         <div class="booking-detail">
                             <div class="detail-label">Full Name :
-                                <span class="detail-value">Luke Johnson</span>
+                                <span class="detail-value">{{ $data['first_name'] }} {{ $data['last_name'] }}</span>
                             </div>
-                            {{-- <div class="detail-value">Luke Johnson</div> --}}
                         </div>
                         <div class="booking-detail">
-                            <div class="detail-label">Email : <span class="detail-value">leuylom022@gmail.com</span></div>
-                            {{-- <div class="detail-value">leuylom022@gmail.com</div> --}}
+                            <div class="detail-label">Email : <span class="detail-value">{{ $data['email'] }}</span></div>
                         </div>
                         <div class="booking-detail">
-                            <div class="detail-label">Phone : <span class="detail-value">+0975894546</span></div>
-                            {{-- <div class="detail-value">+0975894546</div> --}}
+                            <div class="detail-label">Phone : <span class="detail-value">{{ $data['mobile'] }}</span></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="booking-detail">
-                            <div class="detail-label">Room Type : <span class="detail-value">Trip Room, Family 3
-                                    bedroom</span></span></div>
-                            {{-- <div class="detail-value">Trip Room, Family 3 bedroom</div> --}}
+                            <div class="detail-label">Room Type : <span class="detail-value">
+                                    {{ implode(', ', $data['room_types']) }}</span></div>
                         </div>
                         <div class="booking-detail">
-                            <div class="detail-label">Check In/Out : <span class="detail-value">19-02-25 → 20-02-25</span>
+                            <div class="detail-label">Check In/Out : <span class="detail-value">
+                                    {{ date('d-m-y', strtotime($data['check_in_date'])) }} →
+                                    {{ date('d-m-y', strtotime($data['check_out_date'])) }}</span>
                             </div>
-                            {{-- <div class="detail-value">19-02-25 → 20-02-25</div> --}}
                         </div>
                         <div class="booking-detail">
-                            <div class="detail-label">Guests : <span class="detail-value"> 2 Adults, 0 Children</span></div>
-                            {{-- <div class="detail-value">2 Adults, 0 Children</div> --}}
+                            <div class="detail-label">Guests : <span class="detail-value">
+                                    {{ $data['total_adults'] }} Adults
+                                    {{ $data['total_children'] }} Children</span></div>
                         </div>
                     </div>
                 </div>
@@ -298,50 +296,59 @@
                     <div class="col-md-6">
                         <div class="booking-detail">
                             <div class="detail-label">Payment Method : <span class="detail-value">Stripe</span> </div>
-                            {{-- <div class="detail-value">Stripe</div> --}}
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="booking-detail">
-                            <div class="detail-label">Total Price : <span class="detail-value"
-                                    style="color: #28a745; font-size: 1rem; font-weight: bold;">$400.00</span></div>
+                            <div class="detail-label">Total Price : <span class="detail-value price "
+                                    style="color: #28a745; font-weight: bold;">${{ number_format($data['amount'], 2) }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class=" d-flex justify-content-center align-items-center" style="margin-bottom: 150px;">
-            <a href="{{ route('homepage') }}" class="btn btn-warning py-2 px-4 text-white shadow-none text-center no-print">Return
-                Home</a>
+        <div class=" d-flex justify-content-center no-print align-items-center" style="margin-bottom: 150px;">
+            <a href="{{ route('homepage') }}" class="btn btn-warning text-white shadow-none text-center ">
+                Return Home</a>
+            <button class="btn btn-outline-primary ml-2 shadow-none me-2" id="printButton">
+                <i class="fas fa-print me-2"></i>Print
+            </button>
+            {{-- <a href="{{ route('recipe', $data['booking_id']) }}" class="btn btn-primary  ml-2 shadow-none">
+                <i class="fas fa-download me-2"></i>Download PDF
+            </a> --}}
+            <a href="{{ route('booking.download', $data['booking_id']) }}" class="btn btn-success ml-2 shadow-none">
+                <i class="fas fa-download me-2"></i>Download PDF
+            </a>
+
         </div>
     </div>
     <!-- Print Footer -->
     <div class="print-only" style="display: none;">
         <div class="print-footer">
-            <p class="mb-1">Generated on: <span id="print-date"></span></p>
+            <p class="mb-1">Generated on: <span id="print-date">{{ date('d-m-Y') }}</span></p>
             <p class="mb-1">Page <span class="page-number"></span></p>
         </div>
     </div>
     </div>
 @endsection
-@section('scripts')
+@section('script')
     <script>
-        // Set current date/time in print footer
-        document.getElementById('print-date').textContent = new Date().toLocaleString('en-US', {
+        const today = new Date();
+        const formattedDate = today.toLocaleString('en-US', {
             year: 'numeric',
-            month: 'long',
-            day: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
             hour: '2-digit',
-            minute: '2-digit'
+            minute: '2-digit',
+            second: '2-digit'
         });
 
-        // Handle print events
-        window.onbeforeprint = function() {
-            // Any preparations before printing
-        };
-
-        window.onafterprint = function() {
-            // Any cleanup after printing
-        };
+        // Handle the print button click
+        document.getElementById('printButton').addEventListener('click', function() {
+            // Open a new tab
+            window.print();
+            setTimeout(() => window.close(), 500); // Close tab after printing
+        });
     </script>
 @endsection

@@ -291,66 +291,32 @@
             /* Two items per row */
 
         }
+        .hero-section {
+                background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                    url('https://images.pexels.com/photos/453201/pexels-photo-453201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+                background-size: cover;
+                background-position: center;
+                height: 400px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                text-align: center;
+               
+            }
     </style>
 @endsection
 @section('content')
-    <section id="home" class="banner_wrapper p-0">
-        <div class="overlay" data-aos="zoom-in" data-aos-duration="2000">
-            <img src="https://images.pexels.com/photos/453201/pexels-photo-453201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                style="width: 100%; height: 90vh; object-fit: cover;" alt="">
-
-            <div class="img-overlay">
-                <h2> {{ $data }}</h2>
-            </div>
+    <div class="hero-section banner_wrapper p-0">
+        <div class="container" data-aos="fade-down" data-aos-duration="1000">
+            <h1 class="display-4 mb-4"
+                style="color: white;font-weight: 700;font-family: 'Sail', system-ui;font-size: 70px;">
+                {{ $data }}
+            </h1>
         </div>
-    </section>
+    </div>
     <section class="rooms_wrapper">
         <div class="container-fluid" style="margin-bottom: 150px;" data-aos="fade-down" data-aos-duration="1000">
-            {{-- <div class="row">
-                <div class="col-md-4 room-detail">
-                    <h2>{{ $rooms->roomType->type_name }}</h2>
-                    <p class="price-label"><strong>From</strong></p>
-                    @if ($rooms->special_price)
-                    ${{ number_format($rooms->special_price), 0 }}
-                    @else
-                    <p class="price-amount">${{ number_format($rooms->price), 0 }}</p>
-                    @endif
-                    <p><strong>Bed:</strong> {{ $rooms->bed_type }}</p>
-                    <p><strong>Capacity:</strong> {{ $rooms->max_person }}</p>
-                    <p><strong>Room Size:</strong> {{ $rooms->room_size }}m²</p>
-                    <p><strong>View:</strong> {{ $rooms->view_type }}</p>
-    
-                    <p class="mb-3"><strong>Facilities:</strong>
-                        @if ($rooms->facilities->isNotEmpty())
-                            @foreach ($rooms->facilities as $facility)
-                                <li>{{ $facility->name }}</li>
-                                </li>
-                            @endforeach
-                        @endif
-                    </p>
-                   
-                    <a href="{{ route('books.create', ['room_id' => $rooms->id, 'check_in' => $checkInDate, 'check_out' => $checkOutDate, 'adults' => $adults, 'children' => $children]) }}"
-                        class="custom-btn mt-3">Book Now</a>
-                </div>
-                <div class="col-md-8">
-                    <div class="swiper">
-                        <div class="swiper-wrapper">
-                            @foreach ($rooms->images as $image)
-                                <div class="swiper-slide"
-                                    style="background-image: url('{{ asset('storage/' . $image->image) }}')">
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
-                </div>
-                <p class="mt-5 px-3 flex-wrap"><strong>Description:</strong> {{ $rooms->description }}</p>
-            </div> --}}
-            {{-- <h3 class="fw-bold text-center" style="font-family: 'Sail', system-ui;font-size: 50px;color: #caa169">Enjoy Your Stay</h3>
-            <p class="text-center" style="font-family: 'Sail', system-ui; letter-spacing: 1px; line-height:1.5; font-size: 25px; font-weight: 100;  margin-top: 10px;">
-                A hotel is an establishment that provides paid lodging on a short-term basis. Facilities provided may range from a modest-quality mattress.
-             </p> --}}
             <div class="row">
                 <div class="col-md-6 col-12">
                     <div class="details">

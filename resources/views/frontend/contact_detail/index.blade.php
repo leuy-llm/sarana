@@ -36,15 +36,13 @@
             </div>
         </div>
     </section> --}}
-    <div class="hero-section banner_wrapper"  data-aos="fade-down" data-aos-duration="1000">
+    <div class="hero-section banner_wrapper" data-aos="fade-down" data-aos-duration="1000">
         <div class="container">
             <h1 class="display-4 mb-4" data-aos="zoom-in" data-aos-duration="2000"
                 style="color: white;font-weight: 700;font-family: 'Sail', system-ui;font-size: 75px;">
                 {{ $data }}
             </h1>
-            {{-- <p class="lead" style="color: #fff;font-family: 'Sail', system-ui;font-size: 25px;">
-                Find your perfect room with stunning views and ultimate comfort
-            </p> --}}
+
         </div>
     </div>
     @if ($banner)
@@ -112,10 +110,12 @@
                         <h4 style="font-family: 'Source Sans Pro', sans-serif;font-size: 23px;font-weight: 600;">Contact
                             Information</h4>
                         @foreach ($contact as $data)
-                            <p style="text-decoration: none; font-family: 'Source Sans Pro', sans-serif;font-weight: 100;">
+                            <p
+                                style="text-decoration: none; font-family: 'Source Sans Pro', sans-serif;font-weight: 100;color:black;">
                                 <i class="fa fa-map-marker"></i>{{ $data->address }}
                             </p>
-                            <p style="text-decoration: none; font-family: 'Source Sans Pro', sans-serif;font-weight: 100;">
+                            <p
+                                style="text-decoration: none; font-family: 'Source Sans Pro', sans-serif;font-weight: 100;color:black;">
                                 <i class="fa fa-envelope"></i>{{ $data->email }}
                             </p>
                             <p>
@@ -136,10 +136,10 @@
                             <h4 style="font-family: 'Source Sans Pro', sans-serif;font-size: 23px;font-weight: 600;">Our
                                 Social Media</h4>
                             <div class="social-icons">
-                                <a href="{{ $data->fb }}"><i class="fab fa-facebook"></i></a>
-                                <a href="{{ $data->insta }}"><i class="fab fa-instagram"></i></a>
-                                <a href="{{ $data->tele }}"><i class="fab fa-telegram"></i></a>
-                                <a href="{{ $data->tripa }}"><i class="fas fa-envelope"></i></a>
+                                <a href="{{ $data->fb }}"><i class="fab fa-facebook " style="color:black;"></i></a>
+                                <a href="{{ $data->insta }}"><i class="fab fa-instagram" style="color:black;"></i></a>
+                                <a href="{{ $data->tele }}"><i class="fab fa-telegram" style="color:black;"></i></a>
+                                <a href="{{ $data->tripa }}"><i class="fas fa-envelope" style="color:black;"></i></a>
                             </div>
                     </div>
                 </div>
@@ -154,5 +154,4 @@
 @endsection
 
 @section('script')
-    <script></script>
 @endsection

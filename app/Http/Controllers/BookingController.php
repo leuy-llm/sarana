@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Models\Guest;
 use App\Models\Booking;
+use App\Models\Payment;
+use Barryvdh\DomPDF\Facade\Pdf;
+// use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -712,9 +716,9 @@ class BookingController extends Controller
             'booking_source' => 'website',
         ]);
 
-        $checkIn = Carbon::parse($validatedData['check_in']);
-        $checkOut = Carbon::parse($validatedData['check_out']);
-        $nights = $checkIn->diffInDays($checkOut);
+        // $checkIn = Carbon::parse($validatedData['check_in']);
+        // $checkOut = Carbon::parse($validatedData['check_out']);
+
         // Attach rooms to the booking
         foreach ($validatedData['rooms'] as $roomId) {
             $booking->rooms()->attach($roomId, [
@@ -724,8 +728,39 @@ class BookingController extends Controller
         }
 
         // Now that we have total_price, pass it to the checkout page
-        return redirect()->route('checkout', ['booking_id' => $booking->id, 'total_price' => $validatedData['total_price'],'nights' => $validatedData['nights']]);
+        return redirect()->route('checkout', ['booking_id' => $booking->id, 'total_price' => $validatedData['total_price']]);
     }
 
-   
+    public function downloadPDF($id)
+    {
+        // Retrieve the booking data using the booking_id
+        $booking = Booking::with(['guest', 'rooms.roomType'])->findOrFail($id);
+        $contact = DB::table('contact_details')->get();
+        // Extract room types and other necessary data
+        $roomTypes = $booking->rooms->map(function ($room) {
+            return $room->roomType->type_name;
+        })->toArray();
+        $payment = Payment::latest()->first();
+        // Prepare the data for the PDF
+        $data = [
+            'payment_intent_id' => $payment->payment_intent_id,
+            'booking_id' => $booking->id,
+            'first_name' => $booking->guest->first_name,
+            'last_name' => $booking->guest->last_name,
+            'email' => $booking->guest->email,
+            'mobile' => $booking->guest->mobile,
+            'room_types' => $roomTypes,
+            'check_in_date' => $booking->check_in_date,
+            'check_out_date' => $booking->check_out_date,
+            'total_adults' => $booking->rooms->sum('pivot.total_adults'),
+            'total_children' => $booking->rooms->sum('pivot.total_children'),
+            'amount' => $payment->amount,
+        ];
+        // Generate the PDF using a view
+        $pdf = PDF::loadView('pdf.receipt', compact('data', 'contact'));
+        $pdf->getDomPDF()->getOptions()->set('isHtml5ParserEnabled', true);
+        $pdf->getDomPDF()->getOptions()->set('isRemoteEnabled', true);
+        // Return the PDF download response
+        return $pdf->download('booking_confirmation.pdf');
+    }
 }

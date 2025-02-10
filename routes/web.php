@@ -330,3 +330,7 @@ Route::post('/stripe/process', [PaymentController::class, 'process'])->name('str
 Route::post('/stripe/checkout', [PaymentController::class, 'checkout'])->name('stripe.checkout');
 Route::get('/stripe/success', [PaymentController::class, 'success'])->name('stripe.success');
 Route::get('/stripe/cancel', [PaymentController::class, 'cancel'])->name('stripe.cancel');
+Route::get('/booking/{id}/download', [BookingController::class, 'downloadPDF'])->name('booking.download');
+
+
+

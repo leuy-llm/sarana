@@ -21,7 +21,7 @@
             color: white;
             font-weight: 700;
             font-family: 'Sail', system-ui;
-            font-size: 75px;
+            font-size: 70px;
 
 
         }
@@ -202,26 +202,40 @@
         input[type="email"] {
             font-family: 'Oswald', sans-serif;
         }
+        /* Loading overlay styles */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's on top of everything */
+}
+
+/* Spinner size */
+.loading-overlay .spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
     </style>
 @endsection
 
 @section('content')
-    {{-- <div class="booking-header text-center">
-    <h1>Complete Your Booking</h1>
-    <p class="lead">Just a few steps away from your perfect stay</p>
-  </div> --}}
-    <div class="hero-section">
-        <div class="container">
-            <h1 class="display-4 mb-4" data-aos="zoom-in" data-aos-duration="2000"
-                style="color: white;font-weight: 700;font-family: 'Sail', system-ui;font-size: 70px;">
-                Complete Your Booking
-            </h1>
-            <p class="lead" style="color: #fff;font-family: 'Sail', system-ui;font-size: 25px;">
-                Just a few steps away from your perfect stay
-            </p>
-        </div>
+    <div class="booking-header text-center">
+        <h1>Complete Your Booking</h1>
+        <p class="lead" style="color: #fff;font-family: 'Sail', system-ui;font-size: 25px;">Just a few steps away from your perfect stay</p>
     </div>
     <div class="booking-container">
+        <!-- Full-page loading overlay -->
+        <div id="loading-overlay" class="loading-overlay d-none">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden"></span>
+            </div>
+        </div>    
         <div class="container-fluid mb-5">
             <!-- Booking Information Display -->
             <div class="booking-info mb-4">
@@ -256,7 +270,6 @@
                 </div>
             </div>
             <div class="row">
-                <!-- Billing Details Form -->
                 <div class="col-lg-8">
                     <div class="form-section mb-4">
                         <h3 class="mb-4">Billing Details</h3>
@@ -322,13 +335,12 @@
                         </form>
                     </div>
                 </div>
-
                 <!-- Booking Summary -->
                 <div class="col-lg-4">
                     <div class="booking-summary">
                         <h3 class="mb-4">Your Booking</h3>
                         <!-- Room 1 -->
-                        <form action="{{ route('proceedToCheckout') }}" method="POST">
+                        <form action="{{ route('proceedToCheckout') }}" method="POST" id="booking-form">
                             @csrf
                             <input type="hidden" name="check_in" value="{{ $checkIn }}">
                             <input type="hidden" name="check_out" value="{{ $checkOut }}">
@@ -337,7 +349,6 @@
                             @foreach ($rooms as $roomDetail)
                                 <div class="room-info">
                                     <div class="d-flex gap-3 mb-3">
-
                                         <img src="{{ asset('storage/' . $roomDetail['room']->images->first()->image) }}"
                                             alt="{{ $roomDetail['room']->roomType->type_name }} image"
                                             class="small-room-img" loading="lazy">
@@ -347,11 +358,10 @@
                                                 {{ $roomDetail['room']->view_type }} •
                                                 {{ $roomDetail['room']->room_size }}m²</p>
                                             <span class="room-price ml-3">
-                                                {{-- {{ number_format($roomDetail['room']->price, 0) }}/night --}}
+                                               
                                                 @if ($roomDetail['room']->special_price)
                                                     <span
                                                         class="discounted-price">${{ number_format($roomDetail['room']->special_price, 0) }}/night</span>
-                                                    {{-- <span class="discounted-price">${{ number_format($roomDetail['room']->special_price, 0) }}/night</span> --}}
                                                 @else
                                                     <span
                                                         class="regular-price">${{ number_format($roomDetail['room']->price, 0) }}/night</span>
@@ -377,18 +387,13 @@
                                 <input type="hidden" name="children[{{ $roomDetail['room']->id }}]"
                                     value="{{ $roomDetail['children'] }}">
                             @endforeach
-
-
                             <!-- Total Calculation -->
                             <div class="total-section">
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Subtotal</span>
                                     <span>${{ $totalPrice }}</span>
                                 </div>
-                                {{-- <div class="d-flex justify-content-between mb-2">
-                <span>Taxes & Fees (10%)</span>
-                <span>$100</span>
-              </div> --}}
+                            
                                 <div class="d-flex justify-content-between fw-bold mt-3">
                                     <span>Total</span>
                                     <span>${{ $totalPrice }}</span>
@@ -400,4 +405,17 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const filterForm = document.getElementById("booking-form");
+            const loadingOverlay = document.getElementById("loading-overlay");
+
+            filterForm.addEventListener("submit", function () {
+                loadingOverlay.classList.remove("d-none"); // Show loading overlay
+            });
+        });
+    </script>
 @endsection
