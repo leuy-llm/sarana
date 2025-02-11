@@ -300,8 +300,8 @@ Route::group(['middleware' => ['isAdmin']], function () {
         return redirect()->back()->with('success', 'Notifications cleared.');
     })->name('notifications.clear');
 
-    Route::get('/reports', [ReportController::class, 'index'])
-        ->name('reports.index');
+    // Route::get('/reports', [ReportController::class, 'index'])
+    //     ->name('reports.index');
     Route::get('/reports/reservations', [ReportController::class, 'reservationReport'])
         ->name('reports.reservations');
 
@@ -311,18 +311,11 @@ Route::group(['middleware' => ['isAdmin']], function () {
         ->name('reports.rooms.export');
     Route::get('/reports/reservations/export', [ReportController::class, 'exportReservationReport'])
         ->name('reports.reservations.export');
+
+        Route::get('/report', [ReportController::class, 'showReport'])->name('report.show');
+
+        
 });
-
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-// ])->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('dashboard');
-//     })->name('dashboard');
-// });
-
 Route::post('/proceed-to-checkout', [BookingController::class, 'proceedToCheckout'])->name('proceedToCheckout');
 Route::get('/checkout/{booking_id}', [PaymentController::class, 'index'])->name('checkout');
 Route::post('/stripe/process', [PaymentController::class, 'process'])->name('stripe.process');
@@ -331,6 +324,7 @@ Route::post('/stripe/checkout', [PaymentController::class, 'checkout'])->name('s
 Route::get('/stripe/success', [PaymentController::class, 'success'])->name('stripe.success');
 Route::get('/stripe/cancel', [PaymentController::class, 'cancel'])->name('stripe.cancel');
 Route::get('/booking/{id}/download', [BookingController::class, 'downloadPDF'])->name('booking.download');
+
 
 
 

@@ -75,7 +75,13 @@
             <li class="side-nav-item font @if (Request::segment(1) == 'reports/rooms') active @endif">
                 <a href="{{ route('reports.rooms') }}" class="side-nav-link">
                     <i class="uil-chart-line"></i>
-                    <span> @lang('label.roomReport') </span>
+                    <span> @lang('label.OccupancyReport ') </span>
+                </a>
+            </li>
+            <li class="side-nav-item font @if (Request::segment(1) == 'reports/rooms') active @endif">
+                <a href="{{ route('report.show') }}" class="side-nav-link">
+                    <i class="uil-chart-line"></i>
+                    <span> Test Room </span>
                 </a>
             </li>
             {{-- <li class="side-nav-item">

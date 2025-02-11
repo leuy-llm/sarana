@@ -985,9 +985,9 @@ html {
   width: 3rem;
   height: 3rem;
   border-width: 0.3rem;
-  border-color: red; /* Set the spinner border color to red */
-  border-right-color: transparent !important; /* Create the spinner effect */
-  animation: spinner-border 0.75s linear infinite; /* Ensure the spinner animation runs smoothly */
+  border-color: red; 
+  border-right-color: transparent !important;
+  animation: spinner-border 0.75s linear infinite; 
 }
 
 /* Custom spinner animation */
