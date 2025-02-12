@@ -284,7 +284,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::resource('restaurants', RestaurantController::class);
     Route::resource('tours', TourController::class);
     Route::get('tours/{tourId}/delete', [TourController::class, 'destroy']);
-
+    
     /*================= Gallery Route =================== */
     Route::resource('gallerys', GalleryController::class);
     Route::post('/gallerys/{gallery}/toggle-active', [GalleryController::class, 'toggleActive'])->name('gallery.toggleActive');
@@ -311,9 +311,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
         ->name('reports.rooms.export');
     Route::get('/reports/reservations/export', [ReportController::class, 'exportReservationReport'])
         ->name('reports.reservations.export');
-
         Route::get('/report', [ReportController::class, 'showReport'])->name('report.show');
-
         
 });
 Route::post('/proceed-to-checkout', [BookingController::class, 'proceedToCheckout'])->name('proceedToCheckout');
@@ -322,7 +320,6 @@ Route::post('/stripe/process', [PaymentController::class, 'process'])->name('str
 
 Route::post('/stripe/checkout', [PaymentController::class, 'checkout'])->name('stripe.checkout');
 Route::get('/stripe/success', [PaymentController::class, 'success'])->name('stripe.success');
-Route::get('/stripe/cancel', [PaymentController::class, 'cancel'])->name('stripe.cancel');
 Route::get('/booking/{id}/download', [BookingController::class, 'downloadPDF'])->name('booking.download');
 
 
