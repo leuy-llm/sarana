@@ -1,27 +1,20 @@
 @extends('layout.app')
 @section('content')
-@php
-$breadcrumbs = [
-    ['title' => __('label.guests'), 'url' => route('guests.index')],
-    ['title' => __('label.createGuest'), 'url' => route('guests.create')]
-];
-$currentPageTitle =  __('label.newGuest');
-@endphp
-@include('layout.breadcrumbs', ['breadcrumbs' => $breadcrumbs, 'currentPageTitle' => $currentPageTitle])
+    @php
+        $breadcrumbs = [
+            ['title' => __('label.guests'), 'url' => route('guests.index')],
+            ['title' => __('label.createGuest'), 'url' => route('guests.create')],
+        ];
+        $currentPageTitle = __('label.newGuest');
+    @endphp
+    @include('layout.breadcrumbs', [
+        'breadcrumbs' => $breadcrumbs,
+        'currentPageTitle' => $currentPageTitle,
+    ])
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    {{-- <div class="row mb-2">
-                        <div class="col-sm-4">
-                            <a href="{{ url('guests') }}"  tabindex="0"
-                            data-bs-toggle="popover" 
-                            data-bs-trigger="hover"
-                            data-bs-content="@lang('label.backGuest')" data-bs-placement="top"
-                            title="" class="btn btn-danger btn-rounded mb-2 font">
-                            <span class=" uil-corner-up-left"></span> @lang('label.back')</a>
-                        </div>
-                    </div> --}}
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ url('/guests') }}" method="POST"
                         novalidate="">
                         @csrf
@@ -40,8 +33,8 @@ $currentPageTitle =  __('label.newGuest');
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.zip')</label>
-                                    <input type="text" value="{{ old('zip') }}" name="zip" 
-                                        class="form-control @error('zip') is-invalid @enderror" 
+                                    <input type="text" value="{{ old('zip') }}" name="zip"
+                                        class="form-control @error('zip') is-invalid @enderror"
                                         placeholder="@lang('label.enterZip') . . .">
                                     @error('zip')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -51,8 +44,8 @@ $currentPageTitle =  __('label.newGuest');
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.country')</label>
-                                    <input type="text" value="{{ old('country') }}" name="country" 
-                                        class="form-control @error('country') is-invalid @enderror" 
+                                    <input type="text" value="{{ old('country') }}" name="country"
+                                        class="form-control @error('country') is-invalid @enderror"
                                         placeholder="@lang('label.enterCountry') . . .">
                                     @error('country')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -62,8 +55,8 @@ $currentPageTitle =  __('label.newGuest');
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.city')</label>
-                                    <input type="text" value="{{ old('city') }}" name="city" 
-                                        class="form-control @error('city') is-invalid @enderror" 
+                                    <input type="text" value="{{ old('city') }}" name="city"
+                                        class="form-control @error('city') is-invalid @enderror"
                                         placeholder="@lang('label.enterCity') . . .">
                                     @error('city')
                                         <span class="invalid-feedback">{{ $message }}</span>
@@ -81,8 +74,8 @@ $currentPageTitle =  __('label.newGuest');
                                     @enderror
                                 </div>
                             </div>
-                            
-                            <div class="col-md-6">              
+
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.email')</label>
                                     <input type="email" value="{{ old('email') }}" name="email"
@@ -115,7 +108,8 @@ $currentPageTitle =  __('label.newGuest');
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="password" class="form-label">@lang('label.password')</label>
-                                    <input type="password" name="password" class="form-control" placeholder="@lang('label.enterPassword') . . . " required>
+                                    <input type="password" name="password" class="form-control"
+                                        placeholder="@lang('label.enterPassword') . . . " required>
                                     {{-- <label for="password" class="form-label">@lang('label.password')</label>
                                     <div class="input-group input-group-merge">
                                         <div class="input-group-text" data-password="false">
@@ -123,9 +117,9 @@ $currentPageTitle =  __('label.newGuest');
                                         </div>
                                     </div> --}}
                                 </div>
-                            </div>  
+                            </div>
                         </div>
-                        <button class="btn btn-primary" type="submit">@lang('label.submit')</button>
+                        <button class="btn btn-primary" type="submit"><i class="mdi mdi-content-save"></i>@lang('label.save')</button>
                         <a href="{{ url('guests') }}" class="btn btn-dark">@lang('label.cancel')</a>
                     </form>
                 </div>

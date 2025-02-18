@@ -75,33 +75,10 @@
             <li class="side-nav-item font @if (Request::segment(1) == 'reports/rooms') active @endif">
                 <a href="{{ route('reports.rooms') }}" class="side-nav-link">
                     <i class="uil-chart-line"></i>
-                    <span> @lang('label.OccupancyReport ') </span>
+                    <span> @lang('label.OccupancyReport') </span>
                 </a>
             </li>
-            <li class="side-nav-item font @if (Request::segment(1) == 'reports/rooms') active @endif">
-                <a href="{{ route('report.show') }}" class="side-nav-link">
-                    <i class="uil-chart-line"></i>
-                    <span> Test Room </span>
-                </a>
-            </li>
-            {{-- <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
-                    <i class="uil-calender"></i>
-                    <span> @lang('label.booking') </span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <div class="collapse" id="sidebarEmail">
-                    <ul class="side-nav-second-level">
-                        <li>
-                            <a href="apps-email-inbox.html">New Bookings</a>
-                        </li>
-                        <li>
-                            <a href="apps-email-read.html">Booking Recoards</a>
-                        </li>
-                    </ul>
-                </div>
-            </li> --}}
-            {{-- <li class="side-nav-title side-nav-item font">Management</li> --}}
+
             <li class="side-nav-title side-nav-item font">User Section</li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"

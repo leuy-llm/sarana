@@ -125,7 +125,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Guest Name <span class="text-danger">*</span></label>
+                                    <label class="form-label">@lang('label.guestName') <span class="text-danger">*</span></label>
                                     <select name="guest_id" required class="form-control select2" data-toggle="select2">
                                         <option value="" selected disabled>Select Guest</option>
                                         @foreach ($guests as $guest)
@@ -170,13 +170,13 @@
                                 <div id="room-selection">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label class="form-label">Room <span class="text-danger">*</span></label>
+                                            <label class="form-label">@lang('label.room') <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-3">
-                                            <label class="form-label">Total Adults <span class="text-danger">*</span></label>
+                                            <label class="form-label">@lang('label.totalAdults') <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-3">
-                                            <label class="form-label">Children <span class="text-danger">*</span></label>
+                                            <label class="form-label">@lang('label.totalChildren') <span class="text-danger">*</span></label>
                                         </div>
                                     </div>
                                     @foreach ($booking->rooms as $key => $room)

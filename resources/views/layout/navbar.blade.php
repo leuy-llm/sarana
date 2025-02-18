@@ -324,7 +324,7 @@
                 {{-- <input type="text" class="form-control dropdown-toggle" placeholder="Search..." id="top-search"> --}}
 
                 {{-- <span class="mdi mdi-magnify search-icon"></span> --}}
-                <a href="{{ route('homepage') }}" class="btn btn-sm mt-1 btn-primary">Website</a>
+                <a href="{{ route('homepage') }}" class="btn btn-sm mt-1 btn-primary">@lang('label.website')</a>
             </div>
         </form>
 

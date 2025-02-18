@@ -334,8 +334,8 @@
                     </div> --}}
                     <div class="row mb-2">
                         <div class="col-sm-9">
-                            <a href="{{ url('bookings/create') }}" tabindex="0" data-bs-toggle="popover"
-                                data-bs-trigger="hover" data-bs-placement="top" title="@lang('label.createNewBooking')"
+                            <a href="{{ url('bookings/create') }}" tabindex="0"
+                               
                                 class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addBooking')</a>
                         </div>

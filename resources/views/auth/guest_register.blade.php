@@ -127,7 +127,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="register-container d-flex flex-md-row flex-column">
         <div class="register-left d-md-flex align-items-center flex-column d-none">
@@ -151,7 +150,6 @@
                             class="form-control shadow-none rounded-none" style="border-radius: 0"
                             placeholder="Enter your last name" required>
                     </div>
-
                 </div>
                 <div class="d-flex flex-md-row flex-column gap-1 mb-1 py-1">
                     <div class="col-md-6">
@@ -172,10 +170,7 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-
-
                 </div>
-
                 <div class="d-flex flex-md-row flex-column gap-1 mb-1 py-1">
                     <div class="col-md-6">
                         <label for="address" class="form-label">Address</label>
@@ -216,7 +211,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="mb-1 py-1">
+                {{-- <div class="mb-1 py-1">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" name="password" style="border-radius: 0"
                         class="form-control shadow-none @error('password') is-invalid @enderror"
@@ -224,6 +219,17 @@
                     @error('password')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
+                </div> --}}
+                <div class="mb-1 py-1 position-relative">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" autocomplete="off" @error('password') is-invalid @enderror name="password"
+                        id="password" style="border-radius: 0" class="form-control py-2 shadow-none"
+                        placeholder="Enter your password" required>
+                    @error('password')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                    <i class="bi bi-eye-slash position-absolute end-0 translate-middle-y me-3" id="togglePassword"
+                        style="cursor: pointer;top:57px;"></i>
                 </div>
                 <div class="mb-2 py-2">
                     <label for="confirmPassword" class="form-label">Confirm Password</label>
@@ -292,6 +298,20 @@
         document.getElementById('submitForm').addEventListener('click', function() {
             // Submit the form programmatically
             document.getElementById('registerForm').submit();
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+
+            togglePassword.addEventListener('click', function() {
+                // Toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+
+                // Toggle the eye icon
+                this.classList.toggle('bi-eye');
+                this.classList.toggle('bi-eye-slash');
+            });
         });
     </script>
 </body>

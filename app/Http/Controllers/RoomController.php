@@ -40,7 +40,7 @@ class RoomController extends Controller
             $request->validate([
                 'room_type_id' => 'required|exists:room_types,id',
                 'room_number' => 'required|string|unique:rooms,room_number',
-                'quantity'=>'required|integer',
+               
                 'floor' => 'nullable|integer',
                 'status' => 'required|boolean',
                 'description' => 'nullable|string',
@@ -62,7 +62,7 @@ class RoomController extends Controller
                 // Step 1: Create the room
                 $room = Room::create([
                     'room_type_id' => $request->input('room_type_id'),
-                    'quantity'=>$request->input('quantity'),
+                  
                     'room_number' => $request->input('room_number'),
                     'floor' => $request->input('floor'),
                     'status' => $request->input('status'),
@@ -112,7 +112,7 @@ class RoomController extends Controller
         try {
             $request->validate([
                 'room_type_id' => 'required|exists:room_types,id',
-                'quantity' => 'required|integer',
+               
                 'room_number' => 'required|string|unique:rooms,room_number,' . $id,
                 'floor' => 'nullable|integer',
                 'status' => 'required|boolean',
@@ -138,7 +138,7 @@ class RoomController extends Controller
                 // Step 2: Update room details
                 $room->update([
                     'room_type_id' => $request->input('room_type_id'),
-                    'quantity' => $request->input('quantity'),
+                   
                     'room_number' => $request->input('room_number'),
                     'floor' => $request->input('floor'),
                     'status' => $request->input('status'),
@@ -199,7 +199,7 @@ class RoomController extends Controller
             $room->save();
             return redirect('/rooms')->with('success', __('label.roomDeleteSuccess'));
         }
-
+        
         return redirect('/rooms')->with('error', __('label.roomDeleteError'));
     }
 

@@ -133,10 +133,11 @@
                         class="form-control py-2 shadow-none " style="border-radius: 0" placeholder="Enter your email"
                         required>
                 </div>
-                <div class="mb-2 py-3">
+                <div class="mb-2 py-3 position-relative">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" autocomplete="off" name="password" id="password" style="border-radius: 0"
                         class="form-control py-2 shadow-none" placeholder="Enter your password" required>
+                    <i class="bi bi-eye-slash position-absolute end-0 translate-middle-y me-3" id="togglePassword" style="cursor: pointer;top:69px;"></i>
                 </div>
                 <button type="submit" class="btn btn-primary w-100"><i class="bi bi-lock"></i> Sign in</button>
                 <div class="d-flex justify-content-between mt-3">
@@ -153,5 +154,22 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+
+            togglePassword.addEventListener('click', function () {
+                // Toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+
+                // Toggle the eye icon
+                this.classList.toggle('bi-eye');
+                this.classList.toggle('bi-eye-slash');
+            });
+        });
+    </script>
 </body>
+
 </html>

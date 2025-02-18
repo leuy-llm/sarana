@@ -114,12 +114,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    {{-- <div class="row mb-2">
-                        <div class="col-sm-4">
-                            <a href="{{ route('rooms.store') }}" class="btn btn-secondary btn-rounded mb-2"><span
-                                    class=" uil-corner-up-left"></span> @lang('label.back')</a>
-                        </div>
-                    </div> --}}
+                   
                     <div class="row">
                         @if ($room->images->isNotEmpty())
                             <div class="col-lg-5">
@@ -166,11 +161,11 @@
                                     <div class="">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <h6 class="font-14">@lang('label.bed'):</h6>
+                                                <h6 class="font-14">@lang('label.bedType'):</h6>
                                                 <p class="text-sm lh-150">{{ $room->bed_type }}</p>
                                             </div>
                                             <div class="col-md-4">
-                                                <h6 class="font-14">@lang('label.view'):</h6>
+                                                <h6 class="font-14">@lang('label.viewType'):</h6>
                                                 <p class="text-sm lh-150">{{ $room->view_type }}</p>
                                             </div>
                                             <div class="col-md-4">

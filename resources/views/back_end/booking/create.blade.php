@@ -218,7 +218,7 @@
                                 </div>
 
                                 <button type="button" id="add-room" class="btn btn-success btn-sm mb-3"><i
-                                        class="bi bi-plus fs-5"></i> Add Room</button>
+                                        class="bi bi-plus fs-5"></i>@lang('label.addRoom')</button>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">

@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-2">
                         <h5 class="card-title mb-0">{{ $room->roomType->type_name }}</h5>
-                        <span class="badge-custom">Available</span>
+                        {{-- <span class="badge-custom">Available</span> --}}
                     </div>
                     <div class="room-features">
                         <span class="room-feature"><i class="fas fa-ruler-combined"></i>
