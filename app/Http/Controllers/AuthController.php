@@ -23,25 +23,14 @@ class AuthController extends Controller
     }
     public function logindash(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'password' => 'required'
-        // ]);
-
-        // if (Auth::attempt(['name' => $request->name, 'password' => $request->password])) {
-        //     return redirect()->route('app');
-        // } else {
-        //     return redirect()->back()->withErrors(['name' => 'Invalid name or password.']);
-        // }
-
         $request->validate([
             'name' => 'required',
             'password' => 'required'
         ]);
-    
+
         // Check if "Remember Me" is checked
-        $remember = $request->has('remember'); 
-    
+        $remember = $request->has('remember');
+
         // Attempt login with Remember Me
         if (Auth::attempt(['name' => $request->name, 'password' => $request->password], $remember)) {
             // Store name and password in cookies if "Remember Me" is checked
@@ -52,7 +41,7 @@ class AuthController extends Controller
                 Cookie::queue(Cookie::forget('remember_name'));
                 Cookie::queue(Cookie::forget('remember_password'));
             }
-    
+
             return redirect()->route('app'); // Redirect to dashboard
         } else {
             return redirect()->back()->withErrors(['name' => 'Invalid username or password.']);
@@ -94,7 +83,6 @@ class AuthController extends Controller
     private function getQueriesCount($startDate)
     {
         $query = UserQuery::getUserQuery();
-
         // If a startDate is provided, filter the queries based on the created_at field
         if ($startDate) {
             $query->where('created_at', '>=', $startDate);  // Filter by date range
@@ -103,7 +91,7 @@ class AuthController extends Controller
         // Return the count of user queries in the selected time range
         return $query->count();
     }
-   
+
     public function dashboards(Request $request)
     {
         // Get the selected time range for bookings and queries
@@ -145,31 +133,31 @@ class AuthController extends Controller
         // Fetch analytics based on the selected time range
         $currentBookings = $this->getBookingCount($bookingStartDate);
         $currentQueries = $this->getQueriesCount($queryStartDate);
-      
+
         $currentGuests = $this->getGuestCount($queryStartDate); // Booking time range
 
         $confirmedBookings = $this->getBookingCount($bookingStartDate, 'Reservied'); // Book
         $cancelledBookings = $this->getBookingCount($bookingStartDate, 'Cancelled');
         $pendingBookings = $this->getBookingCount($bookingStartDate, 'Pending');
-        
+
         $currentRooms = Room::count();
         $currentRoomTypes = RoomType::count();
         $currentUsers = User::count();
         $header_title =   __('label.dashboard');
 
         $guestsStayingToday = Booking::where('status', 'Checked-In')
-        ->whereDate('check_in_date', '<=', Carbon::today())
-        ->whereDate('check_out_date', '>=', Carbon::today())
-        ->count();
-    
+            ->whereDate('check_in_date', '<=', Carbon::today())
+            ->whereDate('check_out_date', '>=', Carbon::today())
+            ->count();
+
         $checkInsToday = Booking::where('status', 'Checked-In')
-        ->whereDate('check_in_date', Carbon::today())
-        ->count();
+            ->whereDate('check_in_date', Carbon::today())
+            ->count();
 
         // Count checked-out today
         $checkOutsToday = Booking::where('status', 'Checked-Out')
-        ->whereDate('check_out_date', Carbon::today())
-        ->count();
+            ->whereDate('check_out_date', Carbon::today())
+            ->count();
 
         $roomTypeBookings = Booking::join('booking_rooms', 'bookings.id', '=', 'booking_rooms.booking_id') // Join with booking_rooms pivot table
             ->join('rooms', 'booking_rooms.room_id', '=', 'rooms.id') // Use room_id from booking_rooms
@@ -180,7 +168,7 @@ class AuthController extends Controller
             })
             ->groupBy('room_types.type_name')
             ->get();
-            //Monthly Booking Report Groups by YEAR(check_in_date) and MONTH(check_in_date), meaning it counts bookings per month 📆.
+        //Monthly Booking Report Groups by YEAR(check_in_date) and MONTH(check_in_date), meaning it counts bookings per month 📆.
         $monthlyBookings = Booking::selectRaw('YEAR(check_in_date) as year, MONTH(check_in_date) as month, COUNT(*) as total_bookings')
             ->where('status', 'Reserved') // You can adjust this condition based on your needs
             ->groupBy('year', 'month')
@@ -192,51 +180,35 @@ class AuthController extends Controller
                 return [$monthName => $item->total_bookings];
             });
 
-            $startDate = $request->query('start_date', Carbon::now()->subMonth());
-            $endDate = $request->query('end_date', Carbon::now());
-            
-            // Occupancy Report Groups by DATE(check_in_date), meaning it counts bookings per day 📅.
-            $occupancyReport = Booking::selectRaw('DATE(check_in_date) as date, COUNT(*) as occupied_rooms')
+        $startDate = $request->query('start_date', Carbon::now()->subMonth());
+        $endDate = $request->query('end_date', Carbon::now());
+
+        // Occupancy Report Groups by DATE(check_in_date), meaning it counts bookings per day 📅.
+        $occupancyReport = Booking::selectRaw('DATE(check_in_date) as date, COUNT(*) as occupied_rooms')
             ->whereBetween('check_in_date', [$startDate, $endDate])
             ->groupBy('date')
             ->get();
+        $monthlyBookingss = $occupancyReport->pluck('occupied_rooms', 'date')->toArray();
 
-            $monthlyBookingss = $occupancyReport->pluck('occupied_rooms', 'date')->toArray();
-
-            // Booking Source Analysis
-            $bookingSourceData = Booking::selectRaw("booking_source, COUNT(*) as count")
+        // Booking Source Analysis
+        $bookingSourceData = Booking::selectRaw("booking_source, COUNT(*) as count")
             ->groupBy('booking_source')
             ->pluck('count', 'booking_source')
             ->toArray();
+        $bookingStatusCounts = Booking::selectRaw("status, COUNT(*) as count")
+            ->groupBy('status')
+            ->pluck('count', 'status')
+            ->toArray();
 
-            // dd($bookingSourceData);
+        // Define all possible statuses
+        $statuses = ['Pending', 'Reserved', 'Checked-In', 'Checked-Out', 'Completed', 'Cancelled'];
 
-            // $bookingStatusCounts = Booking::selectRaw("status, COUNT(*) as count")
-            //     ->whereBetween('check_in_date', [$startDate, $endDate]) // Only today's guests
-            //     ->groupBy('status')
-            //     ->pluck('count', 'status')
-            //     ->toArray();
-            //     // Set default values to avoid missing keys in the array
-            // $statuses = ['Pending', 'Reserved', 'Checked-In', 'Checked-Out', 'Completed', 'Cancelled'];
-            // $bookingData = [];
-            // foreach ($statuses as $status) {
-            //     $bookingData[$status] = $bookingStatusCounts[$status] ?? 0; // Default to 0 if status is missing
-            // }
+        $bookingData = [];
+        foreach ($statuses as $status) {
+            $bookingData[$status] = $bookingStatusCounts[$status] ?? 0; // Default to 0 if status is missing
+        }
 
-            $bookingStatusCounts = Booking::selectRaw("status, COUNT(*) as count")
-                ->groupBy('status')
-                ->pluck('count', 'status')
-                ->toArray();
-
-            // Define all possible statuses
-            $statuses = ['Pending', 'Reserved', 'Checked-In', 'Checked-Out', 'Completed', 'Cancelled'];
-
-            $bookingData = [];
-            foreach ($statuses as $status) {
-                $bookingData[$status] = $bookingStatusCounts[$status] ?? 0; // Default to 0 if status is missing
-            }
-
-            // dd($bookingData);
+        // dd($bookingData);
         return view('dashboard', compact(
             'bookingData',
             'currentBookings',
@@ -259,117 +231,10 @@ class AuthController extends Controller
             'monthlyBookingss',
             'header_title',
             'bookingSourceData',
-           
             'occupancyReport'  // Assuming occupancyReport is a collection of Booking objects with 'check_in_date' and 'total_rooms' fields  // You can adjust this according to your database structure  // Add more fields as needed to create a complete occupancy report  // Use Carbon::now()->startOfMonth() and Carbon::now()->endOfMonth() if you want to show the report for the current month by default  // Use Carbon::now()->subMonth
-           
+
         ));
     }
-
-    
-    // public function indextest(Request $request)
-    // {
-    //     $startDate = $request->start_date ?? Carbon::now()->startOfMonth();
-    //     $endDate = $request->end_date ?? Carbon::now()->endOfMonth();
-
-    //     // 1. Occupancy Report
-    //     $occupancyData = $this->getOccupancyReport($startDate, $endDate);
-
-    //     // 2. Revenue Report
-    //     $revenueData = $this->getRevenueReport($startDate, $endDate);
-
-    //     // 3. Booking Source Analysis
-    //     $bookingSourceData = $this->getBookingSourceReport($startDate, $endDate);
-
-    //     // 4. Room Type Performance
-    //     $roomTypeData = $this->getRoomTypeReport($startDate, $endDate);
-
-    //     // 5. Guest Statistics
-    //     $guestData = $this->getGuestStatistics($startDate, $endDate);
-
-    //     return view('reports.dashboard', compact(
-    //         'occupancyData',
-    //         'revenueData',
-    //         'bookingSourceData',
-    //         'roomTypeData',
-    //         'guestData',
-    //         'startDate',
-    //         'endDate'
-    //     ));
-    // }
-
-    // private function getOccupancyReport($startDate, $endDate)
-    // {
-    //     $totalRooms = Room::where('status', 1)->where('is_deleted', 0)->count();
-        
-    //     return DB::table('booking_rooms')
-    //         ->join('bookings', 'booking_rooms.booking_id', '=', 'bookings.id')
-    //         ->whereBetween('bookings.check_in_date', [$startDate, $endDate])
-    //         ->select(
-    //             DB::raw('DATE(bookings.check_in_date) as date'),
-    //             DB::raw('COUNT(DISTINCT booking_rooms.room_id) as occupied_rooms'),
-    //             DB::raw("ROUND((COUNT(DISTINCT booking_rooms.room_id) / $totalRooms) * 100, 2) as occupancy_rate")
-    //         )
-    //         ->groupBy('date')
-    //         ->orderBy('date')
-    //         ->get();
-    // }
-
-    // private function getRevenueReport($startDate, $endDate)
-    // {
-    //     return DB::table('bookings')
-    //         ->join('booking_rooms', 'bookings.id', '=', 'booking_rooms.booking_id')
-    //         ->join('rooms', 'booking_rooms.room_id', '=', 'rooms.id')
-    //         ->whereBetween('bookings.check_in_date', [$startDate, $endDate])
-    //         ->select(
-    //             DB::raw('DATE(bookings.check_in_date) as date'),
-    //             DB::raw('SUM(CASE WHEN rooms.special_price > 0 THEN rooms.special_price ELSE rooms.price END) as daily_revenue'),
-    //             DB::raw('COUNT(DISTINCT bookings.id) as total_bookings'),
-    //             DB::raw('AVG(CASE WHEN rooms.special_price > 0 THEN rooms.special_price ELSE rooms.price END) as average_daily_rate')
-    //         )
-    //         ->groupBy('date')
-    //         ->orderBy('date')
-    //         ->get();
-    // }
-
-    // private function getBookingSourceReport($startDate, $endDate)
-    // {
-    //     return DB::table('bookings')
-    //         ->whereBetween('check_in_date', [$startDate, $endDate])
-    //         ->select('booking_source', DB::raw('COUNT(*) as total_bookings'))
-    //         ->groupBy('booking_source')
-    //         ->get();
-    // }
-
-    // private function getRoomTypeReport($startDate, $endDate)
-    // {
-    //     return DB::table('booking_rooms')
-    //         ->join('bookings', 'booking_rooms.booking_id', '=', 'bookings.id')
-    //         ->join('rooms', 'booking_rooms.room_id', '=', 'rooms.id')
-    //         ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
-    //         ->whereBetween('bookings.check_in_date', [$startDate, $endDate])
-    //         ->select(
-    //             'room_types.name',
-    //             DB::raw('COUNT(DISTINCT booking_rooms.id) as total_bookings'),
-    //             DB::raw('SUM(CASE WHEN rooms.special_price > 0 THEN rooms.special_price ELSE rooms.price END) as revenue'),
-    //             DB::raw('AVG(booking_rooms.total_adults + booking_rooms.total_children) as average_guests')
-    //         )
-    //         ->groupBy('room_types.id', 'room_types.name')
-    //         ->get();
-    // }
-
-    // private function getGuestStatistics($startDate, $endDate)
-    // {
-    //     return DB::table('booking_rooms')
-    //         ->join('bookings', 'booking_rooms.booking_id', '=', 'bookings.id')
-    //         ->whereBetween('bookings.check_in_date', [$startDate, $endDate])
-    //         ->select(
-    //             DB::raw('SUM(total_adults) as total_adults'),
-    //             DB::raw('SUM(total_children) as total_children'),
-    //             DB::raw('AVG(total_adults + total_children) as average_party_size')
-    //         )
-    //         ->first();
-    // }
-
     // Helper method to get start date based on the selected range
     private function getStartDate($range)
     {

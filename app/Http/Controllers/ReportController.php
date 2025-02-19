@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\BookingRoom;
 use App\Models\Room;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -21,21 +22,20 @@ class ReportController extends Controller
         return view('back_end.reports.index', compact('header_title'));
     }
     public function showReport(Request $request)
-{
-    $startDate = $request->input('start_date');
-    $endDate = $request->input('end_date');
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
 
-    // Fetch the statistics
-    $guestStatistics = Booking::selectRaw('SUM(booking_rooms.total_adults) as total_adults, 
+        // Fetch the statistics
+        $guestStatistics = Booking::selectRaw('SUM(booking_rooms.total_adults) as total_adults, 
         SUM(booking_rooms.total_children) as total_children, 
         AVG(booking_rooms.total_adults + booking_rooms.total_children) as avg_party_size')
-        ->join('booking_rooms', 'booking_rooms.booking_id', '=', 'bookings.id')
-        ->whereBetween('bookings.check_in_date', [$startDate, $endDate])
-        ->first();
+            ->join('booking_rooms', 'booking_rooms.booking_id', '=', 'bookings.id')
+            ->whereBetween('bookings.check_in_date', [$startDate, $endDate])
+            ->first();
 
-    return view('back_end.reports.index', compact('guestStatistics', 'startDate', 'endDate'));
-}
-
+        return view('back_end.reports.index', compact('guestStatistics', 'startDate', 'endDate'));
+    }
 
     public function reservationReport(Request $request)
     {
@@ -88,7 +88,6 @@ class ReportController extends Controller
         return view('back_end.reports.room_report', compact('rooms', 'request'));
 
         // Count bookings based on status
-
     }
     public function exportReservationReport(Request $request)
     {
@@ -138,12 +137,23 @@ class ReportController extends Controller
         $totalRooms = Room::where('is_deleted', 0)
             ->where('status', 1)
             ->count();
-        $occupiedRooms = Booking::whereIn('status', ['Reserved', 'Checked-In'])
-            ->whereHas('rooms', function ($query) {
-                $query->where('is_deleted', 0);
-            })
-            ->count();  // Count of occupied rooms
-        $vacantRooms = $totalRooms - $occupiedRooms;  // Vacant rooms
+        // $occupiedRooms = Booking::whereIn('status', ['Reserved', 'Checked-In'])
+        //     ->whereHas('rooms', function ($query) {
+        //         $query->where('is_deleted', 0);
+        //     })
+        //     ->count();
+        $occupiedRooms = DB::table('booking_rooms')
+            ->join('bookings', 'booking_rooms.booking_id', '=', 'bookings.id')
+            ->join('rooms', 'booking_rooms.room_id', '=', 'rooms.id')
+            ->whereIn('bookings.status', ['Reserved', 'Checked-In'])
+            ->where('rooms.is_deleted', 0)
+            ->distinct('booking_rooms.room_id')
+            ->count();
+
+
+        // Count of occupied rooms
+        $vacantRooms = $totalRooms - $occupiedRooms;
+
         $occupancyRate = $totalRooms > 0 ? ($occupiedRooms / $totalRooms) * 100 : 0;  // Occupancy rate
 
         // Get room details
@@ -178,9 +188,7 @@ class ReportController extends Controller
             })
             ->groupBy('bookings.booking_source')
             ->get();
-    
+
         return view('back_end.reports.booking-analysis', compact('query'));
     }
-    
-
 }

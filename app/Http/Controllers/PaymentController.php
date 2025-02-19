@@ -87,44 +87,6 @@ class PaymentController extends Controller
             return redirect()->back()->with('error', 'Payment failed: ' . $e->getMessage());
         }
     }
-
-    // public function paymentSuccess(Request $request)
-    // {
-    //     $contact = DB::table('contact_details')->get();
-    //     $settings = DB::table('settings')->get();
-
-    //     // Retrieve the latest payment record
-    //     $payment = Payment::latest()->first();
-
-    //     if (!$payment) {
-    //         return redirect()->route('home')->with('error', 'Payment record not found.');
-    //     }
-
-    //     // Retrieve the booking associated with the payment
-    //     $booking = Booking::with(['guest', 'rooms.roomType'])->findOrFail($payment->booking_id);
-
-    //     // Extract room types
-    //     $roomTypes = $booking->rooms->map(function ($room) {
-    //         return $room->roomType->type_name; // Access the room type for each room
-    //     })->toArray();
-
-    //     // Prepare the data
-    //     $data = [
-    //         'payment_intent_id' => $payment->payment_intent_id,
-    //         'first_name' => $booking->guest->first_name,
-    //         'last_name' => $booking->guest->last_name,
-    //         'email' => $booking->guest->email,
-    //         'mobile' => $booking->guest->mobile,
-    //         'room_types' => $roomTypes, // Array of room types
-    //         'check_in_date' => $booking->check_in_date,
-    //         'check_out_date' => $booking->check_out_date,
-    //         'total_adults' => $booking->rooms->sum('pivot.total_adults'), // Sum of adults from pivot
-    //         'total_children' => $booking->rooms->sum('pivot.total_children'), // Sum of children from pivot
-    //         'amount' => $payment->amount,
-    //     ];
-
-    //     return view('frontend.payment.success', compact('contact', 'settings', 'data'));
-    // }
     public function paymentSuccess(Request $request)
 {
     $contact = DB::table('contact_details')->get();

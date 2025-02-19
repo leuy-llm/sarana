@@ -102,60 +102,6 @@ class BookingController extends Controller
         }
     }
 
-    //កូដដែលយកពិតប្រាកដ
-    // public function available_rooms(Request $request, $checkin_date)
-    // {
-    //     $arooms = DB::table('rooms')
-    //         ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
-    //         ->select('rooms.id', 'rooms.room_number', 'room_types.type_name')
-    //         ->where('rooms.is_deleted', '=', 0)
-    //         ->where('rooms.status', '=', 1)
-    //         ->whereNotIn('rooms.id', function ($query) use ($checkin_date) {
-    //             $query->select('room_id')
-    //                 ->from('bookings')
-    //                 ->whereNotIn('status', ['Cancelled', 'Checked-Out']) // Exclude only non-cancelled and non-checked-out bookings
-    //                 ->whereRaw("'$checkin_date' BETWEEN check_in_date AND check_out_date");
-    //         })
-    //         ->get();
-
-    //     return response()->json(['data' => $arooms]);
-    // }
-
-    //     public function available_rooms(Request $request, $checkin_date)
-    // {
-    //     DB::enableQueryLog();
-    // $arooms = DB::table('rooms')
-    //     ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
-    //     ->select('rooms.id', 'rooms.room_number', 'room_types.type_name')
-    //     ->where('rooms.is_deleted', '=', 0)
-    //     ->where('rooms.status', '=', 1)
-    //     ->whereNotIn('rooms.id', function ($query) use ($checkin_date) {
-    //         $query->select('room_id')
-    //             ->from('booking_rooms')
-    //             ->join('bookings', 'booking_rooms.booking_id', '=', 'bookings.id')
-    //             ->whereNotIn('bookings.status', ['Cancelled', 'Checked-Out'])
-    //             ->whereRaw("'$checkin_date' BETWEEN bookings.check_in_date AND bookings.check_out_date");
-    //     })
-    //     ->get();
-    // dd(DB::getQueryLog());
-    // public function available_rooms(Request $request, $checkin_date)
-    // {
-    //     $arooms = DB::table('rooms')
-    //         ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
-    //         ->select('rooms.id', 'rooms.room_number', 'room_types.type_name')
-    //         ->where('rooms.is_deleted', '=', 0)
-    //         ->where('rooms.status', '=', 1)
-    //         ->whereNotIn('rooms.id', function ($query) use ($checkin_date) {
-    //             $query->select('room_id')
-    //                 ->from('booking_rooms') // Use the pivot table `booking_rooms`
-    //                 ->join('bookings', 'booking_rooms.booking_id', '=', 'bookings.id') // Join with `bookings` table
-    //                 ->whereNotIn('bookings.status', ['Cancelled', 'Checked-Out']) // Exclude only non-cancelled and non-checked-out bookings
-    //                 ->whereRaw("'$checkin_date' BETWEEN bookings.check_in_date AND bookings.check_out_date");
-    //         })
-    //         ->get();
-
-    //     return response()->json(['data' => $arooms]);
-    // }
     public function available_rooms(Request $request, $checkin_date)
     {
         try {

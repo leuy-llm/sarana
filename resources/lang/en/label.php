@@ -97,7 +97,7 @@ return [
   'editGuests' => 'Edit Guests',
   'editGuest' => 'Edit Guest',
   'newGuest' => 'New Guest',
-  'guestList' => 'guest List',
+  'guestList' => 'Guest List',
   'searchGuest' => 'Search Guest' ,
   'resetGuest' => 'Reset Guest',
   'youcan' => 'You can👦🏻',
@@ -511,7 +511,29 @@ return [
   'featured'=>'Featured',
   'tourList'=>'Tour List',
    'page'=>'Page',
-   'editTour'=>'Edit Tour'
+   'editTour'=>'Edit Tour',
+
+
+   'enterZip' => 'Enter ZIP Code',
+    'enterCountry' => 'Enter Country',
+    'enterCity' => 'Enter City',
+    'bedType' => 'Bed',
+    'viewType' => 'View',
+    'size' => 'Size',
+    'enterviewType' => 'Enter View Type',
+    'enterbedType' => 'Enter Bed Type',
+    'enterroomSize' => 'Enter Room Size',
+    'specialPrice' => 'Special Price',
+    'bookingSource' => 'Booking Source',
+    'enterTotalAdults' => 'Enter Total Adults',
+    'enterTotalChildren' => 'Enter Total Children',
+    'paymentStatus' => 'Payment Status',
+    'amount' => 'Amount',
+    'method' => 'Method',
+    'reservationReport' => 'Reservation Report',
+    'OccupancyReport' => 'Occupancy Report',
+    'roomOccupancyReport' => 'Room Occupancy Report',
+    'website' => 'Website',
   
 ];
 

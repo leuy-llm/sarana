@@ -55,13 +55,14 @@
 
             <!-- Buttons -->
             <div class="d-flex gap-2 align-self-end">
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="submit" class="btn btn-primary shadow-none"><i class="bi bi-filter"></i> Filter</button>
                 <a href="{{ route('reports.rooms.export', ['start_date' => request()->start_date, 'end_date' => request()->end_date]) }}"
-                    class="btn btn-danger">
-                    Export
+                    class="btn btn-danger shadow-none">
+                    <i class="bi bi-download"></i> Export
+
                 </a>
-                <a href="{{ route('reports.rooms') }}" class="btn btn-dark">
-                    Reset
+                <a href="{{ route('reports.rooms') }}" class="btn btn-dark shadow-none">
+                  Reset
                 </a>
             </div>
         </div>

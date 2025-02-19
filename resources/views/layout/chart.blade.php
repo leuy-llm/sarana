@@ -1,5 +1,5 @@
-<div class="row">
-    <div class="col-lg-5">
+<div class="row mt-5">
+    <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
                 <div class="dropdown float-end">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <h4 class="header-title mb-1">
+                <h4 class="header-title mb-1" style="font-family: 'Oswald', sans-serif;font-size: 16px;font-weight: 500">
                     Popular Room Types - {{ ucfirst(str_replace('_', ' ', $filter)) }}
                 </h4>
                 <!-- Check if there's any data -->
@@ -36,66 +36,12 @@
             </div>
         </div>
     </div>
-
-    <div class="col-lg-7">
+    <div class="col-lg-6 ">
         <div class="card">
             <div class="card-body">
-                <div class="dropdown float-end">
-                    {{-- <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="mdi mdi-dots-vertical"></i>
-                    </a> --}}
-                    {{-- <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">Today</a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">Yesterday</a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">Last Week</a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item">Last Month</a>
-                    </div> --}}
-                </div>
-
-                <h4 class="header-title mb-3">Monthly Booking Trend</h4>
-                <div dir="ltr">
-                    <div id="booking-line-chart" class="apex-charts" data-colors="#0acf97,#fa5c7c"></div>
-                </div>
-
-            </div>
-            <!-- end card body-->
-        </div>
-        <!-- end card -->
-    </div>
-
-
-    <!-- Booking Source Analysis -->
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="header-title mb-1">
-                    Booking Source
-                </h4>
-                <!-- Check if there's any data -->
+                <h4 class="header-title mb-1" style="font-family: 'Oswald', sans-serif;font-size: 16px;font-weight: 500">Booking Source Analysis</h4>
                 @if (count($bookingSourceData) > 0)
-                    <div style="height: 400px; overflow: hidden;">
-                        <canvas id="guestStatusChart"></canvas>
-                    </div>
-                @else
-                    <div class="text-center mt-4">
-                        <h5>No data available </h5>
-                        <p class="text-muted">No bookings found for the selected time period.</p>
-                    </div>
-                @endif
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="header-title mb-1">Booking Source Analysis</h4>
-                @if (count($bookingSourceData) > 0)
-                    <div style="height: 400px; overflow: hidden;">
+                    <div style="height: 300px; overflow: hidden;">
                         <canvas id="bookingSourceChart"></canvas>
                     </div>
                 @else
@@ -107,26 +53,23 @@
             </div>
         </div>
     </div>
-
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="header-title mb-1">
+                <h4 class="header-title mb-1" style="font-family: 'Oswald', sans-serif;font-size: 16px;font-weight: 500">
                     Occupancy Report
                 </h4>
                 <!-- Check if there's any data -->
-                @if(count($occupancyReport) > 0)
+                @if (count($occupancyReport) > 0)
                     <canvas id="occupancyChart"></canvas>
                 @else
-                <div class="text-center mt-4">
-                    <h5>No data available </h5>
-                    <p class="text-muted">No bookings found for the selected time period.</p>
-                </div>
-                @endif                
+                    <div class="text-center mt-4">
+                        <h5>No data available </h5>
+                        <p class="text-muted">No bookings found for the selected time period.</p>
+                    </div>
+                @endif
                 {{-- <div id="room-type-chart" class="apex-charts" data-colors="#727cf5,#0acf97,#fa5c7c,#ffbc00"></div> --}}
             </div>
         </div>
     </div>
-
-
 </div>

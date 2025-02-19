@@ -5,16 +5,14 @@
             <div class="page-title-box">
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
-
                         <li class="breadcrumb-item active">
                         </li>
                     </ol>
                 </div>
-                <h4 class="page-title">Dashboard</h4>
+                <h4 class="page-title" style="font-family: 'Oswald', sans-serif;font-size: 21px;">Dashboard</h4>
             </div>
         </div>
     </div>
-
 
     <!-- end page title -->
 
@@ -155,19 +153,6 @@
                 }
             });
         });
-
-        // Booking Source Analysis
-
-        // new Chart(document.getElementById("bookingSourceChart"), {
-        //     type: "line",
-        //     data: {
-        //         labels: ["website", "walk-in"],
-        //         datasets: [{
-        //             data: [@json($websiteBookings ?? 0), @json($walkinBookings ?? 0)],
-        //             backgroundColor: ["#ff6384", "#36a2eb"]
-        //         }]
-        //     }
-        // });
 
         document.addEventListener("DOMContentLoaded", function() {
             new Chart(document.getElementById("guestStatusChart"), {

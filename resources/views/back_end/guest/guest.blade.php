@@ -97,9 +97,9 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-9">
-                            <a href="{{ url('guests/create') }}" tabindex="0" data-bs-toggle="popover"
-                                data-bs-trigger="hover" data-bs-placement="right" data-bs-content="@lang('label.youcan')"
-                                title="@lang('label.createNewGuest')" class="btn btn-danger mb-2">
+                            <a href="{{ url('guests/create') }}" tabindex="0" 
+                               
+                               class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addGuest')</a>
                         </div>
                     </div>
