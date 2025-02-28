@@ -18,12 +18,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    {{-- <div class="row mb-2">
-                        <div class="col-sm-4">
-                            <a href="{{ route('rooms.index') }}" class="btn btn-light btn-rounded mb-2"><span
-                                    class=" uil-corner-up-left"></span> @lang('label.back')</a>
-                        </div>
-                    </div> --}}
+                  
                     <form class="needs-validation" enctype="multipart/form-data" action="{{ url('rooms/' . $room->id) }}"
                         method="POST" novalidate="">
                         @csrf

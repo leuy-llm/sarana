@@ -16,78 +16,6 @@
         'breadcrumbs' => $breadcrumbs,
         'currentPageTitle' => $currentPageTitle,
     ])
-    {{-- <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                      
-                        <div class="col-md-4">
-                            <h5 class="card-title">@lang('label.name') : {{ $booking->guest->first_name }}
-                                {{ $booking->guest->last_name }}</h5>
-                        </div>
-                        @foreach ($booking->rooms as $room)
-                            <div class="col-md-4 flex-wrap">
-                                <h5 class="card-title">@lang('label.room') : {{ $room->roomType->type_name }}</h5>
-                            </div>
-                            <div class="col-md-4 d-flex gap-2 flex-wrap">
-                                <h5 class="card-title">@lang('label.id') : {{ $room->id }}</h5>
-                            </div>
-                        @endforeach
-                        <div class="col-md-4 d-flex gap-2 flex-wrap mt-3">
-                            <h5 class="card-title">@lang('label.checkIn') : {{ $booking->check_in_date->format('d-m-Y') }}</h5>
-
-                        </div>
-                        <div class="col-md-4 d-flex gap-2 flex-wrap mt-3">
-                            <h5 class="card-title">@lang('label.checkOut') : {{ $booking->check_out_date->format('d-m-Y') }}</h5>
-
-                        </div>
-                        <div class="col-md-4 d-flex gap-2 flex-wrap mt-3">
-                            <h5 class="card-title">@lang('label.adults') : {{ $booking->total_adults }}</h5>
-
-                        </div>
-
-                        <div class="col-md-4 d-flex gap-2 flex-wrap mt-3">
-                            <h5 class="card-title">@lang('label.children') : {{ $booking->total_children }}</h5>
-                        </div>
-                        <div class="col-md-4 d-flex gap-2 flex-wrap mt-3">
-                            <h5 class="card-title">@lang('label.status') :
-                                <span
-                                    style="padding-top: 5px;padding-left: 10px; border-radius: 20px; padding-right: 10px;text-transform: uppercase;"
-                                    class="badge @if ($booking->status == 'Pending') bg-warning
-                                                @elseif ($booking->status == 'Approved') bg-primary 
-                                                @elseif ($booking->status == 'Checked-In') bg-info 
-                                                @elseif ($booking->status == 'Checked-Out') bg-success 
-                                                @elseif ($booking->status == 'Completed') bg-success 
-                                                @elseif ($booking->status == 'Cancelled') bg-danger @endif">
-                                    {{ $booking->status }}
-                                </span>
-                            </h5>
-                        </div>
-                        <div class="col-md-4 d-flex gap-2 flex-wrap mt-3">
-                            <h5 class="card-title">@lang('label.createDate') : {{ $booking->created_at->format('d-m-Y') }}</h5>
-                        </div>
-                    </div>
-                </div> <!-- end card-body-->
-            </div>
-
-            <div class="card">
-                <div class="card-body">
-                    <h4>@lang('label.paymentDetails')</h4>
-                    @if ($booking->payment)
-                        <p class="mt-3"><strong>Transaction ID:</strong> {{ $booking->payment->payment_intent_id }}</p>
-                        <p class="mt-3"><strong>Amount:</strong> {{ $booking->payment->amount }}
-                            {{ strtoupper($booking->payment->currency) }}</p>
-                        <p class="mt-3"><strong>Status:</strong> {{ ucfirst($booking->payment->status) }}</p>
-                        <p class="mt-3"><strong>Payment Method:</strong> {{ ucfirst($booking->payment->payment_method) }}
-                        </p>
-                    @else
-                        <p>No payment information available.</p>
-                    @endif
-                </div>
-            </div>
-        </div> <!-- end col-->
-    </div> --}}
 
     <div class="row">
         <div class="col-12">
@@ -114,34 +42,13 @@
                             <h5 class="card-title">@lang('label.checkOut'):</h5>
                             <p class="card-text">{{ $booking->check_out_date->format('d-m-Y') }}</p>
                         </div>
-                        {{--     
-                        @php
-                            $totalAdults = 0;
-                            $totalChildren = 0;
-                        @endphp
-    
-                        @foreach ($booking->rooms as $room)
-                            @php
-                                $totalAdults += $room->pivot->total_adults;
-                                $totalChildren += $room->pivot->total_children;
-                            @endphp
-                        @endforeach --}}
-
-                        {{-- <div class="col-md-6 mb-3">
-                            <h5 class="card-title">@lang('label.adults'):</h5>
-                            <p class="card-text">{{ $totalAdults }}</p>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <h5 class="card-title">@lang('label.children'):</h5>
-                            <p class="card-text">{{ $totalChildren }}</p>
-                        </div> --}}
-
+        
                         <div class="col-md-6 mb-3">
                             <h5 class="card-title">@lang('label.status'):</h5>
                             <span
                                 class="badge 
                                 @if ($booking->status == 'Pending') bg-warning 
-                                @elseif ($booking->status == 'Approved') bg-primary 
+                                @elseif ($booking->status == 'Reserved') bg-primary 
                                 @elseif ($booking->status == 'Checked-In') bg-info 
                                 @elseif ($booking->status == 'Checked-Out' || $booking->status == 'Completed') bg-success 
                                 @elseif ($booking->status == 'Cancelled') bg-danger @endif">

@@ -231,14 +231,13 @@ Route::group(['middleware' => ['isAdmin']], function () {
     /*================= Facility Room =============== */
     Route::resource('facilitys', FacilitiesController::class);
     Route::get('facilitys/{facilityId}/delete', [App\Http\Controllers\FacilitiesController::class, 'destroy']);
-    // Route::get('/api/bookings', [FacilitiesController::class, 'getBookings'])->name('bookings.get');
 
     /*================= Front End =================== */
     /*================= Carousel =================== */
     Route::resource('carousels', CarouselController::class);
     Route::get('carousels/{carouselId}/delete', [App\Http\Controllers\CarouselController::class, 'destroy']);
 
-    // /*================= Setting General =================== */
+    // /*================= Setting General Route =================== */
     Route::resource('settings', SettingController::class);
     Route::get('settings/{settingId}/delete', [App\Http\Controllers\SettingController::class, 'destroy']);
     Route::get('/payments/create/{booking_id}', [PaymentController::class, 'create'])->name('payments.create');
@@ -248,7 +247,7 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::get('payment/confirm', [PaymentController::class, 'confirm'])->name('payments.confirm');
 
     /* ================== End Front ================ */
-    /*================= AboutUs =================== */
+    /*================= AboutUs Route =================== */
 
     Route::get('abouts', [SettingController::class, 'about'])->name('abouts.index');
     Route::get('abouts/create', [SettingController::class, 'about'])->name('abouts.create');
@@ -256,20 +255,19 @@ Route::group(['middleware' => ['isAdmin']], function () {
     Route::get('abouts/edit/{id}', [SettingController::class, 'aboutedit'])->name('abouts.edit');
     Route::post('abouts/update/{id}', [SettingController::class, 'aboutupdate'])->name('abouts.update');
 
-    /*================= Contacts  =================== */
+    /*================= Contacts Route  =================== */
     Route::get('contacts', [SettingController::class, 'contact'])->name('contacts.index');
     // Route::get('contacts/create',[SettingController::class,'contact'])->name('contacts.create');
     Route::post('contacts/store', [SettingController::class, 'contactstore'])->name('contacts.store');
     Route::get('contacts/edit/{id}', [SettingController::class, 'contactedit'])->name('contacts.edit');
     Route::post('contacts/update/{id}', [SettingController::class, 'contactupdate'])->name('contacts.update');
 
-    /*================= User Query =================== */
+    /*================= User Query Route =================== */
     Route::get('queries', [UserQueryController::class, 'query'])->name('queries.index');
-    // Route::get('queries/create',[UserQueryController::class,'create'])->name('queries.create');
-
     Route::get('queries/delete/{id}', [UserQueryController::class, 'delete'])->name('queries.delete');
     Route::put('queries/{id}/mark-as-read', [UserQueryController::class, 'markAsRead'])->name('queries.markAsRead');
 
+     /*================= Banner Route =================== */
     Route::get('banners', [BannerController::class, 'banner'])->name('banner.index');
     Route::post('banners/store', [BannerController::class, 'store'])->name('banner.store');
     Route::get('banners/delete/{id}', [BannerController::class, 'delete'])->name('banner.delete');
@@ -299,9 +297,6 @@ Route::group(['middleware' => ['isAdmin']], function () {
         session()->forget('notifications');
         return redirect()->back()->with('success', 'Notifications cleared.');
     })->name('notifications.clear');
-
-    // Route::get('/reports', [ReportController::class, 'index'])
-    //     ->name('reports.index');
     Route::get('/reports/reservations', [ReportController::class, 'reservationReport'])
         ->name('reports.reservations');
 

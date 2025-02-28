@@ -262,17 +262,10 @@
                                     <input type="number" name="special_price" value="{{ old('special_price') }}" class="form-control" placeholder="@lang('label.specialPrice')">
                                 </div>
                             </div>
-                        
-                            {{-- <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">@lang('label.quantity')</label>
-                                    <input type="number" name="quantity" value="{{ old('quantity') }}" class="form-control" placeholder="@lang('label.quantity')">
-                                </div>
-                            </div> --}}
                         </div>
-                        <button class="btn btn-primary" type="submit"> <i class="mdi mdi-save"></i>@lang('label.save')</button>
+                        <button class="btn btn-primary" type="submit"> <i class="mdi mdi-content-save"></i>@lang('label.save')</button>
                         
-                        <a href="{{ url('rooms') }}" class="btn btn-light">@lang('label.cancel')</a>
+                        <a href="{{ url('rooms') }}" class="btn btn-dark">@lang('label.cancel')</a>
                     </form>
                 </div>
             </div>
@@ -287,16 +280,7 @@
 @endsection
 @section('script')
     <script>
-        // lightGallery(document.getElementById('lightgallery'), {
-        //     plugins: [lgZoom, lgThumbnail],
-        //     speed: 500,
-        //     thumbnail: true,
-        //     animateThumb: false,
-        //     showThumbByDefault: true,
-        //     thumbWidth: 100, // Adjust thumbnail width as needed
-        //     thumbHeight: 100 // Adjust thumbnail height as needed
-        // });
-
+        
         document.addEventListener('DOMContentLoaded', function() {
             var gallery = document.getElementById('image-gallery');
             var viewer = new Viewer(gallery, {

@@ -439,7 +439,7 @@
     'amount' => 'ចំនួនទឹកប្រាក់',
     'method' => 'វិធីសាស្ត្រ',
     'reservationReport' => 'របាយការណ៍នៃការកក់',
-    'OccupancyReport' => 'របាយការណ៍ការស្នាក់នៅបន្ទប់',
+    'OccupancyReport' => 'របាយការណ៍ការស្នាក់នៅ',
     'roomOccupancyReport' => 'របាយការណ៍ការស្នាក់នៅបន្ទប់',
     'website' => 'គេហទំព័រ'
 

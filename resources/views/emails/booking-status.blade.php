@@ -1,23 +1,4 @@
-{{-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Your Booking Status</title>
-</head>
-<body>
-    <h1>Hello, {{ $guest->first_name }} {{ $guest->last_name }}</h1>
-    <p>Thank you for choosing {{ config('app.name') }}.</p>
-    <p>Your booking details are as follows:</p>
-    <ul>
-        <li>Room: {{ $booking->room->room_number }} - {{ $booking->room->roomType->type_name }}</li>
-        <li>Check-in Date: {{ $booking->check_in_date }}</li>
-        <li>Check-out Date: {{ $booking->check_out_date }}</li>
-        <li>Status: {{ ucfirst($booking->status) }}</li>
-    </ul>
-    <p>We look forward to welcoming you. If you have any questions, feel free to contact us.</p>
-    <p>Best Regards,</p>
-    <p>{{ config('app.name') }} Team</p>
-</body>
-</html> --}}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -142,16 +123,10 @@
                             <td>@foreach ($rooms as $room)
                                 
                                     <strong>Room Type:</strong> {{ $room->roomType->type_name }}<br>
-                                    {{-- <strong>Room Number:</strong> {{ $room->room_number }}<br> --}}
                                     <strong>Room Floor:</strong> {{ $room->floor }}<br>
                                 
                             @endforeach</td>
                         </tr>
-                       
-                        {{-- <tr>
-                            <th>Room Floor:</th>
-                            <td>{{ optional($booking->room)->floor ?? 'N/A' }}</td>
-                        </tr> --}}
                         <tr>
                             <th>Guests:</th>
                             <td>{{ $booking->rooms->sum('pivot.total_adults') }} Adults, {{ $booking->rooms->sum('pivot.total_children') }} Children</td>

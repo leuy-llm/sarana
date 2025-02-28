@@ -59,62 +59,10 @@
         'breadcrumbs' => $breadcrumbs,
         'currentPageTitle' => $currentPageTitle,
     ])
-
-    {{-- <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">{{ $header_title }}</h4>
-                <a href="{{ url('rooms') }}" class="btn btn-secondary float-end">Back</a>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5>Room Type: {{ $room->roomType->type_name }}</h5>
-                        <p><strong>Room Number:</strong> {{ $room->room_number }}</p>
-                        <p><strong>Floor:</strong> {{ $room->floor }}</p>
-                        <p><strong>Price:</strong> ${{ $room->price }}</p>
-                        <p><strong>Status:</strong> {{ $room->status }}</p>
-                        <p><strong>Description:</strong> {{ $room->description }}</p>
-                    </div>
-                    <div class="col-md-6">
-                        @if ($room->images->isNotEmpty())
-                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-indicators">
-                                    @foreach ($room->images as $key => $image)
-                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $key }}" class="{{ $key == 0 ? 'active' : '' }}" aria-current="true" aria-label="Slide {{ $key + 1 }}"></button>
-                                    @endforeach
-                                </div>
-                                <div class="carousel-inner">
-                                    @foreach ($room->images as $key => $image)
-                                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                                            <img src="{{ asset('storage/' . $image->image) }}" class="d-block w-100" alt="...">
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
-                        @else
-                            <p>No images available.</p>
-                        @endif
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                   
                     <div class="row">
                         @if ($room->images->isNotEmpty())
                             <div class="col-lg-5">
@@ -137,27 +85,7 @@
                                     <h3 class="mt-0">{{ $room->roomType->type_name }}<a
                                             href="{{ url('rooms/' . $room->id) }}" class="text-muted"></a> </h3>
                                     <p class="mb-1">@lang('label.addDate'):
-                                        {{ \Carbon\Carbon::parse($room->created_at)->translatedFormat('d F Y') }}</p>
-
-                                    <!-- Product stock -->
-                                    <div class="mt-3">
-                                        <p> @lang('label.status'):
-                                            @if ($room->status == '1')
-                                                <span class="badge badge-success-lighten">Active</span>
-                                            @elseif ($room->status == '0')
-                                                <span class="badge badge-danger-lighten">Inactive</span>
-                                            @endif
-                                        </p>
-                                    </div>
-
-                                    {{-- <div class="mt-3">
-                                        <h6 class="font-14">@lang('label.roomPrice'):</h6>
-                                        <h3> ${{ $room->price }}</h3>
-                                    </div>
-                                    <div class="mt-3 d-flex">
-                                        <h6 class="font-14">@lang('label.maxPerson'):</h6>
-                                        <p>{{ $room->max_person }}</p>
-                                    </div> --}}
+                                        {{ date('d-m-Y', strtotime($room->created_at)) }}</p>
                                     <div class="">
                                         <div class="row">
                                             <div class="col-md-4">
@@ -173,8 +101,13 @@
                                                 <p class="text-sm lh-150 ml-3">{{ $room->room_size }} m<sup>2</sup></p>
                                             </div>
                                             <div class="col-md-4">
-                                                <h6 class="font-14">@lang('label.specialPrice'):</h6>
-                                                <p class="text-sm lh-150 ml-3">$ {{ $room->special_price }}</p>
+                                                @if ($room->special_price)
+                                                    <h6 class="font-14">@lang('label.specialPrice'):</h6>
+                                                    <p class="text-sm lh-150 ml-3">$ {{ $room->special_price }}</p>
+                                                @else
+                                                    <h6 class="font-14">@lang('label.price'):</h6>
+                                                    <p class="text-sm lh-150 ml-3">$ {{ $room->price }}</p>
+                                                @endif
                                             </div>
                                             <div class="col-md-4">
                                                 <h6 class="font-14">@lang('label.rating'):</h6>
@@ -188,11 +121,33 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mt-3">
-                                        <h6 class="font-14">@lang('label.roomFloor'):</h6>
-                                        <div class="d-flex">
-                                            <h3> {{ $room->floor }}</h3>
+                                    <div class=" row">
+
+                                        <div class="col-md-4">
+                                            <h6 class="font-14">@lang('label.roomFloor'):</h6>
+                                            <p class="text-sm lh-150">{{ $room->floor }}</p>
                                         </div>
+                                        <div class="col-md-4">
+                                            <h6 class="font-14">@lang('label.maxPerson'):</h6>
+                                            <p>{{ $room->max_person }}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h6 class="font-14">@lang('label.status'):</h6>
+                                            @if ($room->status == '1')
+                                                    <span class="badge badge-success-lighten">Active</span>
+                                            @elseif ($room->status == '0')
+                                                    <span class="badge badge-danger-lighten">Inactive</span>
+                                            @endif
+                                        </div>
+                                        {{-- <div class="mt-3">
+                                            <p> @lang('label.status'):
+                                                @if ($room->status == '1')
+                                                    <span class="badge badge-success-lighten">Active</span>
+                                                @elseif ($room->status == '0')
+                                                    <span class="badge badge-danger-lighten">Inactive</span>
+                                                @endif
+                                            </p>
+                                        </div> --}}
                                     </div>
 
 
@@ -235,7 +190,6 @@
         function changeImage(src) {
             document.getElementById('mainImage').src = src;
         }
-
         document.addEventListener('DOMContentLoaded', function() {
             var gallery = document.getElementById('mainImage');
             var viewer = new Viewer(gallery, {

@@ -25,10 +25,7 @@ class BookingCalender extends Model
         $adults = $request->input('adults', 0);
         $children = $request->input('children', 0);
         $totalPersons = $adults + $children;
-        // $sortBy = $request->get('sort_by', 'price');
-        // $orderBy = $request->get('order_by', 'desc');
-
-        // $query->orderBy($sortBy, $orderBy);
+    
         $query->with(['images', 'roomType']);
 
         if ($checkIn && $checkOut) {
@@ -85,7 +82,7 @@ class BookingCalender extends Model
     if (!$room) {
         return back()->withErrors(['Room is not available for the selected dates.'])->withInput();
     }
-
+    
     // Create booking record
     $booking = Booking::create([
         'guest_id' => $guest->id,
@@ -110,7 +107,6 @@ private function calculateDays($startDate, $endDate)
 {
     $start = Carbon::parse($startDate);
     $end = Carbon::parse($endDate);
-
     return $start->diffInDays($end);
 }
 

@@ -39,7 +39,7 @@ class HomeController extends Controller
 
     public function rooms(Request $request)
     {
-        $data = "Reservation";
+        $data = "Bookings";
         $settings = DB::table('settings')->get();
         $roomTypes = RoomType::getRoomType();
         $banner = Banner::where('page_name', 'booking')->first(); // Fetch the banner

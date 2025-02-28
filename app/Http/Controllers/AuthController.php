@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -145,19 +146,58 @@ class AuthController extends Controller
         $currentUsers = User::count();
         $header_title =   __('label.dashboard');
 
+        // $guestsStayingToday = Booking::where('status', 'Checked-In')
+        //     ->whereDate('check_in_date', '<=', Carbon::today())
+        //     ->whereDate('check_out_date', '>=', Carbon::today())
+        //     ->count();
+
+        //     $checkInsToday = Booking::where('status', 'Checked-In')
+        //     ->whereDate('check_in_date', Carbon::today())
+        //     ->count();
+
+        // // Count checked-out today
+        // $checkOutsToday = Booking::where('status', 'Checked-Out')
+        // ->whereDate('check_out_date', Carbon::today())
+        // ->count();
+        // Debugging: Log the generated SQL queries
+        // Log today's date for debugging
+        // Log today's date for debugging
+        Log::info('Today\'s Date:', ['date' => Carbon::today()->toDateString()]);
+
+        // Guests Staying Today
+        // $guestsStayingToday = Booking::where('status', 'Checked-In')
+        //     ->where('check_in_date', '<=', Carbon::today()->endOfDay())
+        //     ->where('check_out_date', '>', Carbon::today()->startOfDay())
+        //     ->count();
+
+        // Count current guests
         $guestsStayingToday = Booking::where('status', 'Checked-In')
             ->whereDate('check_in_date', '<=', Carbon::today())
-            ->whereDate('check_out_date', '>=', Carbon::today())
+            ->where(function ($query) {
+                $query->whereDate('check_out_date', '>', Carbon::today())
+                    ->orWhereNull('check_out_date');
+            })
             ->count();
 
+        // Log the result for debugging
+        Log::info('Current Guests Count:', ['count' => $currentGuests]);
+
+        // Check-Ins Today
         $checkInsToday = Booking::where('status', 'Checked-In')
-            ->whereDate('check_in_date', Carbon::today())
+            ->where('check_in_date', '>=', Carbon::today()->startOfDay())
+            ->where('check_in_date', '<=', Carbon::today()->endOfDay())
             ->count();
 
-        // Count checked-out today
+        // Check-Outs Today
         $checkOutsToday = Booking::where('status', 'Checked-Out')
-            ->whereDate('check_out_date', Carbon::today())
+            ->where('check_out_date', '>=', Carbon::today()->startOfDay())
+            ->where('check_out_date', '<=', Carbon::today()->endOfDay())
             ->count();
+
+        // Log results for debugging
+        Log::info('Guests Staying Today:', ['count' => $guestsStayingToday]);
+        Log::info('Check-Ins Today:', ['count' => $checkInsToday]);
+        Log::info('Check-Outs Today:', ['count' => $checkOutsToday]);
 
         $roomTypeBookings = Booking::join('booking_rooms', 'bookings.id', '=', 'booking_rooms.booking_id') // Join with booking_rooms pivot table
             ->join('rooms', 'booking_rooms.room_id', '=', 'rooms.id') // Use room_id from booking_rooms

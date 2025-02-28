@@ -1,4 +1,7 @@
 @extends('layout.app')
+
+@section('style')
+    
 @section('content')
     @php
         $breadcrumbs = [
@@ -110,12 +113,7 @@
                                     <label for="password" class="form-label">@lang('label.password')</label>
                                     <input type="password" name="password" class="form-control"
                                         placeholder="@lang('label.enterPassword') . . . " required>
-                                    {{-- <label for="password" class="form-label">@lang('label.password')</label>
-                                    <div class="input-group input-group-merge">
-                                        <div class="input-group-text" data-password="false">
-                                            <span class="password-eye"></span>
-                                        </div>
-                                    </div> --}}
+                                    
                                 </div>
                             </div>
                         </div>
@@ -126,19 +124,8 @@
             </div>
         </div>
     </div>
+   
 @endsection
 @section('script')
-    <script>
-        $(document).ready(function() {
-            // Apply the input mask
-            $("input[name='mobile']").inputmask("(999) 999-9999");
-
-            // Strip mask characters before form submission
-            $('form').on('submit', function() {
-                var phone = $("input[name='mobile']").val();
-                var strippedPhone = phone.replace(/\D/g, ''); // Remove non-digit characters
-                $("input[name='mobile']").val(strippedPhone);
-            });
-        });
-    </script>
+    
 @endsection

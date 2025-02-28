@@ -16,32 +16,10 @@ $currentPageTitle = __('label.editSettings');
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    {{-- <div class="row mb-2">
-                        <div class="col-sm-4">
-                            <a href="{{ url('settings') }}" class="btn btn-danger btn-rounded mb-2"> <span
-                                    class=" uil-corner-up-left"></span> @lang('label.back')</a>
-                        </div>
-                    </div> --}}
                     <form class="needs-validation" method="POST" action="{{ route('contacts.update', $contact->id) }}"
                         enctype="multipart/form-data" novalidate>
                         @csrf
                         <div class="row">
-                            {{-- <div class="col-md-6">
-                                <div class="mb-3">
-                                    <div class="input-group flex-nowrap">
-                                        <label class="form-label">@lang('label.address') <span class="text-danger">*</span></label>
-                                    <span class="input-group-text" id="basic-addon1"><i class="mdi mdi-phone text-primary"></i></span>
-                                    <input type="text" name="address"
-                                        class="form-control @error('address') is-invalid @enderror"
-                                        value="{{ old('address', $contact->address) }}" placeholder="Site title..."
-                                        required>
-                                    @error('address')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                    </div>
-                                    
-                                </div>
-                            </div> --}}
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label">@lang('label.socialLink') <span class="text-danger">*</span></label>

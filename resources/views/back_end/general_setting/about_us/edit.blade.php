@@ -18,12 +18,6 @@ $currentPageTitle = __('label.editSettings');
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    {{-- <div class="row mb-2">
-                        <div class="col-sm-4">
-                            <a href="{{ url('settings') }}" class="btn btn-danger btn-rounded mb-2"> <span
-                                    class=" uil-corner-up-left"></span> @lang('label.back')</a>
-                        </div>
-                    </div> --}}
                     <form class="needs-validation" method="POST" action="{{ route('abouts.update', $about->id) }}"
                         enctype="multipart/form-data" novalidate>
                         @csrf

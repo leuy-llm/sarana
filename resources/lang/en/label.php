@@ -355,7 +355,7 @@ return [
   'roomCan' => 'Room Can',
   'bookingList' => 'Booking List',
   'addBooking' => 'Add Booking',
-  'editBooking' => 'Add Booking',
+  'editBooking' => 'Edit Booking',
 
   'roomPrice' => 'Room Price',
   'roomFloor' => 'Room Floor',
@@ -513,7 +513,6 @@ return [
    'page'=>'Page',
    'editTour'=>'Edit Tour',
 
-
    'enterZip' => 'Enter ZIP Code',
     'enterCountry' => 'Enter Country',
     'enterCity' => 'Enter City',
@@ -534,6 +533,9 @@ return [
     'OccupancyReport' => 'Occupancy Report',
     'roomOccupancyReport' => 'Room Occupancy Report',
     'website' => 'Website',
+    'createBooking' => 'Create Booking',
+    'totalGuest' => 'TotalGuest',
+    'roomDetails' => 'Room Details',
   
 ];
 

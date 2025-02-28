@@ -13,9 +13,6 @@
             </div>
         </div>
     </div>
-
-    <!-- end page title -->
-
     @include('layout.total_all')
     <!-- end row -->
     @include('layout.chart')

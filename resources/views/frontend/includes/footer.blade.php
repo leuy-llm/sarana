@@ -72,7 +72,7 @@
  <div class="container">
      <div class="row footer-content">
          <!-- Logo and Social Media Section -->
-         <div class="col-md-4 mb-4">
+         <div class="col-md-4 mb-4 text-center">
              <div class="logo-section">
                  @foreach ($settings as $data)
                      <img src="{{ asset('storage/' . $data->site_logo) }}" alt="Logo" class="mb-3">
@@ -108,6 +108,7 @@
                  <p><a href="#" class="text-white">Facilities</a></p>
                  <p><a href="#" class="text-white">Gallery</a></p>
                  <p><a href="#" class="text-white">Contact</a></p>
+                 <p><a href="{{route('logindash')}}" class="text-white">Login</a></p>
              </div>
          </div>
 
@@ -142,7 +143,6 @@
      </div>
 
      <div class="divider"></div>
-
      <!-- Copyright Section -->
      <div class="text-center">
          <p style="color: rgb(213, 156, 14);font-family: 'Oswald', sans-serif;">© 2025 Sinaka Angkor Hotel. All rights reserved.</p>

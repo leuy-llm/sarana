@@ -82,14 +82,14 @@
 
             }
 
-            h6 {
+            /* h6 {
                 font-size: 16px;
 
             }
 
             h3 {
                 font-size: 30px;
-            }
+            } */
 
             .image-container img {
                 width: 100%;
@@ -121,29 +121,14 @@
     </style>
 @endsection
 @section('content')
-    {{-- <section id="home" class="banner_wrapper p-0 " data-aos="zoom-in" data-aos-duration="2000">
-        <div class="overlay">
-            @if ($banner)
-                <img src="{{ asset('storage/' . $banner->banner_image) }}"
-                    style="width: 100%; height: 90vh; object-fit: cover;" alt="Banner Image">
-            @else
-                <img src="{{ asset('hotel') }}/image/services/service3.png"
-                    style="width: 100%; height: 90vh; object-fit: cover;" alt="">
-            @endif
-            <div class="img-overlay">
-                <h2>{{ $data }}</h2>
-            </div>
-        </div>
-    </section> --}}
+   
     <div class="hero-section banner_wrapper"  data-aos="fade-down" data-aos-duration="1000">
         <div class="container">
             <h1 class="display-4 mb-4" data-aos="zoom-in" data-aos-duration="2000"
                 style="color: white;font-weight: 700;font-family: 'Sail', system-ui;font-size: 75px;">
                 {{ $data }}
             </h1>
-            {{-- <p class="lead" style="color: #fff;font-family: 'Sail', system-ui;font-size: 25px;">
-                Find your perfect room with stunning views and ultimate comfort
-            </p> --}}
+          
         </div>
     </div>
     @if ($banner)

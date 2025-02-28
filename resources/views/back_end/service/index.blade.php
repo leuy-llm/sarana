@@ -3,46 +3,46 @@
     <style>
         .custom-toast1 {
             background-color: #f8f9fa;
-            /* Default background color */
+            
             color: #212529;
-            /* Default text color */
+           
             border: 1px solid #ced4da;
-            /* Default border color */
+            
             border-radius: 5px;
-            /* Rounded corners */
+            
             padding: 10px;
-            /* Padding inside the toast */
+          
             font-size: 14px;
-            /* Font size */
+            
             font-family: Arial, sans-serif;
-            /* Font family */
+           
         }
 
         .custom-toast-success {
             background-color: #155724;
-            /* Success background color */
+            
             color: #fff;
-            /* Success text color */
+           
         }
 
         .custom-toast-error {
             background-color: #721c24;
-            /* Error background color */
+           
             color: #fff;
-            /* Error text color */
+           
         }
 
         .toast-success.custom-toast {
             background-color: #0acf97 !important;
-            /* Your desired background color */
+            
         }
 
         .toast-error.custom-toast {
             background-color: #f44336 !important;
-            /* Your desired error background color */
+            
         }
 
-        /* General styling for the switch */
+        
         .switch {
             position: relative;
             display: inline-block;
@@ -110,7 +110,7 @@
             z-index: 10;
         }
 
-        /* Triangle for the tooltip */
+       
         .slider::before-tooltip {
             content: "";
             position: absolute;

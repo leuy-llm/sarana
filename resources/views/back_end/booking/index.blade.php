@@ -184,154 +184,10 @@
         'breadcrumbs' => $breadcrumbs,
         'currentPageTitle' => $currentPageTitle,
     ])
-    {{-- <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row mb-2">
-                        <form method="GET">
-                            <div class="row">
-                                
-                                <div class="col-sm-3">
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('label.roomNumber')</label>
-                                        <input type="text" name="roomNumber" value="{{ Request::get('roomNumber') }}"
-                                            class="form-control " placeholder="@lang('label.enterRoomNumber') . . .">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('label.floor')</label>
-                                        <input type="number" name="floor" value="{{ Request::get('floor') }}"
-                                            class="form-control" placeholder="@lang('label.enterFloor') . . .">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">@lang('label.price')</label>
-                                        <input type="number" name="price" value="{{ Request::get('price') }}"
-                                            class="form-control" placeholder="@lang('label.enterPrice') . . .">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">@lang('label.status')</label>
-                                        <select name="status" class="form-control select2" data-toggle="select2">
-                                            <option value="" selected>@lang('label.selectStatus')</option>
-                                            <option value="Available"
-                                                {{ Request::get('status') == 'Available' ? 'selected' : '' }}>Available
-                                            </option>
-                                            <option value="Booked"
-                                                {{ Request::get('status') == 'Booked' ? 'selected' : '' }}>Booked</option>
-                                            <option value="Maintenance"
-                                                {{ Request::get('status') == 'Maintenance' ? 'selected' : '' }}>Maintenance
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('label.date')</label>
-                                        <input type="date" name="date" value="{{ Request::get('date') }}"
-                                            class="form-control" placeholder="@lang('label.date') . . .">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-3 d-flex gap-2">
-                                    <div class="mb-3">
-                                        <button type="submit" style="margin-top: 29px;" class="btn btn-primary font"
-                                            tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
-                                            data-bs-content="@lang('label.searchRoom')" data-bs-placement="top"
-                                            title="">@lang('label.search')</button>
-                                    </div>
-                                    <div class="mb-3">
-                                        <a href="{{ url('/rooms') }}" tabindex="0" data-bs-toggle="popover"
-                                            data-bs-trigger="hover" data-bs-content="@lang('label.resetGuest')"
-                                            data-bs-placement="top" title="" class="btn btn-success"
-                                            style="margin-top: 29px">@lang('label.reset')</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="row">
         <div class="col-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    {{-- <div class="row mb-2">
-                        <form method="GET">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('label.id')</label>
-                                        <input type="number" min="0" name="booking_id" value="{{ Request::get('booking_id') }}"
-                                            class="form-control" placeholder="@lang('label.enterId') . . .">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('label.guestName')</label>
-                                        <select name="guest_id" class="form-control select2" data-toggle="select2">
-                                            <option value="" selected>Select Guest</option>
-                                            @foreach ($guests as $guest)
-                                                <option value="{{ $guest->id }}" {{ Request::get('guest_id') == $guest->id ? 'selected' : '' }}>
-                                                    {{ $guest->first_name }} {{ $guest->last_name }}
-                                                </option>
-                                            @endforeach
-                                           
-                                            
-                                        </select>
-                                    </div>
-                                </div>
-                        
-                                <div class="col-sm-3">
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('label.room')</label>
-                                        <input type="text" name="room_id" value="{{ Request::get('room_id') }}" class="form-control"
-                                            placeholder="@lang('label.enterRoom') . . .">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="mb-2">
-                                        <label class="form-label">@lang('label.status')</label>
-                                        <select name="status" class="form-control select2" data-toggle="select2">
-                                            <option value="" selected disabled>@lang('label.selectStatus')</option>
-                                            <option value="Pending" {{ Request::get('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                            <option value="Reserved" {{ Request::get('status') == 'Reserved' ? 'selected' : '' }}>Reserved</option>
-                                            <option value="Completed" {{ Request::get('status') == 'Completed' ? 'selected' : '' }}>Completed</option>
-                                            <option value="Checked-In" {{ Request::get('status') == 'Checked-In' ? 'selected' : '' }}>Checked In</option>
-                                            <option value="Checked-Out" {{ Request::get('status') == 'Checked-Out' ? 'selected' : '' }}>Checked Out</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="mb-3">
-                                        <label class="form-label">@lang('label.date')</label>
-                                        <input type="date" name="date" value="{{ Request::get('date') }}" class="form-control"
-                                            placeholder="@lang('label.date') . . .">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 d-flex gap-2">
-                                    <div class="mb-3">
-                                        <button type="submit" style="margin-top: 29px;" class="btn btn-primary font" tabindex="0"
-                                            data-bs-toggle="popover" data-bs-trigger="hover" data-bs-content="@lang('label.searchRoom')"
-                                            data-bs-placement="top" title=""><i class="mdi mdi-filter"></i> @lang('label.search')
-                                        </button>
-                                    </div>
-                                    <div class="mb-3">
-                                        <a href="{{ url('/bookings') }}" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover"
-                                            data-bs-content="@lang('label.resetGuest')" data-bs-placement="top" title="" class="btn btn-success"
-                                            style="margin-top: 29px"><i class="mdi mdi-restore"></i> @lang('label.reset') </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        
-                    </div> --}}
                     <div class="row mb-2">
                         <div class="col-sm-9">
                             <a href="{{ url('bookings/create') }}" tabindex="0"
@@ -482,7 +338,6 @@
     <script>
         ! function(i) {
             "use strict";
-
             function showSuccessNotification(message) {
                 toastr.options = {
                     "closeButton": true,
@@ -502,7 +357,6 @@
                     "hideMethod": "fadeOut",
                     "toastClass": "custom-toast"
                 }
-
                 toastr.success(message);
             }
 
@@ -574,7 +428,6 @@
                     }
                 });
         }
-        /*============= Tranlsate ==============*/
         /*============= Tranlsate ==============*/
     </script>
 @endsection

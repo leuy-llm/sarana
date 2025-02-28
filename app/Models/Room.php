@@ -67,18 +67,6 @@ class Room extends Model
         return $return;
     }
 
-//     static public function getRoomFront($sortBy = 'price', $orderBy = 'desc')
-// {
-//     $return = self::select('rooms.*')
-//         ->where('is_deleted', '=', 0)
-//         ->where('status', '=', 1)
-
-//         ->orderBy($sortBy, $orderBy) // Apply dynamic sorting
-//         ->paginate(3);
-
-//     return $return;
-// }
-
 static public function getRoomFront($sortBy = 'price', $orderBy = 'desc')
 {
     // Ensure valid sort columns
@@ -97,8 +85,4 @@ static public function getRoomFront($sortBy = 'price', $orderBy = 'desc')
 
     return $return;
 }
-
-
-
-
 }

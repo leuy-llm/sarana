@@ -3,43 +3,36 @@
     <style>
         .custom-toast1 {
             background-color: #f8f9fa;
-            /* Default background color */
             color: #212529;
-            /* Default text color */
             border: 1px solid #ced4da;
-            /* Default border color */
             border-radius: 5px;
-            /* Rounded corners */
             padding: 10px;
-            /* Padding inside the toast */
             font-size: 14px;
-            /* Font size */
             font-family: Arial, sans-serif;
-            /* Font family */
         }
 
         .custom-toast-success {
             background-color: #155724;
-            /* Success background color */
+
             color: #fff;
-            /* Success text color */
+
         }
 
         .custom-toast-error {
             background-color: #721c24;
-            /* Error background color */
+
             color: #fff;
-            /* Error text color */
+
         }
 
         .toast-success.custom-toast {
             background-color: #0acf97 !important;
-            /* Your desired background color */
+
         }
 
         .toast-error.custom-toast {
             background-color: #f44336 !important;
-            /* Your desired error background color */
+
         }
     </style>
 @endsection
@@ -68,11 +61,12 @@
                                     title="Create RoomType !" class="btn btn-danger mb-2">
                                     <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addRoomType')</a>
                             </div>
-                            
+
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-centered table-striped dt-responsive nowrap w-100" id="product-datatable">
+                            <table class="table table-centered table-striped dt-responsive nowrap w-100"
+                                id="product-datatable">
                                 <thead class="table-dark">
                                     <tr class="even">
                                         <th class="all" style="width: 20px;">
@@ -82,10 +76,10 @@
                                             </div>
                                         </th>
                                         <th class="all">@lang('label.roomTypeName')</th>
-                                        
+
                                         <th class="all">@lang('label.description')</th>
                                         <th>@lang('label.date')</th>
-                                       
+
                                         <th style="width: 85px;">@lang('label.action')</th>
                                     </tr>
                                 </thead>
@@ -101,33 +95,17 @@
                                             <td>
                                                 {{ $data->type_name }}
                                             </td>
-                                            
-                                            {{-- <td>
-                                                @if ($data->amenities)
-                                                    @php
-                                                        $amenities = json_decode($data->amenities);
-                                                    @endphp
-                                                    @if (is_array($amenities))
-                                                        @foreach ($amenities as $amenity)
-                                                            <span class="badge bg-primary">{{ Str::limit($amenity,5) }}</span>
-                                                        @endforeach
-                                                    @else
-                                                        <span class="text-danger">Invalid amenities format</span>
-                                                    @endif
-                                                @else
-                                                    <span class="text-muted">@lang('label.noAmenities')</span>
-                                                @endif
-                                            </td> --}}
                                             <td>
                                                 {{ Str::limit($data->description, 10) }}
                                             </td>
                                             <td>
                                                 {{ date('d-m-Y H:i A', strtotime($data->created_at)) }}
-                                            </td> 
+                                            </td>
                                             <td class="table-action">
-                                                {{-- <a href="" class="action-icon"> <i class="mdi mdi-eye"></i></a> --}}
+
                                                 <a href="{{ url('roomtypes/' . $data->id . '/edit') }}" id="roomTypeEdit"
-                                                    class="action-icon text-primary" > <i class="mdi mdi-square-edit-outline"></i></a>
+                                                    class="action-icon text-primary"> <i
+                                                        class="mdi mdi-square-edit-outline"></i></a>
                                                 <a href="{{ url('roomtypes/' . $data->id . '/delete') }}"
                                                     onclick="confirmation(event)" class="action-icon text-danger"> <i
                                                         class="mdi mdi-delete"></i></a>
@@ -147,45 +125,6 @@
 @endsection
 @section('script')
     <script>
-        // $(document).ready(function() {
-        //     $('body').on('click', '#roomTypeEdit', function(event) {
-        //         event.preventDefault();
-        //         var url = $(this).data('url');
-        //         $.get(url, function(data) {
-        //             // Populate the form fields with the data
-        //             $('#editRoomType').modal('show');
-        //             $('#edit-id').val(data.id);
-        //             $('#edit-type_name').val(data.type_name);
-        //             // Update form action URL if necessary
-        //             $('form').attr('action', '{{ url('roomtypes/') }}/' + data.id);
-        //         });
-        //     });
-        // });
-
-        // Handle form submission via AJAX
-        // $('#editRoomType form').on('submit', function(event) {
-        //     event.preventDefault();
-        //     var form = $(this);
-        //     var action = form.attr('action');
-        //     var formData = form.serialize();
-
-        //     $.ajax({
-        //         url: action,
-        //         type: 'POST',
-        //         data: formData,
-        //         success: function(response) {
-        //             $('#editRoomType').modal('hide');
-        //             showSuccessNotification(response.success);
-        //         },
-        //         error: function(xhr) {
-        //             var errorMsg = xhr.responseJSON.error || 'An error occurred';
-        //             showErrorNotification(errorMsg);
-        //         }
-        //     });
-        // });
-        //Message alert
-        // Function to show success notification
-        // Custom function to show success notification
         function showSuccessNotification(message) {
             toastr.options = {
                 "closeButton": true,
@@ -208,7 +147,6 @@
 
             toastr.success(message);
         }
-
 
         // Custom function to show error notification
         function showErrorNotification(message) {

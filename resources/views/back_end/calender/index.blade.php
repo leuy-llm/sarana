@@ -2,8 +2,7 @@
 @section('style')
     <style>
         .font {
-            /* font-weight: 200; */
-            /* font-family: 'Courier New', Courier, monospace; */
+
             font-size: 10px font - family: 'Hanuman', 'serif' !important;
         }
 
@@ -82,10 +81,14 @@
         .btn-close {
             color: white !important;
         }
+        .wide-input {
+                width: 100%;
+                max-width: 200px; /* Adjust as needed */
+            }
+
     </style>
 @endsection
 @section('content')
-    <!-- start page title -->
     @php
         $breadcrumbs = [['title' => __('label.calender'), 'url' => route('bookings.index')]];
         $currentPageTitle = __('label.calenderList');
@@ -98,22 +101,86 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    {{-- <form method="GET" action="{{url('calenders')}}">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.checkIn')</label>
+                                    <input type="date" name="check_in_date" value="{{ Request::get('    ') }}"
+                                        class="form-control" placeholder="@lang('label.date') . . .">
+                                </div>
+                            </div>
+                        
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.checkOut')</label>
+                                    <input type="date" name="check_out_date" value="{{ Request::get('check_out_date') }}"
+                                        class="form-control" placeholder="@lang('label.date') . . .">
+                                </div>
+                            </div>
+                        
+                          
+                            <div class="col-12 text-center">
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-primary wide-input font">
+                                        <i class="mdi mdi-filter"></i> @lang('label.search')
+                                    </button>
+                                    <a href="{{ url('/rooms') }}" class="btn btn-success  wide-input">
+                                        <i class="mdi mdi-restore"></i> @lang('label.reset')
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form> --}}
+                    <form method="GET" action="{{url('calenders')}}">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.checkIn')</label>
+                                    <input type="date" name="check_in_date" value="{{ Request::get('check_in_date') }}"
+                                        class="form-control" placeholder="@lang('label.date') . . .">
+                                </div>
+                            </div>
+                    
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label class="form-label">@lang('label.checkOut')</label>
+                                    <input type="date" name="check_out_date" value="{{ Request::get('check_out_date') }}"
+                                        class="form-control" placeholder="@lang('label.date') . . .">
+                                </div>
+                            </div>
+                    
+                            <div class="col-12 text-center">
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-primary shadow-none wide-input font">
+                                        <i class="mdi mdi-filter"></i> @lang('label.search')
+                                    </button>
+                                    <a href="{{ url('calenders') }}" class="btn btn-success shadow-none wide-input">
+                                        <i class="mdi mdi-restore"></i> @lang('label.reset')
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="calendar-legend text-center">
-
                                 <span class="badge bg-danger py-1">Previous</span>
                                 <span class="badge bg-success py-1">Current</span>
                             </div>
                             <div class="mt-4 mt-lg-0 ">
-
                                 <div id="calendar" class="font"></div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="modal fade" data-bs-backdrop="static" id="bookingDetailsModal" tabindex="-1"
@@ -183,7 +250,6 @@
                 const modal = new bootstrap.Modal(document.getElementById('bookingDetailsModal'));
                 modal.show();
             };
-
 
             CalendarApp.prototype.onEventMouseEnter = function(info) {
                 const tooltipContent = `
@@ -280,7 +346,6 @@
                 });
                 this.$calendarObj.render();
             };
-
 
             // Initialize the app with booking data
             $(document).ready(function() {

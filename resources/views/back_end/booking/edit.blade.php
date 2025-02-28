@@ -197,18 +197,7 @@
                                                                 @endif
                                                             @endforeach
                                                         </select>
-                                                        {{-- <select class="room-list form-select" name="rooms[]" required>
-                                                            <option value="{{ $room->id }}" data-max-person="{{ $room->max_person }}" selected>
-                                                                {{ $room->room_number }} - {{ $room->roomType->type_name }}
-                                                            </option>
-                                                            @foreach ($availableRooms as $availableRoom)
-                                                                @if ($availableRoom->id != $room->id)
-                                                                    <option value="{{ $availableRoom->id }}" data-max-person="{{ $availableRoom->max_person }}">
-                                                                        {{ $availableRoom->room_number }} - {{ $availableRoom->roomType->type_name }}
-                                                                    </option>
-                                                                @endif
-                                                            @endforeach
-                                                        </select> --}}
+                                                       
                                                         <div class="invalid-feedback room-error d-none">This room is not
                                                             available.</div>
                                                     </div>

@@ -441,43 +441,18 @@ class BookingController extends Controller
      */
     public function updateStatus($id, $status)
     {
-        // Validate the provided status
-        $validStatuses = ['Pending', 'Approved', 'Checked-In', 'Checked-Out', 'Completed', 'Cancelled'];
-
-        if (!in_array($status, $validStatuses)) {
-            return redirect()->back()->with('error', 'Invalid status provided.');
-        }
-
-        // Find the booking
-        $booking = Booking::find($id);
-
-        if (!$booking) {
-            return redirect()->back()->with('error', 'Booking not found.');
-        }
-
-        // Update the status
+        $booking = Booking::findOrFail($id);
         $booking->status = $status;
+
+        // Update check-in or check-out dates if necessary
+        if ($status == 'Checked-In') {
+            $booking->check_in_date = now();
+        } elseif ($status == 'Checked-Out') {
+            $booking->check_out_date = now();
+        }
+
         $booking->save();
 
-        // Log the status change for audit purposes (optional)
-        Log::info("Booking ID {$id} status updated to {$status} by user ID " . auth()->id());
-
-        // Handle additional logic based on the status
-        if ($status === 'Checked-In') {
-            // Perform actions related to check-in
-            $this->handleCheckIn($booking);
-        } elseif ($status === 'Checked-Out') {
-            // Perform actions related to check-out
-            $this->handleCheckOut($booking);
-        } elseif ($status === 'Completed') {
-            // Perform actions related to booking completion
-            $this->handleCompletion($booking);
-        } elseif ($status === 'Cancelled') {
-            // Handle cancellation (e.g., refund payment)
-            $this->handleCancellation($booking);
-        }
-
-        // Redirect back with success message
         return redirect()->back()->with('success', 'Booking status updated successfully.');
     }
 

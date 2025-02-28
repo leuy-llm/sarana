@@ -260,7 +260,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-primary" type="submit">@lang('label.save')</button>
+                        <button class="btn btn-primary" type="submit"><i class="mdi mdi-content-save"></i>@lang('label.save')</button>
                         <a href="{{ url('bookings') }}" class="btn btn-dark">@lang('label.cancel')</a>
                     </form>
 
