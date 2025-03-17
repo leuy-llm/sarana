@@ -165,7 +165,7 @@
                                     <label class="form-label">@lang('label.maxPerson') <span class="text-danger">*</span></label>
                                     <input type="number" value="{{ old('max_person') }}" name="max_person"
                                         class="form-control  @error('max_person') is-invalid @enderror "
-                                        placeholder="@lang('label.enterPrice') . . ." required="">
+                                        placeholder="@lang('label.enterMaxPerson') . . ." required="">
                                     @error('max_person')
                                         <span class="invalid-feedback">{{ $message }}</span>
                                     @enderror

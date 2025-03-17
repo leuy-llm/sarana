@@ -39,7 +39,7 @@ class AdminMiddleware
         if (Auth::guard('web')->check()) {
             $user = Auth::guard('web')->user();
 
-            if ($user->hasRole(['super-admin', 'admin'])) {
+            if ($user->hasRole(['super-admin', 'admin','manager','receptionist'])) {
                 return $next($request);
             }
 

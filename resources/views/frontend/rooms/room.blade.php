@@ -240,52 +240,6 @@
             margin-left: 5px;
 
         }
-
-        /* Custom CSS for Minimalistic Grid Layout */
-        /* .card {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                border-radius: 10px;
-                overflow: hidden;
-            }
-
-            .card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            }
-
-            .card-img-top {
-                border-radius: 10px 10px 0 0;
-            }
-
-            .badge {
-                font-size: 0.85rem;
-                font-weight: 500;
-                padding: 0.5em 0.75em;
-            }
-
-            .btn-outline-primary {
-                border-color: #b8905d;
-                color: #b8905d;
-                transition: background-color 0.3s ease, color 0.3s ease;
-            }
-
-            .btn-outline-primary:hover {
-                background-color: #b8905d;
-                color: #fff;
-            }
-
-            .text-warning {
-                color: #ffc107 !important;
-            }
-
-            .text-muted {
-                color: #6c757d !important;
-            }
-
-            .text-decoration-line-through {
-                text-decoration: line-through;
-            } */
-
         /* Custom CSS for Price Tag on Image */
         .card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;

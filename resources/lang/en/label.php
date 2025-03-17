@@ -13,7 +13,7 @@ return [
   'permission' => 'Permission',
   'permissions' => 'Permission',
   'role' => 'Role' ,
-  'userManage' => 'User Manage',
+  'userManage' => 'User Management',
   'permissionList' => 'Permission List',
   'calender' => 'Calender',
 
@@ -38,8 +38,10 @@ return [
   'import' => 'Import',
   'export' => 'Export',
   'display' => 'Display',
-  'status' => 'status',
+  'status' => 'Status',
   'action' => 'Action',
+  'unpaid' => 'Unpaid',
+  'paid' => 'Paid',
 
   /*========= Guest ============== */
   'addGuest' => 'Add Guest',
@@ -102,8 +104,9 @@ return [
   'resetGuest' => 'Reset Guest',
   'youcan' => 'You can👦🏻',
 
-  'areYourSure' => 'Are Your Sure',
-  'youWontBe' => 'You Wont Be',
+  'areYourSure' => 'Are Your Sure to Delete This',
+  'youWontBe' => "You Won't Be Able to Revert This",
+  
 
 
 
@@ -158,7 +161,7 @@ return [
   /*=========== Room Type ===============*/
   'addRoomType' => 'Add Room Type',
   'editRoomType' => 'Edit Room Type',
-  'roomTypeName' => 'Room Type Name',
+  'roomTypeName' => 'Room Type',
   'showing_roomtypes' => 'Showing_roomtypes:start ទៅ :end នៃ :total នាក់',
   'newRoomType' => 'New Room Type',
   'createRoomType' => 'Create Room Type​',
@@ -255,7 +258,7 @@ return [
   /*=========== Room Type ===============*/
   'addRoomType' => 'Add Room Type',
   'editRoomType' => 'Edit Room Type',
-  'roomTypeName' => 'Room Type Name',
+  'roomTypeName' => 'Room Type',
   'showing_roomtypes' => 'Showing_roomtypes:start ទៅ :end នៃ :total នាក់',
   'newRoomType' => 'New Room Type',
   'createRoomType' => 'Create Room Type​',
@@ -412,12 +415,12 @@ return [
   /*============= Message alert ============= */
   'guestUpdatedSuccess' => 'Guest Updated Success.',
   'guestUpdatedError' => 'Guest Updated Error.',
-  'enterId' => 'EnterId',
+  'enterId' => 'Enter ID',
   'guestDeleteSuccess' => 'Guest Delete Success',
   'guestDeleteError' => 'Guest Delete Error, Try again later',
   /*============= Room ============= */
-  'roomList' => 'RoomList',
-  'roomid' => 'Roomid',
+  'roomList' => 'Room List',
+  'roomid' => 'Room ID',
   'id'=>'ID',
   /*============= Booking ============= */
   'facilities' => 'Facilities',
@@ -482,7 +485,7 @@ return [
   'enterServiceName' => 'Enter Service Name',
   'newService' => 'New Service',
   'createService' => 'Create Service',
-  'for_hotel' => 'For_hotel',
+  'for_hotel' => 'For Hotel',
   'editServices'=>'Edit Services',
   'editService'=>'Edit Service',
   'meetingList'=>'Meeting List',

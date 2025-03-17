@@ -16,6 +16,13 @@ use Maatwebsite\Excel\Facades\Excel;
 class GuestController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('permission:create-guest', ['only' => ['create', 'store']]);
+        $this->middleware('permission:view-guest', ['only' => ['index']]);
+        $this->middleware('permission:update-guest', ['only' => ['update', 'edit']]);
+        $this->middleware('permission:delete-guest', ['only' => ['destroy']]);
+    }
     public function index()
     {
         // ->orderBy('id', 'desc')->get();

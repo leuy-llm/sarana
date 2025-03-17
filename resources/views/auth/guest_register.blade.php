@@ -307,7 +307,6 @@
                 // Toggle the type attribute
                 const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
                 password.setAttribute('type', type);
-
                 // Toggle the eye icon
                 this.classList.toggle('bi-eye');
                 this.classList.toggle('bi-eye-slash');
@@ -315,5 +314,4 @@
         });
     </script>
 </body>
-
 </html>

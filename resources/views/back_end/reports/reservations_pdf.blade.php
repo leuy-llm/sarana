@@ -68,11 +68,15 @@
             <strong style="font-family: 'Oswald', sans-serif;">Date Range:</strong> {{ request()->start_date ?? 'N/A' }}
             to {{ request()->end_date ?? 'N/A' }}
         </p>
+        <p><strong>Total Reservations:</strong> {{ $totalReservations }}</p>
+        <p><strong>Total Guests:</strong> {{ $totalGuests }}</p>
+        <p><strong>Total Payments Status:</strong> Paid : {{ $tatalPaid }} / Unpaid : {{ $totalUnpaid }}</p>
     </div>
+    
 
     <!-- Add Total Reservations and Total Guests -->
-    <h3 style="font-family: 'Oswald', sans-serif;">Summary</h3>
-    <table class="summary-table" style="font-family: 'Oswald', sans-serif;">
+    {{-- <h3 style="font-family: 'Oswald', sans-serif;">Summary</h3> --}}
+    {{-- <table class="summary-table" style="font-family: 'Oswald', sans-serif;">
         <tr>
             <th>Total Reservations</th>
             <th>Total Guests</th>
@@ -83,10 +87,10 @@
             <td>{{ $totalGuests }}</td>
             <td>Paid : {{ $tatalPaid }} / Unpaid : {{ $totalUnpaid }}</td>
         </tr>
-    </table>
+    </table> --}}
 
-    <h3 style="font-family: 'Oswald', sans-serif;">Status Breakdown</h3>
-    <table class="status-table" style="font-family: 'Oswald', sans-serif;">
+    {{-- <h3 style="font-family: 'Oswald', sans-serif;">Status Breakdown</h3> --}}
+    {{-- <table class="status-table" style="font-family: 'Oswald', sans-serif;">
         <tr>
             <th>Reserved</th>
             <th>Pending</th>
@@ -105,9 +109,7 @@
             <td>{{ $statusBreakdown['Completed'] }}</td>
             <td>{{ $statusBreakdown['Total'] }}</td>
         </tr>
-    </table>
-
-
+    </table> --}}
     <h3>Reservation Details</h3>
     <table>
         <thead style="font-family: 'Oswald', sans-serif;">
@@ -125,7 +127,6 @@
                 <th>Paymenent Status</th>
             </tr>
         </thead>
-
         <tbody>
             @forelse ($reservations as $reservation)
                 @foreach ($reservation->rooms as $room)
@@ -151,6 +152,14 @@
             @endforelse
         </tbody>
     </table>
+    <footer style="margin-top: 20px; text-align: center; font-family: 'Oswald', sans-serif;">
+        <hr>
+        <p><strong>Sinaka Angkor Hotel</strong></p>
+        <p>Address: Wat Bo Village, Salakamroeuk, Siem Reap, Cambodia</p>
+        <p>Phone: +855 63 968 985 | Email: info@sinakaangkorhotel.com</p>
+        <p>Website: <a href="https://www.sinakaangkorhotel.com" target="_blank">www.sinakaangkorhotel.com</a></p>
+        <p><strong>Report Generated:</strong> {{ now()->format('d-m-Y H:i:s') }}</p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

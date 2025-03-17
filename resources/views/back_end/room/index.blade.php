@@ -176,14 +176,20 @@
                                 <div class="col-sm-3">
                                     <div class="mb-2">
                                         <label class="form-label">@lang('label.status')</label>
-                                        <select name="status" class="form-control select2" data-toggle="select2">
-                                            <option value="" selected>@lang('label.selectStatus')</option>
+                                        {{-- <select name="status" class="form-control select2" data-toggle="select2">
+                                            <option selected disabled>@lang('label.selectStatus')</option>
                                             <option value="1" {{ Request::get('status') == 1 ? 'selected' : '' }}>
                                                 Active
                                             </option>
                                             <option value="0" {{ Request::get('status') == 0 ? 'selected' : '' }}>
                                                 Inactive</option>
+                                        </select> --}}
+                                        <select name="status" class="form-control select2" data-toggle="select2">
+                                            <option value="" selected disabled>@lang('label.selectStatus')</option>
+                                            <option value="1" {{ Request::get('status') === '1' ? 'selected' : '' }}>Active</option>
+                                            <option value="0" {{ Request::get('status') === '0' ? 'selected' : '' }}>Inactive</option>
                                         </select>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -222,8 +228,7 @@
                     <div class="row mb-2">
                         <div class="col-sm-9">
                             <a href="{{ url('rooms/create') }}" tabindex="0" data-bs-toggle="popover"
-                                data-bs-trigger="hover" data-bs-placement="right" data-bs-content="@lang('label.roomCan')"
-                                title="@lang('label.createNewRoom')" class="btn btn-danger mb-2">
+                                class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addRoom')</a>
                         </div>
                     </div>

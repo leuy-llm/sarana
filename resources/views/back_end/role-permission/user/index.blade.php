@@ -89,7 +89,7 @@
                                           
                                             {{ Str::limit($user->full_name, 10) }}
                                         </td>
-                                       
+                                        
                                         <td>
                                            
                                             {{-- {{ \Carbon\Carbon::parse($user->DateOfBirth)->translatedFormat('d F Y') }} --}}
@@ -100,7 +100,6 @@
                                         </td>
                                         
                                         <td>
-                                           
                                             {{ Str::limit($user->email, 10) }}
                                         </td>
                                         <td>

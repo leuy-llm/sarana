@@ -97,10 +97,11 @@
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-sm-9">
+                            @can('create-guest')
                             <a href="{{ url('guests/create') }}" tabindex="0" 
-                               
                                class="btn btn-danger mb-2">
                                 <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addGuest')</a>
+                            @endcan
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -169,18 +170,24 @@
                                             @endif
                                         </td>
                                         <td class="table-action">
+                                            @can('view-guest')
                                             <a href="{{ route('guests.show', $guest->id) }}"
                                                 class="action-icon text-success"> <i class="mdi mdi-eye"></i>
                                             </a>
-                                            </a>
+                                            @endcan
+                                            {{-- </a> --}}
+                                            @can('update-guest')
                                             <a href="{{ url('guests/' . $guest->id . '/edit') }}"
                                                 class="action-icon text-primary"> <i
                                                     class="mdi mdi-square-edit-outline"></i>
                                             </a>
+                                            @endcan
+                                            @can('delete-guest')
                                             <a href="{{ url('guests/' . $guest->id . '/delete') }}"
                                                 onclick="confirmation(event)" class="action-icon  text-danger"> <i
                                                     class="mdi mdi-delete"></i>
                                             </a>
+                                            @endcan
                                         </td>
 
 

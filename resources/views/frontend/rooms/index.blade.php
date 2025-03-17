@@ -617,27 +617,7 @@
                                 </p>
                             </div>
                         </form>
-                        {{-- <div class="mb-4">
-                            <label class="form-label">Amenities</label>
-                            <div class="amenity-item form-check">
-                                <input class="form-check-input" type="checkbox" value="wifi" id="wifi">
-                                <label class="form-check-label" for="wifi">
-                                    <i class="fas fa-wifi me-2"></i> Free WiFi
-                                </label>
-                            </div>
-                            <div class="amenity-item form-check">
-                                <input class="form-check-input" type="checkbox" value="breakfast" id="breakfast">
-                                <label class="form-check-label" for="breakfast">
-                                    <i class="fas fa-coffee me-2"></i> Breakfast
-                                </label>
-                            </div>
-                            <div class="amenity-item form-check">
-                                <input class="form-check-input" type="checkbox" value="parking" id="parking">
-                                <label class="form-check-label" for="parking">
-                                    <i class="fas fa-parking me-2"></i> Parking
-                                </label>
-                            </div>
-                        </div> --}}
+                        
                     </div>
                 </div>
                 <!-- Room Listings -->

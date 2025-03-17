@@ -22,20 +22,7 @@
     </style>
 @endsection
 @section('content')
-    {{-- <section id="home" class="banner_wrapper p-0 ">
-        <div class="overlay">
-            @if ($banner)
-                <img src="{{ asset('storage/' . $banner->banner_image) }}"
-                    style="width: 100%; height: 90vh; object-fit: cover;" alt="Banner Image">
-            @else
-                <p>No banner found for this page.</p>
-            @endif
-
-            <div class="img-overlay">
-                <h2>{{ $data }}</h2>
-            </div>
-        </div>
-    </section> --}}
+    
     <div class="hero-section banner_wrapper" data-aos="fade-down" data-aos-duration="1000">
         <div class="container">
             <h1 class="display-4 mb-4" data-aos="zoom-in" data-aos-duration="2000"

@@ -55,10 +55,8 @@
                     <div class="card-body">
                         <div class="row mb-2">
                             <div class="col-sm-4">
-                                <a href="{{ url('roomtypes/create') }}" tabindex="0" data-bs-toggle="popover"
-                                    data-bs-trigger="hover"
-                                    data-bs-content="You can create new roomtype with correct imformation 🧑🏻"
-                                    title="Create RoomType !" class="btn btn-danger mb-2">
+                                <a href="{{ url('roomtypes/create') }}" tabindex="0" 
+                                   class="btn btn-danger mb-2">
                                     <i class="mdi mdi-plus-circle me-1"></i> @lang('label.addRoomType')</a>
                             </div>
 

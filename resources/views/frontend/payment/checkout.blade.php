@@ -218,14 +218,7 @@
                         @endforeach
 
                         <div class="border-top pt-3">
-                            {{-- <div class="d-flex justify-content-between mb-2">
-                                <span>Subtotal</span>
-                                <span>$1,000</span>
-                            </div>
-                            <div class="d-flex justify-content-between mb-2">
-                                <span>Taxes & Fees</span>
-                                <span>$100</span>
-                            </div> --}}
+                            
                             <div class="d-flex justify-content-between fw-bold mt-3">
                                 <span>Total</span>
                                 <span>${{ number_format($totalPrice, 2) }}</span>

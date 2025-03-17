@@ -16,9 +16,7 @@
             cursor: pointer;
         }
 
-        body {
-            font-family: 'Source Sans Pro', sans-serif;
-        }
+      
 
         .service-card:hover {
             transform: translateY(-5px);
@@ -81,15 +79,6 @@
                 width: 100%;
 
             }
-
-            /* h6 {
-                font-size: 16px;
-
-            }
-
-            h3 {
-                font-size: 30px;
-            } */
 
             .image-container img {
                 width: 100%;

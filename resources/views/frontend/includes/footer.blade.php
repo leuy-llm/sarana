@@ -62,7 +62,7 @@
          margin: 30px 0;
      }
 
-     .section-title {
+     .section-titles {
          text-align: center;
          margin-bottom: 20px;
          font-family: 'Oswald', sans-serif;
@@ -102,20 +102,20 @@
          <!-- Useful Links Section -->
          <div class="col-md-4 mb-4">
              <div class="useful-links">
-                 <h6 class="text-uppercase fw-bold text-white section-title">Useful links</h6>
+                 <h6 class="text-uppercase fw-bold text-white section-titles">Useful links</h6>
                  <p><a href="#" class="text-white">Home</a></p>
                  <p><a href="#" class="text-white">Service</a></p>
                  <p><a href="#" class="text-white">Facilities</a></p>
                  <p><a href="#" class="text-white">Gallery</a></p>
                  <p><a href="#" class="text-white">Contact</a></p>
-                 <p><a href="{{route('logindash')}}" class="text-white">Login</a></p>
+                 <p><a href="{{route('logindash')}}" class="text-white">Login Admin</a></p>
              </div>
          </div>
 
          <!-- Contact Section -->
          <div class="col-md-4 mb-4">
              <div class="contact-info">
-                 <h6 class="text-uppercase fw-bold text-white section-title">Contact</h6>
+                 <h6 class="text-uppercase fw-bold text-white section-titles">Contact</h6>
                  @foreach ($contact as $contact)
                  <p>
                      <i class="fas fa-home"></i>

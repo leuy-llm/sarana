@@ -88,9 +88,7 @@
             style="color: white;font-weight: 700;font-family: 'Sail', system-ui;font-size: 75px;">
             {{ $data }}
         </h1>
-        {{-- <p class="lead" style="color: #fff;font-family: 'Sail', system-ui;font-size: 25px;">
-            Find your perfect room with stunning views and ultimate comfort
-        </p> --}}
+      
     </div>
 </div>
 @if ($banner)

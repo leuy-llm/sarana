@@ -21,6 +21,7 @@
                 </a>
             </li>
 
+            @can('view-guest')
             <li class="side-nav-title side-nav-item font">Guest Section</li>
             <li class="side-nav-item font @if (Request::segment(1) == 'guests') active @endif">
                 <a href="{{ url('guests') }}" class="side-nav-link">
@@ -28,6 +29,8 @@
                     <span> @lang('label.guest') </span>
                 </a>
             </li>
+            @endcan
+           
             <li class="side-nav-title side-nav-item font">Room Section</li>
             <li class="side-nav-item font @if (Request::segment(1) == 'rooms') active @endif">
                 <a href="{{ url('rooms') }}" class="side-nav-link">

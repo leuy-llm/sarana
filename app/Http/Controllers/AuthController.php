@@ -132,7 +132,8 @@ class AuthController extends Controller
         $bookingStartDate = $this->getStartDate($timeRange);
         $queryStartDate = $this->getStartDate($timeRanges);
         // Fetch analytics based on the selected time range
-        $currentBookings = $this->getBookingCount($bookingStartDate);
+        // $currentBookings = $this->getBookingCount($bookingStartDate);
+        $currentBookings = Booking::count();
         $currentQueries = $this->getQueriesCount($queryStartDate);
 
         $currentGuests = $this->getGuestCount($queryStartDate); // Booking time range
